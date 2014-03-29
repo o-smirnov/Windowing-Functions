@@ -1,0 +1,220 @@
+2014/02/17 17:41:32 INFO: ## Mon Feb 17 17:41:32 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf [mshi=VLAC-snapshot-21cm-hires.MS/,nfreq=1000,chan0=30,fov=2.,overlap=0,oper=avg,column=DATA,outcolumn=CORRECTED_DATA,image=True]
+2014/02/17 17:41:32 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:41:32 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/17 17:41:32 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/17 17:42:14 INFO: ## Mon Feb 17 17:42:14 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf [VLAC-snapshot-21cm-hires.MS,1000,30,2.,0,avg,DATA,CORRECTED_DATA,image=True]
+2014/02/17 17:42:14 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:42:14 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/17 17:42:14 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/17 17:42:26 INFO: ## Mon Feb 17 17:42:26 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,1000,30,2.,0,avg,DATA,CORRECTED_DATA,image=True]
+2014/02/17 17:42:26 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:42:26 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/17 17:42:26 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/17 17:43:45 INFO: ## Mon Feb 17 17:43:45 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS]
+2014/02/17 17:43:45 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:43:45 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/17 17:43:45 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/17 20:14:23 INFO: ## Mon Feb 17 20:14:23 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS/]
+2014/02/17 20:14:23 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:14:23 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/17 20:14:23 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/17 20:16:52 INFO: ## Mon Feb 17 20:16:52 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS/]
+2014/02/17 20:16:52 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:16:52 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/17 20:16:52 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/17 20:17:29 INFO: ## Mon Feb 17 20:17:29 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS/]
+2014/02/17 20:17:29 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:17:29 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/17 20:17:29 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:38:42 INFO: ## Thu Feb 20 17:38:42 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS def resample_tf [mshi=None,nfreq=None,chan0=None,fov=2.,overlap=10,oper=sinc,column=DATA,outcolumn=CORRECTED_DATA,image=True]
+2014/02/20 17:38:42 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:38:43 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:38:43 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:40:46 INFO: ## Thu Feb 20 17:40:46 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series
+2014/02/20 17:40:46 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:40:46 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:40:46 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:40:59 INFO: ## Thu Feb 20 17:40:59 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series
+2014/02/20 17:40:59 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:40:59 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:40:59 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:46:11 INFO: ## Thu Feb 20 17:46:11 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file]
+2014/02/20 17:46:11 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:11 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:46:11 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:46:43 INFO: ## Thu Feb 20 17:46:43 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file.txt]
+2014/02/20 17:46:43 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:43 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:46:43 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:47:13 INFO: ## Thu Feb 20 17:47:13 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file.txt]
+2014/02/20 17:47:13 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:47:13 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:47:13 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:48:08 INFO: ## Thu Feb 20 17:48:08 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/20 17:48:08 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:48:08 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:48:08 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/20 17:48:13 INFO: ## Thu Feb 20 17:48:13 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/20 17:48:13 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:48:13 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/20 17:48:13 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/21 15:48:50 INFO: ## Fri Feb 21 15:48:50 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:48:50 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/21 15:48:50 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/21 15:48:50 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/21 15:48:56 INFO: ## Fri Feb 21 15:48:56 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:48:56 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/21 15:48:56 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/21 15:48:56 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/21 15:49:24 INFO: ## Fri Feb 21 15:49:24 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[False,VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:49:24 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/21 15:49:24 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/21 15:49:24 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/21 15:49:43 INFO: ## Fri Feb 21 15:49:43 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[False]
+2014/02/21 15:49:43 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/21 15:49:43 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/21 15:49:43 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt
+2014/02/21 15:49:50 INFO: ## Fri Feb 21 15:49:49 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series
+2014/02/21 15:49:50 PYXIS: running command MS=VLAC-snapshot-21cm.MS
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/DATA_DESCRIPTION: 3 columns, 1 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/21 15:49:50 INFO: VLAC-snapshot-21cm.MS ddid 0 is spwid 0 with 1 channels
+2014/02/21 15:49:50 INFO: redirecting log output to log-VLAC-snapshot-21cm.txt

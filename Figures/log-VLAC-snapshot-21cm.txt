@@ -1,0 +1,531 @@
+2014/02/17 17:41:32 INFO: ## Mon Feb 17 17:41:32 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf [mshi=VLAC-snapshot-21cm-hires.MS/,nfreq=1000,chan0=30,fov=2.,overlap=0,oper=avg,column=DATA,outcolumn=CORRECTED_DATA,image=True]
+2014/02/17 17:41:32 PYXIS: running command resample_tf
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1017, in run
+    comcall();
+  File "pyxis-correlator.py", line 64, in resample_tf
+    mshi = mshi or MSHI;
+NameError: global name 'MSHI' is not defined
+2014/02/17 17:41:32 ERROR: Exception raised, aborting
+2014/02/17 17:42:14 INFO: ## Mon Feb 17 17:42:14 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf [VLAC-snapshot-21cm-hires.MS,1000,30,2.,0,avg,DATA,CORRECTED_DATA,image=True]
+2014/02/17 17:42:14 PYXIS: running command resample_tf
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1017, in run
+    comcall();
+  File "pyxis-correlator.py", line 64, in resample_tf
+    mshi = mshi or MSHI;
+NameError: global name 'MSHI' is not defined
+2014/02/17 17:42:14 ERROR: Exception raised, aborting
+2014/02/17 17:42:26 INFO: ## Mon Feb 17 17:42:26 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,1000,30,2.,0,avg,DATA,CORRECTED_DATA,image=True]
+2014/02/17 17:42:26 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS,1000,30,2.,0,avg,DATA,CORRECTED_DATA,image=True]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:42:26 INFO: MS VLAC-snapshot-21cm-hires.MS: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/17 17:42:26 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:42:26 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/17 17:42:26 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/17 17:42:26 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/17 17:42:26 INFO: resampling 1000 channels by factor 1000, starting at channel 30
+Visibility column shape: (378000, 70, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:42:29 INFO: using standard boxcar averaging
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1002, in run
+    result = comcall(*args,**kws);
+  File "pyxis-correlator.py", line 101, in resample_tf
+    result = msres.boxcar(dtime,dfreq);
+  File "/home/atemkeng/Temple/fullms/MSResampler.py", line 90, in boxcar
+    data = data.reshape((ntime1,dtime,nfreq1,dfreq,self.ncorr))
+ValueError: total size of new array must be unchanged
+2014/02/17 17:42:29 ERROR: Exception raised, aborting
+2014/02/17 17:43:45 INFO: ## Mon Feb 17 17:43:45 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS]
+2014/02/17 17:43:45 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:43:45 INFO: MS VLAC-snapshot-21cm-hires.MS: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/17 17:43:45 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:43:45 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/17 17:43:45 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/17 17:43:45 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/17 17:43:45 INFO: resampling 100 channels by factor 100, starting at channel 0
+Visibility column shape: (378000, 100, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 17:43:47 INFO: using standard boxcar averaging
+2014/02/17 17:43:50 INFO: input column is DATA, output is CORRECTED_DATA
+2014/02/17 17:43:50 INFO: imager.make_image: making dirty image ./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits
+2014/02/17 17:43:50 PYXIS: executing '/usr/bin/time lwimager weight=briggs image=./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits.img chanstep=1 threshold=1mJy operation=image field=0 img_nchan=1 spwid=0 niter=50000 wprojplanes=0 gain=0.1 cachesize=4096 data=CORRECTED_DATA stokes=I img_chanstep=1 nchan=1 chanstart=0 npix=4096 cellsize=3.5arcsec img_chanstart=0 mode=channel ms=VLAC-snapshot-21cm.MS fixed=0':
+lwimager: Version 20110628-GvD
+2014-02-17 15:43:51	INFO	Imager::open() 	Opening MeasurementSet /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS
+2014-02-17 15:43:51	INFO	imager::data selection	Selecting data
+2014-02-17 15:43:51	INFO	imager::data selection	Performing selection on MeasurementSet
+2014-02-17 15:43:51	INFO	imager::data selection	Selecting on field ids
+2014-02-17 15:43:51	INFO	imager::data selection	Selecting on spectral windows
+2014-02-17 15:43:51	INFO	imager::data selection	By selection 3780 rows are reduced to 3510
+2014-02-17 15:43:51	INFO	Imager::selectDataChannel() 	Selecting 1 channels, starting at visibility channel 0 stepped by 1 for spw 0
+2014-02-17 15:43:51	INFO	imager::defineimage()	Defining image properties:nx=4096 ny=4096 cellx='3.5arcsec' celly='3.5arcsec' stokes=I' mode=channel nchan=1 start=0 step=1 spwids=[0] fieldid=0 facets=1 distance='0m'
+2014-02-17 15:43:51	INFO	imager::defineimage()	 phaseCenter='Direction: [0, 0, 1]' mStart='Radialvelocity: 0' qStep='1 km/s'' mFreqStart='Frequency: 0
+2014-02-17 15:43:51	INFO	imager::weight()	Weighting MS: IMAGING_WEIGHT column will be changed
+2014-02-17 15:43:51	INFO	imager::weight()	Briggs weighting: sidelobes will be suppressed over full image
+2014-02-17 15:43:51	INFO	imager::weight()+	                 : using 4096 pixels in the uv plane
+2014-02-17 15:43:51	INFO	VisSetUtil::WeightUniform() 	Normal robustness, robust = 0
+2014-02-17 15:43:51	INFO	imager::weight()	Sum of weights = 168.475
+2014-02-17 15:43:51	INFO	imager::setoptions() 	Setting processing options
+2014-02-17 15:43:51	INFO	imager::makeimage() 	Calculating image (without full skyequation)
+2014-02-17 15:43:51	INFO	imager::makeimage() 	Making dirty image from corrected data 
+2014-02-17 15:43:51	INFO	imager::makeimage() 	Image is : ./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits.img
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Did not get the position of LOFAR from data repository
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Please contact CASA to add it to the repository.
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Frequency conversion will not work 
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Image spectral coordinate: 1 channels, starting at visibility channel 0 stepped by 1
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() +	Frequency = 1.40005, channel increment = 0.0001GHz
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() +	Rest frequency is 1.40005GHz
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Preferred polarization representation is linear
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Image polarization = Stokes I
+2014-02-17 15:43:51	INFO	imager::make() 	Making empty image: ./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits.img
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Did not get the position of LOFAR from data repository
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Please contact CASA to add it to the repository.
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Frequency conversion will not work 
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Image spectral coordinate: 1 channels, starting at visibility channel 0 stepped by 1
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() +	Frequency = 1.40005, channel increment = 0.0001GHz
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() +	Rest frequency is 1.40005GHz
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Preferred polarization representation is linear
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Image polarization = Stokes I
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Did not get the position of LOFAR from data repository
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Please contact CASA to add it to the repository.
+2014-02-17 15:43:51	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Frequency conversion will not work 
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Image spectral coordinate: 1 channels, starting at visibility channel 0 stepped by 1
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() +	Frequency = 1.40005, channel increment = 0.0001GHz
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() +	Rest frequency is 1.40005GHz
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Preferred polarization representation is linear
+2014-02-17 15:43:51	INFO	Imager::imagecoordinates() 	Image polarization = Stokes I
+2014-02-17 15:43:52	INFO	imager::createFTMachine() 	Performing interferometric gridding with convolution function sf
+2014-02-17 15:43:52	INFO	imager::createFTMachine() 	Single facet Fourier transforms will use image center as tangent points
+lwimager normally ended
+9.61user 0.49system 0:10.25elapsed 98%CPU (0avgtext+0avgdata 1922464maxresident)k
+0inputs+524968outputs (0major+153906minor)pagefaults 0swaps
+2014/02/17 17:44:01 PYXIS: lwimager succeeded
+2014/02/17 17:44:01 INFO: all commands have executed successfully
+2014/02/17 20:14:23 INFO: ## Mon Feb 17 20:14:23 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS/]
+2014/02/17 20:14:23 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS/]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS/: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS/: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:14:23 INFO: MS VLAC-snapshot-21cm-hires.MS/: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/17 20:14:23 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:14:23 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/17 20:14:23 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/17 20:14:23 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/17 20:14:23 INFO: resampling 100 channels by factor 100, starting at channel 0
+Visibility column shape: (378000, 100, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:14:25 INFO: using sinc, overlap 0, FoV 2.0
+[[ 67.6497493 ]
+ [ 66.2818262 ]
+ [ 64.91395511]
+ [ 63.54613601]
+ [ 62.17836891]
+ [ 60.81065439]
+ [ 59.4429913 ]
+ [ 58.07538022]
+ [ 56.70782115]
+ [ 55.34031405]
+ [ 53.972859  ]
+ [ 52.60545595]
+ [ 51.23810489]
+ [ 49.87080585]
+ [ 48.50355881]
+ [ 47.13636379]
+ [ 45.76922078]
+ [ 44.40212978]
+ [ 43.03509138]
+ [ 41.66810442]
+ [ 40.30116946]
+ [ 38.93428651]
+ [ 37.56745617]
+ [ 36.20067726]
+ [ 34.83395038]
+ [ 33.46727552]
+ [ 32.10065267]
+ [ 30.73408184]
+ [ 29.36756305]
+ [ 28.00109625]
+ [ 26.6346815 ]
+ [ 25.26831877]
+ [ 23.90200805]
+ [ 22.53574937]
+ [ 21.1695427 ]
+ [ 19.80338807]
+ [ 18.43728548]
+ [ 17.0712349 ]
+ [ 15.70523636]
+ [ 14.33928983]
+ [ 12.97339592]
+ [ 11.60755347]
+ [ 10.24176304]
+ [  8.87602465]
+ [  7.5103383 ]
+ [  6.14470399]
+ [  4.77912168]
+ [  3.41359145]
+ [  2.04811325]
+ [  0.68268706]
+ [  0.68268706]
+ [  2.04800916]
+ [  3.41327922]
+ [  4.77849723]
+ [  6.1436632 ]
+ [  7.50877713]
+ [  8.87383902]
+ [ 10.2388483 ]
+ [ 11.6038061 ]
+ [ 12.96871184]
+ [ 14.33356554]
+ [ 15.69836723]
+ [ 17.06311684]
+ [ 18.4278144 ]
+ [ 19.79245935]
+ [ 21.15705282]
+ [ 22.52159424]
+ [ 23.88608361]
+ [ 25.25052092]
+ [ 26.61490618]
+ [ 27.97923941]
+ [ 29.34352053]
+ [ 30.70774963]
+ [ 32.0719267 ]
+ [ 33.43605111]
+ [ 34.80012404]
+ [ 36.16414491]
+ [ 37.52811374]
+ [ 38.89203049]
+ [ 40.25589518]
+ [ 41.61970782]
+ [ 42.98346839]
+ [ 44.34717692]
+ [ 45.71083337]
+ [ 47.07443776]
+ [ 48.4379901 ]
+ [ 49.80149035]
+ [ 51.16493854]
+ [ 52.52833467]
+ [ 53.89167873]
+ [ 55.25497073]
+ [ 56.61821008]
+ [ 57.98139796]
+ [ 59.34453374]
+ [ 60.70761746]
+ [ 62.07064911]
+ [ 63.43362869]
+ [ 64.7965562 ]
+ [ 66.15943164]
+ [ 67.52225499]] [[-0.53168563 -0.52094451 -0.51020338 -0.49946226 -0.48872114 -0.47798001
+  -0.46723889 -0.45649776 -0.44575664 -0.43501552 -0.42427439 -0.41353327
+  -0.40279214 -0.39205102 -0.3813099  -0.37056877 -0.35982765 -0.34908653
+  -0.3383454  -0.32760428 -0.31686315 -0.30612203 -0.29538091 -0.28463978
+  -0.27389866 -0.26315753 -0.25241641 -0.24167529 -0.23093416 -0.22019304
+  -0.20945191 -0.19871079 -0.18796967 -0.17722854 -0.16648742 -0.15574629
+  -0.14500517 -0.13426405 -0.12352292 -0.1127818  -0.10204068 -0.09129955
+  -0.08055843 -0.0698173  -0.05907618 -0.04833506 -0.03759393 -0.02685281
+  -0.01611168 -0.00537056  0.00537056  0.01611169  0.02685281  0.03759394
+   0.04833506  0.05907618  0.06981731  0.08055843  0.09129956  0.10204068
+   0.1127818   0.12352293  0.13426405  0.14500517  0.1557463   0.16648742
+   0.17722855  0.18796967  0.19871079  0.20945192  0.22019304  0.23093417
+   0.24167529  0.25241641  0.26315754  0.27389866  0.28463979  0.29538091
+   0.30612203  0.31686316  0.32760428  0.33834541  0.34908653  0.35982765
+   0.37056878  0.3813099   0.39205102  0.40279215  0.41353327  0.4242744
+   0.43501552  0.44575664  0.45649777  0.46723889  0.47798002  0.48872114
+   0.49946226  0.51020339  0.52094451  0.53168564]] [[[ 0.12223132  0.12223095  0.12223059 ...,  0.12223059  0.12223095
+    0.12223132]]
+
+ [[ 0.11468653  0.11468596  0.11468541 ...,  0.11468541  0.11468596
+    0.11468653]]
+
+ [[ 0.10419418  0.10419342  0.10419268 ...,  0.10419268  0.10419342
+    0.10419418]]
+
+ ..., 
+ [[ 0.10315927  0.10315849  0.10315773 ...,  0.10315773  0.10315849
+    0.10315927]]
+
+ [[ 0.11386666  0.11386608  0.11386551 ...,  0.11386551  0.11386608
+    0.11386666]]
+
+ [[ 0.12165429  0.1216539   0.12165352 ...,  0.12165352  0.1216539
+    0.12165429]]]
+Saved plot to ./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1-DATA-sinc-f2.0-o0-100ch.wf.png
+2014/02/17 20:14:30 INFO: input column is DATA, output is CORRECTED_DATA
+2014/02/17 20:14:30 INFO: imager.make_image: making dirty image ./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits
+2014/02/17 20:14:30 PYXIS: executing '/usr/bin/time lwimager weight=briggs image=./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits.img chanstep=1 threshold=1mJy operation=image field=0 img_nchan=1 spwid=0 niter=50000 wprojplanes=0 gain=0.1 cachesize=4096 data=CORRECTED_DATA stokes=I img_chanstep=1 nchan=1 chanstart=0 npix=4096 cellsize=3.5arcsec img_chanstart=0 mode=channel ms=VLAC-snapshot-21cm.MS fixed=0':
+lwimager: Version 20110628-GvD
+2014-02-17 18:14:31	INFO	Imager::open() 	Opening MeasurementSet /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS
+2014-02-17 18:14:31	INFO	imager::data selection	Selecting data
+2014-02-17 18:14:31	INFO	imager::data selection	Performing selection on MeasurementSet
+2014-02-17 18:14:31	INFO	imager::data selection	Selecting on field ids
+2014-02-17 18:14:31	INFO	imager::data selection	Selecting on spectral windows
+2014-02-17 18:14:31	INFO	imager::data selection	By selection 3780 rows are reduced to 3510
+2014-02-17 18:14:31	INFO	Imager::selectDataChannel() 	Selecting 1 channels, starting at visibility channel 0 stepped by 1 for spw 0
+2014-02-17 18:14:31	INFO	imager::defineimage()	Defining image properties:nx=4096 ny=4096 cellx='3.5arcsec' celly='3.5arcsec' stokes=I' mode=channel nchan=1 start=0 step=1 spwids=[0] fieldid=0 facets=1 distance='0m'
+2014-02-17 18:14:31	INFO	imager::defineimage()	 phaseCenter='Direction: [0, 0, 1]' mStart='Radialvelocity: 0' qStep='1 km/s'' mFreqStart='Frequency: 0
+2014-02-17 18:14:31	INFO	imager::weight()	Weighting MS: IMAGING_WEIGHT column will be changed
+2014-02-17 18:14:31	INFO	imager::weight()	Briggs weighting: sidelobes will be suppressed over full image
+2014-02-17 18:14:31	INFO	imager::weight()+	                 : using 4096 pixels in the uv plane
+2014-02-17 18:14:31	INFO	VisSetUtil::WeightUniform() 	Normal robustness, robust = 0
+2014-02-17 18:14:31	INFO	imager::weight()	Sum of weights = 168.475
+2014-02-17 18:14:31	INFO	imager::setoptions() 	Setting processing options
+2014-02-17 18:14:31	INFO	imager::makeimage() 	Calculating image (without full skyequation)
+2014-02-17 18:14:31	INFO	imager::makeimage() 	Making dirty image from corrected data 
+2014-02-17 18:14:31	INFO	imager::makeimage() 	Image is : ./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits.img
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Did not get the position of LOFAR from data repository
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Please contact CASA to add it to the repository.
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Frequency conversion will not work 
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Image spectral coordinate: 1 channels, starting at visibility channel 0 stepped by 1
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() +	Frequency = 1.40005, channel increment = 0.0001GHz
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() +	Rest frequency is 1.40005GHz
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Preferred polarization representation is linear
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Image polarization = Stokes I
+2014-02-17 18:14:31	INFO	imager::make() 	Making empty image: ./plots-VLAC-snapshot-21cm/VLAC-snapshot-21cm_s1.dirty.fits.img
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Did not get the position of LOFAR from data repository
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Please contact CASA to add it to the repository.
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Frequency conversion will not work 
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Image spectral coordinate: 1 channels, starting at visibility channel 0 stepped by 1
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() +	Frequency = 1.40005, channel increment = 0.0001GHz
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() +	Rest frequency is 1.40005GHz
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Preferred polarization representation is linear
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Image polarization = Stokes I
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Did not get the position of LOFAR from data repository
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Please contact CASA to add it to the repository.
+2014-02-17 18:14:31	WARN	Imager::imagecoordinates() (file /home/vmware/WorkDir/casarest_1.2.0/release-1.2.0/synthesis/MeasurementEquations/Imager.cc, line 630)	Frequency conversion will not work 
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Image spectral coordinate: 1 channels, starting at visibility channel 0 stepped by 1
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() +	Frequency = 1.40005, channel increment = 0.0001GHz
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() +	Rest frequency is 1.40005GHz
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Preferred polarization representation is linear
+2014-02-17 18:14:31	INFO	Imager::imagecoordinates() 	Image polarization = Stokes I
+2014-02-17 18:14:31	INFO	imager::createFTMachine() 	Performing interferometric gridding with convolution function sf
+2014-02-17 18:14:31	INFO	imager::createFTMachine() 	Single facet Fourier transforms will use image center as tangent points
+lwimager normally ended
+9.81user 0.47system 0:10.36elapsed 99%CPU (0avgtext+0avgdata 1922400maxresident)k
+0inputs+524976outputs (0major+153902minor)pagefaults 0swaps
+2014/02/17 20:14:41 PYXIS: lwimager succeeded
+2014/02/17 20:14:41 INFO: all commands have executed successfully
+2014/02/17 20:16:52 INFO: ## Mon Feb 17 20:16:52 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS/]
+2014/02/17 20:16:52 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS/]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS/: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS/: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:16:52 INFO: MS VLAC-snapshot-21cm-hires.MS/: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/17 20:16:52 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:16:52 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/17 20:16:52 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/17 20:16:52 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/17 20:16:52 INFO: resampling 100 channels by factor 100, starting at channel 0
+Visibility column shape: (378000, 100, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:16:54 INFO: using sinc, overlap 100, FoV 2.0
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1002, in run
+    result = comcall(*args,**kws);
+  File "pyxis-correlator.py", line 128, in resample_tf
+    result = msres.overlap_window(func,dtime,dfreq,overlap_time=int(dtime*overlap),dump=dump,dumpfig=DUMPFIG);
+  File "/home/atemkeng/Temple/fullms/MSResampler.py", line 220, in overlap_window
+    data = data.reshape((dtime1,nfreq1,dfreq,self.ncorr))
+ValueError: total size of new array must be unchanged
+2014/02/17 20:16:54 ERROR: Exception raised, aborting
+2014/02/17 20:17:29 INFO: ## Mon Feb 17 20:17:29 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS/]
+2014/02/17 20:17:29 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS/]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS/: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS/: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:17:29 INFO: MS VLAC-snapshot-21cm-hires.MS/: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/17 20:17:29 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:17:29 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/17 20:17:29 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/17 20:17:29 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/17 20:17:29 INFO: resampling 100 channels by factor 100, starting at channel 0
+Visibility column shape: (378000, 100, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/17 20:17:31 INFO: using sinc, overlap 10, FoV 2.0
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1002, in run
+    result = comcall(*args,**kws);
+  File "pyxis-correlator.py", line 128, in resample_tf
+    result = msres.overlap_window(func,dtime,dfreq,overlap_time=int(dtime*overlap),dump=dump,dumpfig=DUMPFIG);
+  File "/home/atemkeng/Temple/fullms/MSResampler.py", line 220, in overlap_window
+    data = data.reshape((dtime1,nfreq1,dfreq,self.ncorr))
+ValueError: total size of new array must be unchanged
+2014/02/17 20:17:31 ERROR: Exception raised, aborting
+2014/02/20 17:38:43 INFO: ## Thu Feb 20 17:38:42 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS def resample_tf [mshi=None,nfreq=None,chan0=None,fov=2.,overlap=10,oper=sinc,column=DATA,outcolumn=CORRECTED_DATA,image=True]
+2014/02/20 17:38:43 PYXIS: running command def
+2014/02/20 17:38:43 ABORT: undefined command 'def'
+2014/02/20 17:38:43 ERROR: exiting with error code 1, check the logs for errors
+2014/02/20 17:40:46 INFO: ## Thu Feb 20 17:40:46 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series
+2014/02/20 17:40:46 PYXIS: running command resample_tf_series
+2014/02/20 17:40:46 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
+2014/02/20 17:40:59 INFO: ## Thu Feb 20 17:40:59 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series
+2014/02/20 17:40:59 PYXIS: running command resample_tf_series
+2014/02/20 17:40:59 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
+2014/02/20 17:46:11 INFO: ## Thu Feb 20 17:46:11 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file]
+2014/02/20 17:46:11 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:12 INFO: MS VLAC-snapshot-21cm-hires.MS: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/20 17:46:12 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:12 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/20 17:46:12 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/20 17:46:12 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/20 17:46:12 INFO: resampling 100 channels by factor 100, starting at channel 0
+Visibility column shape: (378000, 100, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:15 INFO: Dumping debug output to file <type 'file'>
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1002, in run
+    result = comcall(*args,**kws);
+  File "pyxis-correlator.py", line 96, in resample_tf
+    dump = file(dump,"w")
+TypeError: coercing to Unicode: need string or buffer, type found
+2014/02/20 17:46:15 ERROR: Exception raised, aborting
+2014/02/20 17:46:43 INFO: ## Thu Feb 20 17:46:43 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file.txt]
+2014/02/20 17:46:43 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file.txt]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:43 INFO: MS VLAC-snapshot-21cm-hires.MS: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/20 17:46:43 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:43 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/20 17:46:43 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/20 17:46:43 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/20 17:46:43 INFO: resampling 100 channels by factor 100, starting at channel 0
+Visibility column shape: (378000, 100, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:46:45 INFO: Dumping debug output to file file.txt
+2014/02/20 17:46:45 INFO: using sinc, overlap 10, FoV 2.0
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1002, in run
+    result = comcall(*args,**kws);
+  File "pyxis-correlator.py", line 128, in resample_tf
+    result = msres.overlap_window(func,dtime,dfreq,overlap_time=int(dtime*overlap),dump=dump,dumpfig=DUMPFIG);
+  File "/home/atemkeng/Temple/fullms/MSResampler.py", line 220, in overlap_window
+    data = data.reshape((dtime1,nfreq1,dfreq,self.ncorr))
+ValueError: total size of new array must be unchanged
+2014/02/20 17:46:45 ERROR: Exception raised, aborting
+2014/02/20 17:47:13 INFO: ## Thu Feb 20 17:47:13 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file.txt]
+2014/02/20 17:47:13 PYXIS: running command resample_tf[VLAC-snapshot-21cm-hires.MS,None,None,2.,10,sinc,DATA,CORRECTED_DATA,True,file.txt]
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm-hires.MS: 25 columns, 378000 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:47:13 INFO: MS VLAC-snapshot-21cm-hires.MS: 1000 x 1.50s timeslots (0.42h synthesis), 100 x 1000.00 kHz channels, max baseline 3.286 km
+2014/02/20 17:47:13 INFO:    (NB: critical sampling interval for this baseline is 100.44s)
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table VLAC-snapshot-21cm.MS: 25 columns, 3780 rows
+Successful readonly open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:47:13 INFO: MS VLAC-snapshot-21cm.MS: 10 x 150.00s timeslots (0.42h synthesis), 1 x 100000.00 kHz channels, max baseline 3.283 km
+2014/02/20 17:47:13 INFO:    (NB: critical sampling interval for this baseline is 100.53s)
+1000 0 1000
+2014/02/20 17:47:13 INFO: resampling 1000 of 1000 timeslots by factor 100, starting at timeslot 0
+2014/02/20 17:47:13 INFO: resampling 100 channels by factor 100, starting at channel 0
+Visibility column shape: (378000, 100, 4)
+Successful read/write open of default-locked table /home/atemkeng/Temple/fullms/VLAC-snapshot-21cm-hires.MS/SPECTRAL_WINDOW: 14 columns, 1 rows
+2014/02/20 17:47:15 INFO: Dumping debug output to file file.txt
+2014/02/20 17:47:15 INFO: using sinc, overlap 10, FoV 2.0
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1002, in run
+    result = comcall(*args,**kws);
+  File "pyxis-correlator.py", line 128, in resample_tf
+    result = msres.overlap_window(func,dtime,dfreq,overlap_time=int(dtime*overlap),dump=dump,dumpfig=DUMPFIG);
+  File "/home/atemkeng/Temple/fullms/MSResampler.py", line 220, in overlap_window
+    data = data.reshape((dtime1,nfreq1,dfreq,self.ncorr))
+ValueError: total size of new array must be unchanged
+2014/02/20 17:47:15 ERROR: Exception raised, aborting
+2014/02/20 17:48:08 INFO: ## Thu Feb 20 17:48:08 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/20 17:48:08 PYXIS: running command resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/20 17:48:08 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
+2014/02/20 17:48:13 INFO: ## Thu Feb 20 17:48:13 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/20 17:48:13 PYXIS: running command resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/20 17:48:13 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
+2014/02/21 15:48:50 INFO: ## Fri Feb 21 15:48:50 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:48:50 PYXIS: running command resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:48:50 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
+2014/02/21 15:48:56 INFO: ## Fri Feb 21 15:48:56 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:48:56 PYXIS: running command resample_tf_series[VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:48:56 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
+2014/02/21 15:49:24 INFO: ## Fri Feb 21 15:49:24 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[False,VLAC-snapshot-21cm-hires.MS]
+2014/02/21 15:49:24 PYXIS: running command resample_tf_series[False,VLAC-snapshot-21cm-hires.MS]
+Traceback (most recent call last):
+  File "/usr/local/meqtrees/Owlcat/pyxis", line 165, in <module>
+    Pyxis.Internals.run(*commands);
+  File "/usr/local/meqtrees/Owlcat/Pyxis/Internals.py", line 1002, in run
+    result = comcall(*args,**kws);
+TypeError: resample_tf_series() takes at most 1 argument (2 given)
+2014/02/21 15:49:24 ERROR: Exception raised, aborting
+2014/02/21 15:49:43 INFO: ## Fri Feb 21 15:49:43 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series[False]
+2014/02/21 15:49:43 PYXIS: running command resample_tf_series[False]
+2014/02/21 15:49:43 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
+2014/02/21 15:49:50 INFO: ## Fri Feb 21 15:49:49 2014:
+/usr/local/meqtrees/Owlcat/pyxis MS=VLAC-snapshot-21cm.MS resample_tf_series
+2014/02/21 15:49:50 PYXIS: running command resample_tf_series
+2014/02/21 15:49:50 INFO: redirecting log output to ./plots-VLAC-snapshot-21cm/log.txt
