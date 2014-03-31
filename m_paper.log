@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  29 MAR 2014 18:16
+=======
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  24 MAR 2014 11:44
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -157,6 +161,7 @@ Package caption Info: float package is loaded.
 \c@lotdepth=\count100
 \sf@top=\skip53
 \sf@bottom=\skip54
+<<<<<<< HEAD
 ) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2012/01/12 v1.1d Sub-captions (AR)
 
@@ -172,6 +177,8 @@ l.47   \endinput}
                  
 RTFM
 
+=======
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 ) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathpazo.sty
 Package: mathpazo 2005/04/12 PSNFSS-v9.2a Palatino w/ Pazo Math (D.Puga, WaS) 
 \symupright=\mathgroup7
@@ -234,7 +241,26 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
+<<<<<<< HEAD
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+=======
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2012/01/12 v1.1d Sub-captions (AR)
+
+
+! Package subcaption Error: This package can't be used in cooperation
+(subcaption)                with the subfig package.
+
+See the subcaption package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.47   \endinput}
+                 
+RTFM
+
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
@@ -462,7 +488,23 @@ Now handling font encoding U ...
 LaTeX Warning: Label `def:4' multiply defined.
 
 
+<<<<<<< HEAD
 LaTeX Warning: Label `BDWBnoise' multiply defined.
+=======
+LaTeX Warning: Label ` fig:fig_3a' multiply defined.
+
+
+LaTeX Warning: Label `fig:fig_5' multiply defined.
+
+
+LaTeX Warning: Label `fig:fig_4' multiply defined.
+
+
+LaTeX Warning: Label `fig:fig_5' multiply defined.
+
+
+LaTeX Warning: Label `fig:fig_4' multiply defined.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 
 
 LaTeX Warning: Label `fig:fig_5' multiply defined.
@@ -471,6 +513,12 @@ LaTeX Warning: Label `fig:fig_5' multiply defined.
 LaTeX Warning: Label ` fig:fig_3a' multiply defined.
 
 
+<<<<<<< HEAD
+=======
+LaTeX Warning: Label ` fig:fig_3a' multiply defined.
+
+
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 LaTeX Warning: Label `fig:fig_4' multiply defined.
 
 
@@ -628,6 +676,7 @@ Package natbib Warning: Citation `2' on page 1 undefined on input line 110.
 Package natbib Warning: Citation `2' on page 1 undefined on input line 115.
 
 
+<<<<<<< HEAD
 Package natbib Warning: Citation `2' on page 1 undefined on input line 119.
 
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
@@ -642,12 +691,36 @@ LaTeX Font Info:    No file OMSpplx.fd. on input line 134.
 
 LaTeX Font Warning: Font shape `OMS/pplx/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead on input line 134.
+=======
+Package natbib Warning: Citation `2' on page 1 undefined on input line 115.
+
+
+Package natbib Warning: Citation `2' on page 1 undefined on input line 118.
+
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 128.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 128.
+
+Underfull \vbox (badness 1412) has occurred while \output is active []
+
+LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <8> not available
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 133.
+LaTeX Font Info:    Try loading font information for OMS+pplx on input line 133
+.
+LaTeX Font Info:    No file OMSpplx.fd. on input line 133.
+
+
+LaTeX Font Warning: Font shape `OMS/pplx/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead on input line 133.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
 
+<<<<<<< HEAD
 Package natbib Warning: Citation `1' on page 2 undefined on input line 145.
 
 
@@ -658,6 +731,18 @@ Package natbib Warning: Citation `5' on page 2 undefined on input line 150.
 
 
 Underfull \hbox (badness 1603) in paragraph at lines 158--171
+=======
+Package natbib Warning: Citation `1' on page 2 undefined on input line 144.
+
+
+Package natbib Warning: Citation `1' on page 2 undefined on input line 145.
+
+
+Package natbib Warning: Citation `5' on page 2 undefined on input line 149.
+
+
+Underfull \hbox (badness 1603) in paragraph at lines 157--170
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 \T1/pplx/m/n/9 where $\OML/zplm/m/it/9 I\OT1/zplm/m/n/9 (\OML/zplm/m/it/9 l\OT1
 /pplx/m/n/9 , \OML/zplm/m/it/9 m\OT1/zplm/m/n/9 )$ \T1/pplx/m/n/9 is the sky br
 ight-ness and $\OML/zplm/m/it/9 ^^^\OT1/zplm/m/n/9 (\OML/zplm/m/it/9 u\OT1/pplx
@@ -670,7 +755,11 @@ File: ./Figures/effect_time_averaging.png Graphic file (type png)
 
 <use ./Figures/effect_time_averaging.png>
 Package pdftex.def Info: ./Figures/effect_time_averaging.png used on input line
+<<<<<<< HEAD
  238.
+=======
+ 237.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
 <./Figures/maximun_integration.png, id=21, 586.8324pt x 442.2924pt>
@@ -678,30 +767,50 @@ File: ./Figures/maximun_integration.png Graphic file (type png)
 
 <use ./Figures/maximun_integration.png>
 Package pdftex.def Info: ./Figures/maximun_integration.png used on input line 2
+<<<<<<< HEAD
 41.
+=======
+40.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 File: ./Figures/effect_time_averaging.png Graphic file (type png)
 
 <use ./Figures/effect_time_averaging.png>
 Package pdftex.def Info: ./Figures/effect_time_averaging.png used on input line
+<<<<<<< HEAD
  243.
+=======
+ 242.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 File: ./Figures/maximun_integration.png Graphic file (type png)
 
 <use ./Figures/maximun_integration.png>
 Package pdftex.def Info: ./Figures/maximun_integration.png used on input line 2
+<<<<<<< HEAD
 46.
+=======
+45.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
  [3]
 Underfull \vbox (badness 2213) has occurred while \output is active []
 
 
+<<<<<<< HEAD
 Underfull \hbox (badness 4634) in paragraph at lines 355--357
+=======
+Underfull \hbox (badness 4634) in paragraph at lines 353--355
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 []\T1/pplx/m/n/9 The ma-trix that
  []
 
 
+<<<<<<< HEAD
 Overfull \hbox (1.00076pt too wide) in paragraph at lines 375--376
+=======
+Overfull \hbox (1.00076pt too wide) in paragraph at lines 373--374
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 []
  []
 
@@ -710,13 +819,18 @@ Overfull \hbox (1.00076pt too wide) in paragraph at lines 375--376
 File: ./Figures/uvcov.png Graphic file (type png)
 
 <use ./Figures/uvcov.png>
+<<<<<<< HEAD
 Package pdftex.def Info: ./Figures/uvcov.png used on input line 405.
+=======
+Package pdftex.def Info: ./Figures/uvcov.png used on input line 403.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 (pdftex.def)             Requested size: 191.52246pt x 157.97267pt.
 
 <./Figures/longshortmid.png, id=32, 586.8324pt x 442.2924pt>
 File: ./Figures/longshortmid.png Graphic file (type png)
 
 <use ./Figures/longshortmid.png>
+<<<<<<< HEAD
 Package pdftex.def Info: ./Figures/longshortmid.png used on input line 407.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
@@ -725,10 +839,21 @@ Package natbib Warning: Citation `1' on page 5 undefined on input line 428.
 
 
 Overfull \hbox (1.00076pt too wide) in paragraph at lines 485--488
+=======
+Package pdftex.def Info: ./Figures/longshortmid.png used on input line 405.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+
+Package natbib Warning: Citation `1' on page 5 undefined on input line 426.
+
+
+Overfull \hbox (1.00076pt too wide) in paragraph at lines 482--485
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 []
  []
 
 
+<<<<<<< HEAD
 Overfull \hbox (1.00076pt too wide) in paragraph at lines 502--506
 []
  []
@@ -801,30 +926,123 @@ Package pdftex.def Info: ./Figures/freq_resp_gaussian.pdf used on input line 69
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 642--699
+=======
+Overfull \hbox (1.00076pt too wide) in paragraph at lines 499--503
+[]
+ []
+
+[5]
+
+LaTeX Warning: Reference `fig:box' on page 6 undefined on input line 572.
+
+
+LaTeX Warning: Reference `fig:Gauss' on page 6 undefined on input line 585.
+
+
+LaTeX Warning: Reference `fig:GaussFou' on page 6 undefined on input line 585.
+
+
+LaTeX Warning: Reference `fig:buter' on page 6 undefined on input line 597.
+
+
+LaTeX Warning: Reference `fig:buterFou' on page 6 undefined on input line 597.
+
+[6 <./Figures/uvcov.png (PNG copy)> <./Figures/longshortmid.png>]
+<./Figures/rect.png, id=41, 586.8324pt x 442.2924pt>
+File: ./Figures/rect.png Graphic file (type png)
+ <use ./Figures/rect.png>
+Package pdftex.def Info: ./Figures/rect.png used on input line 641.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+<./Figures/sinc.png, id=42, 586.8324pt x 442.2924pt>
+File: ./Figures/sinc.png Graphic file (type png)
+ <use ./Figures/sinc.png>
+Package pdftex.def Info: ./Figures/sinc.png used on input line 643.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+<./Figures/gausian.png, id=43, 586.8324pt x 442.2924pt>
+File: ./Figures/gausian.png Graphic file (type png)
+
+<use ./Figures/gausian.png>
+Package pdftex.def Info: ./Figures/gausian.png used on input line 645.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+<./Figures/gausianFour.png, id=44, 586.8324pt x 442.2924pt>
+File: ./Figures/gausianFour.png Graphic file (type png)
+
+<use ./Figures/gausianFour.png>
+Package pdftex.def Info: ./Figures/gausianFour.png used on input line 647.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+<./Figures/Butterwordth.png, id=45, 586.8324pt x 442.2924pt>
+File: ./Figures/Butterwordth.png Graphic file (type png)
+
+<use ./Figures/Butterwordth.png>
+Package pdftex.def Info: ./Figures/Butterwordth.png used on input line 649.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+<./Figures/corrSigVLAMxBl_overlapGdelta.png, id=46, 586.8324pt x 442.2924pt>
+File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
+
+<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
+Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
+ut line 651.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+File: ./Figures/Butterwordth.png Graphic file (type png)
+
+<use ./Figures/Butterwordth.png>
+Package pdftex.def Info: ./Figures/Butterwordth.png used on input line 653.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
+
+<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
+Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
+ut line 655.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 609--658
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 
  []
 
 
+<<<<<<< HEAD
 Underfull \hbox (badness 10000) in paragraph at lines 642--699
+=======
+Underfull \hbox (badness 10000) in paragraph at lines 609--658
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 
  []
 
 
+<<<<<<< HEAD
 Underfull \hbox (badness 10000) in paragraph at lines 642--699
 
  []
 
 <./Figures/corrSigVLAMxBl_overlapLdelta.png, id=49, 586.8324pt x 442.2924pt>
+=======
+Underfull \hbox (badness 10000) in paragraph at lines 609--658
+
+ []
+
+<./Figures/corrSigVLAMxBl_overlapLdelta.png, id=47, 586.8324pt x 442.2924pt>
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
 
 <use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
 Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
+<<<<<<< HEAD
 ut line 726.
+=======
+ut line 685.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
 
 <use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
 Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
+<<<<<<< HEAD
 ut line 728.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
@@ -836,10 +1054,22 @@ Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 730.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
 <./Figures/corrSigVLAMxBl_overlapGdelta.png, id=51, 586.8324pt x 442.2924pt>
+=======
+ut line 687.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+<./Figures/corrSigVLAMxBl.png, id=48, 586.8324pt x 442.2924pt>
+File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
+
+<use ./Figures/corrSigVLAMxBl.png>
+Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 689.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
 
 <use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
 Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
+<<<<<<< HEAD
 ut line 732.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
@@ -857,10 +1087,30 @@ LaTeX Warning: Reference `fig2' on page 7 undefined on input line 741.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 700--743
+=======
+ut line 691.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 694.
+
+
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 694.
+
+
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 700.
+
+
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 700.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 659--702
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 
  []
 
 
+<<<<<<< HEAD
 LaTeX Warning: Reference `fig1' on page 7 undefined on input line 744.
 
 
@@ -874,10 +1124,26 @@ LaTeX Warning: Reference `fig2' on page 7 undefined on input line 749.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 744--750
+=======
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 703.
+
+
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 705.
+
+
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 708.
+
+
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 708.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 703--709
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 
  []
 
 
+<<<<<<< HEAD
 LaTeX Warning: Reference `fig2' on page 7 undefined on input line 752.
 
 <./Figures/time_freq_ration.png, id=52, 586.8324pt x 442.2924pt>
@@ -940,6 +1206,38 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [9 <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png>
  <./Figures/corrSigVLAMxBl_overlapGdelta.png>] [10
 
+=======
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 711.
+
+<./Figures/time_freq_ration.png, id=49, 586.8324pt x 442.2924pt>
+File: ./Figures/time_freq_ration.png Graphic file (type png)
+
+<use ./Figures/time_freq_ration.png>
+Package pdftex.def Info: ./Figures/time_freq_ration.png used on input line 715.
+
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+<./Figures/timeration.png, id=50, 586.8324pt x 442.2924pt>
+File: ./Figures/timeration.png Graphic file (type png)
+
+<use ./Figures/timeration.png>
+Package pdftex.def Info: ./Figures/timeration.png used on input line 717.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
+
+No file m_paper.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+[7]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <./Figures/rect.png> <./Figures/sinc.png> <./Figures/gausian.png> <./Figure
+s/gausianFour.png> <./Figures/Butterwordth.png> <./Figures/corrSigVLAMxBl_overl
+apGdelta.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png>
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
  <./Figures/time_freq_ration.png> <./Figures/timeration.png>] (./m_paper.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -952,6 +1250,7 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  4750 strings out of 493485
  66171 string characters out of 3143526
  142954 words of memory out of 3000000
@@ -959,6 +1258,15 @@ Here is how much of TeX's memory you used:
  83907 words of font info for 170 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  44i,17n,42p,255b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
+=======
+ 4718 strings out of 493485
+ 65353 string characters out of 3143526
+ 142729 words of memory out of 3000000
+ 7860 multiletter control sequences out of 15000+200000
+ 83907 words of font info for 170 fonts, out of 3000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 44i,17n,42p,866b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -971,10 +1279,19 @@ fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb
 </usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+<<<<<<< HEAD
 Output written on m_paper.pdf (10 pages, 822727 bytes).
 PDF statistics:
  433 PDF objects out of 1000 (max. 8388607)
  141 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  86 words of extra memory for PDF output out of 10000 (max. 10000000)
+=======
+Output written on m_paper.pdf (9 pages, 759033 bytes).
+PDF statistics:
+ 111 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 

@@ -43,7 +43,11 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
 \usepackage{graphicx}
+<<<<<<< HEAD
 \usepackage{float,subfig,subcaption}
+=======
+\usepackage{float,subfig,caption}
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 \usepackage[sc]{mathpazo}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -112,8 +116,12 @@ of sources within the
 field of interest by decreasing their intensity.\\
 To keep smearing down at acceptable levels, a correlator must cross-correlate the signal over a shorter period of time and a narrower 
 bandwidth, hence producing a large amount of data for subsequence stage such as 
+<<<<<<< HEAD
 imaging \citep{Marti2008,Linfield1986}, calibration (\cite{2}), etc. This huge amount of data is becoming an increasingly serious 
 problem 
+=======
+imaging (\cite{2}), calibration (\cite{2}), etc. This huge amount of data is becoming an increasingly serious problem 
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 and becoming 
 more challenging as the computational demands of the next generation radio telescopes will rise significantly (see the SKA phase 1 
 specification \cite{2}). 
@@ -215,6 +223,7 @@ visibility with a \textit{Boxcar} windowing function. Mathematically, this is de
 Here, $c_{pq,(t,\nu)}$ is a function that samples the result of $\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}$ at 
 the centre time interval and centre frequency interval.
 \subsection{Effect of time and bandwidth averaging}
+<<<<<<< HEAD
 During imaging, Eq.\ref{f4} is inverse Fourier transform, and after applying the convolution theorem , the $sinc$ function ( 
 $\mathcal{F}^{-1}\Pi_{pq, (t,\nu)}=sinc(\pi\Delta u_{pq}||\textbf{l}||)$) multiply the sky. Thus, the 
 sky map is tapered by the $sinc$ function in the $l$ and $m$ direction, the response is maximal for sources at the phase centre ( 
@@ -222,6 +231,15 @@ $l=0,m=0$) while for off-phase centre sources, the response is smeared (decrease
 $\Delta u_{pq}$ is a function of $\Delta t$ and $\Delta \nu$). The main lobe of the $sinc$ extends from 
 $-1/2\Delta u_{pq}$ to $1/2\Delta u_{pq}$ while the amplitude gradually dies out, and the larger the $\Delta 
 u_{pq}$, the narrower the central peak and the oscillations. Therefore, the degree of smearing increases with the position of a 
+=======
+During imaging, equation \ref{f4} is inverse Fourier transform, and with the convolution theorem, the $sinc$ function ( 
+$\mathcal{F}^{-1}\Pi_{pq, (t,\nu)}=sinc(\pi\Delta \mathbf{u}_{pq} l)$) multiply the sky. Thus, the 
+sky map is tapered by the $sinc$ function in the $l$ and $m$ direction, the response is maximal for sources at the phase centre ( 
+$l=0,m=0$) while for off-phase centre sources, the response is smeared (decreased) for larger $\Delta \mathbf{u}_{pq}$ ( 
+$\Delta\mathbf{u}_{pq}$ function of $\Delta t$ and $\Delta \nu$). The main lobe of the $sinc$ extends from 
+$-1/2\Delta \mathbf{u}_{pq}$ to $1/2\Delta \mathbf{u}_{pq}$ while the amplitude gradually dies out, and the larger the $\Delta 
+\mathbf{u}_{pq}$, the narrower the central peak and the oscillations. Therefore, the degree of smearing increases with the position of a 
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 source and the baseline length (see Thompson et \textit{al}.)\footnote{The Fourier phase components $2\pi \phi(u,v,w)$ depends on the 
 direction in the sky, the wavelength, the separation of antennas as well as the integration time and frequency. A maximal phase will 
 occurs on longer baselines and small phase on shorter baselines.}.
@@ -248,8 +266,12 @@ intensity of a 1Jy source move from the phase centre for $\Delta t$ integration 
 bandwidth.}\label{fig:fig_5}\end{minipage}
 \end{figure*}
 Fortunately, since the response is maximal only for sources at the phase centre, an interesting approach is achieved by convolving the 
+<<<<<<< HEAD
 observed visibility with a  windowing function that depends on $(u,v)$ coordinates spacing (baseline dependent windowing function). 
 However, a windowing function with a wide dynamic range spectrum is preferable in this work.
+=======
+observed visibility with a  windowing function that depends on $(u,v)$ coordinates spacing (baseline dependent windowing function).
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 \subsection{Imaging}
 From the full sky Radio Interferometry Measurement Equation (RIME) formalism (see Hamaka et \textit{al}, O.M. Smirnov (2010a)), in this 
 case, the sampled visibilities can be presented mathematically as a $4\times n_t\times n_{\nu}$ matrix of four polarizations time and 
@@ -435,8 +457,12 @@ f_{pq,(dt_i,d\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}\Big).
 Here, the variable $k$ run through the baseline $(p,q)$ timeslots. The  overall rms noise is given by
 \begin{eqnarray*}
 \sigma^2	&=& 
+<<<<<<< HEAD
 \frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}f_{pq,(dt_i,d\nu_j)}^{2}\Big) 
 ,\label{Equ:BDWnoise}
+=======
+\frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}f_{pq,(dt_i,d\nu_j)}^{2}\Big) ,
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 \end{eqnarray*}
 where  $\sigma_{samp}$ is the per sampled visibility noise
 % Where $W^{pq}$ is a normalized CWF; $\lambda$, $t_c$ are the observed wavelength and centre of the integration 
@@ -551,6 +577,7 @@ g_{pq} = \left\{
 The  overall rms noise is given by
 \begin{eqnarray*}
 \sigma^2	&=& 
+<<<<<<< HEAD
 \frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}g_{pq,(dt_i,d\nu_j)}^{2}\Big) 
 ,\label{Equ:OBDWnoise}
 \end{eqnarray*}
@@ -653,11 +680,83 @@ windowing and as an overlap baseline dependent windowing functions respectively.
   {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
   {\footnotesize $B_{u}$} &{\footnotesize 1,066} \\
   {\footnotesize $\mathcal{F}^{-1}\{B_{u}$\}} &{\footnotesize 1,066} \\ 
+=======
+\frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}g_{pq,(dt_i,d\nu_j)}^{2}\Big) ,
+\end{eqnarray*}
+\subsection{Weighting functions}
+In signal processing a windowing function is a mathematical function that is zero-values outside of some chosen interval, and when another 
+function or a signal is multiplied by the windowing function, the product is also zero-values outside the interval.
+In this section, we evaluation the Peak Sidelobe Level, the Main 
+Lobe width and the Sidelobes Roll-of of the spectrum of some windowing functions. This study will allow us to make 
+a suitable choice of the window that by tapering with the sky, we conserve the brightness of sources in the field of interest and  
+attenuate sidelobes confusion from strong sources out of the field of interest.
+\subsubsection{Boxcar window: natural weighting}
+This windowing function take a hunk of the data without modification, and  this leads to discontinuities at the edges\footnote{unless it 
+happens that the signal  fit exactly with the windowing function width. Nevertheless, it is rare to find such a situation.}. For 
+a cut-of frequency interval  $[-\nu_e/2,\nu_e/2]$ the boxcar windowing function is defined as:
+\begin{equation}
+\Pi_{u}=\left\{
+\begin{array}{rl}
+1 & \mbox{$-\nu_a/2 \leq \nu \leq \nu_a/2$} \\
+0 & \mbox{otherwise}
+\end{array}\right.
+\end{equation}
+and it Fourier transform is $\mathcal{F}^{-1}\big\{\Pi_{u}\big\}=sinc\big(\pi ||u(t/\lambda_a)|| l\big)$.\\
+Fig.\ref{fig:box} gives the graph of $\mathcal{F}^{-1}\big\{\Pi_{u}\big\}$. The main lobe extends from $-1/(2\nu_a)$ to $1/(2\nu_a)$, 
+beyond that the function oscillates at a constant rate while the amplitude gradually dies out. The larger the $\nu_a$, the narrower the 
+central peak and the oscillations.
+\subsubsection{Gaussian window}
+A Gaussian windowing function centred at mean zero with standard deviation, $\sigma$ can be described as 
+\begin{equation}
+  G_{u}= e^{-b||u(t/\lambda_a)||^{2}},
+\end{equation}
+where $b=(2\sigma^2)^{-1}$ and  $\mathcal{F}^{-1}\big\{G_{u}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$
+This shows us that the inverse Fourier transform of a Gaussian with standard deviation $\sigma$ is a Gaussian with a standard 
+deviation $\sigma '= (2\pi\sigma)^{-1}$ . In theory, the Gaussian window is an infinitely large convolution filter as it is non zero 
+everywhere. However, in practice some one need to defined a cut-off interval where the window is considered to be non zero, and zero out of 
+this cut-off interval. 
+Fig.\ref{fig:Gauss} and \ref{fig:GaussFou} gives the graph of $G_{u}$ and $\mathcal{F}^{-1}\big\{G_{u}\big\}$, where $G_{u}$ is truncate 
+within the cut-off frequency interval $[-\nu_e/2,\nu_e/2]$, with $\sigma =1$. The main lobe of $\mathcal{F}^{-1}\big\{G_{u}\big\}$ extends 
+from $-(2\pi\sigma)^{-1}$ to $(2\pi\sigma)^{-1}$, beyond that the amplitude gradually dies out. The larger the $\sigma$, the narrower the 
+central peak.
+\subsubsection{Butterworth}
+The frequency response of the Butterworth filter is flat  in the pass band, and rolls off towards zero in the stop band, and it is 
+characterized by two independent parameters, the cut-off frequency $\nu_a$ and the order $p$. These two parameters controls the 
+bandwidth and side lobes  attenuation. The frequency response of the Butterworth is given by 
+\begin{equation}
+B_u= \Big(1 + (||u(t/\lambda_a)||/\nu_a)^{2p}\Big)^{-1}
+\end{equation}
+Fig.\ref{fig:buter} gives the graph of $B_{u}$. The inverse  Fourier transform is applied to $B_{u}$, in Fig.\ref{fig:buterFou}. The main 
+lobe of 
+$\mathcal{F}^{-1}\big\{B_{u}\big\}$ extends from $-(2\pi\sigma)^{-1}$ to $(2\pi\sigma)^{-1}$, beyond that the amplitude gradually dies out. 
+The larger the $\sigma$, the narrower the central peak.
+\subsubsection{First order prolate spheroidal wave function}
+
+
+A windowing function with a narrower main lobe width and a smaller ripple is preferably in this application. Nevertheless, when the 
+frequency domain main lobe width is small, the energy is concentrated in that array. The result of the 
+rectangular window and the Butterworth window look similar but, we can adjust the Butterworth window as we want by manipulating the 
+parameter $p$ to concentrate more energy in the frequency main lobe.
+\subsubsection{Noise performance analysis and comparison}
+The methods described in section (\ref{baseline1}) and section (\ref{baseline2}) are use in this subsection to evaluate the 
+theoretical noise of each of the above windowing functions. Table (\ref{BDWBnoise}) summarize the theoretical noise of the above windowing 
+function used as a baseline dependent windowing, and table (\ref{OBDWBnoise}) is the theoretical noise of the above windowing 
+function used as an overlap baseline dependent windowing functions.\\
+\begin{tabular}{*3{c}}
+ \multicolumn{3}{c}{}\\
+  \begin{tabular}{|c|c|}
+  \textbf{$f_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
+  \hline\hline
+  {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
+  {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
+  {\footnotesize $\marhcal{F}^{-1}B_{u}$} &{\footnotesize 1,066} \\ 
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
   {\footnotesize $P_{u}$} & {\footnotesize 1,334}
   \end{tabular}& \label{BDWBnoise}
    \begin{tabular}{|c|c|}
   \textbf{$g_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
   \hline\hline
+<<<<<<< HEAD
   {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
   {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}\}$} &{\footnotesize 1,066} \\
   {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
@@ -694,6 +793,34 @@ function.}\label{fig:fig_box}\end{minipage}
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
+=======
+  {\footnotesize} &{\footnotesize 1,066} \\ 
+  {\footnotesize} & {\footnotesize 1,334}\\ 
+  {\footnotesize} &{\footnotesize 1,066} \\ 
+  {\footnotesize} & {\footnotesize 1,334}\\ 
+  {\footnotesize} &{\footnotesize 1,066}
+  \end{tabular} \label{OBDWBnoise}
+\end{tabular}
+
+\begin{figure*}
+  \centering
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/sinc.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausianFour.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}\\
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Butterwordth.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}\\
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Butterwordth.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}\
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 \end{figure*}
 
 $1.)$ In Figure
@@ -722,7 +849,11 @@ $1.)$ In Figure
 % \end{enumerate}
 \begin{figure*}
   \centering
+<<<<<<< HEAD
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+=======
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
@@ -807,6 +938,7 @@ per baseline simulated rms noise do not look the same with the theoretical one. 
 %   \end{bmatrix}
 % \end{equation*}
 \section{Simulation and results}
+<<<<<<< HEAD
 In order to test the algorithmics described in section and section, we performed  multiple tests on JVLA simulated measurement set 
 (dataset). In this section we summarize and discussed those results.
 \subsection{Data compression}
@@ -824,6 +956,11 @@ The final objective was to ****second algorithm data compression and out field s
 Drawback and futures works*** drawback and futures works*****
 
 \section*{Acknowledgements}
+=======
+\section{Discussion}
+\section{Conclusions}
+\section*{Acknowledgments}
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 % 
 % \subsection[]{Calibration}
 % \label{sec:ALS}
@@ -1538,6 +1675,7 @@ Drawback and futures works*** drawback and futures works*****
 %{\it IRAS\/}
 %\section*{Acknowledgments}
 \bibliographystyle{mn2e}
+<<<<<<< HEAD
 \bibliography{m_paper}
 \appendix
 \section[]{Demonstration}
@@ -1553,6 +1691,72 @@ is a norm.
 \end{eqnarray*}
 implying that $\mathbf{x}(u,v)=\mathbf{x}\big(u+\frac{j}{m_0},v+\frac{k}{l_0}\big),\forall j,k\in\mathbfss{Z}$. 
 \end{proof}
+=======
+\bibliography{g_paper}
+%\begin{thebibliography}{99}
+%\bibitem[\protect\citeauthoryear{Baird}{1981}]{b1} Baird S.R., 1981,
+%ApJ, 245, 208
+%\bibitem[\protect\citeauthoryear{Beichman et al.}{1985a}]{b2} Beichman
+%C.A., Neugebauer G., Habing H.J., Clegg P.E., Chester T.J., 1985a,
+%{\it IRAS\/} Point Source Catalog. Jet Propulsion Laboratory,
+%Pasadena
+%\bibitem[\protect\citeauthoryear{Beichman et al.}{1985b}]{b3} Beichman
+%C.A., Neugebauer G., Habing H.J., Clegg P.E., Chester T.J., 1985b,
+%{\it IRAS\/} Explanatory Supplement. Jet Propulsion Laboratory,
+%Pasadena
+%\bibitem[\protect\citeauthoryear{Dawson}{1979}]{b4} Dawson D.W., 1979,
+%ApJS, 41, 97
+%\bibitem[\protect\citeauthoryear{Gerhz}{1972}]{b5} Gerhz R.D., 1972, ApJ,
+%178, 715
+%\bibitem[\protect\citeauthoryear{Gerhz \& Ney}{1972}]{b6} Gerhz R.D., Ney
+%E.P., 1972, PASP, 84, 768
+%\bibitem[\protect\citeauthoryear{Gerhz \& Woolf}{1970}]{b7} Gerhz R.D., Woolf N.J.,
+%1970, ApJ, 161, L213
+%\bibitem[\protect\citeauthoryear{Gilman}{1972}]{b8} Gilman R.C., 1972, ApJ, 178, 423
+%\bibitem[\protect\citeauthoryear{Goldsmith et al.}{1987}]{b9} Goldsmith M.J., Evans A.,
+%Albinson J.S., Bode M.F., 1987, MNRAS, 227, 143
+%\bibitem[\protect\citeauthoryear{Hacking et al.}{1985}]{b10} Hacking P. et al., 1985,
+%PASP, 97, 616
+%\bibitem[\protect\citeauthoryear{Harvey, Thronson \& Gatley}{Harvey et al.}{1979}]{b11}
+%Harvey P.M., Thronson H.A., Gatley I., 1979, ApJ, 231, 115
+%\bibitem[\protect\citeauthoryear{Jura}{1986}]{b12} Jura M., 1986, ApJ, 309, 732
+%\bibitem[\protect\citeauthoryear{Kukarkin et al.}{1969}]{b13} Kukarkin B.V. et al.,
+%1969, General Catalogue of Variable Stars. Moscow
+%\bibitem[\protect\citeauthoryear{Lloyd Evans}{1974}]{b14} Lloyd Evans T., 1974, MNRAS,
+%167, 17{\sc p}
+%\bibitem[\protect\citeauthoryear{Lloyd Evans}{1985}]{b15} Lloyd Evans T., 1985, MNRAS,
+%217, 493
+%\bibitem[\protect\citeauthoryear{Low et al.}{1984}]{b16} Low F.J. et al., 1984, ApJ,
+%278, L19
+%\bibitem[\protect\citeauthoryear{McLaughlin}{1932}]{b17} McLaughlin D.B., 1932, Publ. Univ.
+%Obs. Mich., 4, 135
+%\bibitem[\protect\citeauthoryear{O'Connell}{1961}]{b18} O'Connell J.K., 1961, Specola
+%Vaticana Ric. Astron., 6, 341
+%\bibitem[\protect\citeauthoryear{Olnon \& Raimond}{1986}]{b19} Olnon F.M., Raimond E., 1986,
+%A\&AS, 65, 607
+%\bibitem[\protect\citeauthoryear{Preston et al.}{1963}]{b20} Preston G.W., Krzeminski W., Smak J.,
+%Williams J.A., 1963, ApJ, 137, 401
+%\bibitem[\protect\citeauthoryear{Rowan-Robinson \& Harris}{1983a}]{b21} Rowan-Robinson M., Harris
+%S., 1983a, MNRAS, 202, 767
+%\bibitem[\protect\citeauthoryear{Rowan-Robinson \& Harris}{1983b}]{b22} Rowan-Robinson M., Harris
+%S., 1983b, MNRAS, 202, 797
+%\bibitem[\protect\citeauthoryear{van der Veen \& Habing}{1988}]{b23} van der Veen W.E.C.J., Habing
+%H.J., 1988, A\&A, 194, 125
+%\bibitem[\protect\citeauthoryear{Willems \& de Jong}{1988}]{b24} Willems F.J., de Jong T., 1988,
+%A\&A, 196, 173
+%\bibitem[\protect\citeauthoryear{Zuckerman \& Dyck}{1986}]{b25} Zuckerman B., Dyck H.M., 1986, ApJ,
+%311, 345
+%\end{thebibliography}
+\appendix
+% \section[]{Lemmas and Propositions}
+% The propositions used in Section~\ref{sec:t_der} are given below.
+% \begin{lemma}
+% \label{lemma:1}
+% Let $\bmath{A}$ be symmetric or Hermitian. If all principal submatrices having $k+1$ rows or $k+2$ rows are singular, the rank of
+% $\bmath{A}$ does not exceed $k$ \citep{Perlis1952}. 
+% \end{lemma}
+% 
+>>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
 % \begin{lemma}
 % \label{lemma:2}
 % All $3 \times 3$ principal submatrices of $\Rcal(\bmath{b})$ are singular.
