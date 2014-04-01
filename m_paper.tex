@@ -251,6 +251,7 @@ Fortunately, since the response is maximal only for sources at the phase centre,
 observed visibility with a  windowing function that depends on $(u,v)$ coordinates spacing (baseline dependent windowing function). 
 However, a windowing function with a wide dynamic range spectrum is preferable in this work.
 \subsection{Imaging}
+\label{sec:imaging}
 From the full sky Radio Interferometry Measurement Equation (RIME) formalism (see Hamaka et \textit{al}, O.M. Smirnov (2010a)), in this 
 case, the sampled visibilities can be presented mathematically as a $4\times n_t\times n_{\nu}$ matrix of four polarizations time and 
 frequency dependent matrices each of size $n_t\times n_{\nu}$.
@@ -333,6 +334,7 @@ data, and the  arrows indicates the separation between $(u,v)$ coordinates and t
 figure that these separations are wider on longer baselines. The results of averaging is assigned to the centre $(u,v)$ coordinate coloured 
 in red. 
 \subsection{Methods}
+\label{sec:baseline1}
 In this section, we present the data compression algorithm we use to describe the weight of each sampled visibility during the 
 integration time interval and and frequency interval. Now, let package the $(u,v)$ coordinates changes of a baseline $pq$ into a single 
 matrix of size $n_t \times 2$.
@@ -607,15 +609,11 @@ For the same frequency interval $[-\nu_a,\nu_a]$, we plotted  three curves $\{p=
 their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}.  We noticed 
 that when the other $p$ is getting bigger, the MLW of the spectrum is conserved, while the PSL is getting higher and the SLR is 
 dropping  faster.
+\subsubsection{First Bessel function}
 \subsubsection{First order prolate spheroidal wave function}
 \subsubsection{Sinc window}
-In theory, the sinc window  is an infinitely large convolution filter as it is non zero everywhere, and its inverse Fourier 
-<<<<<<< HEAD
-Transform produces the ideal filter kernel (the boxcar windowing function). The sinc is defined as follow:
-=======
-Transform produces
- the ideal filter kernel (the boxcar windowing function). The sinc is defined as follow:
->>>>>>> 145a5708e9080f9892a32dc3db872b88d809f48f
+In theory, the sinc window  is an infinitely large convolution filter as it is non zero everywhere, and its inverse Fourier
+Transform produces the ideal filter kernel (the boxcar windowing function). The sinc is defined as follow:
 \begin{equation}
 S_u= sinc\big(\pi bu(t/\lambda_a)\big).
 \end{equation}
@@ -815,12 +813,55 @@ per baseline simulated rms noise do not look the same with the theoretical one. 
 In order to test the algorithmics described in section and section, we performed  multiple tests on JVLA simulated measurement set 
 (dataset). In this section we summarize and discussed those results.
 \subsection{Data compression}
-
 \subsubsection{Maximal integration time interval}
+\begin{figure*}
+  \centering
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
+\end{figure*}
 \subsubsection{Maximal integration frequency interval}
+\begin{figure*}
+  \centering
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
+\end{figure*}
 \subsection{Sidelobes suppression}
 \subsubsection{Dataset with one strong off-axis source}
+\begin{figure*}
+  \centering
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
+\end{figure*}
 \subsubsection{Dataset with many sources}
+\begin{figure*}
+  \centering
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
+\end{figure*}
 \subsection{Discussion}
 \section{Conclusions}
 The goal of this paper was threefold. The first objective was to investigate **** windowing functions***\\
@@ -833,16 +874,154 @@ Drawback and futures works*** drawback and futures works*****
 \bibliography{m_paper}
 \appendix
 \section[]{Demonstration}
-The proof of the norm used in Section~\ref{sec:t_der} is given below.\\
+\label{sec:demonorm}
+The proof of the norm used in Section~\ref{sec:baseline1} is given below.\\
 if $||\textbf{U}_{pq,t}||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, ||\mathbf{u}_{pq,t_e}||\Bigg)$ is a 
-$n_t\times2$ matrix, where each element $||\mathbf{u}_{pq,t_i}||$ is a vector of size 2 and $||.||$ is an Euclidean norm, then $||.||_{m}$ 
+$n_t\times2$ matrix, where each element $\mathbf{u}_{pq,t_i}$ is a vector of size 2 and $||.||$ is an Euclidean norm, then $||.||_{m}$ 
 is a norm.
 \begin{proof}
 \begin{enumerate}
- \item $||\mathbf{U}_{pq,t}||_{m}\geq \mathcal{O}_{E}$
- \item $||\mathbf{U}_{pq,t}+\mathbf{U}_{pq,t}'||_{m} \leq ||\mathbf{U}_{pq,t}||_{m} + ||\mathbf{U}_{pq,t}'||_{m}$
+ \item  For all $\mathbf{u}_{pq,t_k}$, $||\mathbf{u}_{pq,t_k}||\geq 0$. Therefore, all the elements of the vector
+    $||\mathbf{U}_{pq,t}||_{m}$ are positives.
+ \item Let $\mathbf{U}_{pq,t}$ and $\mathbf{U}_{pq,t}'$ be two 
+matrices with norm of $||\textbf{U}_{pq,t}||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, 
+||\mathbf{u}_{pq,t_e}||\Bigg)$ and norm of $||\textbf{U}_{pq,t}'||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}'||, \dots , ||\mathbf{u}_{pq,t_c}'||, 
+\dots, ||\mathbf{u}_{pq,t_e}'||\Bigg)$. 
+$||\mathbf{U}_{pq,t}+\mathbf{U}_{pq,t}'||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}+\mathbf{u}_{pq,t_s}'||, \dots , 
+||\mathbf{u}_{pq,t_c}+\mathbf{u}_{pq,t_c}'||, \dots, ||\mathbf{u}_{pq,t_e}+\mathbf{u}_{pq,t_e}'||\Bigg)$.  For all $k$, 
+$||\mathbf{u}_{pq,t_k}+\mathbf{u}_{pq,t_k}'||\leq ||\mathbf{u}_{pq,t_k}||+||\mathbf{u}_{pq,t_k}'||$, this is trivial because $||.||$ is the 
+Euclidean norm. Therefore,
+$||\mathbf{U}_{pq,t}+\mathbf{U}_{pq,t}'||_{m} \leq ||\mathbf{U}_{pq,t}||_{m} + ||\mathbf{U}_{pq,t}'||_{m}$
 \end{enumerate}
 \end{proof}
+\section[]{Derivation of complex matrices}
+The matrix $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is of size $n_t \times n_{\nu}$ and contained the weights of the baseline $(p,q)$ 
+visibilities points.
+The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} in terms of a series of linear transformations as follow:
+\begin{equation}
+V_{pq}^{corr}= \mathbf{C}_{(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot \mathbf{V}_{pq,(t,\nu)}^{samp}.
+\end{equation}
+Here, $\mathbf{W}_{pq,(t,\nu)}^{block}$ is a block diagonal matrix of size $(4n_t n_{\nu})\times(4n_t n_{\nu})$ defined as follow:
+\begin{equation*}
+\mathbf{C}_{(t,\nu)}^{block}=
+  \begin{bmatrix}
+    \mathbf{c}_{(t,\nu)} & 0 & 0 & 0\\
+    0 &  \mathbf{c}_{(t,\nu)} &0 & 0 \\
+    0 & 0 & \mathbf{c}_{(t,\nu)} & 0\\
+      0 & 0 & 0 & \mathbf{c}_{(t,\nu)}\\
+  \end{bmatrix}
+\end{equation*}
+Here, $\mathbf{W}_{pq,(t,\nu)}^{block}$ is a block diagonal matrix of size $(4n_t n_{\nu})\times(4n_t n_{\nu})$ defined as follow:
+\begin{equation*}
+\mathbf{W}_{pq,(t,\nu)}^{block}=
+  \begin{bmatrix}
+    \mathbf{W}_{pq,(t,\nu)}& 0 & 0 & 0\\
+    0 &  \mathbf{W}_{pq,(t,\nu)} &0 & 0 \\
+    0 & 0 & \mathbf{W}_{pq,(t,\nu)} & 0\\
+      0 & 0 & 0 & \mathbf{W}_{pq,(t,\nu)}\\
+  \end{bmatrix}
+\end{equation*}
+\begin{eqnarray*}
+\mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg[\mathcal{V}_{pq,(t,\nu)}^{0},\mathcal{ V } 
+^1_{pq,(t,\nu)},\mathcal{V}^2_{pq,(t,\nu)},\mathcal{V}_{pq,(t,\nu)}^{3 } \Bigg]^T. 
+\end{eqnarray*}
+For a synthesis, the baseline $(p,q)$ made a full coverage in the $(u,v)$ plane. Therefore, we can  
+package into a single matrix, $\mathbf{V}_{pq,}^{avg}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
+weighted average visibilities of the  baseline $(p,q)$ during the synthesis as follows: 
+\begin{equation}
+\mathbf{V}_{pq}^{corr}=\mathbf{C}_{(t,\nu)}^{block,n}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot \mathbf{V}_{pq,(t,\nu)}^{samp,n}.
+\end{equation}
+where $N_t$ and  $N_{\nu}$ are the number of time sample and frequency channels entering the Fourier domain. If the synthesis time is $T$ 
+and the frequency range is $F$, then $T=N_t \times \Delta t$ and $F=N_{\nu}\times\Delta \nu$. The the size of 
+$\mathbf{V}_{pq}^{avg}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the 
+number of time and frequency visibilities for the baseline $(p,q)$). The matrix $\mathbf{W}_{pq,(t,\nu)}^{block,n}$ is a diagonal block 
+matrix of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ defined as follow:
+\begin{equation*}
+\mathbf{W}_{pq,(t,\nu)}^{block,n}=
+  \begin{bmatrix}
+    \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
+    \vdots & \vdots & \vdots & \vdots & \vdots\\
+    0 & \dots& \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0\\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    0 & \dots& 0 &\dots & \mathbf{W}_{pq,(t,\nu)}^{block}\\
+  \end{bmatrix}
+\end{equation*}
+\begin{equation*}
+\mathbf{C}_{(t,\nu)}^{block,n}=
+  \begin{bmatrix}
+    \mathbf{C}_{(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
+    \vdots & \vdots & \vdots & \vdots & \vdots\\
+    0 & \dots& \mathbf{C}_{(t,\nu)}^{block} &\dots & 0\\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    0 & \dots& 0 &\dots & \mathbf{C}_{(t,\nu)}^{block}\\
+  \end{bmatrix}
+\end{equation*}
+The sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp,n}$ is a one row matrix of size 
+$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp}$ on top of each other. 
+\begin{eqnarray*}
+\mathbf{V}_{pq,(t,\nu)}^{samp,n}&=&\Bigg[\mathbf{V}_{pq,(t,\nu)}^{samp},\dots, \mathbf{V}_{pq,(t,\nu)}^{samp}, \dots,
+\mathbf{V}_{pq,(t,\nu)}^{samp}\Bigg]^T. 
+\end{eqnarray*}
+
+\begin{equation}
+\mathbf{V}_{pq}^{avg}= \mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot 
+\mathbf{S}_{pq,(t,\nu)}^{n}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky},\label{eqv:linear}
+\end{equation}
+if the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
+$\textbf{F}$ is the Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. 
+
+We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
+measured over all baselines  and $N_v=n_{bl}\times N_v^{pq}$ in this case. Here, $n_{bl}$ is the number of baseline. We can write
+\begin{equation}
+ \mathbf{V}_{all}^{avg}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky}.
+\end{equation}
+Here, $\mathbf{A}$ is a matrix of size $(4N_v)\times (4N_{pix})$ defined as follow
+\begin{equation*}
+\mathbf{A}_{l,m}=
+  \begin{bmatrix}
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
+    \vdots\\
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n}\cdot \mathbf{S}_{ik,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
+    \vdots \\
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n}\cdot \mathbf{S}_{jl,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
+  \end{bmatrix}
+\end{equation*}
+The 
+dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived
+\begin{equation}
+\mathcal{I}_{l,m}^{D}=\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky}.
+\end{equation}
+Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is the inverse 
+Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+\section[]{Similar way of imaging}
+We explained how we derived the complex matrices used in section \ref{sec:imaging}
+Each baseline has his own baseline dependent windowing functions during integration. Unfortunately, we can not accurately estimate the 
+resulting spectrum of all windowing functions that multiply the sky seen by these baselines (if we supposed that all baselines are seen the 
+same sky). The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
+measured at each baseline. The mathematics behind this is as follow:
+\begin{eqnarray*}
+ \mathcal{I}^{D}_{l,m}&=&\mathcal{F}^{-1}\Bigg\{\sum_{pq}\mathcal{S}_{pq}\cdot \Bigg(c_{pq}\cdot\big(\mathcal{W}_{pq}\circ 
+\mathcal{V}\big)\Bigg)_{(t,\nu)}\Bigg\}
+\end{eqnarray*}
+where $\mathcal{S}_{pq}$ is the sampling function of the baseline $pq$.  This can be rewritten as
+\begin{eqnarray*}
+ \mathcal{I}^{D}_{l,m}&=&\sum_{pq}\mathcal{B}_{pq}\circ \Bigg(\mathcal{F}^{-1}\big\{c\big\}_{pq}\circ\big(\mathcal{R}_{pq}\cdot
+\mathcal{I}^{sky}\big)\Bigg)_{(l,m)}
+\end{eqnarray*}
+Here, $\mathcal{R}_{pq}=\mathcal{W}_{pq}$ is the sky response or smearing response for the baseline $pq$. The same sky seen by all 
+baselines is $\mathcal{I}^{sky}$ and $\mathcal{B}_{pq}$ is the synthesized beam or point spread function of the baseline $pq$. 
+$\Bigg(\mathcal{F}^{-1}\big\{c\big\}_{pq}\circ\big(\mathcal{R}_{pq}\cdot \mathcal{I}^{sky}\big)\Bigg)_{(l,m)}= 
+\big(\mathcal{R}_{pq}\cdot\mathcal{I}^{sky}\big)_{(l,m)}$. Therefore, the dirty beam can be written as: 
+\begin{eqnarray*}
+ \mathcal{I}^{D}_{l,m}&=&\Bigg(\sum_{pq}\mathcal{B}_{pq}\circ \bigg(\mathcal{R}_{pq}\cdot
+\mathcal{I}\bigg)\Bigg)_{(l,m)}
+\end{eqnarray*}
+If the integration windowing function were the same in all baseline, then we can write:
+\begin{eqnarray*}
+ \mathcal{I}^{D}_{l,m}&=&\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \bigg(\mathcal{R}\cdot
+\mathcal{I}\bigg)\Bigg)_{(l,m)}
+\end{eqnarray*}
+
 \bsp
 \label{lastpage}
 \end{document}
