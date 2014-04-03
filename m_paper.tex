@@ -535,8 +535,8 @@ rules
 \begin{eqnarray*}
  \Delta_u \nu= \left\{ 
   \begin{array}{l l}
-     \cup\{\nu_i\}_{i=s',\hspace{0.1cm} s'\geq s+1}^{c', \hspace{0.1cm}c'\leq c-1} & \quad \text{if $n_{lt}+n_{rt} < n_t$}\\
-      \{\nu_c\}& \quad \text{if $n_{lt}+n_{rt} = n_t$}\\
+     \cup\{\nu_i\}_{i=s',\hspace{0.1cm} s'\geq s+1}^{c', \hspace{0.1cm}c'\leq c-1} & \quad \text{if $n_{l\nu}+n_{r\nu} < n_{\nu}$}\\
+      \{\nu_c\}& \quad \text{if $n_{l\nu}+n_{r\nu} = n_{\nu}$}\\
        \emptyset  & \quad \text{otherwise}
   \end{array} \right.
 \end{eqnarray*}
@@ -613,7 +613,7 @@ dropping  faster.
 \subsubsection{First order prolate spheroidal wave function}
 \subsubsection{Sinc window}
 In theory, the sinc window  is an infinitely large convolution filter as it is non zero everywhere, and its inverse Fourier
-transform produces the ideal filter kernel (the boxcar windowing function). The sinc is defined as follow:
+Transform produces the ideal filter kernel (the boxcar windowing function). The sinc is defined as follow:
 \begin{equation}
 S_u= sinc\big(\pi bu(t/\lambda_a)\big).
 \end{equation}
@@ -816,9 +816,9 @@ In order to test the algorithmics described in section and section, we performed
 \subsubsection{Maximal integration time interval}
 \begin{figure*}
   \centering
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
