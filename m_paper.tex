@@ -557,6 +557,7 @@ The  overall rms noise is given by
 ,\label{Equ:OBDWnoise}
 \end{eqnarray*}
 \subsection{Windowing functions}
+\label{subsec:Windowing functions}
 In signal processing a windowing function is a mathematical function that is zero-values outside of some chosen interval, and when another 
 function or a signal is multiplied by the windowing function, the product is also zero-values outside the interval.
 In this section, we evaluation the Peak Sidelobe Level (PSL), the Main 
@@ -836,7 +837,7 @@ the number of channels extended across the frequency direction, and  $\Delta \nu
 	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{\nu,ovlp}\times \Delta \nu^{hrms}$. 
       %\end{eqnarray*}
 \end{enumerate}
-\subsection{Simulation 1: data compression and out FoV suppression}
+\subsection{Smearing elimination and out FoV suppression}
 We varied the coordinates of a 1Jy source, and simulated a HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
 time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. The results of averaging and weighted average is save into a LR-MS 
 of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We consider, 
@@ -855,17 +856,23 @@ These results shows that $\approx 75\%$  of the source brightness within the FoV
 \times 0$ (see Fig.\ref{fig:Bl-sinc-FoV2} and Fig.\ref{fig:Bl-sinc-FoV4}) and with $Bl$-J$_0$ $W0\times0$ (Fig.\ref{fig:Bl-bessel-FoV2} and 
 Fig.\ref{fig:Bl-bessel-FoV4}). These results shows that:
 \begin{itemize}
- \item We measured more than 90\% of the source brightness within $\approx 75\%$ of the FoV with $Bl$-$sinc$ $W0 \times 0$ and 
-      $Bl$-J$_0$ $W0\times0$. 
- \item We measured more than 90\% of the source brightness within $\approx 95\%$ of the FoV with the overlap filters ($Bl$-$sinc$ 
-     $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ $W n_{t,ovlp} \times n_{\nu,ovlp}$).
- \item We loss $\approx 99\%$ of the source brightness when the source is $\approx 1^{\circ}$ away from the FoV when using the overlap 
-filters.
-  \item The sinc window conserved the signal within the FoV compared to the Bessel of the first kind window, while the Bessel of the first 
-kind suppressed the signal out of the FoV compare to the sinc.
+ \item We measured more than $90\%$ of the source brightness within $\approx 75\%$ of the FoV using $Bl$-$sinc$ $W0 \times 0$ and 
+      $Bl$-J$_0$ $W0\times0$. Unfortunately, the attenuation rate of the source out of the FoV is approximately the same when performing 
+with simple averaging.
+ \item We measured more than $90\%$ of the source brightness within $\approx 95\%$ of the FoV with the overlap filters. However, as mention 
+in section \ref{subsec:Windowing functions} the reason for this is that, the overlap filter is an accurate practical evaluation of the 
+window theoretical representation\footnote{windowing function theoretically extend to infinitely}. 
+ \item Another obvious effect of the overlap filters is the suppression of the source when this source is out of the FoV. When
+looking at these figures, it appears that the curves of the overlaps filters are below the one of simple averaging.  However, the overlaps 
+filters attenuated $\approx 99\%$ of the source brightness out of the FoV.
+  \item  Whenlooking at these figures, it appears that the sinc window conserved the signal within the FoV compared to the Bessel of the 
+first kind window, while the Bessel of the first kind suppressed the signal out of the FoV compare to the sinc. However, the reason for 
+this is thatthe main lobe width of the sinc is narrower than the one of the Bessel first kind and the Bessel first kind has low 
+sidelobes level compared to the sinc.
 \end{itemize}
-This suggest that, smearing is eliminated within the FoV when we compressed the data by integrating over large time interval and wider 
-bandwidth and the FoV can therefore be extended according on the science goals.
+However, when performing thebaseline dependent ﬁlters, smearing is eliminated within the FoV when we compressed 
+the data by integrating over large time interval and wider bandwidth. When performing overlap baseline dependent windowing function, the 
+source significantly disappears out of the FoV.
 \begin{figure*}
   \centering
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Overlap 
@@ -889,7 +896,7 @@ Overlap
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
 \end{figure*}
-\subsection{Simulation 2: Maximal integration time and frequency}
+\subsection{Maximal integration time and frequency}
 We varied the coordinates of a 1Jy source, and simulated a HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
 time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. The results of averaging and weighted average is save into a LR-MS 
 of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We consider, 

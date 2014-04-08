@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  3 APR 2014 20:18
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  8 APR 2014 18:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -945,107 +945,7 @@ File: ./Figures/timeration.png Graphic file (type png)
 <use ./Figures/timeration.png>
 Package pdftex.def Info: ./Figures/timeration.png used on input line 760.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-
-<./Figures/Bl-sinc-FoV2-vla.pdf, id=54, 587.19376pt x 442.65375pt>
-File: ./Figures/Bl-sinc-FoV2-vla.pdf Graphic file (type pdf)
-
-<use ./Figures/Bl-sinc-FoV2-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-sinc-FoV2-vla.pdf used on input line 819.
-
-(pdftex.def)             Requested size: 191.52246pt x 144.37408pt.
-
-<./Figures/Bl-sinc-FoV4-vla.pdf, id=55, 587.19376pt x 442.65375pt>
-File: ./Figures/Bl-sinc-FoV4-vla.pdf Graphic file (type pdf)
-
-<use ./Figures/Bl-sinc-FoV4-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-sinc-FoV4-vla.pdf used on input line 821.
-
-(pdftex.def)             Requested size: 191.52246pt x 144.37408pt.
-File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
- <use ./Figures/corrSigVLAMxBl.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 823.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
-ut line 825.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 831.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 833.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 835.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
-ut line 837.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 844.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 846.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 848.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
-ut line 850.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 856.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 858.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 860.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
-ut line 862.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-
-Underfull \hbox (badness 1281) in paragraph at lines 867--871
-\T1/pplx/m/n/9 Drawback and fu-tures works*** draw-back and fu-tures
- []
-
-[7]
+ [7]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8 <./Figures/rect.png> <./Figures/freq_resp_box.pdf> <./Figures/sinc.png> <./
@@ -1069,11 +969,213 @@ multiple pdfs with page group included in a single page
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Figures/freq_resp_gaussian.pdf): PDF 
 inclusion: multiple pdfs with page group included in a single page
->] (./m_paper.bbl)
-Underfull \vbox (badness 1226) has occurred while \output is active []
+>]
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV2' on page 9 undefined on input line 8
+47.
 
 
-Underfull \hbox (badness 4765) in paragraph at lines 886--895
+LaTeX Warning: Reference `fig:Bl-sinc-FoV4' on page 9 undefined on input line 8
+47.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV2' on page 9 undefined on input line
+ 847.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV4' on page 9 undefined on input line
+ 847.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV2' on page 9 undefined on input line 8
+56.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV4' on page 9 undefined on input line 8
+56.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV2' on page 9 undefined on input line
+ 856.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV4' on page 9 undefined on input line
+ 857.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png>
+ <./Figures/corrSigVLAMxBl_overlapGdelta.png>]
+<./Figures/Bl-sinc-FoV2-vla.pdf, id=387, 587.19376pt x 442.65375pt>
+File: ./Figures/Bl-sinc-FoV2-vla.pdf Graphic file (type pdf)
+
+<use ./Figures/Bl-sinc-FoV2-vla.pdf>
+Package pdftex.def Info: ./Figures/Bl-sinc-FoV2-vla.pdf used on input line 872.
+
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/Bl-sinc-FoV4-vla.pdf, id=388, 587.19376pt x 442.65375pt>
+File: ./Figures/Bl-sinc-FoV4-vla.pdf Graphic file (type pdf)
+
+<use ./Figures/Bl-sinc-FoV4-vla.pdf>
+Package pdftex.def Info: ./Figures/Bl-sinc-FoV4-vla.pdf used on input line 874.
+
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/Bl-bessel-FoV2-vla.pdf, id=389, 587.19376pt x 442.65375pt>
+File: ./Figures/Bl-bessel-FoV2-vla.pdf Graphic file (type pdf)
+
+<use ./Figures/Bl-bessel-FoV2-vla.pdf>
+Package pdftex.def Info: ./Figures/Bl-bessel-FoV2-vla.pdf used on input line 87
+6.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/Bl-bessel-FoV4-vla.pdf, id=390, 587.19376pt x 442.65375pt>
+File: ./Figures/Bl-bessel-FoV4-vla.pdf Graphic file (type pdf)
+
+<use ./Figures/Bl-bessel-FoV4-vla.pdf>
+Package pdftex.def Info: ./Figures/Bl-bessel-FoV4-vla.pdf used on input line 87
+8.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/max-integ-freq-sinc-w1x1-fov2.pdf, id=391, 587.19376pt x 442.65375pt
+>
+File: ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf used on in
+put line 884.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/max-integ-time-sinc-w1x50-fov2.pdf, id=392, 587.19376pt x 442.65375p
+t>
+File: ./Figures/max-integ-time-sinc-w1x50-fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-time-sinc-w1x50-fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-time-sinc-w1x50-fov2.pdf used on i
+nput line 886.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/max-integ-freq-bessel-w1x1-fov2.pdf, id=393, 587.19376pt x 442.65375
+pt>
+File: ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf used on 
+input line 888.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/max-integ-freq-bessel-w1x50-fov2.pdf, id=394, 587.19376pt x 442.6537
+5pt>
+File: ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf used on
+ input line 890.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV2' on page 10 undefined on input line 
+900.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV4' on page 10 undefined on input line 
+900.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV2' on page 10 undefined on input lin
+e 900.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV4' on page 10 undefined on input lin
+e 900.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV2' on page 10 undefined on input line 
+909.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV4' on page 10 undefined on input line 
+909.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV2' on page 10 undefined on input lin
+e 909.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV4' on page 10 undefined on input lin
+e 910.
+
+
+<./Figures/max-integ-time-sinc-w1x1fov2.pdf, id=395, 587.19376pt x 442.65375pt>
+File: ./Figures/max-integ-time-sinc-w1x1fov2.pdf Graphic file (type pdf)
+<use ./Figures/max-integ-time-sinc-w1x1fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-time-sinc-w1x1fov2.pdf used on inp
+ut line 928.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/max-integ-time-sinc-w100x1fov2.pdf, id=396, 587.19376pt x 442.65375p
+t>
+File: ./Figures/max-integ-time-sinc-w100x1fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-time-sinc-w100x1fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-time-sinc-w100x1fov2.pdf used on i
+nput line 931.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/max-integ-time-bessel-w1x1-fov2.pdf, id=397, 605.26125pt x 492.33937
+pt>
+File: ./Figures/max-integ-time-bessel-w1x1-fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-time-bessel-w1x1-fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-time-bessel-w1x1-fov2.pdf used on 
+input line 933.
+(pdftex.def)             Requested size: 226.79846pt x 184.48405pt.
+
+<./Figures/max-integ-time-bessel-w100x1fov2.pdf, id=398, 587.19376pt x 442.6537
+5pt>
+File: ./Figures/max-integ-time-bessel-w100x1fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-time-bessel-w100x1fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-time-bessel-w100x1fov2.pdf used on
+ input line 935.
+(pdftex.def)             Requested size: 226.79846pt x 170.96593pt.
+
+<./Figures/max-integ-timefreq-sinc-w1x1fov2.pdf, id=399, 606.16464pt x 477.8853
+8pt>
+File: ./Figures/max-integ-timefreq-sinc-w1x1fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-timefreq-sinc-w1x1fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-timefreq-sinc-w1x1fov2.pdf used on
+ input line 963.
+(pdftex.def)             Requested size: 226.79846pt x 178.79822pt.
+
+<./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf, id=400, 630.55576pt x 486.
+01576pt>
+File: ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf Graphic file (type pdf
+)
+ <use ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf use
+d on input line 965.
+(pdftex.def)             Requested size: 226.79846pt x 174.8098pt.
+
+<./Figures/max-integ-timefreq-bessel-w1x1fov2.pdf, id=401, 609.77812pt x 478.78
+876pt>
+File: ./Figures/max-integ-timefreq-bessel-w1x1fov2.pdf Graphic file (type pdf)
+ <use ./Figures/max-integ-timefreq-bessel-w1x1fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-timefreq-bessel-w1x1fov2.pdf used 
+on input line 967.
+(pdftex.def)             Requested size: 226.79846pt x 178.07689pt.
+
+<./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf, id=402, 644.10638pt x 48
+6.91913pt>
+File: ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf Graphic file (type p
+df)
+ <use ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf>
+Package pdftex.def Info: ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf u
+sed on input line 969.
+(pdftex.def)             Requested size: 226.79846pt x 171.44954pt.
+
+Underfull \hbox (badness 1281) in paragraph at lines 974--978
+\T1/pplx/m/n/9 Drawback and fu-tures works*** draw-back and fu-tures
+ []
+
+(./m_paper.bbl [10 <./Figures/time_freq_ration.png> <./Figures/timeration.png>]
+)
+Underfull \hbox (badness 4765) in paragraph at lines 993--1002
 \OMS/zplm/m/n/9 jj[][]jj[] \OT1/zplm/m/n/9 = []\OMS/zplm/m/n/9 jj\OT1/zplm/b/n/
 9 u[]\OMS/zplm/m/n/9 jj\OT1/pplx/m/n/9 , [] , \OMS/zplm/m/n/9 jj\OT1/zplm/b/n/9
  u[]\OMS/zplm/m/n/9 jj\OT1/pplx/m/n/9 , [] , \OMS/zplm/m/n/9 jj\OT1/zplm/b/n/9 
@@ -1081,7 +1183,7 @@ u[]\OMS/zplm/m/n/9 jj[]$ \T1/pplx/m/n/9 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 886--895
+Underfull \hbox (badness 10000) in paragraph at lines 993--1002
 \OMS/zplm/m/n/9 jj\OT1/zplm/b/n/9 U[] \OT1/zplm/m/n/9 + \OT1/zplm/b/n/9 U[]\OMS
 /zplm/m/n/9 jj[] \OT1/zplm/m/n/9 = []\OMS/zplm/m/n/9 jj\OT1/zplm/b/n/9 u[] \OT1
 /zplm/m/n/9 + \OT1/zplm/b/n/9 u[]\OMS/zplm/m/n/9 jj\OT1/pplx/m/n/9 , [] , \OMS/
@@ -1089,7 +1191,7 @@ zplm/m/n/9 jj\OT1/zplm/b/n/9 u[] \OT1/zplm/m/n/9 +
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 886--895
+Underfull \hbox (badness 10000) in paragraph at lines 993--1002
 \OMS/zplm/m/n/9 jj\OT1/zplm/b/n/9 u[]\OMS/zplm/m/n/9 jj \OT1/zplm/m/n/9 + \OMS/
 zplm/m/n/9 jj\OT1/zplm/b/n/9 u[]\OMS/zplm/m/n/9 jj$\T1/pplx/m/n/9 , this is tri
 v-ial be-cause $\OMS/zplm/m/n/9 jj\OT1/pplx/m/n/9 .\OMS/zplm/m/n/9 jj$ \T1/pplx
@@ -1097,7 +1199,7 @@ v-ial be-cause $\OMS/zplm/m/n/9 jj\OT1/pplx/m/n/9 .\OMS/zplm/m/n/9 jj$ \T1/pplx
  []
 
 
-Underfull \hbox (badness 4647) in paragraph at lines 886--895
+Underfull \hbox (badness 4647) in paragraph at lines 993--1002
 \T1/pplx/m/n/9 the Eu-clidean norm. There-fore, $\OMS/zplm/m/n/9 jj\OT1/zplm/b/
 n/9 U[] \OT1/zplm/m/n/9 + \OT1/zplm/b/n/9 U[]\OMS/zplm/m/n/9 jj[] \U/msa/m/n/9 
 6
@@ -1106,28 +1208,75 @@ n/9 U[] \OT1/zplm/m/n/9 + \OT1/zplm/b/n/9 U[]\OMS/zplm/m/n/9 jj[] \U/msa/m/n/9
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [9 <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png>
- <./Figures/corrSigVLAMxBl_overlapGdelta.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10 <./Figures/time_freq_ration.png> <./Figures/timeration.png> <./Figures/Bl-
-sinc-FoV2-vla.pdf> <./Figures/Bl-sinc-FoV4-vla.pdf
+ [11 <./Figures/Bl-sinc-FoV2-vla.pdf> <./Figures/Bl-sinc-FoV4-vla.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Bl-sinc-FoV4-vla.pdf): PDF in
 clusion: multiple pdfs with page group included in a single page
->] [11]
+> <./Figures/Bl-bessel-FoV2-vla.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Bl-bessel-FoV2-vla.pdf): PDF 
+inclusion: multiple pdfs with page group included in a single page
+> <./Figures/Bl-bessel-FoV4-vla.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Bl-bessel-FoV4-vla.pdf): PDF 
+inclusion: multiple pdfs with page group included in a single page
+>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [12]
+ [12 <./Figures/max-integ-freq-sinc-w1x1-fov2.pdf> <./Figures/max-integ-time-si
+nc-w1x50-fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-time-sinc-w1x50-fov
+2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./Figures/max-integ-freq-bessel-w1x1-fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-freq-bessel-w1x1-fo
+v2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
+> <./Figures/max-integ-freq-bessel-w1x50-fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-freq-bessel-w1x50-f
+ov2.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
+e
+>]
+Underfull \vbox (badness 5022) has occurred while \output is active []
+
+ [13 <./Figures/max-integ-time-sinc-w1x1fov2.pdf> <./Figures/max-integ-time-sin
+c-w100x1fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-time-sinc-w100x1fov
+2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./Figures/max-integ-time-bessel-w1x1-fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-time-bessel-w1x1-fo
+v2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
+> <./Figures/max-integ-time-bessel-w100x1fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-time-bessel-w100x1f
+ov2.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
+e
+>]
 
 Package natbib Warning: There were undefined citations.
 
-[13
+[14 <./Figures/max-integ-timefreq-sinc-w1x1fov2.pdf> <./Figures/max-integ-timef
+req-sinc-w100x50-fov2.pdf
 
-] (./m_paper.aux)
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-timefreq-sinc-w100x
+50-fov2.pdf): PDF inclusion: multiple pdfs with page group included in a single
+ page
+> <./Figures/max-integ-timefreq-bessel-w1x1fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-timefreq-bessel-w1x
+1fov2.pdf): PDF inclusion: multiple pdfs with page group included in a single p
+age
+> <./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-timefreq-bessel-w10
+0x50-fov2.pdf): PDF inclusion: multiple pdfs with page group included in a sing
+le page
+>] (./m_paper.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1139,13 +1288,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4762 strings out of 493485
- 66520 string characters out of 3143526
- 147986 words of memory out of 3000000
- 7897 multiletter control sequences out of 15000+200000
+ 4839 strings out of 493485
+ 69919 string characters out of 3143526
+ 144986 words of memory out of 3000000
+ 7960 multiletter control sequences out of 15000+200000
  83907 words of font info for 170 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 44i,17n,42p,255b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,17n,42p,255b,377s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1158,10 +1307,10 @@ fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb
 </usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on m_paper.pdf (13 pages, 879629 bytes).
+Output written on m_paper.pdf (14 pages, 1185145 bytes).
 PDF statistics:
- 592 PDF objects out of 1000 (max. 8388607)
- 183 compressed objects within 2 object streams
+ 1653 PDF objects out of 1728 (max. 8388607)
+ 426 compressed objects within 5 object streams
  0 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 166 words of extra memory for PDF output out of 10000 (max. 10000000)
 
