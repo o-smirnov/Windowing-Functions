@@ -810,39 +810,62 @@ per baseline simulated rms noise do not look the same with the theoretical one. 
 %   \end{bmatrix}
 % \end{equation*}
 \section{Simulation and results}
-In order to test the algorithms described in section and section, we performed  multiple tests on JVLA simulated measurement set 
-(dataset). In this section we summarize and discussed those results.
-In order to test the two algorithms we described above, we used a JVLA 
-simulated high resolution dataset of 11min15s synthesis, with a 1,5s integration time at 1.4Ghz,  with 150 channels of width 125Khz. From 
-the high resolution dataset, we apply the methods and saved the results to a low resolution dataset, of 1min30s synthesis, with a 150s 
-integration time at 1.4Ghz,  with 1 channels of width 6.25Mhz. In order to apply the second algorithm, we met the following conditions:
+In order to test the algorithms described in section and section, we performed  multiple tests on JVLA simulated measurement sets (MS). In 
+this section we summarize and discussed those results. Several windowing functions  were described in the previoussection, the sinc window 
+and the Bessel of the first kind approaches well our specifications, and they are taken under consideration. Two MS is used in 
+our simulation, a high resolution MS (HR-MS) that contained the observed JVLA data of short integration time and frequency, a low resolution 
+MS (LR-MS), where the simple averaged or the weight averaged data are saved. To apply the second algorithm described in section 
+\ref{baseline2}, the following conditions are satisfied:
 \begin{enumerate}
- \item A  high resolution dataset has to start before the low resolution one and the number of timeslots within these two starting times 
-     has to be greater than or equal to the number of overlap timeslots.
-  \item A low resolution dataset has to end before the high resolution one and the number of timeslots within these two ending times has to 
-     be greater than or equal to the number of overlap timeslots.
+ \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively. $n_{t,ovlp}$ the number 
+of timeslots extended across the time direction, and  $\Delta t^{hrms}$ the HR-MS integration time, then 
+      %\begin{eqnarray*}
+	    $t^{lrms}_{start}\geq t^{hrms}_{start} + n_{t,ovlp}\times \Delta t^{hrms}$. 
+      %\end{eqnarray*}
+  \item If $t^{hrms}_{end}$ and $t^{lrms}_{end}$ are the ending time of the HR-MS and LR-MS respectively, then 
+      %\begin{eqnarray*}
+	    $t^{lrms}_{end}\leq t^{hrms}_{end} + n_{t,ovlp}\times \Delta t^{hrms}$. 
+      %\end{eqnarray*}
+ \item If $\nu^{hrms}_{start}$ and $\nu^{lrms}_{start}$ are the starting frequency of the HR-MS and LR-MS respectively. $n_{\nu,ovlp}$ 
+the number of channels extended across the frequency direction, and  $\Delta \nu^{hrms}$ the HR-MS width, then 
+      %\begin{eqnarray*}
+	    $\nu^{lrms}_{start} \geq \nu^{hrms}_{start} + n_{\nu,ovlp}\times \Delta \nu^{hrms}$. 
+      %\end{eqnarray*}
+ \item If $\nu^{hrms}_{end}$ and $\nu^{lrms}_{end}$ are the ending frequency of the HR-MS and LR-MS respectively, then 
+      %\begin{eqnarray*}
+	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{\nu,ovlp}\times \Delta \nu^{hrms}$. 
+      %\end{eqnarray*}
 \end{enumerate}
-The above conditions are also applied to the starting and the ending frequency channel of the two dataset.
-For our simulation, we took $start\_time\_hres=0s$ for the high resolution dataset starting time, and $start\_time\_lres=1min30s$ for the 
-low resolution dataset starting time. Similarly, we took $start\_freq\_hres=125Khz$ for the high resolution dataset starting frequency, and 
-$start\_freq\_lres=6.25Mhz$ for the low resolution dataset starting frequency. We used a sinc windowing function and the Bessel function of 
-the First Kind as a baseline dependent windowing function.\\
-{\footnotesize \textbf{ \textit{ Notations:}}
-$Avg$: averaging, $Bl$-$sinc$ $Wo_t \times o_{\nu}$ and $Bl$-$J_0$ $Wo_t \times o_{\nu}$ are the baseline-dependent $sinc$ and the Bessel 
-function of the First Kind respectively with an extended width of $(o_t-1)n_t$ time bins and $(o_{\nu}-1)n_{\nu}$ frequency bins ($o_t \geq 
-1$ and $o_{\nu} \geq 1$).  $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$: the noise ratio, with $\sigma_{w}$  the resulting noise 
-for the baseline dependent windowing function and $\sigma_{Avg}$ the average resulting noise, $r$: source position in degrees.}
-Fig.\ref{fig:Bl-sinc-FoV2} and Fig.\ref{fig:Bl-sinc-FoV4} shows the measured brightness of a simulate 1Jy source move from the phase centre 
-to a given position in the sky using a sinc windowing function with FoV equal to two degrees and FoV equal to four degrees respectively. We 
-recovered about 75\% of the source brightness within the FoV using $Bl$-$sinc$-$w1\times1$ with 150s integration time interval and 6.25Mhz 
-integration frequency interval and suppressed the source like averaging when this source is out FoV. This result shows that smearing is 
-eliminated within the FoV when we are integrating over large time and frequency. The drawback is the thermal noise increases. We 
-furthermore extends the width of the $Bl$-$sinc$-$w1\times1$ window, by and amount of 100 times bins and 25 frequencies 
-bins (see $Bl$-$sinc$-$w100\times25$), and 150 times bins and 50 frequencies bins (see $Bl$-$sinc$-$w150\times50$). We noticed that, by 
-doing this, we recovered more brightness of the source and we more suppressed the source when this is out of the FoV, this by 
-conserving or reducing the same amount of thermal noise given by the $Bl$-$sinc$-$w1\times1$ window. From these Figures, we could conclude 
-that, when the extend width grows up, we recover more the source brightness within the FoV and suppressed more the source out of this FoV.  
-
+\subsection{Simulation 1: data compression and out FoV suppression}
+We varied the coordinates of a 1Jy source, and simulated a HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
+time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. The results of averaging and weighted average is save into a LR-MS 
+of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We consider, 
+$\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{1min30s,6250kHz\}$, 
+$\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s$,xxxkHz\}, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,xxxkHz\}$, $n_{t,ovlp}=\{0,100,150\}$ 
+and $n_{\nu,ovlp}=\{0,25,50\}$.\\
+Fig.\ref{fig:Bl-sinc-FoV2}, Fig.\ref{fig:Bl-sinc-FoV4}, Fig.\ref{fig:Bl-bessel-FoV2} and Fig.\ref{fig:Bl-bessel-FoV4} show the results of 
+the simulation, where we represented the brightness of the source as a function of the source coordinates in the sky. In these figures, we 
+considered three cases of the sinc window, and three of the Bessel first kind ($Bl$-$sinc$ $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ 
+$W n_{t,ovlp} \times n_{\nu,ovlp}$ with  $n_{t,ovlp}=\{0,100,150\}$ and $n_{\nu,ovlp}=\{0,25,50\}$). We evaluated the loss in signal 
+amplitude with longer LR-MS integration time interval $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency interval $\Delta 
+\nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
+the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
+% $r$: source position in degrees.}
+These results shows that $\approx 75\%$  of the source brightness within the FoV is recovered with $Bl$-$sinc$ $W0 
+\times 0$ (see Fig.\ref{fig:Bl-sinc-FoV2} and Fig.\ref{fig:Bl-sinc-FoV4}) and with $Bl$-J$_0$ $W0\times0$ (Fig.\ref{fig:Bl-bessel-FoV2} and 
+Fig.\ref{fig:Bl-bessel-FoV4}). These results shows that:
+\begin{itemize}
+ \item We measured more than 90\% of the source brightness within $\approx 75\%$ of the FoV with $Bl$-$sinc$ $W0 \times 0$ and 
+      $Bl$-J$_0$ $W0\times0$. 
+ \item We measured more than 90\% of the source brightness within $\approx 95\%$ of the FoV with the overlap filters ($Bl$-$sinc$ 
+     $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ $W n_{t,ovlp} \times n_{\nu,ovlp}$).
+ \item We loss $\approx 99\%$ of the source brightness when the source is $\approx 1^{\circ}$ away from the FoV when using the overlap 
+filters.
+  \item The sinc window conserved the signal within the FoV compared to the Bessel of the first kind window, while the Bessel of the first 
+kind suppressed the signal out of the FoV compare to the sinc.
+\end{itemize}
+This suggest that, smearing is eliminated within the FoV when we compressed the data by integrating over large time interval and wider 
+bandwidth and the FoV can therefore be extended according on the science goals.
 \begin{figure*}
   \centering
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Overlap 
@@ -853,7 +876,7 @@ that, when the extend width grows up, we recover more the source brightness with
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:Bl-bessel-FoV2}\end{minipage}
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{
 Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig:Bl-bessel-FoV4}\end{minipage}
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:Bl-bessel-FoV4}\end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
@@ -866,14 +889,47 @@ Overlap
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
 \end{figure*}
+\subsection{Simulation 2: Maximal integration time and frequency}
+We varied the coordinates of a 1Jy source, and simulated a HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
+time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. The results of averaging and weighted average is save into a LR-MS 
+of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We consider, 
+$\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{1min30s,6250kHz\}$, 
+$\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s$,xxxkHz\}, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,xxxkHz\}$, $n_{t,ovlp}=\{0,100,150\}$ 
+and $n_{\nu,ovlp}=\{0,25,50\}$.\\
+Fig.\ref{fig:Bl-sinc-FoV2}, Fig.\ref{fig:Bl-sinc-FoV4}, Fig.\ref{fig:Bl-bessel-FoV2} and Fig.\ref{fig:Bl-bessel-FoV4} show the results of 
+the simulation, where we represented the brightness of the source as a function of the source coordinates in the sky. In these figures, we 
+considered three cases of the sinc window, and three of the Bessel first kind ($Bl$-$sinc$ $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ 
+$W n_{t,ovlp} \times n_{\nu,ovlp}$ with  $n_{t,ovlp}=\{0,100,150\}$ and $n_{\nu,ovlp}=\{0,25,50\}$). We evaluated the loss in signal 
+amplitude with longer LR-MS integration time interval $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency interval $\Delta 
+\nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
+the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
+% $r$: source position in degrees.}
+These results shows that $\approx 75\%$  of the source brightness within the FoV is recovered with $Bl$-$sinc$ $W0 
+\times 0$ (see Fig.\ref{fig:Bl-sinc-FoV2} and Fig.\ref{fig:Bl-sinc-FoV4}) and with $Bl$-J$_0$ $W0\times0$ (Fig.\ref{fig:Bl-bessel-FoV2} and 
+Fig.\ref{fig:Bl-bessel-FoV4}). These results shows that:
+\begin{itemize}
+ \item We measured more than 90\% of the source brightness within $\approx 75\%$ of the FoV with $Bl$-$sinc$ $W0 \times 0$ and 
+      $Bl$-J$_0$ $W0\times0$. 
+ \item We measured more than 90\% of the source brightness within $\approx 95\%$ of the FoV with the overlap filters ($Bl$-$sinc$ 
+     $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ $W n_{t,ovlp} \times n_{\nu,ovlp}$).
+ \item We loss $\approx 99\%$ of the source brightness when the source is $\approx 1^{\circ}$ away from the FoV when using the overlap 
+filters.
+  \item The sinc window conserved the signal within the FoV compared to the Bessel of the first kind window, while the Bessel of the first 
+kind suppressed the signal out of the FoV compare to the sinc.
+\end{itemize}
+This suggest that, smearing is eliminated within the FoV when we compressed the data by integrating over large time interval and wider 
+bandwidth and the FoV can therefore be extended according on the science goals.
 \begin{figure*}
+% *********************** Scripts that created these plots ***********************************
+%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
+	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
   \centering
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1fov2.pdf}\caption{
 Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
@@ -893,15 +949,24 @@ Overlap
 % \end{figure*}
 % \subsubsection{Dataset with many sources}
 \begin{figure*}
+% *********************** Scripts that created these plots ***********************************
+%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxfreqtime-sinc-fov2-window/',title1=r'Avg[circle mark] vs. Bl-sinc-W$1\times 1$ [triangle 
+      %mark], FoV=2$^\circ$')
+%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxfreqtime-sinc-fov2-overlap',title1=r'Avg[circle mark] vs. Bl-sinc-W$100\times 50$ 
+      %[triangle mark], FoV=2$^\circ$')
+%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxfreqtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ 
+      %[triangle mark], FoV=2$^\circ$')
+%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxfreqtime-bessel-fov2-overlap',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$100\times 50$ 
+      %[triangle mark], FoV=2$^\circ$')
   \centering
 \begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:max-integ-timefreq-sinc-w1x1fov2}\end{minipage}
+\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
+\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
+\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
 \end{figure*}
 \subsection{Discussion}
 \section{Conclusions}
