@@ -8,43 +8,43 @@ Warning--I didn't find a database entry for "1"
 Warning--I didn't find a database entry for "5"
 You've used 3 entries,
             2601 wiz_defined-function locations,
-            565 strings with 3961 characters,
-and the built_in function-call counts, 964 in all, are:
-= -- 97
-> -- 39
-< -- 3
-+ -- 12
-- -- 12
-* -- 78
-:= -- 185
+            565 strings with 4076 characters,
+and the built_in function-call counts, 1064 in all, are:
+= -- 109
+> -- 56
+< -- 2
++ -- 18
+- -- 18
+* -- 95
+:= -- 203
 add.period$ -- 0
 call.type$ -- 3
-change.case$ -- 16
+change.case$ -- 18
 chr.to.int$ -- 3
 cite$ -- 3
-duplicate$ -- 34
-empty$ -- 55
-format.name$ -- 17
-if$ -- 177
+duplicate$ -- 33
+empty$ -- 49
+format.name$ -- 23
+if$ -- 192
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 4
-newline$ -- 13
+missing$ -- 3
+newline$ -- 12
 num.names$ -- 12
-pop$ -- 12
+pop$ -- 10
 preamble$ -- 1
-purify$ -- 19
+purify$ -- 21
 quote$ -- 0
-skip$ -- 38
+skip$ -- 39
 stack$ -- 0
-substring$ -- 56
+substring$ -- 60
 swap$ -- 3
 text.length$ -- 0
-text.prefix$ -- 4
+text.prefix$ -- 6
 top$ -- 0
-type$ -- 24
+type$ -- 27
 warning$ -- 0
-while$ -- 11
+while$ -- 12
 width$ -- 0
 write$ -- 32
 (There were 3 warnings)

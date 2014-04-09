@@ -5,15 +5,15 @@
 @string{pub-ORA:adr = "{981 Chestnut Street, Newton, MA 02164, USA}"}
 
 
-@article{Grobler2014,
-	author = "T. L. Grobler, C. D. Nunhokee and O. M. Smirnov, A. J. van Zyl and A. J. van Zyl",
+@article{Marti2008,
+	author = "Mart{\'i}-Vidal, I. and Marcaide, J.M.",
 	journal = "A\&A",
 	number = "1",
-	pages = "4--5",
+	pages = "289--295",
 	publisher = "EDP Sciences",
-	title = "{Calibration artefacts in radio interferometry.I. Ghost sources in WSRT data}",
+	title = "{Spurious source generation in mapping from noisy phase-self-calibrated data}",
 	volume = "480",
-	year = "2014"
+	year = "2008"
 }
 
 @article{Marti2008,
