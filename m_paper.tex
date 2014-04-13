@@ -67,7 +67,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithm For Cheaper Surveys: Using Windowing Functions. 
+\title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithms For Cheaper Surveys: Using Windowing Functions. 
 }
 \author[M. T. Atemkeng , O. M. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. T. Atemkeng$^{1}$, O. M. Smirnov$^{12}$\thanks{E-mail: 
 o.smirnov@ru.ac.za (OMS); m.atemkeng@gmail.com (MTA); cyril.tasse@obspm.fr (CT); griffin.foster@gmail.com (GF); j.jonas@ru.ac.za (JJ)}, 
@@ -77,7 +77,7 @@ $^2$SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Afr
 $^3$GEPI, Observatoire de Paris, CNRS, Universite Paris Diderot, 5 place Jules Janssen, 92190 Meudon, France}
 \begin{document}
 
-\date{in original form 1988 October 11}
+\date{in original form 2014 Mai 11}
 
 \pagerange{\pageref{firstpage}--\pageref{lastpage}} \pubyear{2013}
 
@@ -179,19 +179,18 @@ interval, then Eq.\ref{eq1:visSky} can be rewritten as:
 % the time interval $\Delta t$ at multi frequency  within the bandwidth $\Delta \nu$, then the cross correlate visibility, 
 % $\mathcal{V}_{pq,(t,\nu)}^{corr}$ of the  baseline $(p,q)$ is given as:
 \begin{equation}
-V_{pq}^{avg}=\frac{1}{\Delta t \Delta \nu} \int_{t_s}^{t_e}\int_{\nu_s}^{\nu_e}V_{pq,(t,\nu)}d\nu dt
+V_{pq,(t_c,\nu_c)}^{corr}=\frac{1}{\Delta t \Delta \nu} \int_{t_c-dt/2}^{t_c+dt/2}\int_{\nu_c-d\nu/2}^{\nu_c+d\nu/2}V_{pq,(t,\nu)}d\nu dt.
 \label{eq2:conti}
 \end{equation}
- $V_{pq}$ is a continuous function, in reality we know only the sampled visibility, 
-$V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}V_{pq,(t,\nu)}$ at a specific time and frequency. $S_{pq,(t,\nu)}$ is a sampling 
-function that indicates where the $(u, v)$ data for the baseline $(p,q)$ is measured  during the time and frequency integration. 
+Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility, 
+$V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}V_{pq,(t,\nu)}$ at a specific time and frequency, where $S_{pq,(t,\nu)}$ is a sampling 
+function that indicates where the $(u, v)$ data for the baseline $(p,q)$ are measured  during the time and frequency integration. 
 Therefore, 
-Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre frequency, $\nu_c$ and at the centre time, 
-$t_c$ is restricted to a narrow frequency interval and to a short time interval $[t_s,t_e]$ 
-respectively, this is the current efficient observing mode. However, this is expressed mathematically as 
+Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre frequency and at the centre time is restricted to a narrow 
+frequency interval and to a short time interval, this is the current efficient observing mode. However, the mathematics behind is as 
+follows: 
 \begin{eqnarray}
-V_{pq}^{avg}&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}} S_{pq,(t_i, 
-\nu_j)}V_{pq,(t_i,\nu_j)}.\label{eq2:sample}
+V_{pq,(t_c,\nu_c)}^{corr}&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq,(t,\nu)}^{samp}.\label{eq2:sample}
 %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
 \end{eqnarray}
 Here, $n_t$ and $n_{\nu}$ are the number of discrete times within the time interval  and the number of discrete frequency 
@@ -199,131 +198,143 @@ within the frequency interval  respectively. For convenience, lets introduce a n
 function, $\Pi_{pq,(t_c - t,\nu_c -\nu)}$  that will attribute an equal weight (in this case $1/n_t n_{\nu}$) to all sampling visibilities 
 points. We can therefore rewrite Eq. \ref{eq2:sample} as:
 \begin{eqnarray}
-V_{pq}^{agv}&=& \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\Pi_{pq,(t_c - t_i,\nu_c -\nu_j)}S_{pq,(t_i,\nu_j)}V_{pq,(t_i,\nu_j)}\\
-	    &=& \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\Pi_{pq,(t_c - t_i,\nu_c -\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}. 
+V_{pq,(t_c,\nu_c)}^{corr}&=&\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\Pi_{pq,(t_c - t_i,\nu_c -\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}. 
 \label{eq:avscon}
 \end{eqnarray}
-
 It is worth noting that Eq.\ref{eq:avscon} is a naturally weighted visibility and is a two dimensional convolution between the 
-\textit{Boxcar} windowing function and the sampled visibility $V_{pq}^{samp}$. Thus, averaging is equivalent to convolving the 
+\textit{Boxcar} windowing function and the sampled visibility. Thus, averaging is equivalent to convolving the 
 sampled 
 visibility with a \textit{Boxcar} windowing function. Mathematically, this is described as follows:
 \begin{equation}
- V_{pq}^{avg}=c_{pq,(t,\nu)}\cdot\Bigg(\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg). \label{f4}
+ V_{pq,(t_c,\nu_c)}^{corr}=c_{pq,(t,\nu)}\cdot\Bigg(\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg). \label{f4}
 \end{equation}
 Here, $c_{pq,(t,\nu)}$ is a function that samples the result of $\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}$ at 
-the centre time interval and centre frequency interval.
+the centre time interval and centre frequency interval. %Its is defined as: $c_{pq,(t_i,\nu_j)}=0$ for 
+%$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
 \subsection{Effect of time and bandwidth averaging}
-During imaging, Eq.\ref{f4} is inverse Fourier transform, and after applying the convolution theorem , the $sinc$ function ( 
-$\mathcal{F}^{-1}\Pi_{pq, (t,\nu)}=sinc(\pi\Delta u_{pq}||\textbf{l}||)$) multiply the sky. Thus, the 
-sky map is tapered by the $sinc$ function in the $l$ and $m$ direction, the response is maximal for sources at the phase centre ( 
-$l=0,m=0$) while for off-phase centre sources, the response is smeared (decreased) for larger $\Delta u_{pq}$ ( 
-$\Delta u_{pq}$ is a function of $\Delta t$ and $\Delta \nu$). The main lobe of the $sinc$ extends from 
-$-1/2\Delta u_{pq}$ to $1/2\Delta u_{pq}$ while the amplitude gradually dies out, and the larger the $\Delta 
-u_{pq}$, the narrower the central peak and the oscillations. Therefore, the degree of smearing increases with the position of a 
-source and the baseline length (see Thompson et \textit{al}.)\footnote{The Fourier phase components $2\pi \phi(u,v,w)$ depends on the 
-direction in the sky, the wavelength, the separation of antennas as well as the integration time and frequency. A maximal phase will 
-occurs on longer baselines and small phase on shorter baselines.}.
-\begin{enumerate}
- \item Fig.\ref{timessear1} shows the attenuation of a source at various coordinates in the sky for various integration time interval. We 
-measure  more than $90\%$ of the source brightness for integrations less than or equal to $25s$ when the source is within the 
-       Field of view and more than $90\%$ when the source is out of the Field of View. As mention above, for small integration like $25s$ 
-       we produce large data  and maintain strong sidelobes contamination from out field of view sources.
-       %For a source at coordinates $(l=0, m=1deg)$ smearing occurs for an integration greater than $90s$ (see Fig.\ref{timessear11})
-  \item Fig.\ref{timessear2} 
-\end{enumerate}
+During imaging \citep{Marti2008}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
+$sinc$ function therefore multiply the sky (see appendix\ref{label:similarimaging} for a short discussion and illustration). Thus, the 
+sky map is tapered by the $sinc$ function in the $l$ and $m$ direction, the response is maximal for sources at the phase centre 
+($l=0,m=0$), while for off-phase centre sources, the response is smeared (decreased) for larger $\Delta t$ and $\Delta \nu$. The 
+Fourier phase components $2\pi \phi(u,v,w)$ is a function of the direction in the sky, the wavelength, the separation of antennas as well 
+as the integration time and frequency. Therefore, a maximal phase will occurs on longer baselines while a small phase on shorter baselines. 
+Thus, this explained while the degree of smearing increases with the position of a source and the baseline length (see Thompson 
+et \textit{al}.)
+\begin{itemize}
+ \item Fig.\ref{timessear1} shows the attenuation of a source at various coordinates in the sky for various integration time interval. More 
+than $90\%$ of the source brightness is measured for integration less than or equal to $25s$ when this source is within 
+$[0^\circ,3^\circ]$. We can noticed on this figure that, we could not maintained the $90\%$ of the source brightness within 
+$[0^\circ,1^\circ]$ if the desire FoV is $2^\circ$ and suppressed the source within $[1^\circ,3^\circ]$ with these short integration. 
+Therefore, as mention earlier in this work, a small integration produced large data and maintained sidelobes contamination from out field 
+of view sources.
+  \item Fig.\ref{timessear2} shows the attenuation of a source at various coordinates in the sky for various integration 
+time interval. More than $90\%$ of the source brightness is measured for integration less than or equal to $25s$ when this source is within 
+$[0^\circ,3^\circ]$. We can noticed on this figure that, we could not maintained the $90\%$ of the source brightness within 
+$[0^\circ,1^\circ]$ if the desire FoV is $2^\circ$ and suppressed the source within $[1^\circ,3^\circ]$ with these short integration. 
+Therefore, as mention earlier in this work, a small integration produced large data and maintained sidelobes contamination from out field 
+of view sources
+\end{itemize}
 \begin{figure*}
   \centering
   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.png}\caption{The fall of the 
 intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at 100KHz 
 bandwidth.}\label{timessear1}\end{minipage}
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/maximun_integration.png}\caption{(b)Response to a 1Jy 
-source at 1deg, as a function of $\Delta t$ with 100KHz bandwidth}\label{timessear11}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.png}\caption{The fall of the 
-intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at 100KHz 
-bandwidth.}\label{timessear2}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/maximun_integration.png}\caption{The fall of the 
-intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at 100KHz 
-bandwidth.}\label{fig:fig_5}\end{minipage}
+source at 1deg, as a function of $\Delta t$ with 100KHz bandwidth}\label{timessear11}\end{minipage}
 \end{figure*}
 Fortunately, since the response is maximal only for sources at the phase centre, an interesting approach is achieved by convolving the 
 observed visibility with a  windowing function that depends on $(u,v)$ coordinates spacing (baseline dependent windowing function). 
 However, a windowing function with a wide dynamic range spectrum is preferable in this work.
 \subsection{Imaging}
 \label{sec:imaging}
-From the full sky Radio Interferometry Measurement Equation (RIME) formalism (see Hamaka et \textit{al}, O.M. Smirnov (2010a)), in this 
-case, the sampled visibilities can be presented mathematically as a $4\times n_t\times n_{\nu}$ matrix of four polarizations time and 
+Recall from the previous section that, the boxcar windowing function can be replaced by a windowing function, $W_{pq,(t,\nu)}$ that depends 
+on $(u,v)$ spacing. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is a $n_t \times n_{\nu}$ matrix of elements 
+$W_{pq,(t_i,\nu_j)}|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of $(u,v)$ points. From the full sky Radio Interferometry Measurement Equation 
+(RIME) formalism (see Hamaka et \textit{al}, O.M. Smirnov (2010a)), the sampled visibilities can be presented mathematically as a $4\times 
+n_t\times n_{\nu}$ matrix of four polarizations time and 
 frequency dependent matrices each of size $n_t\times n_{\nu}$.
 \begin{eqnarray*}
-\mathbf{V}_{pq,(t,\nu)}^{samp}&=&\mathcal{\textbf{S}}_{pq,(t,\nu)}\cdot\mathbf{V}_{pq,(t,\nu)}\\
-			      &=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
+\mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
 ^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^T. \label{eqx:conv}
 \end{eqnarray*}
-Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is a $n_t \times n_{\nu}$ matrix that contained the weights of the baseline $(p,q)$ 
-visibilities points. The weights of this matrix are given by a baseline dependent windowing function that we described in section 
-\ref{baseline1} and section \ref{baseline2}.
-The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} in terms of a series of linear transformations as follow:
+The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} in terms of a series of linear transformations or functional model 
+as:
 \begin{equation}
-V_{pq}^{avg}= \mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
-\mathbf{S}_{pq,(t,\nu)}\cdot\mathbf{V}_{pq,(t,\nu)}.\label{eqbb:linear}
+V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
+\mathbf{V}_{pq,(t,\nu)}^{samp}.\label{eqbb:linear}
 \end{equation}
-Here, $\mathbf{W}_{pq,(t,\nu)}^{block}$ is a block diagonal matrix of size $(4n_t n_{\nu})\times(4n_t n_{\nu})$ and the 
-block elements are $\mathbf{C}_{pq,(t,\nu)}\cdot\mathcal{\textbf{W}}_{pq,(t,\nu)}$ of size $n_t\times n_{\nu}$, where 
-$\mathbf{C}_{pq,(t,\nu)}$ is the centre time interval and centre frequency interval sampling matrix of size $n_t\times n_{\nu}$. This
+Here, $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are  blocks diagonals matrices of size $(4n_t 
+n_{\nu})\times(4n_t n_{\nu})$, the block elements are $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ and $\mathbf{C}_{pq,(t,\nu)}$ 
+respectively, where $\mathbf{C}_{pq,(t,\nu)}$ is the centre time interval and centre frequency interval sampling matrix of size $n_t\times 
+n_{\nu}$. This
 is the result of the time and frequency integration for the baseline $(p,q)$.
-
 For a synthesis, the baseline $(p,q)$ made a full coverage in the $(u,v)$ plane. Therefore, we can  
-package into a single matrix, $\mathbf{V}_{pq,}^{avg}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
+package into a single matrix, $\mathbf{V}_{pq,(t',\nu')}^{corr}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
 weighted average visibilities of the  baseline $(p,q)$ during the synthesis as follows: 
 \begin{equation}
-\mathbf{V}_{pq}^{avg}= \mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot\mathbf{S}_{pq,(t,\nu)}^{n}\cdot\mathbf{V}_{pq,(t,\nu)},\label{eq2:block}
+\mathbf{V}_{pq,(t',\nu')}^{corr}=\mathbf{C}_{pq,(t,\nu)}^{block,n}\cdot 
+\mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n},\label{ eq2:block}
 \end{equation}
 where $N_t$ and  $N_{\nu}$ are the number of time sample and frequency channels entering the Fourier domain. If the synthesis time is $T$ 
 and the frequency range is $F$, then $T=N_t \times \Delta t$ and $F=N_{\nu}\times\Delta \nu$. The the size of 
-$\mathbf{V}_{pq}^{avg}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the 
-number of time and frequency visibilities for the baseline $(p,q)$). The matrix $\mathbf{W}_{pq,(t,\nu)}^{block,n}$ is a diagonal block 
-matrix of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ where each diagonal block is the block diagonal matrix 
-$\mathbf{W}_{pq,(t,\nu)}^{block}$ defined above and $n$ is the number of $\mathbf{W}_{pq,(t,\nu)}^{block}$. The sampled visibilities
-$\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n}\cdot\mathbf{V}_{pq,(t,\nu)}=\textbf{V}_{pq,(t,\nu)}^{samp,n}$ is a one row matrix of size 
-$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp}$ on top of each other. 
+$\mathbf{V}_{pq,(t',\nu')}^{corr}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the 
+number of time and frequency visibilities for the baseline $(p,q)$. The matrices
+$\mathbf{C}_{pq,(t,\nu)}^{block,n}$ and $\mathbf{W}_{pq,(t,\nu)}^{block,n}$ are diagonals blocks 
+matrices of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ where each diagonal block is the block diagonal matrix  
+$\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ respectively. $n$ is the number of blocks 
+elements. The sampled  visibilities 
+$\textbf{V}_{pq,(t,\nu)}^{samp,n}=\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n}\cdot\mathbf{V}_{pq,(t,\nu)}^{n}$ is a one row matrix of size 
+$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp}$ on top of each other and the matrix 
+$\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n}$ is the $(u,v)$ plane sampling function for the visibilities $\mathbf{V}_{pq,(t,\nu)}^{n}$ of size  
+$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. We can write:
 \begin{equation}
-\mathbf{V}_{pq}^{avg}= \mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot 
-\mathbf{S}_{pq,(t,\nu)}^{n}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky},\label{eqv:linear}
+\mathbf{V}_{pq,(t' \nu')}^{corr}= 
+\mathbf{C}_{pq,(t,\nu)}^{block,n}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot 
+\mathbf{S}_{pq,(t,\nu)}^{n}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky },\label{eqv:linear}
 \end{equation}
 if the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
-$\textbf{F}$ is the Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. 
+$\textbf{F}$ is a block diagonal Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. 
 
 We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
-measured over all baselines  and $N_v=n_{bl}\times N_v^{pq}$ in this case. Here, $n_{bl}$ is the number of baseline. We can write
+measured over all baselines  and $N_v=n_{bl}\times N_v^{pq}$ in this case. Here, $n_{bl}$ is the number of baseline. We then have:
 \begin{equation}
- \mathbf{V}_{all}^{avg}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky}.
+ \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
 \end{equation}
-Here, $\mathbf{A}$ is a matrix of size $(4N_v)\times (4N_{pix})$ made of 
-$\mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot\mathcal{S}_{pq,(t,\nu)}^{n}\cdot\mathbf{F}$ on top of each other. The 
-dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived
+Here, $\epsilon$ is the random error component or noise and $\mathbf{A}$ is the design matrix of size 
+$(4N_v)\times (4N_{pix})$ 
+corresponding to $N_v$ visibilities weights, defined as
+\begin{equation*}
+\mathbf{A}_{}=
+  \begin{bmatrix}
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{n} \cdot\mathbf{F}\\
+    \vdots\\
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n}\cdot \mathbf{S}_{ik,(t,\nu)}^{n} \cdot\mathbf{F}\\
+    \vdots \\
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} \cdot\mathbf{F}\\
+  \end{bmatrix}
+\end{equation*}
+The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived as follow:
 \begin{equation}
-\mathcal{I}_{l,m}^{D}=\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky}.
+\mathcal{I}_{l,m}^{D}=\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon.
 \end{equation}
-Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is the inverse 
-Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
-% \begin{figure}
-%   \subfloat[]{\includegraphics[width=0.18\textwidth, height=0.18\textwidth]{./Figures/effect_time_averaging.png}} 
-%   \qquad
-%   \subfloat[]{\includegraphics[width=0.18\textwidth,height=0.18\textwidth]{./Figures/maximun_integration.png}}
-%   \qquad
-%   \subfloat[]{\includegraphics[width=0.18\textwidth, height=0.18\textwidth]{./Figures/effect_time_averaging.png}} 
-%   \qquad
-%   \subfloat[]{\includegraphics[width=0.18\textwidth,height=0.18\textwidth]{./Figures/maximun_integration.png}}
-%   \caption{(a) The fall of the intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at 100KHz 
-% bandwidth. (b)Response to a 1Jy source at 1deg, as a function of $\Delta t$ with 100KHz bandwidth.}
-% \end{figure}
-\section{Data compression algorithm}
+Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
+inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. The estimate of  $\epsilon$, for the map centre pixel is given by:
+\begin{eqnarray*}
+ \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - \mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}_{o,o}\\		
+	&=&\frac{1}{N_{v}}\sum_{k=1}^{N_{v}^{pq}}\Bigg\{\mathbf{A}\cdot{V}_{array,(t,\nu)}^{n}-
+\mathbf{F}^{H}\cdot\mathbf{A}^{2}\cdot{V}_{array,(t,\nu)}^{n}\Bigg\}.
+\end{eqnarray*}
+Here, ${V}_{array,(t,\nu)}^{n}$ is a one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
+$\textbf{V}_{pq,(t,\nu)}^{n}$ on top of each other.
+\section{derivation of BDWF: FoV signals recovery}
 \label{baseline1}
 \subsection{Description}
-Missing spaces between sampled $(u,v)$ coordinates has huge dependences on the baseline length. However, the spacing between longer 
-baselines $(u,v)$ coordinates are wider then the one on shorter baselines: this explained while sources are more distorted on longer 
-baselines. We aims in this section, to describe the algorithm we use with a baseline-dependent windowing function to assign a proper 
-weight to a data reference by a $(u,v)$ coordinate considering the \textit{spacing}\footnote{The \textit{distance} has also huge 
+Missing spaces between sampled $(u,v)$ coordinates has an important dependences on the baseline length. However, the spacing between longer 
+baselines $(u,v)$ coordinates are wider then the one on shorter baselines, this is the obvious effect that explained while sources are more 
+distorted on longer baselines compare to shorter one. Therefore, if one have to attribute a $(u,v)$ weight, it may be as a function of 
+the baseline length, in such a way that the distortion rate is taken into account over baselines. We aims in this section, to 
+describe an algorithm that we used with a baseline-dependent windowing function to assign a proper weight to a data reference by a $(u,v)$ 
+coordinate considering the \textit{spacing}\footnote{The \textit{distance} has also huge 
 dependences on the baseline length and allow us to formally define the data
 weight of a $uv$ point over the entire $uv$ plane.} between the baseline $(u,v)$ coordinates.
 
@@ -334,21 +345,22 @@ figure that these separations are wider on longer baselines. The results of aver
 in red. 
 \subsection{Methods}
 \label{sec:baseline1}
-In this section, we present the data compression algorithm we use to describe the weight of each sampled visibility during the 
-integration time interval and and frequency interval. Now, let package the $(u,v)$ coordinates changes of a baseline $pq$ into a single 
-matrix of size $n_t \times 2$.
-\begin{equation}
-\mathbf{U}_{pq,t}= \Bigg(\mathbf{u}_{pq,t_s}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_e}\Bigg)^T,
-\end{equation}
-where the indexes $s$, $c$ and $e$ references the integration interval starting, centre, and ending time respectively. The 
-elements of $\mathbf{U}_{pq,t}$ are functions of time and frequency representing a $(u,v)$ coordinate. The frequency changes of the 
-baseline coordinates can be package into a single vector of dimension $n_{\nu}$ 
+Depending on the arrays, we showhere that we can use the fact that, the spacing of long baselines $(u,v)$ coordinates are wider and  
+design a high dynamic range filter on longer baseline that will recover the desire FoV of the interferometer, and at the same time 
+reducing the data rate. During an integration, the Earth rotation makes baselines coordinates $u$ and $v$  to variates in time and 
+frequency. We can therefore package the $(u,v)$ coordinates changes and the frequency changes of a baseline $pq$ into a single matrix of 
+size $n_t \times 2$ and  into a single vector of dimension $n_{\nu}$ respectively. 
 \begin{eqnarray*}
+\mathbf{U}_{pq,t}&=& \Bigg(\mathbf{u}_{pq,t_s}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_e}\Bigg)^T\\
  \mbox{\boldmath $\nu$}&=&\Bigg(\nu_s,\dots,\nu_c,\dots,\nu_e\Bigg)^T
 \end{eqnarray*}
-We define a norm, $||\cdot||_{m}$ on a $n_t \times 2$ matrix as follow:
+where the indexes $s$, $c$ and $e$ references the integration interval starting, centre, and ending time respectively and $T$ the transpose 
+operator. The 
+elements of $\mathbf{U}_{pq,t}$ are functions of time and frequency representing a $(u,v)$ coordinate.
+We defined the function, $\overline{\overline{\cdot}}$ on a $n_t \times 2$ matrix as follow:
 \begin{eqnarray}
-||\textbf{U}_{pq,t}||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, ||\mathbf{u}_{pq,t_e}||\Bigg),
+\overline{\overline{\mathbf{U}}}_{pq,t}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, 
+||\mathbf{u}_{pq,t_e}||\Bigg)^T,
 \end{eqnarray}
 where $||.||$ is the Euclidean norm.
 \begin{definition}[Time direction spacing]
@@ -366,10 +378,10 @@ $\mathbf{H}_{pq,t}= \big(\mathbf{u}_{pq,t_c}, \dots , \mathbf{u}_{pq,t_c}, \dots
 The vector of size $n_{\nu}$ that model the spacing between the $(u,v)$ coordinates and the centre $(u,v)$ coordinate of a baseline $(p,q)$ 
 across the frequency direction is defined as
 \begin{eqnarray*}
-\mathbf{d}^{T}_{\nu} &=&\frac{||\textbf{u}_{pq,t_c}||}{c}\cdot\Bigg\{\mbox{\boldmath 
-$\nu$}-\nu_c\cdot\mathbf{g}^T_{\nu} \Bigg \},
+\mathbf{d}^{}_{\nu} &=&\frac{||\textbf{u}_{pq,t_c}||}{c}\cdot\Bigg\{\mbox{\boldmath 
+$\nu$}-\nu_c\cdot\mathbf{g}_{\nu} \Bigg \},
 \end{eqnarray*}
-where  $\textbf{g}$ is a $1\times n_{\nu}$ unity matrix.
+where  $\textbf{g}$ is a $n_{\nu}\times1$ unity matrix. The weight of a $(u,v)$ data point is considered as follow:
 \end{definition}
 \begin{definition}[Baseline dependent windowing function]
 \label{def:3}
@@ -378,9 +390,12 @@ If $f_{pq}$ is a \textit{baseline dependent windowing function}, then:
  f_{pq}: \{\mathbf{\mathcal{R}},\mathbf{\mathcal{R}}\} &\rightarrow& \mathbf{\mathcal{R}}\\
                    d_{t_i},d_{\nu_j} &\mapsto& \frac{w_{t_i,\nu_j}}{\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}w_{t_i,\nu_j}}.
 \end{eqnarray*}
-where $d_{t_i}$ is an element of the vector $\mathbf{d}_{t}=||\mathbf{U}_{pq,t}^{s}||_{m}$ and $d_{\nu_j}$ is an element of the vector 
-$\mathbf{d}^{T}_{\nu}$.
+where $d_{t_i}$ is an element of the vector $\mathbf{d}_{t}=\overline{\overline{\mathbf{U}^{s}}}_{pq,t}$ and $d_{\nu_j}$ is an element 
+of the vector $\mathbf{d}^{}_{\nu}$.
 \end{definition}
+The previous algorithm is correct. But unfortunately, the algorithm does not suppressed out FoV sources and we loosed  in sensitivity. 
+Although simple averaging "means high sensitivity", we do need to eliminate at a certain rate out FoV sources in such a way that the 
+overall SNR becomes higher than the one of averaging. We described such an algorithm in the following section.
 % where $\mathbf{x}_{pq}(t-t_c)=\bigg(\Big|\Big|\Big(u_{pq}'(t_s),v_{pq}'(t_s)\Big)\Big|\Big|,\dots, 
 % \Big|\Big|\Big(u_{pq}'(t_e),v_{pq}'(t_e)\Big)\Big|\Big| \bigg)$ and 
 % $\mathbf{y}_{pq}(\nu-\nu_c)=\bigg(\Big|\Big|\Big(u_{pq}''(\nu_s),v_{pq}''(\nu_s)\Big)\Big|\Big|,\dots, 
@@ -416,30 +431,30 @@ visibility data obtained from the long, medium and short baseline}\label{fig:fig
 % \mathbf{V}_{pq}^{obs}(t,\nu)\\
 % 					  &=& \sum_{t}\sum_{\nu}\mathbf{W}_{pq}(t-t_c, \nu-\nu_c)\cdot \mathbf{V}_{pq}^{obs}(t,\nu)\\
 % \end{eqnarray*}
-\subsection{Noise  analysis}
+% \subsection{Noise  analysis}
 % In this section, theoretical expressions of the noise of correlator windowing functions (CWF) are derived. 
 % Simulations results shows that when the overlap width of CWF is increased, the noise in the sky map is reduced. Furthermore, 
 % the noise reduces more rapidly when the overlap is done over both time intervals and frequency channels. For convenience, we have 
 % chosen to derive the analytical expression for the noise of a CWF at the phase centre. For the analysis we used a simulated 
 % VLA, 1min30s synthesis, with a 1,5s integration time at 1,4Ghz, with 100 channels of width 1kHz. We fill this simulated measurement set 
 % with 1Jy thermal noise and we used a sinc as a CWF.
-For convenience, in this section, we  analyse the centre pixel noise of a sky map after we had apply a baseline dependent windowing 
-function during the time and frequency integration. The brightness of the 
-naturally weighted central pixel is estimate by (see the inverse Fourier transform of equation (19-2) in 
-\cite{1} ).
-\begin{eqnarray*}
-\widetilde{\mathcal{I}}(0,0)&=&\frac{1}{N_{v}}   \sum_{k=1}^{N_{v}} V_{all,k}^{avg}\\
-	          &=&\frac{1}{N_{v}}   \sum_{pq,k=1}^{N_{v}^{pq}} V_{pq,k}^{avg}\\
-	          &=&\frac{1}{N_{v}}   \sum_{pq,k=1}^{N_{v}^{pq}}\Big(\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}} 
-f_{pq,(dt_i,d\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}\Big).
-\end{eqnarray*}
-Here, the variable $k$ run through the baseline $(p,q)$ timeslots. The  overall rms noise is given by
-\begin{eqnarray*}
-\sigma^2	&=& 
-\frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}f_{pq,(dt_i,d\nu_j)}^{2}\Big) 
-,\label{Equ:BDWnoise}
-\end{eqnarray*}
-where  $\sigma_{samp}$ is the per sampled visibility noise
+% For convenience, in this section, we  analyse the centre pixel noise of a sky map after we had apply a baseline dependent windowing 
+% function during the time and frequency integration. The brightness of the 
+% naturally weighted central pixel is estimate by (see the inverse Fourier transform of equation (19-2) in 
+% \cite{1} ).
+% \begin{eqnarray*}
+% \widetilde{\mathcal{I}}(0,0)&=&\frac{1}{N_{v}}   \sum_{k=1}^{N_{v}} V_{all,k}^{avg}\\
+% 	          &=&\frac{1}{N_{v}}   \sum_{pq,k=1}^{N_{v}^{pq}} V_{pq,k}^{avg}\\
+% 	          &=&\frac{1}{N_{v}}   \sum_{pq,k=1}^{N_{v}^{pq}}\Big(\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}} 
+% f_{pq,(dt_i,d\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}\Big).
+% \end{eqnarray*}
+% Here, the variable $k$ run through the baseline $(p,q)$ timeslots. The  overall rms noise is given by
+% \begin{eqnarray*}
+% \sigma^2	&=& 
+% \frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}f_{pq,(dt_i,d\nu_j)}^{2}\Big) 
+% ,\label{Equ:BDWnoise}
+% \end{eqnarray*}
+% where  $\sigma_{samp}$ is the per sampled visibility noise
 % Where $W^{pq}$ is a normalized CWF; $\lambda$, $t_c$ are the observed wavelength and centre of the integration 
 % respectively. $N_{meas}$ is the number of the measured visibilities. The observed visibilities of baseline $pq$  are 
 % $V^{pq}_{obs}(u(t/\lambda))$, $n$ is the number of time intervals  and/or frequency channels within the within the width of the CWF.
@@ -467,7 +482,7 @@ where  $\sigma_{samp}$ is the per sampled visibility noise
 % % \begin{eqnarray**}
 % % \sigma^2	   &=&\frac{1}{N_{obs}\times n_{\nu}} \sigma_{obs}^2
 % % \end{eqnarray**}
-\section{Out FoV sources suppression algorithm}
+\section{Derivation of BDWF: FoV signals recovery and out FoV suppression}
 \label{baseline2}
 \subsection{Description}
 In theory, windowing functions and signals generally extend to  infinity. Unfortunately, in practice, filtering a signal with a low pass 
@@ -481,7 +496,7 @@ The only drawback of this technique is the increased of the time needed for proc
 The weight of a visibility is not defined by a unique baseline dependent windowing, but by the strength of the correlation between the 
 overall  overlapping baseline dependent windowing functions on the visibility. Now, consider that $f^{a}_{pq}$ is an overlap-\textit{BDWF} 
 of width  $\Delta t$ and $\Delta \nu$ across the time and frequency direction respectively.
-\begin{definition}[Baseline dependent windowing function]
+\begin{definition}[Left hand side overlapping functions]
 \label{def:4}
 if $\Delta_l t$ and $\Delta_l \nu$ are the overlap time interval and frequency interval of the baseline dependent windowing function  
 $f_{pq}^{a_0}$ respectively  and $\Big\{f_{pq}^{a_1},f_{pq}^{a_2},f_{pq}^{a_3}, \dots \Big\}$ the set of \textit{BDWF} overlapping  on the 
@@ -498,7 +513,7 @@ N_{lhs}=\sum_{i=1}^{n_{lt}}\sum_{j=1}^{n_{l\nu}}\Bigg(\sum_{k}f_{pq,(d_{t_i},d_{
 where $n_{lt}$ and $n_{l\nu}$ are the number of $(u,v)$ coordinates changes and frequency changes  within $\Delta_l t$ and $\Delta_l \nu$ 
 respectively.
 \end{definition}
-\begin{definition}[Baseline dependent windowing function]
+\begin{definition}[Right hand side overlapping functions]
  \label{def:4}
  if $\Delta_r t$ and $\Delta_r \nu$ are the overlap time and frequency interval of a \textit{BDWF} $f_{pq}^{a_0}$ 
 respectively and  $\Big\{f_{pq}^{a_1},f_{pq}^{a_2},f_{pq}^{a_3}, \dots \Big\}$ the set of \textit{BDWF} overlapping on the \textit{right 
@@ -515,6 +530,22 @@ N_{rhs}=\sum_{i=1}^{n_{rt}}\sum_{j=1}^{n_{r\nu}}\Bigg(f_{pq,(d_{t_i},d_{\nu_j})}
 \end{eqnarray*}
 where $n_{rt}$ and $n_{r\nu}$ are the number of $(u,v)$ coordinates changes and frequency changes  within $\Delta_r t$ and $\Delta_r \nu$ 
 respectively.
+\end{definition}
+\begin{definition}[Overlap baseline dependent windowing functions]
+ \label{def:4}
+If $f_{pq}^{a_0}$ is a baseline dependent windowing function defined within the time interval $\Delta t$ and the frequency interval 
+$\Delta \nu$, $g^{lhs}_{pq}$ the result of the left hand side of $f_{pq}^{a_0}$ overlapping windowing functions within the time interval 
+$\Delta_l t$ and the frequency interval $\Delta_l \nu$, and $g^{rhs}_{pq}$  the result of the right hand side of $f_{pq}^{a_0}$ overlapping 
+windowing functions within the time interval $\Delta_r t$ and the frequency interval 
+$\Delta_r \nu$, then the overlap baseline dependent windowing function within  $\Delta t$ and $\Delta \nu$ is defined as:
+\begin{eqnarray*}
+g_{pq} = \left\{ 
+  \begin{array}{l l}
+    g^{lhs}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_l t, \Delta_l \nu)$}\\
+    f^{a_0}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_u t, \Delta_u \nu)$}\\
+    g^{rhs}_{pq}& \quad \text{if $(t,\nu) \in (\Delta_r t, \Delta_r \nu)$}
+  \end{array} \right.
+\end{eqnarray*}
 \end{definition}
 From the above definitions, the following derivation is trivial 
 \begin{equation*}
@@ -538,22 +569,6 @@ rules
       \{\nu_c\}& \quad \text{if $n_{l\nu}+n_{r\nu} = n_{\nu}$}\\
        \emptyset  & \quad \text{otherwise}
   \end{array} \right.
-\end{eqnarray*}
-The resulting \textit{BDWF} becomes $g_{pq}$ described as
-\begin{eqnarray*}
-g_{pq} = \left\{ 
-  \begin{array}{l l}
-    g^{lhs}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_l t, \Delta_l \nu)$}\\
-    f^{a_0}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_u t, \Delta_u \nu)$}\\
-    g^{rhs}_{pq}& \quad \text{if $(t,\nu) \in (\Delta_r t, \Delta_r \nu)$}
-  \end{array} \right.
-\end{eqnarray*}
-\subsection{Noise analysis}
-The  overall rms noise is given by
-\begin{eqnarray*}
-\sigma^2	&=& 
-\frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}g_{pq,(dt_i,d\nu_j)}^{2}\Big) 
-,\label{Equ:OBDWnoise}
 \end{eqnarray*}
 \subsection{Windowing functions}
 \label{subsec:Windowing functions}
@@ -794,7 +809,8 @@ considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}
 $\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s$,xxxkHz\}, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,xxxkHz\}$, $n_{t,ovlp}=\{0,100,150\}$ 
 and $n_{\nu,ovlp}=\{0,25,50\}$.\\
 Fig.\ref{fig:Bl-sinc-FoV2}, Fig.\ref{fig:Bl-sinc-FoV4}, Fig.\ref{fig:Bl-bessel-FoV2} and Fig.\ref{fig:Bl-bessel-FoV4} show the results of 
-the simulation, where we represented the brightness of the source as a function of the source coordinates in the sky. In these figures, we 
+the simulation, where we represented the brightness of the source as a function of the source coordinates in the sky model. In these 
+figures, we 
 considered three cases of the sinc window, and three of the Bessel first kind ($Bl$-$sinc$ $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ 
 $W n_{t,ovlp} \times n_{\nu,ovlp}$ with  $n_{t,ovlp}=\{0,100,150\}$ and $n_{\nu,ovlp}=\{0,25,50\}$). We evaluated the loss in signal 
 amplitude with longer LR-MS integration time interval $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency interval $\Delta 
@@ -867,13 +883,13 @@ Fig.\ref{fig:max-integ-time-bessel-w1x1-fov2} and Fig.\ref{fig:max-integ-time-be
 and the one of  $Bl$-J$_0$ $W n_{t,ovlp}$. Here, we took $n_{t,ovlp}=\{0,100\}$ time overlap bins. These results 
 shows that:
 \begin{itemize}
- \item Firstly, these results show that, we can significantly integrate over a wider LR-MS frequency interval without a lost of signal 
+ \item Firstly, we can significantly integrate over a longer LR-MS time interval without a lost of signal 
 amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
 closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from the phase 
 centre.  
  \item Secondly, looking on Fig.\ref{fig:max-integ-freq-sinc-w1x50-fov2} and 
 \ref{fig:max-integ-freq-bessel-w1x50-fov2}, when the source is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
-$[6.2,12.6]MHz$ with the overlap frequency direction filters compare to simple frequency averaging.
+$[50,150]$ with the overlap time direction filters compare to simple time averaging.
  \item Finally, the sinc filter performed well on signal recovery compare to the Bessel first kind and the Bessel first kind suppressed the 
 source when this is out of the FoV compare to the sinc.  
 \end{itemize}
@@ -895,17 +911,17 @@ results of simple time and frequency averaging and the one of  $Bl$-J$_0$ $W n_{
 frequency direction. Here, we took $n_{t,ovlp}=\{0,100\}$ time overlap bins and $n_{\nu,ovlp}=\{0,50\}$ frequency overlap bins. These 
 results shows that:
 \begin{itemize}
- \item We measured more than 90\% of the source brightness within $\approx 75\%$ of the FoV with $Bl$-$sinc$ $W0 \times 0$ and 
-      $Bl$-J$_0$ $W0\times0$. 
- \item We measured more than 90\% of the source brightness within $\approx 95\%$ of the FoV with the overlap filters ($Bl$-$sinc$ 
-     $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ $W n_{t,ovlp} \times n_{\nu,ovlp}$).
- \item We loss $\approx 99\%$ of the source brightness when the source is $\approx 1^{\circ}$ away from the FoV when using the overlap 
-filters.
-  \item The sinc window conserved the signal within the FoV compared to the Bessel of the first kind window, while the Bessel of the first 
-kind suppressed the signal out of the FoV compare to the sinc.
+ \item Firstly, we can significantly integrate over a longer LR-MS time interval and frequency interval at the same time without a lost of 
+signal amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase 
+centre are closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from 
+the phase centre. 
+ \item Secondly, looking on Fig.\ref{fig:max-integ-timefreq-sinc-w100x50-fov2} and \ref{fig:max-integ-timefreq-bessel-w100x50-fov2}, when 
+the source is at $1.5^{\circ}$ and $2^{\circ}$, it appears that the curves of the overlaps filters are below the one of simple averaging. 
+These suggest that, when we are integrating both over a wider LR-MS time interval and frequency interval, the source is suppressed 
+significantly out of the FoV without any constraint on the integration time and frequency.
+ \item Finally, the sinc filter performed well on signal recovery compare to the Bessel first kind and the Bessel first kind suppressed the 
+source when this is out of the FoV compare to the sinc.  
 \end{itemize}
-This suggest that, smearing is eliminated within the FoV when we compressed the data by integrating over large time interval and wider 
-bandwidth and the FoV can therefore be extended according on the science goals.
 \subsection{Multiple sources in the sky model and attenuation efficiency}
 \subsection{Discussion}
 \section{Conclusions}
@@ -939,13 +955,10 @@ Drawback and futures works*** drawback and futures works*****
 % \end{enumerate}
 % \end{proof}
 \section[]{Derivation of complex matrices}
-The matrix $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is of size $n_t \times n_{\nu}$ and contained the weights of the baseline $(p,q)$ 
-visibilities points.
-The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} in terms of a series of linear transformations as follow:
-\begin{equation}
-V_{pq}^{corr}= \mathbf{C}_{(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot \mathbf{V}_{pq,(t,\nu)}^{samp}.
-\end{equation}
-Here, $\mathbf{W}_{pq,(t,\nu)}^{block}$ is a block diagonal matrix of size $(4n_t n_{\nu})\times(4n_t n_{\nu})$ defined as follow:
+The complex matrices used in section \ref{sec:imaging} are explicitly derived in this appendix. In Eq.\ref{eqbb:linear}, the matrices
+$\mathbf{C}_{(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are blocks diagonals  both of size $(4n_t n_{\nu})\times(4n_t 
+n_{\nu})$, and  the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp}$ is a vector of size $4\times (n_t n_{\nu})$. These matrices are 
+explicitly expressed as follow:
 \begin{equation*}
 \mathbf{C}_{(t,\nu)}^{block}=
   \begin{bmatrix}
@@ -955,7 +968,6 @@ Here, $\mathbf{W}_{pq,(t,\nu)}^{block}$ is a block diagonal matrix of size $(4n_
       0 & 0 & 0 & \mathbf{c}_{(t,\nu)}\\
   \end{bmatrix}
 \end{equation*}
-Here, $\mathbf{W}_{pq,(t,\nu)}^{block}$ is a block diagonal matrix of size $(4n_t n_{\nu})\times(4n_t n_{\nu})$ defined as follow:
 \begin{equation*}
 \mathbf{W}_{pq,(t,\nu)}^{block}=
   \begin{bmatrix}
@@ -969,27 +981,10 @@ Here, $\mathbf{W}_{pq,(t,\nu)}^{block}$ is a block diagonal matrix of size $(4n_
 \mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg[\mathcal{V}_{pq,(t,\nu)}^{0},\mathcal{ V } 
 ^1_{pq,(t,\nu)},\mathcal{V}^2_{pq,(t,\nu)},\mathcal{V}_{pq,(t,\nu)}^{3 } \Bigg]^T. 
 \end{eqnarray*}
-For a synthesis, the baseline $(p,q)$ made a full coverage in the $(u,v)$ plane. Therefore, we can  
-package into a single matrix, $\mathbf{V}_{pq,}^{avg}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
-weighted average visibilities of the  baseline $(p,q)$ during the synthesis as follows: 
-\begin{equation}
-\mathbf{V}_{pq}^{corr}=\mathbf{C}_{(t,\nu)}^{block,n}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot \mathbf{V}_{pq,(t,\nu)}^{samp,n}.
-\end{equation}
-where $N_t$ and  $N_{\nu}$ are the number of time sample and frequency channels entering the Fourier domain. If the synthesis time is $T$ 
-and the frequency range is $F$, then $T=N_t \times \Delta t$ and $F=N_{\nu}\times\Delta \nu$. The the size of 
-$\mathbf{V}_{pq}^{avg}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the 
-number of time and frequency visibilities for the baseline $(p,q)$). The matrix $\mathbf{W}_{pq,(t,\nu)}^{block,n}$ is a diagonal block 
-matrix of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ defined as follow:
-\begin{equation*}
-\mathbf{W}_{pq,(t,\nu)}^{block,n}=
-  \begin{bmatrix}
-    \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
-    \vdots & \vdots & \vdots & \vdots & \vdots\\
-    0 & \dots& \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0\\
-    \vdots & \vdots & \vdots & \vdots & \vdots \\
-    0 & \dots& 0 &\dots & \mathbf{W}_{pq,(t,\nu)}^{block}\\
-  \end{bmatrix}
-\end{equation*}
+In Eq.\ref{eq2:block}, the matrices $\mathbf{C}_{(t,\nu)}^{block,n}$ and 
+$\mathbf{W}_{pq,(t,\nu)}^{block,n}$ are blocks diagonals both of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$, and 
+the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp,n}$ is a one row matrix of size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ 
+made of $\textbf{V}_{pq,(t,\nu)}^{samp}$. These matrices are explicitly expressed as follow:
 \begin{equation*}
 \mathbf{C}_{(t,\nu)}^{block,n}=
   \begin{bmatrix}
@@ -1000,27 +995,23 @@ matrix of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ defined as 
     0 & \dots& 0 &\dots & \mathbf{C}_{(t,\nu)}^{block}\\
   \end{bmatrix}
 \end{equation*}
-The sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp,n}$ is a one row matrix of size 
-$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp}$ on top of each other. 
+\begin{equation*}
+\mathbf{W}_{pq,(t,\nu)}^{block,n}=
+  \begin{bmatrix}
+    \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
+    \vdots & \vdots & \vdots & \vdots & \vdots\\
+    0 & \dots& \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0\\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    0 & \dots& 0 &\dots & \mathbf{W}_{pq,(t,\nu)}^{block}\\
+  \end{bmatrix}
+\end{equation*}
 \begin{eqnarray*}
 \mathbf{V}_{pq,(t,\nu)}^{samp,n}&=&\Bigg[\mathbf{V}_{pq,(t,\nu)}^{samp},\dots, \mathbf{V}_{pq,(t,\nu)}^{samp}, \dots,
 \mathbf{V}_{pq,(t,\nu)}^{samp}\Bigg]^T. 
 \end{eqnarray*}
-
-\begin{equation}
-\mathbf{V}_{pq}^{avg}= \mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot 
-\mathbf{S}_{pq,(t,\nu)}^{n}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky},\label{eqv:linear}
-\end{equation}
-if the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
-$\textbf{F}$ is the Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
-We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
-measured over all baselines  and $N_v=n_{bl}\times N_v^{pq}$ in this case. Here, $n_{bl}$ is the number of baseline. We can write
-\begin{equation}
- \mathbf{V}_{all}^{avg}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky}.
-\end{equation}
-Here, $\mathbf{A}$ is a matrix of size $(4N_v)\times (4N_{pix})$ defined as follow
+In Eq.\ref{eq:vall}, the matrix $\mathbf{A}$ of size $(4N_v)\times (4N_{pix})$ is defined as follow
 \begin{equation*}
-\mathbf{A}_{l,m}=
+\mathbf{A}_{}=
   \begin{bmatrix}
     \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
     \vdots\\
@@ -1029,15 +1020,8 @@ Here, $\mathbf{A}$ is a matrix of size $(4N_v)\times (4N_{pix})$ defined as foll
     \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n}\cdot \mathbf{S}_{jl,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
   \end{bmatrix}
 \end{equation*}
-The 
-dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived
-\begin{equation}
-\mathcal{I}_{l,m}^{D}=\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky}.
-\end{equation}
-Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is the inverse 
-Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
 \section[]{Similar way of imaging}
-We explained how we derived the complex matrices used in section \ref{sec:imaging}
+\label{label:similarimaging}
 Each baseline has his own baseline dependent windowing functions during integration. Unfortunately, we can not accurately estimate the 
 resulting spectrum of all windowing functions that multiply the sky seen by these baselines (if we supposed that all baselines are seen the 
 same sky). The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
@@ -1066,33 +1050,33 @@ If the integration windowing function were the same in all baseline, then we can
 \end{eqnarray*}
 \begin{figure*}
  \centering
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/time_freq_ration.png}\caption{Noise ratio and rate 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/time_freq_ration.png}\caption{Noise ratio and rate 
 of $Bl$-$sinc$-$wk$: time interval and frequency channels.}\label{ fig:fig_2a } \end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/timeration.png}\caption{Noise ratio and rate of 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/timeration.png}\caption{Noise ratio and rate of 
 $Bl$-$sinc$-$wk$: time interval.}\label{fig:fig_2b}
 \end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:Bl-sinc-FoV2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:Bl-sinc-FoV4}\end{minipage}\\
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:Bl-bessel-FoV2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{
 Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:Bl-bessel-FoV4}\end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-freq-sinc-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-freq-sinc-w1x50-fov2}\end{minipage}\\
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:max-integ-freq-bessel-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:max-integ-freq-bessel-w1x50-fov2}\end{minipage}
 \end{figure*}
 \begin{figure*}
@@ -1100,24 +1084,24 @@ Overlap
 %plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
 	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
   \centering
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}\caption{
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}\caption{
 Overlap \textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-time-sinc-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-time-sinc-w100x1-fov2}\end{minipage}\\
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:max-integ-time-bessel-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}\caption{Overlap 
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}\caption{Overlap 
 		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
 \end{figure*}
 \bsp
