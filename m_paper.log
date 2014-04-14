@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  14 APR 2014 14:07
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  14 APR 2014 16:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**m_paper.tex
+**m_paper
 (./m_paper.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, et
@@ -86,52 +86,81 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count92
-\float@exts=\toks16
-\float@box=\box26
-\@float@everytoks=\toks17
-\@floatcapt=\box27
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathpazo.sty
+Package: mathpazo 2005/04/12 PSNFSS-v9.2a Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup7
 )
-(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
-Package: subfig 2005/06/28 ver: 1.3 subfig package
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip48
 
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
 
-Package subfig Warning: Your document class has a bad definition
- of \endfigure, most likely
- \let\endfigure=\end@float
- which has now been changed to
- \def\endfigure{\end@float}
- because otherwise subsequent changes to \end@float
- (like done by several packages changing float behaviour)
- can't take effect on \endfigure.
- Please complain to your document class author.
-
-
-Package subfig Warning: Your document class has a bad definition
- of \endtable, most likely
- \let\endtable=\end@float
- which has now been changed to
- \def\endtable{\end@float}
- because otherwise subsequent changes to \end@float
- (like done by several packages changing float behaviour)
- can't take effect on \endtable.
- Please complain to your document class author.
-
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks16
+\ex@=\dimen106
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count92
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count93
+\leftroot@=\count94
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count95
+\DOTSCASE@=\count96
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count97
+\c@MaxMatrixCols=\count98
+\dotsspace@=\muskip10
+\c@parentequation=\count99
+\dspbrk@lvl=\count100
+\tag@help=\toks17
+\row@=\count101
+\column@=\count102
+\maxfields@=\count103
+\andhelp@=\toks18
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks19
+\multlinegap=\skip49
+\multlinetaggap=\skip50
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2012/02/19 v3.2f Customizing captions (AR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
-\captionmargin=\dimen106
-\captionmargin@=\dimen107
-\captionwidth=\dimen108
-\caption@indent=\dimen109
-\caption@parindent=\dimen110
-\caption@hangindent=\dimen111
-\abovecaptionskip=\skip48
-\belowcaptionskip=\skip49
+\captionmargin=\dimen115
+\captionmargin@=\dimen116
+\captionwidth=\dimen117
+\caption@indent=\dimen118
+\caption@parindent=\dimen119
+\caption@hangindent=\dimen120
+\abovecaptionskip=\skip51
+\belowcaptionskip=\skip52
 Package caption Info: Unknown document class (or package),
 (caption)             standard defaults will be used.
 )
@@ -141,100 +170,8 @@ Package caption Warning: Unsupported document class (or package) detected,
 See the caption package documentation for explanation.
 
 Package caption Info: \@makecaption = undefined.
-\c@ContinuedFloat=\count93
-Package caption Info: float package is loaded.
-)
-\c@KVtest=\count94
-\sf@farskip=\skip50
-\sf@captopadj=\dimen112
-\sf@capskip=\skip51
-\sf@nearskip=\skip52
-\c@subfigure=\count95
-\c@subfigure@save=\count96
-\c@lofdepth=\count97
-\c@subtable=\count98
-\c@subtable@save=\count99
-\c@lotdepth=\count100
-\sf@top=\skip53
-\sf@bottom=\skip54
-) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2012/01/12 v1.1d Sub-captions (AR)
-
-
-! Package subcaption Error: This package can't be used in cooperation
-(subcaption)                with the subfig package.
-
-See the subcaption package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.47   \endinput}
-                 
-RTFM
-
-) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathpazo.sty
-Package: mathpazo 2005/04/12 PSNFSS-v9.2a Palatino w/ Pazo Math (D.Puga, WaS) 
-\symupright=\mathgroup7
-)
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2000/07/18 v2.13 AMS math features
-\@mathmargin=\skip55
-
-For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0
-\@emptytoks=\toks18
-\ex@=\dimen113
-))
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen114
-)
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
-)
-\inf@bad=\count101
-LaTeX Info: Redefining \frac on input line 211.
-\uproot@=\count102
-\leftroot@=\count103
-LaTeX Info: Redefining \overline on input line 307.
-\classnum@=\count104
-\DOTSCASE@=\count105
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
-\Mathstrutbox@=\box28
-\strutbox@=\box29
-\big@size=\dimen115
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
-\macc@depth=\count106
-\c@MaxMatrixCols=\count107
-\dotsspace@=\muskip10
-\c@parentequation=\count108
-\dspbrk@lvl=\count109
-\tag@help=\toks19
-\row@=\count110
-\column@=\count111
-\maxfields@=\count112
-\andhelp@=\toks20
-\eqnshift@=\dimen116
-\alignsep@=\dimen117
-\tagshift@=\dimen118
-\tagwidth@=\dimen119
-\totwidth@=\dimen120
-\lineht@=\dimen121
-\@envbody=\toks21
-\multlinegap=\skip56
-\multlinetaggap=\skip57
-\mathdisplay@stack=\toks22
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+\c@ContinuedFloat=\count104
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
@@ -243,8 +180,8 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
-\inpenc@prehook=\toks23
-\inpenc@posthook=\toks24
+\inpenc@prehook=\toks21
+\inpenc@posthook=\toks22
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
@@ -457,60 +394,39 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-)) (./m_paper.aux
-
-LaTeX Warning: Label `def:4' multiply defined.
-
-
-LaTeX Warning: Label `def:4' multiply defined.
-
-
-LaTeX Warning: Label `BDWBnoise' multiply defined.
-
-
-LaTeX Warning: Label ` fig:fig_3a' multiply defined.
-
-
-LaTeX Warning: Label `fig:fig_4' multiply defined.
-
-
-LaTeX Warning: Label `fig:fig_5' multiply defined.
-
-
-LaTeX Warning: Label `fig:fig_2b' multiply defined.
-
-)
+)) (./m_paper.aux)
 \openout1 = `m_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Try loading font information for T1+pplx on input line 78.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pplx.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Try loading font information for T1+pplx on input line 76.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pplx.fd
 File: t1pplx.fd 2004/09/06 font definitions for T1/pplx.
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count113
-\scratchdimen=\dimen122
-\scratchbox=\box30
-\nofMPsegments=\count114
-\nofMParguments=\count115
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count116
-\MPscratchDim=\dimen123
-\MPnumerator=\count117
-\makeMPintoPDFobject=\count118
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count105
+\scratchdimen=\dimen121
+\scratchbox=\box28
+\nofMPsegments=\count106
+\nofMParguments=\count107
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count108
+\MPscratchDim=\dimen122
+\MPnumerator=\count109
+\makeMPintoPDFobject=\count110
+\everyMPtoPDFconversion=\toks24
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -560,104 +476,123 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: Incompatible package detected (regarding \caption).
+(caption)             \caption = macro:->\refstepcounter \@captype \@dblarg {\@
+caption \@captype }.
+
+
+Package caption Warning: \caption will not be redefined since it's already
+(caption)                redefined by a document class or package which is
+(caption)                unknown to the caption package.
+See the caption package documentation for explanation.
+
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 84.
-LaTeX Font Info:    Try loading font information for OT1+pplx on input line 84.
-
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 82.
+LaTeX Font Info:    Try loading font information for OT1+pplx on input line 82.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pplx.fd
 File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
 )
-LaTeX Font Info:    Try loading font information for OML+zplm on input line 84.
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 82.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMS+zplm on input line 84.
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 82.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMX+zplm on input line 84.
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 82.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
-LaTeX Font Info:    Try loading font information for U+eur on input line 84.
+LaTeX Font Info:    Try loading font information for U+eur on input line 82.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueur.fd
 File: ueur.fd 2009/06/22 v3.00 Euler Roman
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 15.0049pt on input line 84.
+(Font)              scaled to size 15.0049pt on input line 82.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 84.
+(Font)              scaled to size 10.42007pt on input line 82.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 84.
-LaTeX Font Info:    Try loading font information for OT1+zplm on input line 84.
+(Font)              scaled to size 8.33606pt on input line 82.
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 82.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 84.
+(Font)              scaled to size 6.25204pt on input line 82.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 84.
+(Font)              scaled to size 5.21004pt on input line 82.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <9> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 88.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 86.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 98.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 96.
 
-Underfull \hbox (badness 8151) in paragraph at lines 100--100
+Underfull \hbox (badness 8151) in paragraph at lines 98--98
 $[]$ []\T1/pplx/m/n/8 E-mail: o.smirnov@ru.ac.za (OMS); m.atemkeng@gmail.com
  []
 
 
-Package natbib Warning: Citation `2' on page 1 undefined on input line 104.
+Package natbib Warning: Citation `2' on page 1 undefined on input line 102.
 
 
-Package natbib Warning: Citation `2' on page 1 undefined on input line 109.
+Package natbib Warning: Citation `2' on page 1 undefined on input line 107.
 
 
-Package natbib Warning: Citation `2' on page 1 undefined on input line 114.
+Package natbib Warning: Citation `Marti2008' on page 1 undefined on input line 
+112.
 
 
-Package natbib Warning: Citation `2' on page 1 undefined on input line 118.
+Package natbib Warning: Citation `Linfield1986' on page 1 undefined on input li
+ne 112.
+
+
+Package natbib Warning: Citation `2' on page 1 undefined on input line 112.
+
+
+Package natbib Warning: Citation `2' on page 1 undefined on input line 116.
 
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 9.37807pt on input line 128.
+(Font)              scaled to size 9.37807pt on input line 126.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.29405pt on input line 128.
+(Font)              scaled to size 7.29405pt on input line 126.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <8> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 138.
-LaTeX Font Info:    Try loading font information for OMS+pplx on input line 138
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 136.
+
+LaTeX Warning: Reference `lastpage' on page 1 undefined on input line 136.
+
+LaTeX Font Info:    Try loading font information for OMS+pplx on input line 136
 .
-LaTeX Font Info:    No file OMSpplx.fd. on input line 138.
+LaTeX Font Info:    No file OMSpplx.fd. on input line 136.
 
 LaTeX Font Warning: Font shape `OMS/pplx/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead on input line 138.
+(Font)              using `OMS/cmsy/m/n' instead on input line 136.
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
 
-Package natbib Warning: Citation `1' on page 2 undefined on input line 144.
+Package natbib Warning: Citation `1' on page 2 undefined on input line 142.
 
 
-Package natbib Warning: Citation `1' on page 2 undefined on input line 145.
+Package natbib Warning: Citation `1' on page 2 undefined on input line 143.
 
 
-Package natbib Warning: Citation `5' on page 2 undefined on input line 149.
+Package natbib Warning: Citation `5' on page 2 undefined on input line 147.
 
 
-Underfull \hbox (badness 1603) in paragraph at lines 157--170
+Underfull \hbox (badness 1603) in paragraph at lines 155--168
 \T1/pplx/m/n/9 where $\OML/zplm/m/it/9 I\OT1/zplm/m/n/9 (\OML/zplm/m/it/9 l\OT1
 /pplx/m/n/9 , \OML/zplm/m/it/9 m\OT1/zplm/m/n/9 )$ \T1/pplx/m/n/9 is the sky br
 ight-ness and $\OML/zplm/m/it/9 ^^^\OT1/zplm/m/n/9 (\OML/zplm/m/it/9 u\OT1/pplx
@@ -665,16 +600,30 @@ ight-ness and $\OML/zplm/m/it/9 ^^^\OT1/zplm/m/n/9 (\OML/zplm/m/it/9 u\OT1/pplx
 ) =
  []
 
+
+Package natbib Warning: Citation `Marti2008' on page 2 undefined on input line 
+218.
+
+
+LaTeX Warning: Reference `label:similarimaging' on page 2 undefined on input li
+ne 219.
+
+
+LaTeX Warning: Reference `lastpage' on page 2 undefined on input line 226.
+
 [2]
 
-LaTeX Warning: Reference `timessear2' on page 3 undefined on input line 234.
+LaTeX Warning: Reference `timessear1' on page 3 undefined on input line 227.
+
+
+LaTeX Warning: Reference `timessear2' on page 3 undefined on input line 233.
 
 <./Figures/effect_time_averaging.png, id=19, 586.8324pt x 442.2924pt>
 File: ./Figures/effect_time_averaging.png Graphic file (type png)
 
 <use ./Figures/effect_time_averaging.png>
 Package pdftex.def Info: ./Figures/effect_time_averaging.png used on input line
- 243.
+ 242.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
 <./Figures/maximun_integration.png, id=21, 586.8324pt x 442.2924pt>
@@ -682,26 +631,35 @@ File: ./Figures/maximun_integration.png Graphic file (type png)
 
 <use ./Figures/maximun_integration.png>
 Package pdftex.def Info: ./Figures/maximun_integration.png used on input line 2
-46.
+45.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
-Overfull \hbox (2.25952pt too wide) in alignment at lines 326--330
+Overfull \hbox (2.25952pt too wide) in alignment at lines 325--329
 [] [] [] [] 
  []
 
+
+LaTeX Warning: Reference `lastpage' on page 3 undefined on input line 329.
+
 [3]
-Underfull \hbox (badness 2529) in paragraph at lines 330--334
+Underfull \hbox (badness 2529) in paragraph at lines 329--333
 \T1/pplx/m/n/9 Here, $\OT1/zplm/b/n/9 B$ \T1/pplx/m/n/9 and $\OT1/zplm/b/n/9 V[
 ]$ \T1/pplx/m/n/9 are one row ma-trix of size
  []
 
 
-Underfull \hbox (badness 4634) in paragraph at lines 374--376
+LaTeX Warning: Reference `fig:uvcov' on page 4 undefined on input line 345.
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 373--375
 []\T1/pplx/m/n/9 The ma-trix that
  []
 
+
+LaTeX Warning: Reference `lastpage' on page 4 undefined on input line 388.
+
 [4 <./Figures/effect_time_averaging.png> <./Figures/maximun_integration.png>]
-Overfull \hbox (1.00076pt too wide) in paragraph at lines 394--395
+Overfull \hbox (1.00076pt too wide) in paragraph at lines 393--394
 []
  []
 
@@ -709,78 +667,130 @@ Overfull \hbox (1.00076pt too wide) in paragraph at lines 394--395
 File: ./Figures/uvcov.png Graphic file (type png)
 
 <use ./Figures/uvcov.png>
-Package pdftex.def Info: ./Figures/uvcov.png used on input line 427.
+Package pdftex.def Info: ./Figures/uvcov.png used on input line 426.
 (pdftex.def)             Requested size: 191.52246pt x 157.97267pt.
 
 <./Figures/longshortmid.png, id=32, 586.8324pt x 442.2924pt>
 File: ./Figures/longshortmid.png Graphic file (type png)
 
 <use ./Figures/longshortmid.png>
-Package pdftex.def Info: ./Figures/longshortmid.png used on input line 429.
+Package pdftex.def Info: ./Figures/longshortmid.png used on input line 428.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 507--510
+Underfull \hbox (badness 10000) in paragraph at lines 506--509
 []\T1/pplx/m/n/9 if
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 524--528
+Underfull \hbox (badness 10000) in paragraph at lines 523--527
 []
  []
 
 
-Overfull \hbox (40.36673pt too wide) in paragraph at lines 542--547
+Overfull \hbox (40.36673pt too wide) in paragraph at lines 541--546
 []
  []
+
+
+LaTeX Warning: Reference `lastpage' on page 5 undefined on input line 580.
 
 [5]
 
+LaTeX Warning: Reference `fig:fig_box' on page 6 undefined on input line 600.
+
+
+LaTeX Warning: Reference `fig:fig_box_freq' on page 6 undefined on input line 6
+00.
+
+
+LaTeX Warning: Reference `fig:fig_box_freq' on page 6 undefined on input line 6
+01.
+
+
+LaTeX Warning: Reference `fig:fig_gauss' on page 6 undefined on input line 617.
+
+
+
 LaTeX Warning: Reference `fig:fig_gauss_freq' on page 6 undefined on input line
- 618.
+ 617.
+
+
+LaTeX Warning: Reference `fig:fig_butter' on page 6 undefined on input line 630
+.
 
 
 LaTeX Warning: Reference `fig:fig_butter_freq' on page 6 undefined on input lin
-e 632.
+e 631.
+
+
+LaTeX Warning: Reference `fig:fig_sinc' on page 6 undefined on input line 643.
+
+
+LaTeX Warning: Reference `fig:fig_sinc_freq' on page 6 undefined on input line 
+643.
+
+
+LaTeX Warning: Reference `fig:fig_sinc_freq' on page 6 undefined on input line 
+645.
+
+
+LaTeX Warning: Reference `fig:fig_sinc_freq' on page 6 undefined on input line 
+646.
+
+
+LaTeX Warning: Reference `lastpage' on page 6 undefined on input line 665.
 
 [6 <./Figures/uvcov.png (PNG copy)> <./Figures/longshortmid.png>]
 
-LaTeX Warning: Reference `Equ:BDWnoise' on page 7 undefined on input line 668.
+LaTeX Warning: Reference `baseline1' on page 7 undefined on input line 666.
 
 
-LaTeX Warning: Reference `Equ:OBDWnoise' on page 7 undefined on input line 669.
+LaTeX Warning: Reference `baseline2' on page 7 undefined on input line 666.
 
+
+LaTeX Warning: Reference `Equ:BDWnoise' on page 7 undefined on input line 667.
+
+
+LaTeX Warning: Reference `Equ:OBDWnoise' on page 7 undefined on input line 668.
+
+
+
+LaTeX Warning: Reference `BDWBnoise' on page 7 undefined on input line 668.
+
+
+LaTeX Warning: Reference `OBDWBnoise' on page 7 undefined on input line 669.
 
 <./Figures/rect.png, id=41, 586.8324pt x 509.5035pt>
 File: ./Figures/rect.png Graphic file (type png)
  <use ./Figures/rect.png>
-Package pdftex.def Info: ./Figures/rect.png used on input line 700.
+Package pdftex.def Info: ./Figures/rect.png used on input line 699.
 (pdftex.def)             Requested size: 181.4403pt x 157.52463pt.
 
 <./Figures/freq_resp_box.pdf, id=42, 587.19376pt x 442.65375pt>
 File: ./Figures/freq_resp_box.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_box.pdf>
-Package pdftex.def Info: ./Figures/freq_resp_box.pdf used on input line 702.
+Package pdftex.def Info: ./Figures/freq_resp_box.pdf used on input line 701.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/sinc.png, id=43, 666.3294pt x 510.9489pt>
 File: ./Figures/sinc.png Graphic file (type png)
  <use ./Figures/sinc.png>
-Package pdftex.def Info: ./Figures/sinc.png used on input line 704.
+Package pdftex.def Info: ./Figures/sinc.png used on input line 703.
 (pdftex.def)             Requested size: 181.4403pt x 139.1275pt.
 
 <./Figures/freq_resp_sinc.pdf, id=44, 587.19376pt x 442.65375pt>
 File: ./Figures/freq_resp_sinc.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_sinc.pdf>
-Package pdftex.def Info: ./Figures/freq_resp_sinc.pdf used on input line 706.
+Package pdftex.def Info: ./Figures/freq_resp_sinc.pdf used on input line 705.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/Butterwordth.pdf, id=45, 699.21222pt x 505.89pt>
 File: ./Figures/Butterwordth.pdf Graphic file (type pdf)
 
 <use ./Figures/Butterwordth.pdf>
-Package pdftex.def Info: ./Figures/Butterwordth.pdf used on input line 708.
+Package pdftex.def Info: ./Figures/Butterwordth.pdf used on input line 707.
 (pdftex.def)             Requested size: 181.4403pt x 131.27356pt.
 
 <./Figures/freq_resp_butterwordh.pdf, id=46, 587.19376pt x 442.65375pt>
@@ -788,14 +798,14 @@ File: ./Figures/freq_resp_butterwordh.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_butterwordh.pdf>
 Package pdftex.def Info: ./Figures/freq_resp_butterwordh.pdf used on input line
- 710.
+ 709.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/gausian.pdf, id=47, 759.7384pt x 518.53723pt>
 File: ./Figures/gausian.pdf Graphic file (type pdf)
 
 <use ./Figures/gausian.pdf>
-Package pdftex.def Info: ./Figures/gausian.pdf used on input line 712.
+Package pdftex.def Info: ./Figures/gausian.pdf used on input line 711.
 (pdftex.def)             Requested size: 181.4403pt x 123.83432pt.
 
 <./Figures/freq_resp_gaussian.pdf, id=48, 587.19376pt x 442.65375pt>
@@ -803,33 +813,33 @@ File: ./Figures/freq_resp_gaussian.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_gaussian.pdf>
 Package pdftex.def Info: ./Figures/freq_resp_gaussian.pdf used on input line 71
-4.
+3.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 
-LaTeX Warning: Float too large for page by 5.85901pt on input line 716.
+LaTeX Warning: Float too large for page by 5.85901pt on input line 715.
 
 File: ./Figures/gausian.pdf Graphic file (type pdf)
 <use ./Figures/gausian.pdf>
-Package pdftex.def Info: ./Figures/gausian.pdf used on input line 719.
+Package pdftex.def Info: ./Figures/gausian.pdf used on input line 718.
 (pdftex.def)             Requested size: 181.4403pt x 123.83432pt.
 File: ./Figures/freq_resp_gaussian.pdf Graphic file (type pdf)
  <use ./Figures/freq_resp_gaussian.pdf>
 Package pdftex.def Info: ./Figures/freq_resp_gaussian.pdf used on input line 72
-1.
+0.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 667--724
+Underfull \hbox (badness 10000) in paragraph at lines 666--723
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 667--724
+Underfull \hbox (badness 10000) in paragraph at lines 666--723
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 667--724
+Underfull \hbox (badness 10000) in paragraph at lines 666--723
 
  []
 
@@ -838,20 +848,20 @@ File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
 
 <use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
 Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 751.
+ut line 750.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
 
 <use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
 Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 753.
+ut line 752.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
 <./Figures/corrSigVLAMxBl.png, id=50, 586.8324pt x 442.2924pt>
 File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
 
 <use ./Figures/corrSigVLAMxBl.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 755.
+Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 754.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
 <./Figures/corrSigVLAMxBl_overlapGdelta.png, id=51, 586.8324pt x 442.2924pt>
@@ -859,87 +869,216 @@ File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
 
 <use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
 Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
-ut line 757.
+ut line 756.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
 
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 760.
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 759.
 
 
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 760.
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 759.
 
 
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 766.
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 765.
 
 
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 766.
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 765.
 
 
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 768.
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 767.
 
 
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 770.
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 769.
 
 
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 773.
+LaTeX Warning: Reference `fig1' on page 7 undefined on input line 772.
 
 
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 773.
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 772.
 
 
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 775.
+LaTeX Warning: Reference `fig2' on page 7 undefined on input line 774.
 
 
-Package natbib Warning: Citation `2' on page 7 undefined on input line 809.
+LaTeX Warning: Reference `baseline1' on page 7 undefined on input line 779.
+
+
+LaTeX Warning: Reference `baseline2' on page 7 undefined on input line 779.
+
+
+LaTeX Warning: Reference `baseline2' on page 7 undefined on input line 787.
 
 
 Package natbib Warning: Citation `2' on page 7 undefined on input line 810.
 
-[7] [8 <./Figures/rect.png> <./Figures/freq_resp_box.pdf> <./Figures/sinc.png> 
-<./Figures/freq_resp_sinc.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/freq_resp_sinc.pdf): PDF incl
-usion: multiple pdfs with page group included in a single page
+Package natbib Warning: Citation `2' on page 7 undefined on input line 811.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV2' on page 7 undefined on input line 8
+19.
+
+
+LaTeX Warning: Reference `fig:Bl-sinc-FoV4' on page 7 undefined on input line 8
+19.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV2' on page 7 undefined on input line
+ 819.
+
+
+LaTeX Warning: Reference `fig:Bl-bessel-FoV4' on page 7 undefined on input line
+ 819.
+
+
+LaTeX Warning: Reference `lastpage' on page 7 undefined on input line 829.
+
+[7]
+
+LaTeX Warning: Reference `lastpage' on page 8 undefined on input line 829.
+
+[8 <./Figures/rect.png> <./Figures/freq_resp_box.pdf> <./Figures/sinc.png> <./F
+igures/freq_resp_sinc.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/freq_resp_sinc.pdf): PDF inclusion: mu
+ltiple pdfs with page group included in a single page
 > <./Figures/Butterwordth.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Butterwordth.pdf): PDF inclus
-ion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./Figures/Butterwordth.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
 > <./Figures/freq_resp_butterwordh.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/freq_resp_butterwordh.pdf): P
-DF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./Figures/freq_resp_butterwordh.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
 > <./Figures/gausian.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/gausian.pdf): PDF inclusion: 
-multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./Figures/gausian.pdf): PDF inclusion: multiple 
+pdfs with page group included in a single page
 > <./Figures/freq_resp_gaussian.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/freq_resp_gaussian.pdf): PDF 
-inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./Figures/freq_resp_gaussian.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
 >]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [9 <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png>
- <./Figures/corrSigVLAMxBl_overlapGdelta.png>] [10]
-Underfull \hbox (badness 1281) in paragraph at lines 935--939
+
+
+LaTeX Warning: Reference `lastpage' on page 9 undefined on input line 833.
+
+[9 <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png> 
+<./Figures/corrSigVLAMxBl_overlapGdelta.png>]
+
+LaTeX Warning: Reference `subsec:Windowing functions' on page 10 undefined on i
+nput line 834.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-sinc-w1x1-fov2' on page 10 undefin
+ed on input line 865.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-sinc-w1x50-fov2' on page 10 undefi
+ned on input line 865.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-bessel-w1x1-fov2' on page 10 undef
+ined on input line 867.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-bessel-w1x50-fov2' on page 10 unde
+fined on input line 867.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-sinc-w1x50-fov2' on page 10 undefi
+ned on input line 875.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-bessel-w1x50-fov2' on page 10 unde
+fined on input line 876.
+
+
+LaTeX Warning: Reference `fig:max-integ-time-sinc-w1x1-fov2' on page 10 undefin
+ed on input line 888.
+
+
+LaTeX Warning: Reference `fig:max-integ-time-sinc-w100x1-fov2' on page 10 undef
+ined on input line 888.
+
+
+LaTeX Warning: Reference `fig:max-integ-time-bessel-w1x1-fov2' on page 10 undef
+ined on input line 890.
+
+
+LaTeX Warning: Reference `fig:max-integ-time-bessel-w100x1-fov2' on page 10 und
+efined on input line 890.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-sinc-w1x50-fov2' on page 10 undefi
+ned on input line 898.
+
+
+LaTeX Warning: Reference `fig:max-integ-freq-bessel-w1x50-fov2' on page 10 unde
+fined on input line 899.
+
+
+LaTeX Warning: Reference `fig:max-integ-timefreq-sinc-w1x1-fov2' on page 10 und
+efined on input line 915.
+
+
+LaTeX Warning: Reference `fig:max-integ-timefreq-sinc-w100x50-fov2' on page 10 
+undefined on input line 915.
+
+
+LaTeX Warning: Reference `fig:max-integ-timefreq-bessel-w1x1-fov2' on page 10 u
+ndefined on input line 917.
+
+
+LaTeX Warning: Reference `fig:max-integ-timefreq-bessel-w100x50-fov2' on page 1
+0 undefined on input line 917.
+
+
+LaTeX Warning: Reference `lastpage' on page 10 undefined on input line 921.
+
+[10]
+
+LaTeX Warning: Reference `fig:max-integ-timefreq-sinc-w100x50-fov2' on page 11 
+undefined on input line 926.
+
+
+LaTeX Warning: Reference `fig:max-integ-timefreq-bessel-w100x50-fov2' on page 1
+1 undefined on input line 926.
+
+
+Underfull \hbox (badness 1281) in paragraph at lines 936--940
 \T1/pplx/m/n/9 Drawback and fu-tures works*** draw-back and fu-tures
  []
 
 (./m_paper.bbl
-Underfull \vbox (badness 2717) has occurred while \output is active []
+Underfull \vbox (badness 6110) has occurred while \output is active []
 
 )
 
-LaTeX Warning: Reference `eq2:block' on page 11 undefined on input line 991.
+LaTeX Warning: Reference `sec:imaging' on page 11 undefined on input line 966.
+
+
+LaTeX Warning: Reference `eqbb:linear' on page 11 undefined on input line 966.
+
+
+LaTeX Warning: Reference `eq2:block' on page 11 undefined on input line 992.
+
+
+LaTeX Warning: Reference `eq:vall' on page 11 undefined on input line 1020.
+
+
+LaTeX Warning: Reference `lastpage' on page 11 undefined on input line 1030.
 
 [11] <./Figures/time_freq_ration.png, id=392, 586.8324pt x 442.2924pt>
 File: ./Figures/time_freq_ration.png Graphic file (type png)
 
 <use ./Figures/time_freq_ration.png>
-Package pdftex.def Info: ./Figures/time_freq_ration.png used on input line 1060
+Package pdftex.def Info: ./Figures/time_freq_ration.png used on input line 1061
 .
 (pdftex.def)             Requested size: 181.4403pt x 136.74478pt.
 
@@ -947,14 +1086,14 @@ Package pdftex.def Info: ./Figures/time_freq_ration.png used on input line 1060
 File: ./Figures/timeration.png Graphic file (type png)
 
 <use ./Figures/timeration.png>
-Package pdftex.def Info: ./Figures/timeration.png used on input line 1062.
+Package pdftex.def Info: ./Figures/timeration.png used on input line 1063.
 (pdftex.def)             Requested size: 181.4403pt x 136.74478pt.
 
 <./Figures/Bl-sinc-FoV2-vla.pdf, id=394, 587.19376pt x 442.65375pt>
 File: ./Figures/Bl-sinc-FoV2-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-sinc-FoV2-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-sinc-FoV2-vla.pdf used on input line 1068
+Package pdftex.def Info: ./Figures/Bl-sinc-FoV2-vla.pdf used on input line 1069
 .
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
@@ -962,7 +1101,7 @@ Package pdftex.def Info: ./Figures/Bl-sinc-FoV2-vla.pdf used on input line 1068
 File: ./Figures/Bl-sinc-FoV4-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-sinc-FoV4-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-sinc-FoV4-vla.pdf used on input line 1072
+Package pdftex.def Info: ./Figures/Bl-sinc-FoV4-vla.pdf used on input line 1073
 .
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
@@ -971,7 +1110,7 @@ File: ./Figures/Bl-bessel-FoV2-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-bessel-FoV2-vla.pdf>
 Package pdftex.def Info: ./Figures/Bl-bessel-FoV2-vla.pdf used on input line 10
-76.
+77.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/Bl-bessel-FoV4-vla.pdf, id=397, 587.19376pt x 442.65375pt>
@@ -979,7 +1118,7 @@ File: ./Figures/Bl-bessel-FoV4-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-bessel-FoV4-vla.pdf>
 Package pdftex.def Info: ./Figures/Bl-bessel-FoV4-vla.pdf used on input line 10
-80.
+81.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-freq-sinc-w1x1-fov2.pdf, id=398, 587.19376pt x 442.65375pt
@@ -987,7 +1126,7 @@ Package pdftex.def Info: ./Figures/Bl-bessel-FoV4-vla.pdf used on input line 10
 File: ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf used on in
-put line 1086.
+put line 1087.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-freq-sinc-w1x50-fov2.pdf, id=399, 587.19376pt x 442.65375p
@@ -995,7 +1134,7 @@ t>
 File: ./Figures/max-integ-freq-sinc-w1x50-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-sinc-w1x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-sinc-w1x50-fov2.pdf used on i
-nput line 1091.
+nput line 1092.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-freq-bessel-w1x1-fov2.pdf, id=400, 587.19376pt x 442.65375
@@ -1003,7 +1142,7 @@ pt>
 File: ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf used on 
-input line 1095.
+input line 1096.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-freq-bessel-w1x50-fov2.pdf, id=401, 587.19376pt x 442.6537
@@ -1011,7 +1150,7 @@ input line 1095.
 File: ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf used on
- input line 1101.
+ input line 1102.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-time-sinc-w1x1-fov2.pdf, id=402, 587.19376pt x 442.65375pt
@@ -1019,7 +1158,7 @@ Package pdftex.def Info: ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf used on
 File: ./Figures/max-integ-time-sinc-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-sinc-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-sinc-w1x1-fov2.pdf used on in
-put line 1112.
+put line 1113.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-time-sinc-w100x1-fov2.pdf, id=403, 587.19376pt x 442.65375
@@ -1027,7 +1166,7 @@ pt>
 File: ./Figures/max-integ-time-sinc-w100x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-sinc-w100x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-sinc-w100x1-fov2.pdf used on 
-input line 1116.
+input line 1117.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-time-bessel-w1x1-fov2.pdf, id=404, 587.19376pt x 442.65375
@@ -1035,7 +1174,7 @@ pt>
 File: ./Figures/max-integ-time-bessel-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-bessel-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-bessel-w1x1-fov2.pdf used on 
-input line 1121.
+input line 1122.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-time-bessel-w100x1-fov2.pdf, id=405, 587.19376pt x 442.653
@@ -1043,7 +1182,7 @@ input line 1121.
 File: ./Figures/max-integ-time-bessel-w100x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-bessel-w100x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-bessel-w100x1-fov2.pdf used o
-n input line 1127.
+n input line 1128.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 <./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf, id=406, 606.16464pt x 477.885
@@ -1051,7 +1190,7 @@ n input line 1127.
 File: ./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf used o
-n input line 1134.
+n input line 1135.
 (pdftex.def)             Requested size: 181.4403pt x 143.03857pt.
 
 <./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf, id=407, 630.55576pt x 486.
@@ -1060,7 +1199,7 @@ File: ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf Graphic file (type pdf
 )
  <use ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf use
-d on input line 1139.
+d on input line 1140.
 (pdftex.def)             Requested size: 181.4403pt x 139.8508pt.
 
 <./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf, id=408, 609.77812pt x 478.7
@@ -1069,7 +1208,7 @@ File: ./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf Graphic file (type pdf)
 
  <use ./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf used
- on input line 1143.
+ on input line 1144.
 (pdftex.def)             Requested size: 181.4403pt x 142.4615pt.
 
 <./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf, id=409, 644.10638pt x 48
@@ -1078,87 +1217,103 @@ File: ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf Graphic file (type p
 df)
  <use ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf u
-sed on input line 1148.
+sed on input line 1149.
 (pdftex.def)             Requested size: 181.4403pt x 137.16112pt.
 
 
 Package natbib Warning: There were undefined citations.
+
+
+LaTeX Warning: Reference `lastpage' on page 12 undefined on input line 1156.
 
 [12
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [13 <./Figures/time_freq_ration.png> <./Figures/timeration.png> <./Figures/Bl-
-sinc-FoV2-vla.pdf> <./Figures/Bl-sinc-FoV4-vla.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Bl-sinc-FoV4-vla.pdf): PDF in
-clusion: multiple pdfs with page group included in a single page
+
+LaTeX Warning: Reference `lastpage' on page 13 undefined on input line 1156.
+
+[13 <./Figures/time_freq_ration.png> <./Figures/timeration.png> <./Figures/Bl-s
+inc-FoV2-vla.pdf> <./Figures/Bl-sinc-FoV4-vla.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/Bl-sinc-FoV4-vla.pdf): PDF inclusion: 
+multiple pdfs with page group included in a single page
 > <./Figures/Bl-bessel-FoV2-vla.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Bl-bessel-FoV2-vla.pdf): PDF 
-inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./Figures/Bl-bessel-FoV2-vla.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
 > <./Figures/Bl-bessel-FoV4-vla.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Bl-bessel-FoV4-vla.pdf): PDF 
-inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./Figures/Bl-bessel-FoV4-vla.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
 >]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [14 <./Figures/max-integ-freq-sinc-w1x1-fov2.pdf> <./Figures/max-integ-freq-si
-nc-w1x50-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-freq-sinc-w1x50-fov
-2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
+LaTeX Warning: Reference `lastpage' on page 14 undefined on input line 1156.
+
+[14 <./Figures/max-integ-freq-sinc-w1x1-fov2.pdf> <./Figures/max-integ-freq-sin
+c-w1x50-fov2.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/max-integ-freq-sinc-w1x50-fov2.pdf): P
+DF inclusion: multiple pdfs with page group included in a single page
 > <./Figures/max-integ-freq-bessel-w1x1-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-freq-bessel-w1x1-fo
-v2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-
+pdfTeX warning: pdflatex (file ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf): 
+PDF inclusion: multiple pdfs with page group included in a single page
 > <./Figures/max-integ-freq-bessel-w1x50-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-freq-bessel-w1x50-f
-ov2.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
-e
+pdfTeX warning: pdflatex (file ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf):
+ PDF inclusion: multiple pdfs with page group included in a single page
 >]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15 <./Figures/max-integ-time-sinc-w1x1-fov2.pdf> <./Figures/max-integ-time-si
-nc-w100x1-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-time-sinc-w100x1-fo
-v2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
+LaTeX Warning: Reference `lastpage' on page 15 undefined on input line 1156.
+
+[15 <./Figures/max-integ-time-sinc-w1x1-fov2.pdf> <./Figures/max-integ-time-sin
+c-w100x1-fov2.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/max-integ-time-sinc-w100x1-fov2.pdf): 
+PDF inclusion: multiple pdfs with page group included in a single page
 > <./Figures/max-integ-time-bessel-w1x1-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-time-bessel-w1x1-fo
-v2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-
+pdfTeX warning: pdflatex (file ./Figures/max-integ-time-bessel-w1x1-fov2.pdf): 
+PDF inclusion: multiple pdfs with page group included in a single page
 > <./Figures/max-integ-time-bessel-w100x1-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-time-bessel-w100x1-
-fov2.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
-ge
+pdfTeX warning: pdflatex (file ./Figures/max-integ-time-bessel-w100x1-fov2.pdf)
+: PDF inclusion: multiple pdfs with page group included in a single page
 >]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [16 <./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf> <./Figures/max-integ-tim
-efreq-sinc-w100x50-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-timefreq-sinc-w100x
-50-fov2.pdf): PDF inclusion: multiple pdfs with page group included in a single
- page
+
+LaTeX Warning: Reference `lastpage' on page 16 undefined on input line 1156.
+
+[16 <./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf> <./Figures/max-integ-time
+freq-sinc-w100x50-fov2.pdf
+
+pdfTeX warning: pdflatex (file ./Figures/max-integ-timefreq-sinc-w100x50-fov2.p
+df): PDF inclusion: multiple pdfs with page group included in a single page
 > <./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-timefreq-bessel-w1x
-1-fov2.pdf): PDF inclusion: multiple pdfs with page group included in a single 
-page
+pdfTeX warning: pdflatex (file ./Figures/max-integ-timefreq-bessel-w1x1-fov2.pd
+f): PDF inclusion: multiple pdfs with page group included in a single page
 > <./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/max-integ-timefreq-bessel-w10
-0x50-fov2.pdf): PDF inclusion: multiple pdfs with page group included in a sing
-le page
->] (./m_paper.aux)
+pdfTeX warning: pdflatex (file ./Figures/max-integ-timefreq-bessel-w100x50-fov2
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] (./m_paper.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1166,17 +1321,17 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 4853 strings out of 493485
- 70387 string characters out of 3143526
- 148177 words of memory out of 3000000
- 7974 multiletter control sequences out of 15000+200000
+ 4650 strings out of 493485
+ 67162 string characters out of 3143526
+ 142153 words of memory out of 3000000
+ 7781 multiletter control sequences out of 15000+200000
  83907 words of font info for 170 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 44i,17n,42p,320b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,17n,38p,309b,338s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1189,7 +1344,7 @@ fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb
 </usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on m_paper.pdf (16 pages, 1190210 bytes).
+Output written on m_paper.pdf (16 pages, 1190825 bytes).
 PDF statistics:
  1650 PDF objects out of 1728 (max. 8388607)
  430 compressed objects within 5 object streams
