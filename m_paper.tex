@@ -209,8 +209,12 @@ visibility with a \textit{Boxcar} windowing function. Mathematically, this is de
  V_{pq,(t_c,\nu_c)}^{corr}=c_{pq,(t,\nu)}\cdot\Bigg(\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg). \label{f4}
 \end{equation}
 Here, $c_{pq,(t,\nu)}$ is a function that samples the result of $\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}$ at 
-the centre time interval and centre frequency interval. %Its is defined as: $c_{pq,(t_i,\nu_j)}=0$ for 
+the centre time interval and centre frequency interval. \\%Its is defined as: $c_{pq,(t_i,\nu_j)}=0$ for \\
 %$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
+Nevertheless, we note that this is not an efficient mode of attributing the weight of baselines visibilities. This mean that, the baselines 
+of the array are all suppose equally in term of the statistical analyse of the signals from the astronomical source. Unfortunately, this 
+is not the case, since we lost informations on some baselines than order due to the incomplete sampling of the Fourier component that 
+differ from one baseline to another.
 \subsection{Effect of time and bandwidth averaging}
 During imaging \citep{Marti2008}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
 $sinc$ function therefore multiply the sky (see appendix\ref{label:similarimaging} for a short discussion and illustration). Thus, the 
@@ -255,10 +259,10 @@ n_t\times n_{\nu}$ matrix of four polarizations time and
 frequency dependent matrices each of size $n_t\times n_{\nu}$.
 \begin{eqnarray*}
 \mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
-^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^T. \label{eqx:conv}
+^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
 \end{eqnarray*}
-The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} in terms of a series of linear transformations or functional model 
-as:
+where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} 
+in terms of a series of linear transformations or functional model as:
 \begin{equation}
 V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
 \mathbf{V}_{pq,(t,\nu)}^{samp}.\label{eqbb:linear}
@@ -321,11 +325,12 @@ Here, $H$ represents the the conjugate transpose operation also known as a Hermi
 inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. The estimate of  $\epsilon$, for the map centre pixel is given by:
 \begin{eqnarray*}
  \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - \mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}_{o,o}\\		
-	&=&\frac{1}{N_{v}}\sum_{k=1}^{N_{v}^{pq}}\Bigg\{\mathbf{A}\cdot{V}_{array,(t,\nu)}^{n}-
-\mathbf{F}^{H}\cdot\mathbf{A}^{2}\cdot{V}_{array,(t,\nu)}^{n}\Bigg\}.
+	&=&\frac{1}{N_{v}}\sum_{k=1}^{N_{v}^{pq}}\Bigg\{\mathbf{B}\cdot\mathbf{V}_{array,(t,\nu)}^{n}-
+\mathbf{F}^{H}{H}\cdot\mathbf{A}\cdot\mathbf{B}\cdot\mathbf{V}_{array,(t,\nu)}^{n}\Bigg\}.
 \end{eqnarray*}
-Here, ${V}_{array,(t,\nu)}^{n}$ is a one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
-$\textbf{V}_{pq,(t,\nu)}^{n}$ on top of each other.
+Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{n}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
+$\mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{n}$ and $\mathbf{V}_{pq,(t,\nu)}^{n}$
+on top of each other respectively.
 \section{derivation of BDWF: FoV signals recovery}
 \label{baseline1}
 \subsection{Description}
@@ -351,16 +356,16 @@ reducing the data rate. During an integration, the Earth rotation makes baseline
 frequency. We can therefore package the $(u,v)$ coordinates changes and the frequency changes of a baseline $pq$ into a single matrix of 
 size $n_t \times 2$ and  into a single vector of dimension $n_{\nu}$ respectively. 
 \begin{eqnarray*}
-\mathbf{U}_{pq,t}&=& \Bigg(\mathbf{u}_{pq,t_s}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_e}\Bigg)^T\\
- \mbox{\boldmath $\nu$}&=&\Bigg(\nu_s,\dots,\nu_c,\dots,\nu_e\Bigg)^T
+\mathbf{U}_{pq,t}&=& \Bigg(\mathbf{u}_{pq,t_s}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_e}\Bigg)^{\dagger}\\
+ \mbox{\boldmath $\nu$}&=&\Bigg(\nu_s,\dots,\nu_c,\dots,\nu_e\Bigg)^{\dagger}
 \end{eqnarray*}
-where the indexes $s$, $c$ and $e$ references the integration interval starting, centre, and ending time respectively and $T$ the transpose 
-operator. The 
+where the indexes $s$, $c$ and $e$ references the integration interval starting, centre, and ending time respectively. 
+The 
 elements of $\mathbf{U}_{pq,t}$ are functions of time and frequency representing a $(u,v)$ coordinate.
 We defined the function, $\overline{\overline{\cdot}}$ on a $n_t \times 2$ matrix as follow:
 \begin{eqnarray}
 \overline{\overline{\mathbf{U}}}_{pq,t}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, 
-||\mathbf{u}_{pq,t_e}||\Bigg)^T,
+||\mathbf{u}_{pq,t_e}||\Bigg)^{\dagger},
 \end{eqnarray}
 where $||.||$ is the Euclidean norm.
 \begin{definition}[Time direction spacing]
@@ -371,7 +376,7 @@ direction is defined as
  \mathbf{U}_{pq,t}^{s} &=&\frac{\nu_c}{c}\cdot\Bigg\{\mathbf{U}_{pq,t}-\mathbf{H}_{pq,t} \Bigg \},
 \end{eqnarray*}
 where $c$ is the speed of the light and $\mathbf{H}_{pq}$ is a matrix of size $n_t \times 2$ that model the centre $uv$-coordinate,
-$\mathbf{H}_{pq,t}= \big(\mathbf{u}_{pq,t_c}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_c}\big)^T$.
+$\mathbf{H}_{pq,t}= \big(\mathbf{u}_{pq,t_c}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_c}\big)^{\dagger}$.
 \end{definition}
 \begin{definition}[Frequency direction spacing]
 \label{def:2}
@@ -539,11 +544,13 @@ $\Delta_l t$ and the frequency interval $\Delta_l \nu$, and $g^{rhs}_{pq}$  the 
 windowing functions within the time interval $\Delta_r t$ and the frequency interval 
 $\Delta_r \nu$, then the overlap baseline dependent windowing function within  $\Delta t$ and $\Delta \nu$ is defined as:
 \begin{eqnarray*}
-g_{pq} = \left\{ 
+ g^{}_{pq}: \{\mathbf{\mathcal{R}},\mathbf{\mathcal{R}}\} &\rightarrow& \mathbf{\mathcal{R}}\\
+                   d_{t_i},d_{\nu_j} &\mapsto&
+ \left\{ 
   \begin{array}{l l}
-    g^{lhs}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_l t, \Delta_l \nu)$}\\
-    f^{a_0}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_u t, \Delta_u \nu)$}\\
-    g^{rhs}_{pq}& \quad \text{if $(t,\nu) \in (\Delta_r t, \Delta_r \nu)$}
+    g^{lhs}_{pq} & \quad \text{if $(t_i,\nu_j) \in (\Delta_l t, \Delta_l \nu)$}\\
+    f^{a_0}_{pq} & \quad \text{if $(t_i,\nu_j) \in (\Delta_u t, \Delta_u \nu)$}\\
+    g^{rhs}_{pq}& \quad \text{if $(t_i,\nu_j) \in (\Delta_r t, \Delta_r \nu)$}
   \end{array} \right.
 \end{eqnarray*}
 \end{definition}
