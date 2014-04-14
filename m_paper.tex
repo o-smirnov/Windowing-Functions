@@ -153,7 +153,7 @@ South-North respectively and $w$ is directed towards the phase centre of the sou
 the image plane are $l$ and $m$ respectively. They are the observed source coordinates, measured in radian. The ideal measurement of 
 interferometric wide-field imaging also known as the van Cittert-Zernike theorem (Thompson et \textit{al}. 2001, Eq.6) is given by
 \begin{equation}
- V_{pq}=\int \int \frac{I(l,m)}{\sqrt{1-l^2 - m^2}}e^{-2\pi i \phi (u,v,w)}dldm, \label{eq1:visSky}
+ V_{pq,(u,v,w)}=\int \int \frac{I(l,m)}{\sqrt{1-l^2 - m^2}}e^{-2\pi i \phi (u,v,w)}dldm, \label{eq1:visSky}
 \end{equation} 
 where $I(l,m)$ is the sky brightness and $\phi(u,v,w)=u.l+v.m+w.(\sqrt{1-l^2 - m^2}-1)$ is a term from the cross-correlator that models the 
 direction in the sky and the separation of the two antennas. The term $\sqrt{1-l^2 - m^2}$ is the result of the projection of the celestial 
@@ -179,12 +179,13 @@ interval, then Eq.\ref{eq1:visSky} can be rewritten as:
 % the time interval $\Delta t$ at multi frequency  within the bandwidth $\Delta \nu$, then the cross correlate visibility, 
 % $\mathcal{V}_{pq,(t,\nu)}^{corr}$ of the  baseline $(p,q)$ is given as:
 \begin{equation}
-V_{pq,(t_c,\nu_c)}^{corr}=\frac{1}{\Delta t \Delta \nu} \int_{t_c-dt/2}^{t_c+dt/2}\int_{\nu_c-d\nu/2}^{\nu_c+d\nu/2}V_{pq,(t,\nu)}d\nu dt.
+V_{pq,(t_c,\nu_c)}^{corr}=\frac{1}{\Delta t \Delta \nu} \int_{t_s}^{t_e}\int_{\nu_s}^{\nu_e}V_{pq,(t,\nu)}d\nu dt.
 \label{eq2:conti}
 \end{equation}
 Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility, 
 $V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}V_{pq,(t,\nu)}$ at a specific time and frequency, where $S_{pq,(t,\nu)}$ is a sampling 
-function that indicates where the $(u, v)$ data for the baseline $(p,q)$ are measured  during the time and frequency integration. 
+function that indicates where the $(u, v)$ data for the baseline $(p,q)$ are measured  during the time and frequency integration. It is 
+unity where measurement have been made, and zero otherwise.
 Therefore, 
 Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre frequency and at the centre time is restricted to a narrow 
 frequency interval and to a short time interval, this is the current efficient observing mode. However, the mathematics behind is as 
