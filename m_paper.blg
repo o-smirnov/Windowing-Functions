@@ -6,45 +6,45 @@ Database file #1: m_paper.bib
 Warning--I didn't find a database entry for "2"
 Warning--I didn't find a database entry for "1"
 Warning--I didn't find a database entry for "5"
-You've used 3 entries,
+You've used 2 entries,
             2601 wiz_defined-function locations,
-            565 strings with 4076 characters,
-and the built_in function-call counts, 1064 in all, are:
-= -- 109
-> -- 56
+            559 strings with 3889 characters,
+and the built_in function-call counts, 679 in all, are:
+= -- 72
+> -- 29
 < -- 2
-+ -- 18
-- -- 18
-* -- 95
-:= -- 203
++ -- 9
+- -- 9
+* -- 58
+:= -- 130
 add.period$ -- 0
-call.type$ -- 3
-change.case$ -- 18
-chr.to.int$ -- 3
-cite$ -- 3
-duplicate$ -- 33
-empty$ -- 49
-format.name$ -- 23
-if$ -- 192
+call.type$ -- 2
+change.case$ -- 11
+chr.to.int$ -- 2
+cite$ -- 2
+duplicate$ -- 22
+empty$ -- 33
+format.name$ -- 13
+if$ -- 123
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 3
-newline$ -- 12
-num.names$ -- 12
-pop$ -- 10
+missing$ -- 2
+newline$ -- 9
+num.names$ -- 8
+pop$ -- 5
 preamble$ -- 1
-purify$ -- 21
+purify$ -- 13
 quote$ -- 0
-skip$ -- 39
+skip$ -- 26
 stack$ -- 0
-substring$ -- 60
-swap$ -- 3
+substring$ -- 44
+swap$ -- 2
 text.length$ -- 0
-text.prefix$ -- 6
+text.prefix$ -- 3
 top$ -- 0
-type$ -- 27
+type$ -- 18
 warning$ -- 0
-while$ -- 12
+while$ -- 8
 width$ -- 0
-write$ -- 32
+write$ -- 22
 (There were 3 warnings)
