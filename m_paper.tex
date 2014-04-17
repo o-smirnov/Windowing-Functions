@@ -246,11 +246,13 @@ of view sources
 \end{itemize}
 \begin{figure*}
   \centering
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.png}\caption{The attenuation of the 
-intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at 100KHz 
-bandwidth.}\label{timessear1}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/maximun_integration.png}\caption{(b)Response to a 1Jy 
-source at 1deg, as a function of $\Delta t$ with 100KHz bandwidth}\label{timessear11}\end{minipage}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.pdf}\caption{Attenuation of the 
+intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at $1.4$GHz with
+125kHz bandwidth.}\label{timessear1}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/maximun_integration.png}\caption{Attenuation of the 
+intensity of a 1Jy source move from the phase centre for $1$s integration synthesis at $1.4$GHz with
+$\Delta \nu$ bandwidth.}\label{timessear2}\end{minipage}
 \end{figure*}
 Fortunately, since the response is maximal only for sources at the phase centre, an interesting approach is achieved by convolving the 
 observed visibility with a  windowing function that depends on $(u,v)$ coordinates spacing (baseline dependent windowing function). 
@@ -283,7 +285,7 @@ package into a single matrix, $\mathbf{V}_{pq,(t',\nu')}^{corr}$ of size $(4N_t 
 weighted average visibilities of the  baseline $(p,q)$ during the synthesis as follows: 
 \begin{equation}
 \mathbf{V}_{pq,(t',\nu')}^{corr}=\mathbf{C}_{pq,(t,\nu)}^{block,n}\cdot 
-\mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n},\label{ eq2:block}
+\mathbf{W}_{pq,(t,\nu)}^{block,n}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n},\label{eq2:block}
 \end{equation}
 where $N_t$ and  $N_{\nu}$ are the number of time sample and frequency channels entering the Fourier domain. If the synthesis time is $T$ 
 and the frequency range is $F$, then $T=N_t \times \Delta t$ and $F=N_{\nu}\times\Delta \nu$. The the size of 
@@ -410,92 +412,11 @@ of the vector $\mathbf{d}^{}_{\nu}$.
 The previous algorithm is correct. But unfortunately, the algorithm does not suppressed out FoV sources and we loosed  in sensitivity. 
 Although simple averaging "means high sensitivity", we do need to eliminate at a certain rate out FoV sources in such a way that the 
 overall SNR becomes higher than the one of averaging. We described such an algorithm in the following section.
-% where $\mathbf{x}_{pq}(t-t_c)=\bigg(\Big|\Big|\Big(u_{pq}'(t_s),v_{pq}'(t_s)\Big)\Big|\Big|,\dots, 
-% \Big|\Big|\Big(u_{pq}'(t_e),v_{pq}'(t_e)\Big)\Big|\Big| \bigg)$ and 
-% $\mathbf{y}_{pq}(\nu-\nu_c)=\bigg(\Big|\Big|\Big(u_{pq}''(\nu_s),v_{pq}''(\nu_s)\Big)\Big|\Big|,\dots, 
-% \Big|\Big|\Big(u_{pq}''(\nu_e),v_{pq}''(\nu_e)\Big)\Big|\Big| \bigg)  $
-% $1.)$ In Figures (\ref{fig1}) and (\ref{fig2}) we represented the ratio $\frac{\sigma_{meas,pq}}{\sigma_{av,pq}}$ as a function 
-% of $\sum_{i}^{n} u_i((t_c-t_i)/\lambda))$ ($\sigma_{meas,pq},\sigma_{av,pq}$ are the per baselines CWF and averaging rms noise  
-% respectively). We could also represented it as a function of baseline length. But, a uv-track corresponding to baseline aligned along the 
-% Est-West direction has longer tracts compare to one aligned along the South-Nordth for the same integration and frequency band. Therefore,  
-% $\frac{\sigma_{meas,pq}}{\sigma_{av,pq}}$ $v/s$ baselines length is ambiguous. We consider five baselines dependent 
-% windowing sinc function, $Bl$-$sinc$ $wk$ (with an extended width of $(k-1)n$ time intervals and/or frequency channels and $k \geq 1$). The 
-% experiment is done for two cases, figure (\ref{fig1}) is the one for $Bl$-$sinc$ $wk$ over both time-frequency and figure (\ref{fig2}) over 
-% time. These figures shows that, the noise increases with baselines length.\\
-% \begin{figure}
-%   \includegraphics[width=0.4\textwidth, height=0.4\textwidth]{./Figures/longshortmid.png}
-%   \caption{Snapshot coverage} \label{uvcov}
-% \end{figure}
-% \begin{figure}
-%   \includegraphics[width=0.4\textwidth, height=0.4\textwidth]{./Figures/uvcov.png}
-%   \caption{Snapshot coverage} \label{uvcov}
-% \end{figure}
 \begin{figure}
   \centering
     \includegraphics[width=0.5\textwidth]{./Figures/uvcov.png}
     \caption{Coverage of one integration}
 \end{figure}
-% \begin{figure*}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/uvcov.png}\caption{Snapshot coverage}\label{fig:uvcov}
-% \end{figure*}
-% \subsection{Cross-correlation with \textit{BDWF}}
-% Taking a step back to eq \ref{}
-% \begin{eqnarray*}
-%  V^{meas}_{pq}(\mathbf{u}(t)/\lambda) &=&\sum_{t}\sum_{\nu} f_{pq}(\mathbf{d}_{t},\mathbf{d}_{\nu})\cdot 
-% \mathbf{V}_{pq}^{obs}(t,\nu)\\
-% 					  &=& \sum_{t}\sum_{\nu}\mathbf{W}_{pq}(t-t_c, \nu-\nu_c)\cdot \mathbf{V}_{pq}^{obs}(t,\nu)\\
-% \end{eqnarray*}
-% \subsection{Noise  analysis}
-% In this section, theoretical expressions of the noise of correlator windowing functions (CWF) are derived. 
-% Simulations results shows that when the overlap width of CWF is increased, the noise in the sky map is reduced. Furthermore, 
-% the noise reduces more rapidly when the overlap is done over both time intervals and frequency channels. For convenience, we have 
-% chosen to derive the analytical expression for the noise of a CWF at the phase centre. For the analysis we used a simulated 
-% VLA, 1min30s synthesis, with a 1,5s integration time at 1,4Ghz, with 100 channels of width 1kHz. We fill this simulated measurement set 
-% with 1Jy thermal noise and we used a sinc as a CWF.
-% For convenience, in this section, we  analyse the centre pixel noise of a sky map after we had apply a baseline dependent windowing 
-% function during the time and frequency integration. The brightness of the 
-% naturally weighted central pixel is estimate by (see the inverse Fourier transform of equation (19-2) in 
-% \cite{1} ).
-% \begin{eqnarray*}
-% \widetilde{\mathcal{I}}(0,0)&=&\frac{1}{N_{v}}   \sum_{k=1}^{N_{v}} V_{all,k}^{avg}\\
-% 	          &=&\frac{1}{N_{v}}   \sum_{pq,k=1}^{N_{v}^{pq}} V_{pq,k}^{avg}\\
-% 	          &=&\frac{1}{N_{v}}   \sum_{pq,k=1}^{N_{v}^{pq}}\Big(\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}} 
-% f_{pq,(dt_i,d\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}\Big).
-% \end{eqnarray*}
-% Here, the variable $k$ run through the baseline $(p,q)$ timeslots. The  overall rms noise is given by
-% \begin{eqnarray*}
-% \sigma^2	&=& 
-% \frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}f_{pq,(dt_i,d\nu_j)}^{2}\Big) 
-% ,\label{Equ:BDWnoise}
-% \end{eqnarray*}
-% where  $\sigma_{samp}$ is the per sampled visibility noise
-% Where $W^{pq}$ is a normalized CWF; $\lambda$, $t_c$ are the observed wavelength and centre of the integration 
-% respectively. $N_{meas}$ is the number of the measured visibilities. The observed visibilities of baseline $pq$  are 
-% $V^{pq}_{obs}(u(t/\lambda))$, $n$ is the number of time intervals  and/or frequency channels within the within the width of the CWF.
-% %and defined as % and is given by
-% let introduced jjjjjjjjjjjjjjs  sjjs lkk xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxx ,xssss, s,,,sssssx, xxxxxxxxxx,x 
-% xxxxxxxxxxxxxx,,xxxxxxxxxxxx, write more here to explain
-% \begin{eqnarray**}
-% \widetilde{I}(0,0)&=&\frac{1}{N_{meas}}   \sum_{all-pq}\Big(\sum_{t}\sum_{\nu}f_{pq}(\mathbf{d}_{t},\mathbf{d}_{\nu})\cdot 
-% \mathbf{V}_{pq}^{obs}(t,\nu)\Big)
-% \end{eqnarray**}
-% \begin{eqnarray*}
-% 		\sigma_{meas, pq}^2	&=&var\Big(\sum_{t}\sum_{\nu}f_{pq}(\mathbf{d}_{t},\mathbf{d}_{\nu})\cdot 
-% \mathbf{V}_{pq}^{obs}(t,\nu)   
-% \Big)\\
-% 		&=&\sum_{t}\sum_{\nu}f_{pq}^{2}(\mathbf{d}_{t},\mathbf{d}_{\nu}) \sigma_{obs}^2 
-% \end{eqnarray*}
-% where $\sigma_{obs}$ is the expected rms noise per observed visibility. By replacing eq \ref{1} into eq \ref{1} we obtained
-% \begin{eqnarray*}		
-% \sigma^2	
-% &=&\Big(\frac{\sigma_{obs}}{N_{meas}}\Big)^2\cdot\sum_{all-pq}\Big(\sum_{t}\sum_{\nu}f_{pq}^{2}(\mathbf{d}_{t},\mathbf{d}_{\nu})\Big)
-% \end{eqnarray*}
-% If $f_{pq}$ is a boxcar function, then $\sigma^2 =\frac{1}{N_{meas} \times n_t \times n_{\nu}} \sigma_{obs}^2$ ,
-% and can be expressed as a function of the number of the observed visibilities, $N_{obs}$ as $\sigma^2=\frac{1}{N_{obs}\times 
-% n_{\nu}} \sigma_{obs}^2$.
-% % \begin{eqnarray**}
-% % \sigma^2	   &=&\frac{1}{N_{obs}\times n_{\nu}} \sigma_{obs}^2
-% % \end{eqnarray**}
 \section{Algorithm 2: FoV signals recovery and out FoV suppression}
 \label{baseline2}
 \subsection{Description}
@@ -617,25 +538,25 @@ This window take a hunk of the data without modification, and  this leads to dis
 happens that the signal  fit exactly with the window width. Nevertheless, it is rare to find such a situation.}. For 
 a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 \begin{equation}
-\Pi_{t}=\left\{
+\Pi(t)=\left\{
 \begin{array}{rl}
 1 & \mbox{$-t_a \leq t \leq t_a$} \\
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation}
-Fig.\ref{fig:fig_box} and Fig.\ref{fig:fig_box_freq} gives the graph of $\Pi_{t}$ and its spectrum respectively. The blue and 
-the red curve of Fig.\ref{fig:fig_box_freq} are the spectrum of $\Pi_{t}$ for a time cut-off interval, $[-t_a, t_a]$ and 
+Fig.\ref{fig:fig_box} and Fig.\ref{fig:fig_box_freq} gives the graph of $\Pi(t)$ and its spectrum respectively. The blue and 
+the red curve of Fig.\ref{fig:fig_box_freq} are the spectrum of $\Pi(t)$ for a time cut-off interval, $[-t_a, t_a]$ and 
 $[-t_a/2,t_a/2]$ respectively. We noticed that when the cut-off interval is large, the MLW of the spectrum is 
 narrower, the PSL is lower and the SLR drop faster.
 \subsubsection{Gaussian window}
 A Gaussian window centred at mean zero with standard deviation, $\sigma$ is given by: 
 \begin{equation}
-  G_{t}= e^{-bt^{2}}.
+  G(t)= e^{-bt^{2}}.
 \end{equation}
-Here, $b=(2\sigma^2)^{-1}$ and  $\mathcal{F}^{-1}\big\{G_{t}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
+Here, $b=(2\sigma^2)^{-1}$ and  $\mathcal{F}^{-1}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
 This shows us that the inverse Fourier transform of a Gaussian with standard deviation $\sigma$ is a Gaussian with a standard 
 deviation $\sigma '= (2\pi\sigma)^{-1}$.
-Fig.\ref{fig:fig_gauss} and Fig.\ref{fig:fig_gauss_freq} gives the graph of $G_{t}$ and its spectrum respectively, where $G_{t}$ 
+Fig.\ref{fig:fig_gauss} and Fig.\ref{fig:fig_gauss_freq} gives the graph of $G(t)$ and its spectrum respectively, where $G(t)$ 
 is truncate within the cut-off frequency interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red one. We noticed 
 that when the standard deviation is large, the MLW of the spectrum is narrower, the PSL is higher and the SLR drop slowly compare to a 
 smaller standard deviation.
@@ -644,7 +565,7 @@ The time response of the Butterworth window is flat  in the pass band, and rolls
 characterized by two independent parameters, the cut-off time $t_a$ and the order $p$. These two parameters controls the 
 bandwidth and side lobes  attenuation. The time response of the Butterworth window is given by:
 \begin{equation}
-BW_t= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
+BW(t)= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
 For the same frequency interval $[-t_a,t_a]$, we plotted  three curves $\{p=1, p=3, p=5\}$ of $BW_{t}$ in Fig.\ref{fig:fig_butter} and 
 their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}.  We noticed that when the other $p$ is getting bigger, the MLW of the 
@@ -652,10 +573,10 @@ spectrum is conserved, while the PSL is getting higher and the SLR is dropping  
 \subsubsection{Sinc Window}
 The sinc window  is an infinitely large convolution window as it is non zero everywhere. The sinc is defined as follow:
 \begin{equation}
-S_t= sinc\big(\pi b t\big).
+S(t)= sinc\big(\pi b t\big).
 \end{equation}
- Fig.\ref{fig:fig_sinc} and Fig.\ref{fig:fig_sinc_freq} gives the graph of $S_{t}$ and its spectrum respectively, where 
-$S_{t}$ is truncate within the cut-off time interval $[-t_a,t_a]$. We noticed that when the cut-off time interval is large 
+ Fig.\ref{fig:fig_sinc} and Fig.\ref{fig:fig_sinc_freq} gives the graph of $S(t)$ and its spectrum respectively, where 
+$S(t)$ is truncate within the cut-off time interval $[-t_a,t_a]$. We noticed that when the cut-off time interval is large 
 (Fig.\ref{fig:fig_sinc_freq}, blue curve), the spectrum becomes perfectly flat at the passband while the MLW becomes narrower,  the PSL 
 becomes lower and the SLR drop faster compare to a cut-off interval of $[-t_a,t_a]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). 
 \subsubsection{Bessel Function of the First Kind}
@@ -711,7 +632,9 @@ response of Bessel first kind window}\label{fig:fig_5} \end {minipage}
 \end{figure*}
 \section{Noise and comparison}
 Several windowing functions  were described in the previous section, the sinc window, the Bessel of the first kind and the 
-Butterwordth approaches well our specifications, and they are taken under consideration throughout the rest of this paper. We show in this 
+Butterwordth approaches well our specifications, and they are taken under consideration throughout the rest of this paper. We took  
+$sinc(X,Y)=sinc(X)sinc(Y)$, J$_0(X,Y)=$J$_0(\sqrt{X^2 + Y^2})$ and $BW(X,Y)=BW(\sqrt{X^2 + Y^2})$ for a two dimensional 
+sinc window, Bessel of the first kind and Butterwordth window respectively. We show in this 
 section that, applying our methods means that you are filtering the Fourier plane with a sort of hybrids filters (boxcar window on 
 shorter baselines and the window you actually considered on longer baselines). We furthermore evaluate the theoretical noise predicted in 
 Eq.\ref{eq:noise}.\\
@@ -795,29 +718,6 @@ The tables below summarized the array overall  theoretical rms noise ratio and t
   {\footnotesize Bl-BW-W150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $-$}\\
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}
-% \begin{tabular}{*3{c}}
-%  \multicolumn{3}{c}{}\\
-%   \hspace{-1.cm}\begin{tabular}{|c|c|}
-%   \textbf{$f_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
-%   \hline\hline
-%   {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
-%   {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}$\}} &{\footnotesize 1,066} \\ 
-%   {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
-%   {\footnotesize $B_{u}$} &{\footnotesize 1,066} \\
-%   {\footnotesize $\mathcal{F}^{-1}\{B_{u}$\}} &{\footnotesize 1,066} \\ 
-%   {\footnotesize $P_{u}$} & {\footnotesize 1,334}
-%   \end{tabular}& \label{BDWBnoise}
-%    \begin{tabular}{|c|c|}
-%   \textbf{$g_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
-%   \hline\hline
-%   {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
-%   {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}\}$} &{\footnotesize 1,066} \\
-%   {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
-%   {\footnotesize $B_{u}$} &{\footnotesize 1,066} \\
-%   {\footnotesize $\mathcal{F}^{-1}\{B_{u}$\}} &{\footnotesize 1,066} \\ 
-%   {\footnotesize $P_{u}$} & {\footnotesize 1,334}
-%   \end{tabular} \label{OBDWBnoise}
-% \end{tabular}
 \section{Simulations and results}
 In order to test the algorithms described in section \ref{baseline1} and section \ref{baseline2}, we performed  multiple tests on JVLA 
 simulated measurement sets (MS). In 
@@ -855,7 +755,8 @@ with a JVLA HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ i
 time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. We therefore applied the actual method (simple averaging) and 
 our methods, each result is save into a LR-MS of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We 
 considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{1min30s,6250kHz\}$, 
-$\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s$,xxxkHz\}, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,xxxkHz\}$, $n_{t,ovlp}=\{0,100,150\}$ 
+$\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHzkHz\}$, 
+$n_{t,ovlp}=\{0,100,150\}$ 
 and $n_{\nu,ovlp}=\{0,25,50\}$.\\
 Fig.\ref{fig:Bl-sinc-FoV2}, Fig.\ref{fig:Bl-sinc-FoV4}, Fig.\ref{fig:Bl-bessel-FoV2} and Fig.\ref{fig:Bl-bessel-FoV4} show the results of 
 the simulation, where we represented the brightness of the source as a function of the source coordinates in the sky model. In these 
@@ -1069,27 +970,6 @@ Drawback and futures works*** drawback and futures works*****
 \bibliographystyle{mn2e}
 \bibliography{m_paper}
 \appendix
-% \section[]{Demonstration}
-% \label{sec:demonorm}
-% The proof of the norm used in Section~\ref{sec:baseline1} is given below.\\
-% if $||\textbf{U}_{pq,t}||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, ||\mathbf{u}_{pq,t_e}||\Bigg)$ is a 
-% $n_t\times2$ matrix, where each element $\mathbf{u}_{pq,t_i}$ is a vector of size 2 and $||.||$ is an Euclidean norm, then $||.||_{m}$ 
-% is a norm.
-% \begin{proof}
-% \begin{enumerate}
-%  \item  For all $\mathbf{u}_{pq,t_k}$, $||\mathbf{u}_{pq,t_k}||\geq 0$. Therefore, all the elements of the vector
-%     $||\mathbf{U}_{pq,t}||_{m}$ are positives.
-%  \item Let $\mathbf{U}_{pq,t}$ and $\mathbf{U}_{pq,t}'$ be two 
-% matrices with norm of $||\textbf{U}_{pq,t}||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, 
-% ||\mathbf{u}_{pq,t_e}||\Bigg)$ and norm of $||\textbf{U}_{pq,t}'||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}'||, \dots , ||\mathbf{u}_{pq,t_c}'||, 
-% \dots, ||\mathbf{u}_{pq,t_e}'||\Bigg)$. 
-% $||\mathbf{U}_{pq,t}+\mathbf{U}_{pq,t}'||_{m}=\Bigg(||\mathbf{u}_{pq,t_s}+\mathbf{u}_{pq,t_s}'||, \dots , 
-% ||\mathbf{u}_{pq,t_c}+\mathbf{u}_{pq,t_c}'||, \dots, ||\mathbf{u}_{pq,t_e}+\mathbf{u}_{pq,t_e}'||\Bigg)$.  For all $k$, 
-% $||\mathbf{u}_{pq,t_k}+\mathbf{u}_{pq,t_k}'||\leq ||\mathbf{u}_{pq,t_k}||+||\mathbf{u}_{pq,t_k}'||$, this is trivial because $||.||$ is the 
-% Euclidean norm. Therefore,
-% $||\mathbf{U}_{pq,t}+\mathbf{U}_{pq,t}'||_{m} \leq ||\mathbf{U}_{pq,t}||_{m} + ||\mathbf{U}_{pq,t}'||_{m}$
-% \end{enumerate}
-% \end{proof}
 \section[]{Derivation of complex matrices}
 \label{app:complexmatrices}
 The complex matrices used in section \ref{sec:imaging} are explicitly derived in this appendix. In Eq.\ref{eqbb:linear}, the matrices
