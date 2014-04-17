@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  15 APR 2014 09:58
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.5.14)  17 APR 2014 13:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -405,16 +405,7 @@ LaTeX Warning: Label `def:4' multiply defined.
 LaTeX Warning: Label `BDWBnoise' multiply defined.
 
 
-LaTeX Warning: Label ` fig:fig_3a' multiply defined.
-
-
-LaTeX Warning: Label `fig:fig_4' multiply defined.
-
-
-LaTeX Warning: Label `fig:fig_5' multiply defined.
-
-
-LaTeX Warning: Label `fig:fig_2b' multiply defined.
+LaTeX Warning: Label `BDWBnoise' multiply defined.
 
 )
 \openout1 = `m_paper.aux'.
@@ -601,25 +592,16 @@ Package natbib Warning: Citation `1' on page 2 undefined on input line 143.
 
 Package natbib Warning: Citation `5' on page 2 undefined on input line 147.
 
-
-Underfull \hbox (badness 1603) in paragraph at lines 155--168
-\T1/pplx/m/n/9 where $\OML/zplm/m/it/9 I\OT1/zplm/m/n/9 (\OML/zplm/m/it/9 l\OT1
-/pplx/m/n/9 , \OML/zplm/m/it/9 m\OT1/zplm/m/n/9 )$ \T1/pplx/m/n/9 is the sky br
-ight-ness and $\OML/zplm/m/it/9 ^^^\OT1/zplm/m/n/9 (\OML/zplm/m/it/9 u\OT1/pplx
-/m/n/9 , \OML/zplm/m/it/9 v\OT1/pplx/m/n/9 , \OML/zplm/m/it/9 w\OT1/zplm/m/n/9 
-) =
- []
-
 [2]
 
-LaTeX Warning: Reference `timessear2' on page 3 undefined on input line 234.
+LaTeX Warning: Reference `timessear2' on page 3 undefined on input line 240.
 
 <./Figures/effect_time_averaging.png, id=19, 586.8324pt x 442.2924pt>
 File: ./Figures/effect_time_averaging.png Graphic file (type png)
 
 <use ./Figures/effect_time_averaging.png>
 Package pdftex.def Info: ./Figures/effect_time_averaging.png used on input line
- 243.
+ 249.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
 <./Figures/maximun_integration.png, id=21, 586.8324pt x 442.2924pt>
@@ -627,26 +609,24 @@ File: ./Figures/maximun_integration.png Graphic file (type png)
 
 <use ./Figures/maximun_integration.png>
 Package pdftex.def Info: ./Figures/maximun_integration.png used on input line 2
-46.
+52.
 (pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-
-Overfull \hbox (2.25952pt too wide) in alignment at lines 326--330
-[] [] [] [] 
- []
-
-[3]
-Underfull \hbox (badness 2529) in paragraph at lines 330--334
+ [3]
+Underfull \hbox (badness 2529) in paragraph at lines 338--342
 \T1/pplx/m/n/9 Here, $\OT1/zplm/b/n/9 B$ \T1/pplx/m/n/9 and $\OT1/zplm/b/n/9 V[
 ]$ \T1/pplx/m/n/9 are one row ma-trix of size
  []
 
 
-Underfull \hbox (badness 4634) in paragraph at lines 374--376
+LaTeX Warning: Reference `fig:uvcov' on page 4 undefined on input line 354.
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 382--384
 []\T1/pplx/m/n/9 The ma-trix that
  []
 
 [4 <./Figures/effect_time_averaging.png> <./Figures/maximun_integration.png>]
-Overfull \hbox (1.00076pt too wide) in paragraph at lines 394--395
+Overfull \hbox (1.00076pt too wide) in paragraph at lines 402--403
 []
  []
 
@@ -654,194 +634,103 @@ Overfull \hbox (1.00076pt too wide) in paragraph at lines 394--395
 File: ./Figures/uvcov.png Graphic file (type png)
 
 <use ./Figures/uvcov.png>
-Package pdftex.def Info: ./Figures/uvcov.png used on input line 427.
-(pdftex.def)             Requested size: 191.52246pt x 157.97267pt.
+Package pdftex.def Info: ./Figures/uvcov.png used on input line 435.
+(pdftex.def)             Requested size: 252.0pt x 207.85591pt.
 
-<./Figures/longshortmid.png, id=32, 586.8324pt x 442.2924pt>
-File: ./Figures/longshortmid.png Graphic file (type png)
+Overfull \hbox (12.0pt too wide) in paragraph at lines 435--436
+ [][] 
+ []
 
-<use ./Figures/longshortmid.png>
-Package pdftex.def Info: ./Figures/longshortmid.png used on input line 429.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 507--510
+Underfull \hbox (badness 10000) in paragraph at lines 515--518
 []\T1/pplx/m/n/9 if
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 524--528
+Underfull \hbox (badness 10000) in paragraph at lines 532--536
 []
  []
 
 
-Overfull \hbox (40.36673pt too wide) in paragraph at lines 542--547
+Overfull \hbox (40.36673pt too wide) in paragraph at lines 550--555
 []
  []
 
-[5]
+[5 <./Figures/uvcov.png (PNG copy)>]
 
 LaTeX Warning: Reference `fig:fig_gauss_freq' on page 6 undefined on input line
- 618.
+ 636.
 
-
-LaTeX Warning: Reference `fig:fig_butter_freq' on page 6 undefined on input lin
-e 632.
-
-[6 <./Figures/uvcov.png (PNG copy)> <./Figures/longshortmid.png>]
-
-LaTeX Warning: Reference `Equ:BDWnoise' on page 7 undefined on input line 668.
-
-
-LaTeX Warning: Reference `Equ:OBDWnoise' on page 7 undefined on input line 669.
-
-
-<./Figures/rect.png, id=41, 586.8324pt x 509.5035pt>
+<./Figures/rect.png, id=35, 586.8324pt x 509.5035pt>
 File: ./Figures/rect.png Graphic file (type png)
  <use ./Figures/rect.png>
-Package pdftex.def Info: ./Figures/rect.png used on input line 700.
+Package pdftex.def Info: ./Figures/rect.png used on input line 681.
 (pdftex.def)             Requested size: 181.4403pt x 157.52463pt.
 
-<./Figures/freq_resp_box.pdf, id=42, 587.19376pt x 442.65375pt>
+<./Figures/freq_resp_box.pdf, id=36, 587.19376pt x 442.65375pt>
 File: ./Figures/freq_resp_box.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_box.pdf>
-Package pdftex.def Info: ./Figures/freq_resp_box.pdf used on input line 702.
+Package pdftex.def Info: ./Figures/freq_resp_box.pdf used on input line 684.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/sinc.png, id=43, 666.3294pt x 510.9489pt>
+<./Figures/sinc.png, id=37, 666.3294pt x 510.9489pt>
 File: ./Figures/sinc.png Graphic file (type png)
  <use ./Figures/sinc.png>
-Package pdftex.def Info: ./Figures/sinc.png used on input line 704.
+Package pdftex.def Info: ./Figures/sinc.png used on input line 686.
 (pdftex.def)             Requested size: 181.4403pt x 139.1275pt.
 
-<./Figures/freq_resp_sinc.pdf, id=44, 587.19376pt x 442.65375pt>
+<./Figures/freq_resp_sinc.pdf, id=38, 587.19376pt x 442.65375pt>
 File: ./Figures/freq_resp_sinc.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_sinc.pdf>
-Package pdftex.def Info: ./Figures/freq_resp_sinc.pdf used on input line 706.
+Package pdftex.def Info: ./Figures/freq_resp_sinc.pdf used on input line 689.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/Butterwordth.pdf, id=45, 699.21222pt x 505.89pt>
+<./Figures/Butterwordth.pdf, id=39, 699.21222pt x 505.89pt>
 File: ./Figures/Butterwordth.pdf Graphic file (type pdf)
 
 <use ./Figures/Butterwordth.pdf>
-Package pdftex.def Info: ./Figures/Butterwordth.pdf used on input line 708.
+Package pdftex.def Info: ./Figures/Butterwordth.pdf used on input line 691.
 (pdftex.def)             Requested size: 181.4403pt x 131.27356pt.
 
-<./Figures/freq_resp_butterwordh.pdf, id=46, 587.19376pt x 442.65375pt>
+<./Figures/freq_resp_butterwordh.pdf, id=40, 587.19376pt x 442.65375pt>
 File: ./Figures/freq_resp_butterwordh.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_butterwordh.pdf>
 Package pdftex.def Info: ./Figures/freq_resp_butterwordh.pdf used on input line
- 710.
+ 694.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/gausian.pdf, id=47, 759.7384pt x 518.53723pt>
+<./Figures/gausian.pdf, id=41, 759.7384pt x 518.53723pt>
 File: ./Figures/gausian.pdf Graphic file (type pdf)
 
 <use ./Figures/gausian.pdf>
-Package pdftex.def Info: ./Figures/gausian.pdf used on input line 712.
+Package pdftex.def Info: ./Figures/gausian.pdf used on input line 696.
 (pdftex.def)             Requested size: 181.4403pt x 123.83432pt.
 
-<./Figures/freq_resp_gaussian.pdf, id=48, 587.19376pt x 442.65375pt>
+<./Figures/freq_resp_gaussian.pdf, id=42, 587.19376pt x 442.65375pt>
 File: ./Figures/freq_resp_gaussian.pdf Graphic file (type pdf)
 
 <use ./Figures/freq_resp_gaussian.pdf>
-Package pdftex.def Info: ./Figures/freq_resp_gaussian.pdf used on input line 71
-4.
+Package pdftex.def Info: ./Figures/freq_resp_gaussian.pdf used on input line 69
+9.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
 
-LaTeX Warning: Float too large for page by 5.85901pt on input line 716.
+LaTeX Warning: Float too large for page by 5.85901pt on input line 701.
 
 File: ./Figures/gausian.pdf Graphic file (type pdf)
 <use ./Figures/gausian.pdf>
-Package pdftex.def Info: ./Figures/gausian.pdf used on input line 719.
+Package pdftex.def Info: ./Figures/gausian.pdf used on input line 704.
 (pdftex.def)             Requested size: 181.4403pt x 123.83432pt.
 File: ./Figures/freq_resp_gaussian.pdf Graphic file (type pdf)
  <use ./Figures/freq_resp_gaussian.pdf>
-Package pdftex.def Info: ./Figures/freq_resp_gaussian.pdf used on input line 72
-1.
+Package pdftex.def Info: ./Figures/freq_resp_gaussian.pdf used on input line 70
+7.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 667--724
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 667--724
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 667--724
-
- []
-
-<./Figures/corrSigVLAMxBl_overlapLdelta.png, id=49, 586.8324pt x 442.2924pt>
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 751.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
-ut line 753.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-
-<./Figures/corrSigVLAMxBl.png, id=50, 586.8324pt x 442.2924pt>
-File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 755.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-
-<./Figures/corrSigVLAMxBl_overlapGdelta.png, id=51, 586.8324pt x 442.2924pt>
-File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
-
-<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
-Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
-ut line 757.
-(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
-
-
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 760.
-
-
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 760.
-
-
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 766.
-
-
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 766.
-
-
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 768.
-
-
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 770.
-
-
-LaTeX Warning: Reference `fig1' on page 7 undefined on input line 773.
-
-
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 773.
-
-
-LaTeX Warning: Reference `fig2' on page 7 undefined on input line 775.
-
-
-Package natbib Warning: Citation `2' on page 7 undefined on input line 811.
-
-
-Package natbib Warning: Citation `2' on page 7 undefined on input line 812.
-
-[7] [8 <./Figures/rect.png> <./Figures/freq_resp_box.pdf> <./Figures/sinc.png> 
-<./Figures/freq_resp_sinc.pdf
+ [6] [7 <./Figures/rect.png> <./Figures/freq_resp_box.pdf> <./Figures/sinc.png>
+ <./Figures/freq_resp_sinc.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Figures/freq_resp_sinc.pdf): PDF incl
 usion: multiple pdfs with page group included in a single page
@@ -861,181 +750,259 @@ multiple pdfs with page group included in a single page
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Figures/freq_resp_gaussian.pdf): PDF 
 inclusion: multiple pdfs with page group included in a single page
->]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+>] <./Figures/longshortmid-sinc.pdf, id=370, 587.19376pt x 442.65375pt>
+File: ./Figures/longshortmid-sinc.pdf Graphic file (type pdf)
 
+<use ./Figures/longshortmid-sinc.pdf>
+Package pdftex.def Info: ./Figures/longshortmid-sinc.pdf used on input line 725
+.
+(pdftex.def)             Requested size: 191.52246pt x 144.37408pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+<./Figures/longshortmid-bessel.pdf, id=371, 587.19376pt x 442.65375pt>
+File: ./Figures/longshortmid-bessel.pdf Graphic file (type pdf)
 
- [9 <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png>
- <./Figures/corrSigVLAMxBl_overlapGdelta.png>] [10]
-Underfull \hbox (badness 1281) in paragraph at lines 937--941
-\T1/pplx/m/n/9 Drawback and fu-tures works*** draw-back and fu-tures
+<use ./Figures/longshortmid-bessel.pdf>
+Package pdftex.def Info: ./Figures/longshortmid-bessel.pdf used on input line 7
+29.
+(pdftex.def)             Requested size: 191.52246pt x 144.37408pt.
+
+<./Figures/longshortmid-butter.pdf, id=372, 587.19376pt x 442.65375pt>
+File: ./Figures/longshortmid-butter.pdf Graphic file (type pdf)
+
+<use ./Figures/longshortmid-butter.pdf>
+Package pdftex.def Info: ./Figures/longshortmid-butter.pdf used on input line 7
+32.
+(pdftex.def)             Requested size: 191.52246pt x 144.37408pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 732--733
+
  []
 
-(./m_paper.bbl
-Underfull \vbox (badness 2717) has occurred while \output is active []
+<./Figures/corrSigVLAMxBl_overlapLdelta.png, id=373, 586.8324pt x 442.2924pt>
+File: ./Figures/corrSigVLAMxBl_overlapLdelta.png Graphic file (type png)
 
-)
+<use ./Figures/corrSigVLAMxBl_overlapLdelta.png>
+Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapLdelta.png used on inp
+ut line 736.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
-LaTeX Warning: Reference `eq2:block' on page 11 undefined on input line 993.
+<./Figures/corrSigVLAMxBl.png, id=374, 586.8324pt x 442.2924pt>
+File: ./Figures/corrSigVLAMxBl.png Graphic file (type png)
 
-[11] <./Figures/time_freq_ration.png, id=392, 586.8324pt x 442.2924pt>
-File: ./Figures/time_freq_ration.png Graphic file (type png)
+<use ./Figures/corrSigVLAMxBl.png>
+Package pdftex.def Info: ./Figures/corrSigVLAMxBl.png used on input line 738.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
-<use ./Figures/time_freq_ration.png>
-Package pdftex.def Info: ./Figures/time_freq_ration.png used on input line 1062
-.
-(pdftex.def)             Requested size: 181.4403pt x 136.74478pt.
+<./Figures/corrSigVLAMxBl_overlapGdelta.png, id=375, 586.8324pt x 442.2924pt>
+File: ./Figures/corrSigVLAMxBl_overlapGdelta.png Graphic file (type png)
 
-<./Figures/timeration.png, id=393, 586.8324pt x 442.2924pt>
-File: ./Figures/timeration.png Graphic file (type png)
+<use ./Figures/corrSigVLAMxBl_overlapGdelta.png>
+Package pdftex.def Info: ./Figures/corrSigVLAMxBl_overlapGdelta.png used on inp
+ut line 741.
+(pdftex.def)             Requested size: 191.52246pt x 144.34396pt.
 
-<use ./Figures/timeration.png>
-Package pdftex.def Info: ./Figures/timeration.png used on input line 1064.
-(pdftex.def)             Requested size: 181.4403pt x 136.74478pt.
+<./Figures/per-baseline-noise-ratio-sinc.pdf, id=376, 621.52202pt x 495.95288pt
+>
+File: ./Figures/per-baseline-noise-ratio-sinc.pdf Graphic file (type pdf)
+ <use ./Figures/per-baseline-noise-ratio-sinc.pdf>
+Package pdftex.def Info: ./Figures/per-baseline-noise-ratio-sinc.pdf used on in
+put line 746.
+(pdftex.def)             Requested size: 191.52246pt x 152.82811pt.
 
-<./Figures/Bl-sinc-FoV2-vla.pdf, id=394, 587.19376pt x 442.65375pt>
+<./Figures/per-baseline-noise-ratio-bessel.pdf, id=377, 622.42535pt x 488.72588
+pt>
+File: ./Figures/per-baseline-noise-ratio-bessel.pdf Graphic file (type pdf)
+ <use ./Figures/per-baseline-noise-ratio-bessel.pdf>
+Package pdftex.def Info: ./Figures/per-baseline-noise-ratio-bessel.pdf used on 
+input line 750.
+(pdftex.def)             Requested size: 191.52246pt x 150.3774pt.
+
+<./Figures/per-baseline-noise-ratio-BW.pdf, id=378, 622.42535pt x 495.95288pt>
+File: ./Figures/per-baseline-noise-ratio-BW.pdf Graphic file (type pdf)
+
+<use ./Figures/per-baseline-noise-ratio-BW.pdf>
+Package pdftex.def Info: ./Figures/per-baseline-noise-ratio-BW.pdf used on inpu
+t line 753.
+(pdftex.def)             Requested size: 191.52246pt x 152.60109pt.
+ [8]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <./Figures/longshortmid-sinc.pdf> <./Figures/longshortmid-bessel.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/longshortmid-bessel.pdf): PDF
+ inclusion: multiple pdfs with page group included in a single page
+> <./Figures/longshortmid-butter.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/longshortmid-butter.pdf): PDF
+ inclusion: multiple pdfs with page group included in a single page
+> <./Figures/corrSigVLAMxBl_overlapLdelta.png> <./Figures/corrSigVLAMxBl.png> <
+./Figures/corrSigVLAMxBl_overlapGdelta.png>]
+
+Package natbib Warning: Citation `2' on page 10 undefined on input line 849.
+
+
+Package natbib Warning: Citation `2' on page 10 undefined on input line 850.
+
+[10 <./Figures/per-baseline-noise-ratio-sinc.pdf> <./Figures/per-baseline-noise
+-ratio-bessel.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/per-baseline-noise-ratio-bess
+el.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
+> <./Figures/per-baseline-noise-ratio-BW.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/per-baseline-noise-ratio-BW.p
+df): PDF inclusion: multiple pdfs with page group included in a single page
+>] [11] <./Figures/Bl-sinc-FoV2-vla.pdf, id=785, 587.19376pt x 442.65375pt>
 File: ./Figures/Bl-sinc-FoV2-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-sinc-FoV2-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-sinc-FoV2-vla.pdf used on input line 1070
-.
+Package pdftex.def Info: ./Figures/Bl-sinc-FoV2-vla.pdf used on input line 975.
+
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/Bl-sinc-FoV4-vla.pdf, id=395, 587.19376pt x 442.65375pt>
+<./Figures/Bl-sinc-FoV4-vla.pdf, id=786, 587.19376pt x 442.65375pt>
 File: ./Figures/Bl-sinc-FoV4-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-sinc-FoV4-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-sinc-FoV4-vla.pdf used on input line 1074
-.
+Package pdftex.def Info: ./Figures/Bl-sinc-FoV4-vla.pdf used on input line 979.
+
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/Bl-bessel-FoV2-vla.pdf, id=396, 587.19376pt x 442.65375pt>
+<./Figures/Bl-bessel-FoV2-vla.pdf, id=787, 587.19376pt x 442.65375pt>
 File: ./Figures/Bl-bessel-FoV2-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-bessel-FoV2-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-bessel-FoV2-vla.pdf used on input line 10
-78.
+Package pdftex.def Info: ./Figures/Bl-bessel-FoV2-vla.pdf used on input line 98
+3.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/Bl-bessel-FoV4-vla.pdf, id=397, 587.19376pt x 442.65375pt>
+<./Figures/Bl-bessel-FoV4-vla.pdf, id=788, 587.19376pt x 442.65375pt>
 File: ./Figures/Bl-bessel-FoV4-vla.pdf Graphic file (type pdf)
 
 <use ./Figures/Bl-bessel-FoV4-vla.pdf>
-Package pdftex.def Info: ./Figures/Bl-bessel-FoV4-vla.pdf used on input line 10
-82.
+Package pdftex.def Info: ./Figures/Bl-bessel-FoV4-vla.pdf used on input line 98
+7.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-freq-sinc-w1x1-fov2.pdf, id=398, 587.19376pt x 442.65375pt
+<./Figures/max-integ-freq-sinc-w1x1-fov2.pdf, id=789, 587.19376pt x 442.65375pt
 >
 File: ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-sinc-w1x1-fov2.pdf used on in
-put line 1088.
+put line 993.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-freq-sinc-w1x50-fov2.pdf, id=399, 587.19376pt x 442.65375p
+<./Figures/max-integ-freq-sinc-w1x50-fov2.pdf, id=790, 587.19376pt x 442.65375p
 t>
 File: ./Figures/max-integ-freq-sinc-w1x50-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-sinc-w1x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-sinc-w1x50-fov2.pdf used on i
-nput line 1093.
+nput line 998.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-freq-bessel-w1x1-fov2.pdf, id=400, 587.19376pt x 442.65375
+<./Figures/max-integ-freq-bessel-w1x1-fov2.pdf, id=791, 587.19376pt x 442.65375
 pt>
 File: ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-bessel-w1x1-fov2.pdf used on 
-input line 1097.
+input line 1002.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-freq-bessel-w1x50-fov2.pdf, id=401, 587.19376pt x 442.6537
+<./Figures/max-integ-freq-bessel-w1x50-fov2.pdf, id=792, 587.19376pt x 442.6537
 5pt>
 File: ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-freq-bessel-w1x50-fov2.pdf used on
- input line 1103.
+ input line 1008.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-time-sinc-w1x1-fov2.pdf, id=402, 587.19376pt x 442.65375pt
+<./Figures/max-integ-time-sinc-w1x1-fov2.pdf, id=793, 587.19376pt x 442.65375pt
 >
 File: ./Figures/max-integ-time-sinc-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-sinc-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-sinc-w1x1-fov2.pdf used on in
-put line 1114.
+put line 1019.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-time-sinc-w100x1-fov2.pdf, id=403, 587.19376pt x 442.65375
+<./Figures/max-integ-time-sinc-w100x1-fov2.pdf, id=794, 587.19376pt x 442.65375
 pt>
 File: ./Figures/max-integ-time-sinc-w100x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-sinc-w100x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-sinc-w100x1-fov2.pdf used on 
-input line 1118.
+input line 1023.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-time-bessel-w1x1-fov2.pdf, id=404, 587.19376pt x 442.65375
+<./Figures/max-integ-time-bessel-w1x1-fov2.pdf, id=795, 587.19376pt x 442.65375
 pt>
 File: ./Figures/max-integ-time-bessel-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-bessel-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-bessel-w1x1-fov2.pdf used on 
-input line 1123.
+input line 1028.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-time-bessel-w100x1-fov2.pdf, id=405, 587.19376pt x 442.653
+<./Figures/max-integ-time-bessel-w100x1-fov2.pdf, id=796, 587.19376pt x 442.653
 75pt>
 File: ./Figures/max-integ-time-bessel-w100x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-time-bessel-w100x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-time-bessel-w100x1-fov2.pdf used o
-n input line 1129.
+n input line 1034.
 (pdftex.def)             Requested size: 181.4403pt x 136.77545pt.
 
-<./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf, id=406, 606.16464pt x 477.885
+<./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf, id=797, 606.16464pt x 477.885
 38pt>
 File: ./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf Graphic file (type pdf)
  <use ./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf used o
-n input line 1136.
+n input line 1041.
 (pdftex.def)             Requested size: 181.4403pt x 143.03857pt.
 
-<./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf, id=407, 630.55576pt x 486.
+<./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf, id=798, 630.55576pt x 486.
 01576pt>
 File: ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf Graphic file (type pdf
 )
  <use ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf use
-d on input line 1141.
+d on input line 1046.
 (pdftex.def)             Requested size: 181.4403pt x 139.8508pt.
 
-<./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf, id=408, 609.77812pt x 478.7
+<./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf, id=799, 609.77812pt x 478.7
 8876pt>
 File: ./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf Graphic file (type pdf)
 
  <use ./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf used
- on input line 1145.
+ on input line 1050.
 (pdftex.def)             Requested size: 181.4403pt x 142.4615pt.
 
-<./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf, id=409, 644.10638pt x 48
+<./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf, id=800, 644.10638pt x 48
 6.91913pt>
 File: ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf Graphic file (type p
 df)
  <use ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf>
 Package pdftex.def Info: ./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf u
-sed on input line 1150.
+sed on input line 1055.
 (pdftex.def)             Requested size: 181.4403pt x 137.16112pt.
+
+Underfull \hbox (badness 1281) in paragraph at lines 1062--1066
+\T1/pplx/m/n/9 Drawback and fu-tures works*** draw-back and fu-tures
+ []
+
+(./m_paper.bbl)
+
+LaTeX Warning: Reference `eq2:block' on page 12 undefined on input line 1119.
+
+[12]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 Package natbib Warning: There were undefined citations.
 
-[12
-
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [13 <./Figures/time_freq_ration.png> <./Figures/timeration.png> <./Figures/Bl-
-sinc-FoV2-vla.pdf> <./Figures/Bl-sinc-FoV4-vla.pdf
+[13 <./Figures/Bl-sinc-FoV2-vla.pdf> <./Figures/Bl-sinc-FoV4-vla.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Figures/Bl-sinc-FoV4-vla.pdf): PDF in
 clusion: multiple pdfs with page group included in a single page
@@ -1115,13 +1082,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4647 strings out of 493485
- 67105 string characters out of 3143526
- 142772 words of memory out of 3000000
- 7778 multiletter control sequences out of 15000+200000
+ 4664 strings out of 493485
+ 68044 string characters out of 3143526
+ 143812 words of memory out of 3000000
+ 7792 multiletter control sequences out of 15000+200000
  83907 words of font info for 170 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,17n,38p,313b,338s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,17n,38p,313b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1134,10 +1101,10 @@ fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb
 </usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on m_paper.pdf (16 pages, 1190141 bytes).
+Output written on m_paper.pdf (16 pages, 1219981 bytes).
 PDF statistics:
- 1650 PDF objects out of 1728 (max. 8388607)
- 430 compressed objects within 5 object streams
+ 2041 PDF objects out of 2073 (max. 8388607)
+ 526 compressed objects within 6 object streams
  0 named destinations out of 1000 (max. 500000)
- 166 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 181 words of extra memory for PDF output out of 10000 (max. 10000000)
 

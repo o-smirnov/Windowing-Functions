@@ -43,12 +43,10 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
 \usepackage{graphicx}
-\usepackage{float,subfig,subcaption}
 \usepackage[sc]{mathpazo}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{caption}
-\usepackage{subcaption}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \def\lp{\frac 1 {l_{0}}}
@@ -153,9 +151,9 @@ South-North respectively and $w$ is directed towards the phase centre of the sou
 the image plane are $l$ and $m$ respectively. They are the observed source coordinates, measured in radian. The ideal measurement of 
 interferometric wide-field imaging also known as the van Cittert-Zernike theorem (Thompson et \textit{al}. 2001, Eq.6) is given by
 \begin{equation}
- V_{pq}=\int \int \frac{I(l,m)}{\sqrt{1-l^2 - m^2}}e^{-2\pi i \phi (u,v,w)}dldm, \label{eq1:visSky}
+ V_{pq,(u,v,w)}=\int \int \frac{I(l,m)}{\sqrt{1-l^2 - m^2}}e^{-2\pi i \phi (u,v,w)}dldm, \label{eq1:visSky}
 \end{equation} 
-where $I(l,m)$ is the sky brightness and $\phi(u,v,w)=u.l+v.m+w.(\sqrt{1-l^2 - m^2}-1)$ is a term from the cross-correlator that models the 
+where $I(l,m)$ is the sky brightness and $\phi(u,v,w)=ul+vm+w(\sqrt{1-l^2 - m^2}-1)$ is a term from the cross-correlator that models the 
 direction in the sky and the separation of the two antennas. The term $\sqrt{1-l^2 - m^2}$ is the result of the projection of the celestial 
 sphere on the image plane.
 % 
@@ -179,12 +177,19 @@ interval, then Eq.\ref{eq1:visSky} can be rewritten as:
 % the time interval $\Delta t$ at multi frequency  within the bandwidth $\Delta \nu$, then the cross correlate visibility, 
 % $\mathcal{V}_{pq,(t,\nu)}^{corr}$ of the  baseline $(p,q)$ is given as:
 \begin{equation}
-V_{pq,(t_c,\nu_c)}^{corr}=\frac{1}{\Delta t \Delta \nu} \int_{t_c-dt/2}^{t_c+dt/2}\int_{\nu_c-d\nu/2}^{\nu_c+d\nu/2}V_{pq,(t,\nu)}d\nu dt.
+V_{pq,(t_c,\nu_c)}^{corr}=\frac{1}{\Delta t \Delta \nu} \int_{t_s}^{t_e}\int_{\nu_s}^{\nu_e}V_{pq,(t,\nu)}d\nu dt.
 \label{eq2:conti}
 \end{equation}
-Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility, 
-$V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}V_{pq,(t,\nu)}$ at a specific time and frequency, where $S_{pq,(t,\nu)}$ is a sampling 
-function that indicates where the $(u, v)$ data for the baseline $(p,q)$ are measured  during the time and frequency integration. 
+Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility. Nevertheless, when measuring 
+the sampled visibility, the antennas reception pattern or "primary beam", $A_{t,\nu}$ which describes the sensitivity of the interferometer
+elements $p$ and $q$, with radius from the centre of the dish beam is taken into account. With this assumption, the  sampled visibility  
+measured at discrete spaces is:
+\begin{eqnarray}
+  V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\bigg(V_{pq,(t,\nu)}\circ A_{t,\nu}\bigg),
+\end{eqnarray}
+where $\circ$ denote the convolution operator and $S_{pq,(t,\nu)}$ is a sampling 
+function that indicates where the $(u, v)$ data for the baseline $(p,q)$ are measured  during the integration. It is 
+unity where measurement have been made, and zero otherwise.
 Therefore, 
 Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre frequency and at the centre time is restricted to a narrow 
 frequency interval and to a short time interval, this is the current efficient observing mode. However, the mathematics behind is as 
@@ -209,8 +214,13 @@ visibility with a \textit{Boxcar} windowing function. Mathematically, this is de
  V_{pq,(t_c,\nu_c)}^{corr}=c_{pq,(t,\nu)}\cdot\Bigg(\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg). \label{f4}
 \end{equation}
 Here, $c_{pq,(t,\nu)}$ is a function that samples the result of $\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}$ at 
-the centre time interval and centre frequency interval. %Its is defined as: $c_{pq,(t_i,\nu_j)}=0$ for 
+the centre time interval and centre frequency interval. 
+\\%Its is defined as:$c_{pq,(t_i,\nu_j)}=0$ for \\
 %$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
+Nevertheless, we note that this is not an efficient mode of attributing the weight of baselines visibilities. This mean that, the baselines 
+of the array are all suppose equally in term of the statistical analyse of the signals from the astronomical source. Unfortunately, this 
+is not the case, since we lost informations on some baselines than order due to the incomplete sampling of the Fourier component that 
+differ from one baseline to another.
 \subsection{Effect of time and bandwidth averaging}
 During imaging \citep{Marti2008}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
 $sinc$ function therefore multiply the sky (see appendix\ref{label:similarimaging} for a short discussion and illustration). Thus, the 
@@ -236,7 +246,7 @@ of view sources
 \end{itemize}
 \begin{figure*}
   \centering
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.png}\caption{The fall of the 
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.png}\caption{The attenuation of the 
 intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at 100KHz 
 bandwidth.}\label{timessear1}\end{minipage}
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/maximun_integration.png}\caption{(b)Response to a 1Jy 
@@ -255,10 +265,10 @@ n_t\times n_{\nu}$ matrix of four polarizations time and
 frequency dependent matrices each of size $n_t\times n_{\nu}$.
 \begin{eqnarray*}
 \mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
-^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^T. \label{eqx:conv}
+^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
 \end{eqnarray*}
-The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} in terms of a series of linear transformations or functional model 
-as:
+where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} 
+in terms of a series of linear transformations or functional model as:
 \begin{equation}
 V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
 \mathbf{V}_{pq,(t,\nu)}^{samp}.\label{eqbb:linear}
@@ -300,7 +310,7 @@ measured over all baselines  and $N_v=n_{bl}\times N_v^{pq}$ in this case. Here,
 \begin{equation}
  \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
 \end{equation}
-Here, $\epsilon$ is the random error component or noise and $\mathbf{A}$ is the design matrix of size 
+Our data is always corrupted by a random error component or noise, $\epsilon$   and $\mathbf{A}$ is the design matrix of size 
 $(4N_v)\times (4N_{pix})$ 
 corresponding to $N_v$ visibilities weights, defined as
 \begin{equation*}
@@ -320,13 +330,16 @@ The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived 
 Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
 inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. The estimate of  $\epsilon$, for the map centre pixel is given by:
 \begin{eqnarray*}
- \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - \mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}_{o,o}\\		
-	&=&\frac{1}{N_{v}}\sum_{k=1}^{N_{v}^{pq}}\Bigg\{\mathbf{A}\cdot{V}_{array,(t,\nu)}^{n}-
-\mathbf{F}^{H}\cdot\mathbf{A}^{2}\cdot{V}_{array,(t,\nu)}^{n}\Bigg\}.
+ \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - \mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}_{o,o}
 \end{eqnarray*}
-Here, ${V}_{array,(t,\nu)}^{n}$ is a one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
-$\textbf{V}_{pq,(t,\nu)}^{n}$ on top of each other.
-\section{derivation of BDWF: FoV signals recovery}
+\begin{eqnarray}
+	&=&\frac{1}{N_{v}}\sum_{k=1}^{N_{v}^{pq}}\Bigg\{\mathbf{B}\cdot\mathbf{V}_{array,(t,\nu)}^{n}-
+\mathbf{F}^{H}{H}\cdot\mathbf{A}\cdot\mathbf{B}\cdot\mathbf{V}_{array,(t,\nu)}^{n}\Bigg\} \label{eq:noise}
+\end{eqnarray}
+Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{n}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
+$\mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{n}$ and $\mathbf{V}_{pq,(t,\nu)}^{n}$
+on top of each other respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices).
+\section{Algorithm 1: FoV signals recovery}
 \label{baseline1}
 \subsection{Description}
 Missing spaces between sampled $(u,v)$ coordinates has an important dependences on the baseline length. However, the spacing between longer 
@@ -345,22 +358,23 @@ figure that these separations are wider on longer baselines. The results of aver
 in red. 
 \subsection{Methods}
 \label{sec:baseline1}
-Depending on the arrays, we showhere that we can use the fact that, the spacing of long baselines $(u,v)$ coordinates are wider and  
+Depending on the arrays, we show
+here that we can use the fact that, the spacing of long baselines $(u,v)$ coordinates are wider and  
 design a high dynamic range filter on longer baseline that will recover the desire FoV of the interferometer, and at the same time 
 reducing the data rate. During an integration, the Earth rotation makes baselines coordinates $u$ and $v$  to variates in time and 
 frequency. We can therefore package the $(u,v)$ coordinates changes and the frequency changes of a baseline $pq$ into a single matrix of 
 size $n_t \times 2$ and  into a single vector of dimension $n_{\nu}$ respectively. 
 \begin{eqnarray*}
-\mathbf{U}_{pq,t}&=& \Bigg(\mathbf{u}_{pq,t_s}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_e}\Bigg)^T\\
- \mbox{\boldmath $\nu$}&=&\Bigg(\nu_s,\dots,\nu_c,\dots,\nu_e\Bigg)^T
+\mathbf{U}_{pq,t}&=& \Bigg(\mathbf{u}_{pq,t_s}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_e}\Bigg)^{\dagger}\\
+ \mbox{\boldmath $\nu$}&=&\Bigg(\nu_s,\dots,\nu_c,\dots,\nu_e\Bigg)^{\dagger}
 \end{eqnarray*}
-where the indexes $s$, $c$ and $e$ references the integration interval starting, centre, and ending time respectively and $T$ the transpose 
-operator. The 
+where the indexes $s$, $c$ and $e$ references the integration interval starting, centre, and ending time respectively. 
+The 
 elements of $\mathbf{U}_{pq,t}$ are functions of time and frequency representing a $(u,v)$ coordinate.
 We defined the function, $\overline{\overline{\cdot}}$ on a $n_t \times 2$ matrix as follow:
 \begin{eqnarray}
 \overline{\overline{\mathbf{U}}}_{pq,t}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, 
-||\mathbf{u}_{pq,t_e}||\Bigg)^T,
+||\mathbf{u}_{pq,t_e}||\Bigg)^{\dagger},
 \end{eqnarray}
 where $||.||$ is the Euclidean norm.
 \begin{definition}[Time direction spacing]
@@ -371,7 +385,7 @@ direction is defined as
  \mathbf{U}_{pq,t}^{s} &=&\frac{\nu_c}{c}\cdot\Bigg\{\mathbf{U}_{pq,t}-\mathbf{H}_{pq,t} \Bigg \},
 \end{eqnarray*}
 where $c$ is the speed of the light and $\mathbf{H}_{pq}$ is a matrix of size $n_t \times 2$ that model the centre $uv$-coordinate,
-$\mathbf{H}_{pq,t}= \big(\mathbf{u}_{pq,t_c}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_c}\big)^T$.
+$\mathbf{H}_{pq,t}= \big(\mathbf{u}_{pq,t_c}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_c}\big)^{\dagger}$.
 \end{definition}
 \begin{definition}[Frequency direction spacing]
 \label{def:2}
@@ -393,7 +407,9 @@ If $f_{pq}$ is a \textit{baseline dependent windowing function}, then:
 where $d_{t_i}$ is an element of the vector $\mathbf{d}_{t}=\overline{\overline{\mathbf{U}^{s}}}_{pq,t}$ and $d_{\nu_j}$ is an element 
 of the vector $\mathbf{d}^{}_{\nu}$.
 \end{definition}
-The previous algorithm is correct. Unfortunately, the algorithm does not 
+The previous algorithm is correct. But unfortunately, the algorithm does not suppressed out FoV sources and we loosed  in sensitivity. 
+Although simple averaging "means high sensitivity", we do need to eliminate at a certain rate out FoV sources in such a way that the 
+overall SNR becomes higher than the one of averaging. We described such an algorithm in the following section.
 % where $\mathbf{x}_{pq}(t-t_c)=\bigg(\Big|\Big|\Big(u_{pq}'(t_s),v_{pq}'(t_s)\Big)\Big|\Big|,\dots, 
 % \Big|\Big|\Big(u_{pq}'(t_e),v_{pq}'(t_e)\Big)\Big|\Big| \bigg)$ and 
 % $\mathbf{y}_{pq}(\nu-\nu_c)=\bigg(\Big|\Big|\Big(u_{pq}''(\nu_s),v_{pq}''(\nu_s)\Big)\Big|\Big|,\dots, 
@@ -414,14 +430,14 @@ The previous algorithm is correct. Unfortunately, the algorithm does not
 %   \includegraphics[width=0.4\textwidth, height=0.4\textwidth]{./Figures/uvcov.png}
 %   \caption{Snapshot coverage} \label{uvcov}
 % \end{figure}
-\begin{figure*}
- \centering
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/uvcov.png}\caption{Snapshot coverage}\label{fig:uvcov} 
-\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid.png}\caption{$Bl$-$sinc w1$ used to convolve the 
-visibility data obtained from the long, medium and short baseline}\label{fig:fig_2b}
-\end{minipage}
-\end{figure*}
+\begin{figure}
+  \centering
+    \includegraphics[width=0.5\textwidth]{./Figures/uvcov.png}
+    \caption{Coverage of one integration}
+\end{figure}
+% \begin{figure*}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/uvcov.png}\caption{Snapshot coverage}\label{fig:uvcov}
+% \end{figure*}
 % \subsection{Cross-correlation with \textit{BDWF}}
 % Taking a step back to eq \ref{}
 % \begin{eqnarray*}
@@ -480,7 +496,7 @@ visibility data obtained from the long, medium and short baseline}\label{fig:fig
 % % \begin{eqnarray**}
 % % \sigma^2	   &=&\frac{1}{N_{obs}\times n_{\nu}} \sigma_{obs}^2
 % % \end{eqnarray**}
-\section{Derivation of BDWF: FoV signals recovery and out FoV suppression}
+\section{Algorithm 2: FoV signals recovery and out FoV suppression}
 \label{baseline2}
 \subsection{Description}
 In theory, windowing functions and signals generally extend to  infinity. Unfortunately, in practice, filtering a signal with a low pass 
@@ -494,7 +510,7 @@ The only drawback of this technique is the increased of the time needed for proc
 The weight of a visibility is not defined by a unique baseline dependent windowing, but by the strength of the correlation between the 
 overall  overlapping baseline dependent windowing functions on the visibility. Now, consider that $f^{a}_{pq}$ is an overlap-\textit{BDWF} 
 of width  $\Delta t$ and $\Delta \nu$ across the time and frequency direction respectively.
-\begin{definition}[Baseline dependent windowing function]
+\begin{definition}[Left hand side overlapping functions]
 \label{def:4}
 if $\Delta_l t$ and $\Delta_l \nu$ are the overlap time interval and frequency interval of the baseline dependent windowing function  
 $f_{pq}^{a_0}$ respectively  and $\Big\{f_{pq}^{a_1},f_{pq}^{a_2},f_{pq}^{a_3}, \dots \Big\}$ the set of \textit{BDWF} overlapping  on the 
@@ -511,7 +527,7 @@ N_{lhs}=\sum_{i=1}^{n_{lt}}\sum_{j=1}^{n_{l\nu}}\Bigg(\sum_{k}f_{pq,(d_{t_i},d_{
 where $n_{lt}$ and $n_{l\nu}$ are the number of $(u,v)$ coordinates changes and frequency changes  within $\Delta_l t$ and $\Delta_l \nu$ 
 respectively.
 \end{definition}
-\begin{definition}[Baseline dependent windowing function]
+\begin{definition}[Right hand side overlapping functions]
  \label{def:4}
  if $\Delta_r t$ and $\Delta_r \nu$ are the overlap time and frequency interval of a \textit{BDWF} $f_{pq}^{a_0}$ 
 respectively and  $\Big\{f_{pq}^{a_1},f_{pq}^{a_2},f_{pq}^{a_3}, \dots \Big\}$ the set of \textit{BDWF} overlapping on the \textit{right 
@@ -529,45 +545,48 @@ N_{rhs}=\sum_{i=1}^{n_{rt}}\sum_{j=1}^{n_{r\nu}}\Bigg(f_{pq,(d_{t_i},d_{\nu_j})}
 where $n_{rt}$ and $n_{r\nu}$ are the number of $(u,v)$ coordinates changes and frequency changes  within $\Delta_r t$ and $\Delta_r \nu$ 
 respectively.
 \end{definition}
-From the above definitions, the following derivation is trivial 
-\begin{equation*}
- \Big\{\Delta t,\hspace{0.17cm}\Delta \nu \Big\}=\Big\{\Delta_l t \cup \Delta_u t \cup \Delta_r t, \hspace{0.17cm}\Delta_l \nu \cup 
-\Delta_u \nu \cup \Delta_r \nu \Big\},
-\end{equation*}
-where $\Delta_u t$ and $\Delta_u \nu$ are $f_{pq}^{a_0}$ uncorrelated time  and frequency interval respectively. They follows the below 
-rules 
+\begin{definition}[Overlap baseline dependent windowing functions]
+ \label{def:4}
+If $f_{pq}^{a_0}$ is a baseline dependent windowing function defined within the time interval $\Delta t$ and the frequency interval 
+$\Delta \nu$, $g^{lhs}_{pq}$ the result of the left hand side of $f_{pq}^{a_0}$ overlapping windowing functions within the time interval 
+$\Delta_l t$ and the frequency interval $\Delta_l \nu$, and $g^{rhs}_{pq}$  the result of the right hand side of $f_{pq}^{a_0}$ overlapping 
+windowing functions within the time interval $\Delta_r t$ and the frequency interval 
+$\Delta_r \nu$, then the overlap baseline dependent windowing function within  $\Delta t$ and $\Delta \nu$ is defined as:
 \begin{eqnarray*}
- \Delta_u t= \left\{ 
+ g^{}_{pq}: \{\mathbf{\mathcal{R}},\mathbf{\mathcal{R}}\} &\rightarrow& \mathbf{\mathcal{R}}\\
+                   d_{t_i},d_{\nu_j} &\mapsto&
+ \left\{ 
   \begin{array}{l l}
-     \cup\{t_i\}_{i=s',\hspace{0.1cm} s' \geq s+1}^{c', \hspace{0.1cm}c'\leq c-1} & \quad \text{if $n_{lt}+n_{rt}< n_t$}\\
+    g^{lhs}_{pq} & \quad \text{if $(t_i,\nu_j) \in (\Delta_l t, \Delta_l \nu)$}\\
+    f^{a_0}_{pq} & \quad \text{if $(t_i,\nu_j) \in (\Delta_m t, \Delta_m \nu)$}\\
+    g^{rhs}_{pq}& \quad \text{if $(t_i,\nu_j) \in (\Delta_r t, \Delta_r \nu)$}
+  \end{array} \right.
+\end{eqnarray*}
+\end{definition}
+where $\Delta_m t$ and $\Delta_m \nu$ are $f_{pq}^{a_0}$ uncorrelated time  and frequency interval respectively. From the above 
+definitions, the following derivation is trivial 
+\begin{equation*}
+ \Big\{\Delta t,\hspace{0.17cm}\Delta \nu \Big\}=\Big\{\Delta_l t \cup \Delta_m t \cup \Delta_r t, \hspace{0.17cm}\Delta_l \nu \cup 
+\Delta_m \nu \cup \Delta_r \nu \Big\}.
+\end{equation*}
+ They follows the below rules:
+\begin{eqnarray*}
+ \Delta_m t= \left\{ 
+  \begin{array}{l l}
+     \cup\{t_i\}_{i=s',\hspace{0.1cm} s' \geq s+1}^{e', \hspace{0.1cm}e'\leq e-1} & \quad \text{if $n_{lt}+n_{rt}< n_t$}\\
       \{t_c\}& \quad \text{if $n_{lt}+n_{rt} = n_t$}\\
        \emptyset  & \quad \text{otherwise}
   \end{array} \right.
 \end{eqnarray*}
+and
 \begin{eqnarray*}
- \Delta_u \nu= \left\{ 
+ \Delta_m \nu= \left\{ 
   \begin{array}{l l}
-     \cup\{\nu_i\}_{i=s',\hspace{0.1cm} s'\geq s+1}^{c', \hspace{0.1cm}c'\leq c-1} & \quad \text{if $n_{l\nu}+n_{r\nu} < n_{\nu}$}\\
+     \cup\{\nu_i\}_{i=s',\hspace{0.1cm} s'\geq s+1}^{e', \hspace{0.1cm}e'\leq e-1} & \quad \text{if $n_{l\nu}+n_{r\nu} < n_{\nu}$}\\
       \{\nu_c\}& \quad \text{if $n_{l\nu}+n_{r\nu} = n_{\nu}$}\\
        \emptyset  & \quad \text{otherwise}
   \end{array} \right.
 \end{eqnarray*}
-The resulting \textit{BDWF} becomes $g_{pq}$ described as
-\begin{eqnarray*}
-g_{pq} = \left\{ 
-  \begin{array}{l l}
-    g^{lhs}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_l t, \Delta_l \nu)$}\\
-    f^{a_0}_{pq} & \quad \text{if $(t,\nu) \in (\Delta_u t, \Delta_u \nu)$}\\
-    g^{rhs}_{pq}& \quad \text{if $(t,\nu) \in (\Delta_r t, \Delta_r \nu)$}
-  \end{array} \right.
-\end{eqnarray*}
-% \subsection{Noise analysis}
-% The  overall rms noise is given by
-% \begin{eqnarray*}
-% \sigma^2	&=& 
-% \frac{\sigma^{2}_{samp} }{N_{v}^{2}}\Big(\sum_{pq,k=1}^{N_{v}^{pq}}\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}g_{pq,(dt_i,d\nu_j)}^{2}\Big) 
-% ,\label{Equ:OBDWnoise}
-% \end{eqnarray*}
 \subsection{Windowing functions}
 \label{subsec:Windowing functions}
 In signal processing a windowing function is a mathematical function that is zero-values outside of some chosen interval, and when another 
@@ -575,76 +594,80 @@ function or a signal is multiplied by the windowing function, the product is als
 In this section, we evaluation the Peak Sidelobe Level (PSL), the Main 
 Lobe width (MLW) and the Sidelobes Roll-off (SLR) of some windowing functions spectrum. This study will allow us to make 
 a suitable choice of the window that by tapering with the sky, we conserve the brightness of sources in the field of 
-interest and attenuate sidelobes confusion from strong sources out of the field of interest.
-\subsubsection{Boxcar window: natural weighting}
-This windowing function take a hunk of the data without modification, and  this leads to discontinuities at the edges\footnote{unless it 
-happens that the signal  fit exactly with the windowing function width. Nevertheless, it is rare to find such a situation.}. For 
-a cut-off frequency interval  $[-\nu_a,\nu_a]$ the boxcar windowing function is defined as:
+interest and attenuate sidelobes confusion from strong sources out of the field of interest.\\
+Conventional signal processing literature and baseline dependent windowing functions:\\ 
+\begin{tabular}{*3{c}}\\
+ \multicolumn{3}{|c|}{}
+ \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
+  \hspace{3cm}\footnotesize Table of terms \\
+  \hline
+  \footnotesize Signal processing &\footnotesize BDWFs\\
+  \hline\hline
+  {\footnotesize Frequency domain} &{\footnotesize Image plane} \\
+  {\footnotesize Time domain} &{\footnotesize Fourier plane}\\
+  {\footnotesize Spectral response} & {\footnotesize Image taper}\\
+  {\footnotesize Cut-off interval or pass band} &{\footnotesize FoV}\\
+  {\footnotesize Stop band} &{\footnotesize Outside edges of FoV}\\
+  \end{tabular}
+\end{tabular}
+\subsubsection{Boxcar window}
+This window take a hunk of the data without modification, and  this leads to discontinuities at the edges\footnote{unless it 
+happens that the signal  fit exactly with the window width. Nevertheless, it is rare to find such a situation.}. For 
+a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 \begin{equation}
-\Pi_{u}=\left\{
+\Pi_{t}=\left\{
 \begin{array}{rl}
-1 & \mbox{$-\nu_a \leq \nu \leq \nu_a$} \\
+1 & \mbox{$-t_a \leq t \leq t_a$} \\
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation}
-%and it Fourier transform is $\mathcal{F}^{-1}\big\{\Pi_{u}\big\}=sinc\big(\pi ||u(t/\lambda_a)|| l\big)$.\\
-Fig.\ref{fig:fig_box} and Fig.\ref{fig:fig_box_freq} gives the graph of $\Pi_{u}$ and its spectrum respectively. The blue and 
-the red curve of Fig.\ref{fig:fig_box_freq} are the spectrum of $\Pi_{u}$ for a frequency cut-off interval, $[-\nu_a,\nu_a]$ and 
-$[-\nu_a/2,\nu_a/2]$ respectively. We noticed that when the cut-off interval is large, the MLW of the spectrum is 
-narrower, the PSL is lower and the SLR drop faster. 
-% The main lobe 
-% extends from $-1/(2\nu_a)$ to $1/(2\nu_a)$, 
-% beyond that the function oscillates at a constant rate while the amplitude gradually dies out. The larger the $\nu_a$, the narrower the 
-% central peak and the oscillations.
+Fig.\ref{fig:fig_box} and Fig.\ref{fig:fig_box_freq} gives the graph of $\Pi_{t}$ and its spectrum respectively. The blue and 
+the red curve of Fig.\ref{fig:fig_box_freq} are the spectrum of $\Pi_{t}$ for a time cut-off interval, $[-t_a, t_a]$ and 
+$[-t_a/2,t_a/2]$ respectively. We noticed that when the cut-off interval is large, the MLW of the spectrum is 
+narrower, the PSL is lower and the SLR drop faster.
 \subsubsection{Gaussian window}
-A Gaussian windowing function centred at mean zero with standard deviation, $\sigma$ can be described as 
+A Gaussian window centred at mean zero with standard deviation, $\sigma$ is given by: 
 \begin{equation}
-  G_{u}= e^{-b\nu^{2}}.
+  G_{t}= e^{-bt^{2}}.
 \end{equation}
-Here, $b=(2\sigma^2)^{-1}$ and  $\mathcal{F}^{-1}\big\{G_{u}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
+Here, $b=(2\sigma^2)^{-1}$ and  $\mathcal{F}^{-1}\big\{G_{t}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
 This shows us that the inverse Fourier transform of a Gaussian with standard deviation $\sigma$ is a Gaussian with a standard 
-deviation $\sigma '= (2\pi\sigma)^{-1}$. 
-
-Fig.\ref{fig:fig_gauss} and Fig.\ref{fig:fig_gauss_freq} gives the graph of $G_{u}$ and its spectrum respectively, where $G_{u}$ 
-is truncate within the cut-off frequency interval $[-\nu_a,\nu_a]$, with $b = 3$ for the blue curve and $b=5$ for the red one. We noticed 
+deviation $\sigma '= (2\pi\sigma)^{-1}$.
+Fig.\ref{fig:fig_gauss} and Fig.\ref{fig:fig_gauss_freq} gives the graph of $G_{t}$ and its spectrum respectively, where $G_{t}$ 
+is truncate within the cut-off frequency interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red one. We noticed 
 that when the standard deviation is large, the MLW of the spectrum is narrower, the PSL is higher and the SLR drop slowly compare to a 
 smaller standard deviation.
-\subsubsection{Butterworth}
-The frequency response of the Butterworth filter is flat  in the pass band, and rolls off towards zero in the stop band, and it is 
-characterized by two independent parameters, the cut-off frequency 
-$\nu_a$ and the order $p$. These two parameters controls the 
-bandwidth and side lobes  attenuation. The frequency response of the Butterworth is given by 
+\subsubsection{Butterworth window}
+The time response of the Butterworth window is flat  in the pass band, and rolls off towards zero in the stop band, and it is 
+characterized by two independent parameters, the cut-off time $t_a$ and the order $p$. These two parameters controls the 
+bandwidth and side lobes  attenuation. The time response of the Butterworth window is given by:
 \begin{equation}
-B_u= \Big(1 + (\nu/\nu_a)^{2p}\Big)^{-1}.
+BW_t= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
-%Fig.\ref{fig:fig_butter} and Fig.\ref{fig:fig_butter_freq} gives the graph of $B_{u}$ and its spectrum respectively. 
-For the same frequency interval $[-\nu_a,\nu_a]$, we plotted  three curves $\{p=1, p=3, p=5\}$ of $B_{u}$ in Fig.\ref{fig:fig_butter} and 
-their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}.  We noticed 
-that when the other $p$ is getting bigger, the MLW of the spectrum is conserved, while the PSL is getting higher and the SLR is 
-dropping  faster.
-\subsubsection{Bessel Function of the First Kind}
-\subsubsection{First order prolate spheroidal wave function}
-\subsubsection{Sinc window}
-In theory, the sinc window  is an infinitely large convolution filter as it is non zero everywhere, and its inverse Fourier
-Transform produces the ideal filter kernel (the boxcar windowing function). The sinc is defined as follow:
+For the same frequency interval $[-t_a,t_a]$, we plotted  three curves $\{p=1, p=3, p=5\}$ of $BW_{t}$ in Fig.\ref{fig:fig_butter} and 
+their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}.  We noticed that when the other $p$ is getting bigger, the MLW of the 
+spectrum is conserved, while the PSL is getting higher and the SLR is dropping  faster.
+\subsubsection{Sinc Window}
+The sinc window  is an infinitely large convolution window as it is non zero everywhere. The sinc is defined as follow:
 \begin{equation}
-S_u= sinc\big(\pi bu(t/\lambda_a)\big).
+S_t= sinc\big(\pi b t\big).
 \end{equation}
-However, in practice some one need to defined a cut-off interval where the window is considered to be non zero, and zero out of this 
-cut-off interval. Fig.\ref{fig:fig_sinc} and Fig.\ref{fig:fig_sinc_freq} gives the graph of $S_{u}$ and its spectrum respectively, where 
-$S_{u}$ is truncate within the cut-off frequency interval $[-\nu_a,\nu_a]$. We noticed that when the cut-off frequency interval is large 
+ Fig.\ref{fig:fig_sinc} and Fig.\ref{fig:fig_sinc_freq} gives the graph of $S_{t}$ and its spectrum respectively, where 
+$S_{t}$ is truncate within the cut-off time interval $[-t_a,t_a]$. We noticed that when the cut-off time interval is large 
 (Fig.\ref{fig:fig_sinc_freq}, blue curve), the spectrum becomes perfectly flat at the passband while the MLW becomes narrower,  the PSL 
-becomes lower and the SLR drop faster compare to a cut-off frequency of $[-\nu_a,\nu_a]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). \\
+becomes lower and the SLR drop faster compare to a cut-off interval of $[-t_a,t_a]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). 
+\subsubsection{Bessel Function of the First Kind}
+discuss the Bessel here\\
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
  \begin{tabular}{|l|l|l|l|}
   \footnotesize Windows &\textbf{\footnotesize MLL (-3db)}&\textbf{\footnotesize PSL (db)} &\textbf{\footnotesize SLR (db/octave) }  \\
   \hline\hline
-  {\footnotesize $\Pi_{u}$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize $-6,78$}\\
-  {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}$\}} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  $-12,42$} \\
-  {\footnotesize $G_{u}$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
-  {\footnotesize $B_{u}$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
-  {\footnotesize $P_{u}$} &{\footnotesize  $\approx- $} &{\footnotesize $ -$ }&{\footnotesize  $ -$}
+  {\footnotesize $\Pi_t$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize $-6,78$}\\
+  {\footnotesize $S_t$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  $-12,42$} \\
+  {\footnotesize $G_{t}$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
+  {\footnotesize $BW_{t}$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
+  {\footnotesize $J_{0t}$} &{\footnotesize  $\approx- $} &{\footnotesize $ -$ }&{\footnotesize  $ -$}
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}\\
 A windowing function with a narrower main lobe width for a better spectral resolution, lower PSL to have less
@@ -653,66 +676,86 @@ Nevertheless, The energy is more concentrated in the frequency domain main lobe 
 domain of the boxcar  and the Butterworth window look similar, but the other of the Butterworth frequency domain can be control with the 
 goal to concentrate more energy in the frequency main lobe. However, the  sinc window is preferable as we expect in this work, signals in a 
 wide dynamic range.
-\subsubsection{Noise  and comparison}
-The methods described in section (\ref{baseline1}) and section (\ref{baseline2}) are use in this subsection to evaluate the 
-theoretical noise, $f_{pq}$ and $g_{pq}$ are replaced in  Eq.\ref{Equ:BDWnoise} and 
-Eq.\ref{Equ:OBDWnoise} respectively by the windowing functions described above. Table (\ref{BDWBnoise}) and 
-(\ref{OBDWBnoise}) summarize the theoretical noise where these functions are used as a baseline dependent 
-windowing and as an overlap baseline dependent windowing functions respectively. \\
-\begin{tabular}{*3{c}}
- \multicolumn{3}{c}{}\\
-  \hspace{-1.cm}\begin{tabular}{|c|c|}
-  \textbf{$f_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
-  \hline\hline
-  {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
-  {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}$\}} &{\footnotesize 1,066} \\ 
-  {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
-  {\footnotesize $B_{u}$} &{\footnotesize 1,066} \\
-  {\footnotesize $\mathcal{F}^{-1}\{B_{u}$\}} &{\footnotesize 1,066} \\ 
-  {\footnotesize $P_{u}$} & {\footnotesize 1,334}
-  \end{tabular}& \label{BDWBnoise}
-   \begin{tabular}{|c|c|}
-  \textbf{$g_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
-  \hline\hline
-  {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
-  {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}\}$} &{\footnotesize 1,066} \\
-  {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
-  {\footnotesize $B_{u}$} &{\footnotesize 1,066} \\
-  {\footnotesize $\mathcal{F}^{-1}\{B_{u}$\}} &{\footnotesize 1,066} \\ 
-  {\footnotesize $P_{u}$} & {\footnotesize 1,334}
-  \end{tabular} \label{OBDWBnoise}
-\end{tabular}
-\\
-\\
-\\
 \begin{figure*}
   \centering
   \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
 function.}\label{fig:fig_box}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_box.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:fig_box_freq}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/sinc.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_sinc}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_sinc.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_sinc_freq}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Butterwordth.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_butter}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_butterwordh.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_butter_freq}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_gauss}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_gauss_freq}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_box.pdf}\caption{Frequency response of a boxcar 
+window}\label{fig:fig_box_freq}\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/sinc.png}\caption{Sinc 
+window}\label{fig:fig_sinc}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_sinc.pdf}\caption{Frequency response of the 
+sinc window }\label{fig:fig_sinc_freq}\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Butterwordth.pdf}\caption{ Butterwordth 
+windows}\label{fig:fig_butter}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_butterwordh.pdf}\caption{Frequency response 
+of the Butterwordth windows}\label{fig:fig_butter_freq}\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Gaussian windows}\label{fig:fig_gauss}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Frequency response of 
+Gaussian windows}\label{ fig:fig_gauss_freq } \end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Bessel 
+first King windows NB: this figure is coming very soon}\label{fig:fig_4}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Frequency 
+response of Bessel first kind window}\label{fig:fig_5} \end {minipage}
 \end{figure*}
-
-$1.)$ In Figure
+\section{Noise and comparison}
+Several windowing functions  were described in the previous section, the sinc window, the Bessel of the first kind and the 
+Butterwordth approaches well our specifications, and they are taken under consideration throughout the rest of this paper. We show in this 
+section that, applying our methods means that you are filtering the Fourier plane with a sort of hybrids filters (boxcar window on 
+shorter baselines and the window you actually considered on longer baselines). We furthermore evaluate the theoretical noise predicted in 
+Eq.\ref{eq:noise}.\\
+Fig.\ref{fig:longshortmid-sinc}, Fig.\ref{fig:longshortmid-bessel} and Fig.\ref{fig:longshortmid-butter} are the baseline dependent 
+windowing functions obtained using the sinc, the Bessel first kind and the Butterwordth respectively.  It appears on these figures that the 
+baseline dependent windowing functions differ from the baseline $(u,v)$ spacing, and for shorter baselines the window gets closer to the 
+boxcar window. Nevertheless, we reduced the thermal noise on shorter baselines while we increased the spectral dynamic range 
+on longer baselines. \\
+Fig.\ref{fig:corrSigVLAMxBl_overlapLdelta}, Fig.\ref{fig:corrSigVLAMxBl} and Fig.\ref{fig:corrSigVLAMxBl_overlapGdelta} shows the three 
+cases of an overlap baseline dependent windowing function obtained with the sinc.
+\begin{figure*}
+ \centering
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-sinc.pdf}
+  \caption{Time direction Bl-sinc-W0 of the shortest, medium and longest baseline}\label{fig:longshortmid-sinc}
+  \end{minipage}
+  \hspace{1cm}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-bessel.pdf}
+  \caption{Time direction Bl-J$_0$-W0 of the shortest, medium and longest baseline}\label{fig:longshortmid-bessel}
+  \end{minipage}\\
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-butter.pdf}\\
+  \caption{Time direction Bl-BW-W0 of the shortest, medium and longest baseline}\label{fig:longshortmid-butter}
+  \end{minipage}
+  \hspace{1cm}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:corrSigVLAMxBl_overlapLdelta}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:corrSigVLAMxBl}\end{minipage}
+  \hspace{1cm} 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
+		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:corrSigVLAMxBl_overlapGdelta}\end{minipage}
+\end{figure*}
+\begin{figure*}
+ \centering
+    \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}
+  \caption{$Bl$-$sinc w1$ used to convolve the visibility data obtained from the long, medium and short 
+baseline}\label{fig:per-baseline-noise-ratio-sinc}
+  \end{minipage}
+  \hspace{1cm}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}
+  \caption{$Bl$-$sinc w1$ used to convolve the visibility data obtained from the long, medium and short 
+baseline}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}
+  \caption{$Bl$-$sinc w1$ used to convolve the visibility data obtained from the long, medium and short 
+baseline}\label{fig:per-baseline-noise-ratio-BW}
+  \end{minipage}
+\end{figure*}
 % The specification of the weight of the point $(u_k, v_k)$ is, $w(u_k, v_k)=e^{(\frac{-d}{s})^2}$, where $s$ measure the width 
 % of the taper and $d=(u_k^2 + v_k^2)^{\frac{1}{2}}$ the baseline length.  However, the rms noise of the central pixel map is given by 
 % $\sigma^2=\frac{\sum w^2(u_k, v_k)}{(\sum w^2(u_k, v_k))^2}\sigma_{obs}^2$ (see \cite{}).
@@ -736,43 +779,75 @@ $1.)$ In Figure
 %        should have been drop significantly out of the field of view. For a source at coordinates (l=0, m=1deg) smearing occurs for an 
 %        integration greater than 90s (see Fig1b)
 % \end{enumerate}
-\begin{figure*}
-  \centering
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapLdelta.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{ fig:fig_3a}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:fig_4}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:fig_5}\end{minipage}
-\end{figure*}
-$1.)$ In Figures (\ref{fig1}) and (\ref{fig2}) we represented the ratio $\frac{\sigma_{meas,pq}}{\sigma_{av,pq}}$ as a function 
-of $\sum_{i}^{n} u_i((t_c-t_i)/\lambda))$ ($\sigma_{meas,pq},\sigma_{av,pq}$ are the per baselines CWF and averaging rms noise  
-respectively). We could also represented it as a function of baseline length. But, a uv-track corresponding to baseline aligned along the 
-Est-West direction has longer tracts compare to one aligned along the South-Nordth for the same integration and frequency band. Therefore,  
-$\frac{\sigma_{meas,pq}}{\sigma_{av,pq}}$ $v/s$ baselines length is ambiguous. We consider five baselines dependent 
-windowing sinc function, $Bl$-$sinc$ $wk$ (with an extended width of $(k-1)n$ time intervals and/or frequency channels and $k \geq 1$). The 
-experiment is done for two cases, figure (\ref{fig1}) is the one for $Bl$-$sinc$ $wk$ over both time-frequency and figure (\ref{fig2}) over 
-time. These figures shows that, the noise increases with baselines length.\\
-$2.)$ Figure (\ref{fig1}) shows that, with $Bl$-$sinc$ $wk$, the noise is lower on shorter baselines compared to the longer baselines. This 
-is because on shorter  baselines  $\frac{\sigma_{meas,pq}}{\sigma_{av,pq}} \approx \frac{n}{n + k}$, it is the same case with 
-Figure (\ref{fig2}) where $\frac{\sigma_{meas,pq}}{\sigma_{av,pq}} \approx \sqrt{\frac{n}{n + k}}$ (see the proof).  With $Bl$-$Sinc$ $wk$ 
-($k>1$), the noise drops  with the extended number of time intervals and/or frequency channels of 
-the window. The rate of this drop is non-linear with baselines length and also with the overlap time interval and/or frequency channels 
-(see figure (\ref{fig1}b) and (\ref{fig2}b), the variation of the noise rate between baselines).  \\
-$3.)$ In spite of the overlapping, with the theoretical results, the noise of longer baselines do not drop when the overlap 
-samples is increased (figure \ref{fig2}). The reason is, few windows are overlapping in a visibility point when we extended in a unique 
-direction (the time interval in this case) compare to two directions (time interval and frequency channels). 
-The theoretical derivation for the overall noise of $Bl$-$sinc$ $wk$ and the simulated one are quantified similarly but the pattern of the  
-per baseline simulated rms noise do not look the same with the theoretical one. The number of $k$ determines the amount of noise  of CWF.
+\begin{itemize}
+ \item In Fig.\ref{fig:per-baseline-noise-ratio-sinc}, Fig.\ref{fig:per-baseline-noise-ratio-bessel} 
+and \ref{fig:per-baseline-noise-ratio-BW} we plotted the ratio $\frac{\sigma_{pq,w}}{\sigma_{pq,avg}}$ of the theoretical noise as a 
+function of $\overline{\mathbf{d}}_t$ (the mean of  $(u,v)$ distance) using the sinc, the Bessel first kind and the 
+Butterwordth respectively. Here, $\sigma_{pq,w}$ and $\sigma_{pq,avg}$ are the per baseline theoretical rms noise of the baseline dependent 
+windowing function and the one of averaging respectively. These figures shows that, the noise increases with baseline $(u,v)$ distances.
+   \item On shorter baselines, the noise is approximately the same with the one of averaging and drop significantly with the number of  
+overlap time and frequency bins. This is because on shorter  baselines, the baseline dependent windowing function are closer to the boxcar 
+window, and when the number of overlap time  and frequency  bins increases, we have:
+\begin{eqnarray*}
+ \frac{\sigma_{pq, w}}{\sigma_{pq,avg}} &\approx& \Bigg(\frac{n_t n_{\nu}}{(n_t + n_{lt} + n_{rt})(n_{\nu} + n_{l\nu} + 
+n_{r\nu})}\Bigg)^{\frac{1}{2}}
+\end{eqnarray*}
+\end{itemize}
+The tables below summarized the array overall  theoretical rms noise ratio and the simulation one.\\
+\begin{tabular}{*3{c}}
+ \multicolumn{3}{|c|}{}\\
+ \begin{tabular}{|l|l|l|l|}
+  \footnotesize $f_{pq}$ &\textbf{\footnotesize Theoretical}&\textbf{\footnotesize Simulation}\\
+  \hline\hline
+  {\footnotesize Bl-sinc-W0$\times$0} &{\footnotesize $1.17$} &{\footnotesize $1.23$}\\
+  {\footnotesize Bl-J$_0$-W0$\times$0} &{\footnotesize  $1.11$}&{\footnotesize  $1.14$}\\
+  {\footnotesize Bl-BW-W0$\times$0} & {\footnotesize $1.16$}&{\footnotesize  $-$}\\
+  \end{tabular}& \label{BDWBnoise}
+\end{tabular}\\
+\begin{tabular}{*3{c}}
+ \multicolumn{3}{|c|}{}\\
+ \begin{tabular}{|l|l|l|l|}
+  \footnotesize $g_{pq}$ &\textbf{\footnotesize Theoretical}&\textbf{\footnotesize Simulation}\\
+  \hline\hline
+  {\footnotesize Bl-sinc-W100$\times$25} &{\footnotesize $1.02$} &{\footnotesize $1.18$}\\
+  {\footnotesize Bl-J$_0$-W100$\times$25} &{\footnotesize  $0.91$}&{\footnotesize  $1.08$}\\
+  {\footnotesize Bl-BW-W100$\times$25} & {\footnotesize $1.44$}&{\footnotesize  $-$}\\
+  \hline
+  {\footnotesize Bl-sinc-W150$\times$50} &{\footnotesize $1.03$} &{\footnotesize $1.27$}\\
+  {\footnotesize Bl-J$_0$-W150$\times$50} &{\footnotesize  $0.92$}&{\footnotesize  $1.13$}\\
+  {\footnotesize Bl-BW-W150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $-$}\\
+  \end{tabular}& \label{BDWBnoise}
+\end{tabular}
+% \begin{tabular}{*3{c}}
+%  \multicolumn{3}{c}{}\\
+%   \hspace{-1.cm}\begin{tabular}{|c|c|}
+%   \textbf{$f_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
+%   \hline\hline
+%   {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
+%   {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}$\}} &{\footnotesize 1,066} \\ 
+%   {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
+%   {\footnotesize $B_{u}$} &{\footnotesize 1,066} \\
+%   {\footnotesize $\mathcal{F}^{-1}\{B_{u}$\}} &{\footnotesize 1,066} \\ 
+%   {\footnotesize $P_{u}$} & {\footnotesize 1,334}
+%   \end{tabular}& \label{BDWBnoise}
+%    \begin{tabular}{|c|c|}
+%   \textbf{$g_{pq}$}&\textbf{\footnotesize Theoretical noise} \\
+%   \hline\hline
+%   {\footnotesize $\Pi_{u}$} &{\footnotesize 1,066} \\ 
+%   {\footnotesize $\mathcal{F}^{-1}\{\Pi_{u}\}$} &{\footnotesize 1,066} \\
+%   {\footnotesize $G_{u}$} & {\footnotesize 1,334}\\ 
+%   {\footnotesize $B_{u}$} &{\footnotesize 1,066} \\
+%   {\footnotesize $\mathcal{F}^{-1}\{B_{u}$\}} &{\footnotesize 1,066} \\ 
+%   {\footnotesize $P_{u}$} & {\footnotesize 1,334}
+%   \end{tabular} \label{OBDWBnoise}
+% \end{tabular}
 \section{Simulations and results}
-In order to test the algorithms described in section and section, we performed  multiple tests on JVLA simulated measurement sets (MS). In 
-this section we summarize and discussed those results. Several windowing functions  were described in the previous
-section, the sinc window 
-and the Bessel of the first kind approaches well our specifications, and they are taken under consideration. Two MS is used in 
+In order to test the algorithms described in section \ref{baseline1} and section \ref{baseline2}, we performed  multiple tests on JVLA 
+simulated measurement sets (MS). In 
+this section we summarized and discussed those results. Two MS is used in 
 our simulation, a high resolution MS (HR-MS) that contained the observed JVLA data of short integration time and frequency, a low resolution 
-MS (LR-MS), where the simple averaged or the weight averaged data are saved. To apply the second algorithm described in section 
+MS (LR-MS), where the results of simple averaging or the weighted averaging are saved. To apply the second algorithm described in 
+section 
 \ref{baseline2}, the following conditions are satisfied:
 \begin{enumerate}
  \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively. $n_{t,ovlp}$ the number 
@@ -795,11 +870,10 @@ the number of channels extended across the frequency direction, and  $\Delta \nu
       %\end{eqnarray*}
 \end{enumerate}
 \subsection{Smearing elimination and out FoV suppression}
-We considered $40$ sky models of 1Jy source, the sky models differ from each other by the source coordinates. However, the 
-reason of having a unique source in the sky model is to avoid interferences that can cost calibration artefacts in the sky 
-maps \citep{Grobler2014} which 
-can affect the brightness of these sources. Another obvious effect is the  CLEAN algorithm \citep{Grobler2014} that does not clean the 
-dirty map at 100\%, therefore we need to avoid flux distribution between sources via their sidelobes. Each of the sky model is simulated 
+We considered $40$ different sky models each  containing a 1Jy source; the sky models differ from each other by the source coordinates. 
+The reason for having  only one source in the sky model is to avoid standard imaging artefacts in the sky maps (cite here \cite{2}), which 
+can affect the brightness of sources. Another obvious problem is the  CLEAN algorithm (cite here \cite{2}), which does not created 
+perfect clean maps. Therefore we need to avoid sideslobes confusion. Each of the sky model is simulated 
 with a JVLA HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
 time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. We therefore applied the actual method (simple averaging) and 
 our methods, each result is save into a LR-MS of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We 
@@ -920,7 +994,94 @@ significantly out of the FoV without any constraint on the integration time and 
  \item Finally, the sinc filter performed well on signal recovery compare to the Bessel first kind and the Bessel first kind suppressed the 
 source when this is out of the FoV compare to the sinc.  
 \end{itemize}
-\subsection{Multiple sources in the sky model and attenuation efficiency}
+\subsection{One strong source in the sky model and attenuation efficiency}
+\begin{figure*}
+  \centering
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
+direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
+synthesis at 6.25MHz bandwidth.}\label{fig:Bl-sinc-FoV2}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
+direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
+synthesis at 6.25MHz bandwidth.}\label{fig:Bl-sinc-FoV4} 
+\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
+direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+integration synthesis at 6.25MHz bandwidth.}\label{fig:Bl-bessel-FoV2}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
+direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+integration synthesis at 6.25MHz bandwidth.}\label{fig:Bl-bessel-FoV4}\end{minipage}
+\end{figure*}
+\begin{figure*}
+  \centering
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
+  \caption{Response to a 1Jy source at different positions, as a function of  bandwidth with $2^{\circ}$ frequency sinc filter.}
+  \label{fig:max-integ-freq-sinc-w1x1-fov2}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap sinc filter.}
+      \label{fig:max-integ-freq-sinc-w1x50-fov2}
+      \end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
+filter.}
+      \label{fig:max-integ-freq-bessel-w1x1-fov2}
+      \end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel first 
+kind filter.}
+      \label{fig:max-integ-freq-bessel-w1x50-fov2}
+      \end{minipage}
+\end{figure*}
+\begin{figure*}
+% *********************** Scripts that created these plots ***********************************
+%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
+	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
+  \centering
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
+	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency sinc filter.}
+	\label{fig:max-integ-time-sinc-w1x1-fov2}
+	\end{minipage} \hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
+        \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency overlap sinc 
+filter.}
+      \label{fig:max-integ-time-sinc-w100x1-fov2}
+      \end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
+    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency Bessel first kind
+filter.}
+    \label{fig:max-integ-time-bessel-w1x1-fov2}
+    \end{minipage} 
+ \hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
+    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency overlap 
+      Bessel first kind filter.}
+    \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}
+\end{figure*}
+\begin{figure*}
+  \centering
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
+    \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
+sinc filter.}
+    \label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
+ \hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
+    \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
+ overlap sinc filter.}
+    \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+Bessel first kind filter.}
+      \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+overlap Bessel first kind filter.}
+  \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
+\end{figure*}
 \subsection{Discussion}
 \section{Conclusions}
 The goal of this paper was threefold. The first objective was to investigate **** windowing functions***\\
@@ -953,6 +1114,7 @@ Drawback and futures works*** drawback and futures works*****
 % \end{enumerate}
 % \end{proof}
 \section[]{Derivation of complex matrices}
+\label{app:complexmatrices}
 The complex matrices used in section \ref{sec:imaging} are explicitly derived in this appendix. In Eq.\ref{eqbb:linear}, the matrices
 $\mathbf{C}_{(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are blocks diagonals  both of size $(4n_t n_{\nu})\times(4n_t 
 n_{\nu})$, and  the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp}$ is a vector of size $4\times (n_t n_{\nu})$. These matrices are 
@@ -1046,62 +1208,6 @@ If the integration windowing function were the same in all baseline, then we can
  \mathcal{I}^{D}_{l,m}&=&\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \bigg(\mathcal{R}\cdot
 \mathcal{I}\bigg)\Bigg)_{(l,m)}
 \end{eqnarray*}
-\begin{figure*}
- \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/time_freq_ration.png}\caption{Noise ratio and rate 
-of $Bl$-$sinc$-$wk$: time interval and frequency channels.}\label{ fig:fig_2a } \end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/timeration.png}\caption{Noise ratio and rate of 
-$Bl$-$sinc$-$wk$: time interval.}\label{fig:fig_2b}
-\end{minipage}
-\end{figure*}
-\begin{figure*}
-  \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:Bl-sinc-FoV2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:Bl-sinc-FoV4}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:Bl-bessel-FoV2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{
-Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:Bl-bessel-FoV4}\end{minipage}
-\end{figure*}
-\begin{figure*}
-  \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-freq-sinc-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-freq-sinc-w1x50-fov2}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:max-integ-freq-bessel-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:max-integ-freq-bessel-w1x50-fov2}\end{minipage}
-\end{figure*}
-\begin{figure*}
-% *********************** Scripts that created these plots ***********************************
-%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
-	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
-  \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}\caption{
-Overlap \textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-time-sinc-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-time-sinc-w100x1-fov2}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:max-integ-time-bessel-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}
-\end{figure*}
-\begin{figure*}
-  \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t= [225, 250]$.}\label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\{250\}$.}\label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
-\end{figure*}
 \bsp
 \label{lastpage}
 \end{document}
