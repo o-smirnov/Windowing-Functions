@@ -144,7 +144,7 @@ Array (VLA)\cite{1} and  could also be used for future radio telescopes such as 
 \section[]{ Overviews and definitions}
 \subsection{Visibility and relation with the sky }
 \label{sec:visSky}
-An interferometer array measured a quantity $V=V(u,v,w)$ known classically as the visibility function (see \cite{5}).
+An interferometer array measures a quantity $V=V(u,v,w)$ known classically as the visibility function (see \cite{5}).
 The variables $u,v$ and $w$ are in unit of wavelength and they are the coordinates of the vector of which the norm is the distance between 
 two antennas, known in interferometry as a baseline. A source in the sky will see $u$ and $v$ oriented towards the direction East-West and 
 South-North respectively and $w$ is directed towards the phase centre of the source plane or image plane. The projection of $u$ and $v$ in 
@@ -171,7 +171,7 @@ The Earth rotation causes the phase, $\phi (u,v,w)$ to variate in time. The base
 coordinates are defined in units of wavelength, and making $\phi (u,v,w)$ to variate in frequency. 
 To take this effect into account, Eq. \ref{eq1:visSky} is  rewritten as an integration over time and frequency interval. If we 
 consider that $[t_s,t_e]$ is the time integration interval and $[\nu_s,\nu_e]$ the frequency integration 
-interval, then Eq.\ref{eq1:visSky} can be rewritten as:
+interval, then Eq.\ref{eq1:visSky} can be re-written as:
 % variates in 
 % time when the Earth rotation is  if $\textbf{V}_{pq}^{true}(t,\nu)$ is the non integrated visibilities observed during 
 % the time interval $\Delta t$ at multi frequency  within the bandwidth $\Delta \nu$, then the cross correlate visibility, 
@@ -198,10 +198,10 @@ follows:
 V_{pq,(t_c,\nu_c)}^{corr}&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq,(t,\nu)}^{samp}.\label{eq2:sample}
 %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
 \end{eqnarray}
-Here, $n_t$ and $n_{\nu}$ are the number of discrete times within the time interval  and the number of discrete frequency 
+Here, $n_t$ and $n_{\nu}$ are the number of discrete times within the time interval  and the number of discrete frequencies 
 within the frequency interval  respectively. For convenience, lets introduce a normalized \textit{Boxcar} windowing 
 function, $\Pi_{pq,(t_c - t,\nu_c -\nu)}$  that will attribute an equal weight (in this case $1/n_t n_{\nu}$) to all sampling visibilities 
-points. We can therefore rewrite Eq. \ref{eq2:sample} as:
+points. We can therefore re-write Eq. \ref{eq2:sample} as:
 \begin{eqnarray}
 V_{pq,(t_c,\nu_c)}^{corr}&=&\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\Pi_{pq,(t_c - t_i,\nu_c -\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}. 
 \label{eq:avscon}
@@ -224,26 +224,28 @@ differ from one baseline to another.
 \subsection{Effect of time and bandwidth averaging}
 During imaging \citep{Marti2008}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
 $sinc$ function therefore multiply the sky (see appendix\ref{label:similarimaging} for a short discussion and illustration). Thus, the 
-sky map is tapered by the $sinc$ function in the $l$ and $m$ direction, the response is maximal for sources at the phase centre 
+sky map is tapered by the $sinc$ function in the $l$ and $m$ directions, the response is maximal for sources at the phase centre 
 ($l=0,m=0$), while for off-phase centre sources, the response is smeared (decreased) for larger $\Delta t$ and $\Delta \nu$. The 
 Fourier phase components $2\pi \phi(u,v,w)$ is a function of the direction in the sky, the wavelength, the separation of antennas as well 
-as the integration time and frequency. Therefore, a maximal phase will occurs on longer baselines while a small phase on shorter baselines. 
+as the integration time and frequency. Therefore, a maximal phase will occur on longer baselines while a small phase will occur on shorter 
+baselines. 
 Thus, this explained while the degree of smearing increases with the position of a source and the baseline length (see Thompson 
 et \textit{al}.)
 \begin{itemize}
- \item Fig.\ref{timessear1} shows the attenuation of a source at various coordinates in the sky for various integration time interval. More 
-than $90\%$ of the source brightness is measured for integration less than or equal to $25s$ when this source is within 
-$[0^\circ,3^\circ]$. We can noticed on this figure that, we could not maintained the $90\%$ of the source brightness within 
-$[0^\circ,1^\circ]$ if the desire FoV is $2^\circ$ and suppressed the source within $[1^\circ,3^\circ]$ with these short integration. 
-Therefore, as mention earlier in this work, a small integration produced large data and maintained sidelobes contamination from out field 
-of view sources.
-  \item Fig.\ref{timessear2} shows the attenuation of a source at various coordinates in the sky for various integration 
-time interval. More than $90\%$ of the source brightness is measured for integration less than or equal to $25s$ when this source is within 
-$[0^\circ,3^\circ]$. We can noticed on this figure that, we could not maintained the $90\%$ of the source brightness within 
-$[0^\circ,1^\circ]$ if the desire FoV is $2^\circ$ and suppressed the source within $[1^\circ,3^\circ]$ with these short integration. 
-Therefore, as mention earlier in this work, a small integration produced large data and maintained sidelobes contamination from out field 
-of view sources
+ \item Fig.\ref{timessear1} shows the attenuation of a source at various coordinates in the sky for various integration time intervals. 
+More than $90\%$ of the source brightness is measured for integration less than or equal to $25s$ when this source is within 
+$[0^\circ,3^\circ]$. We can notice on this figure that, we can not maintain the $90\%$ of the source brightness within 
+$[0^\circ,1^\circ]$ if the desire FoV is $2^\circ$ and suppressed the source within $[1^\circ,6.6^\circ]$ with these short integration.
+  \item Fig.\ref{timessear2} shows the attenuation of a source at various coordinates in the sky for various bandwidth. More than $90\%$ of 
+the source brightness is measured for bandwidth less than or equal to $1250$kHz when this source is within 
+$[0^\circ,3.5^\circ]$. We can noticed on this figure that, we can not maintained the $90\%$ of the source brightness within 
+$[0^\circ,1^\circ]$ if the desire FoV is $2^\circ$ and suppressed the source within $[1^\circ,6.6^\circ]$ with these narrower bandwidth.
 \end{itemize}
+As mentioned earlier in this work, a small integration and narrower bandwidth produced large data and maintained sidelobes contamination 
+from out field of view sources.\\
+Unfortunately, since the response is maximal only for sources at the phase centre, an interesting approach is achieved by convolving the 
+observed visibility with a  windowing function that depends on $(u,v)$ coordinates spacing (baseline dependent windowing function). 
+However, a windowing function with a wide dynamic range spectrum is preferable in this work.
 \begin{figure*}
   \centering
   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.pdf}\caption{Attenuation of the 
@@ -254,23 +256,20 @@ intensity of a 1Jy source move from the phase centre for $\Delta t$ integration 
 intensity of a 1Jy source move from the phase centre for $1$s integration synthesis at $1.4$GHz with
 $\Delta \nu$ bandwidth.}\label{timessear2}\end{minipage}
 \end{figure*}
-Fortunately, since the response is maximal only for sources at the phase centre, an interesting approach is achieved by convolving the 
-observed visibility with a  windowing function that depends on $(u,v)$ coordinates spacing (baseline dependent windowing function). 
-However, a windowing function with a wide dynamic range spectrum is preferable in this work.
 \subsection{Imaging}
 \label{sec:imaging}
 Recall from the previous section that, the boxcar windowing function can be replaced by a windowing function, $W_{pq,(t,\nu)}$ that depends 
 on $(u,v)$ spacing. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is a $n_t \times n_{\nu}$ matrix of elements 
 $W_{pq,(t_i,\nu_j)}|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of $(u,v)$ points. From the full sky Radio Interferometry Measurement Equation 
 (RIME) formalism (see Hamaka et \textit{al}, O.M. Smirnov (2010a)), the sampled visibilities can be presented mathematically as a $4\times 
-n_t\times n_{\nu}$ matrix of four polarizations time and 
-frequency dependent matrices each of size $n_t\times n_{\nu}$.
+n_t\times n_{\nu}$ matrix of four polarization times and 
+frequencies dependent matrices each of size $n_t\times n_{\nu}$.
 \begin{eqnarray*}
 \mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
 ^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
 \end{eqnarray*}
-where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can rewrite Eq.\ref{f4} 
-in terms of a series of linear transformations or functional model as:
+where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can re-write Eq.\ref{f4} 
+in terms of a series of linear transformations or functional models as:
 \begin{equation}
 V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
 \mathbf{V}_{pq,(t,\nu)}^{samp}.\label{eqbb:linear}
@@ -344,26 +343,27 @@ on top of each other respectively (see appendix \ref{app:complexmatrices} for th
 \section{Algorithm 1: FoV signals recovery}
 \label{baseline1}
 \subsection{Description}
-Missing spaces between sampled $(u,v)$ coordinates has an important dependences on the baseline length. However, the spacing between longer 
-baselines $(u,v)$ coordinates are wider then the one on shorter baselines, this is the obvious effect that explained while sources are more 
-distorted on longer baselines compare to shorter one. Therefore, if one have to attribute a $(u,v)$ weight, it may be as a function of 
-the baseline length, in such a way that the distortion rate is taken into account over baselines. We aims in this section, to 
+Missing spaces between sampled $(u,v)$ coordinates has an important dependence on the baseline length. However, the spacings between longer 
+baselines $(u,v)$ coordinates are wider than the one on shorter baselines, this is the obvious effect that explained why sources are more 
+distorted on longer baselines compared to shorter ones. Therefore, if one have to attribute a $(u,v)$ weight, it may be as a function of 
+the baseline length, in such a way that the distortion rate is taken into account over baselines. We aimed in this section, to 
 describe an algorithm that we used with a baseline-dependent windowing function to assign a proper weight to a data reference by a $(u,v)$ 
-coordinate considering the \textit{spacing}\footnote{The \textit{distance} has also huge 
-dependences on the baseline length and allow us to formally define the data
+coordinate considering the \textit{spacing}\footnote{The \textit{distance} also has huge 
+dependences on the baseline length and allows us to formally define the data
 weight of a $uv$ point over the entire $uv$ plane.} between the baseline $(u,v)$ coordinates.
 
 Fig.\ref{fig:uvcov} shows a snapshot coverage of an integration interval. For shorter baselines, the tracks are closer to the centre of 
 rotation and for longer baselines the tracks are farther away from this centre. The \textit{dot marks} are the data for a sampled $(u,v)$ 
-data, and the  arrows indicates the separation between $(u,v)$ coordinates and the centre $(u,v)$ coordinate. It is trivial to see on this 
-figure that these separations are wider on longer baselines. The results of averaging is assigned to the centre $(u,v)$ coordinate coloured 
+data, and the  arrows indicates the separation between $(u,v)$ coordinates and the centre $(u,v)$ coordinates. It is trivial to see on this 
+figure that these separations are wider on longer baselines. The results of averaging is assigned to the centre $(u,v)$ coordinates 
+coloured 
 in red. 
 \subsection{Methods}
 \label{sec:baseline1}
 Depending on the arrays, we show
-here that we can use the fact that, the spacing of long baselines $(u,v)$ coordinates are wider and  
-design a high dynamic range filter on longer baseline that will recover the desire FoV of the interferometer, and at the same time 
-reducing the data rate. During an integration, the Earth rotation makes baselines coordinates $u$ and $v$  to variates in time and 
+here that we can use the fact that, the spacings of long baselines $(u,v)$ coordinates are wider and  
+design a high dynamic range filter on longer baselines that will recover the desire FoV of the interferometer, and at the same time 
+reducing the data rate. During an integration, the Earth rotation makes baselines coordinates $u$ and $v$  to vary in time and 
 frequency. We can therefore package the $(u,v)$ coordinates changes and the frequency changes of a baseline $pq$ into a single matrix of 
 size $n_t \times 2$ and  into a single vector of dimension $n_{\nu}$ respectively. 
 \begin{eqnarray*}
@@ -381,12 +381,12 @@ We defined the function, $\overline{\overline{\cdot}}$ on a $n_t \times 2$ matri
 where $||.||$ is the Euclidean norm.
 \begin{definition}[Time direction spacing]
 \label{def:1}
-The matrix that model the spacing between the $(u,v)$ coordinates and the centre $(u,v)$ coordinate of a baseline $(p,q)$ across the time 
+The matrix that models the spacing between the $(u,v)$ coordinates and the centre $(u,v)$ coordinate of a baseline $(p,q)$ across the time 
 direction is defined as
 \begin{eqnarray*}
  \mathbf{U}_{pq,t}^{s} &=&\frac{\nu_c}{c}\cdot\Bigg\{\mathbf{U}_{pq,t}-\mathbf{H}_{pq,t} \Bigg \},
 \end{eqnarray*}
-where $c$ is the speed of the light and $\mathbf{H}_{pq}$ is a matrix of size $n_t \times 2$ that model the centre $uv$-coordinate,
+where $c$ is the speed of the light and $\mathbf{H}_{pq}$ is a matrix of size $n_t \times 2$ that models the centre $uv$-coordinate,
 $\mathbf{H}_{pq,t}= \big(\mathbf{u}_{pq,t_c}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_c}\big)^{\dagger}$.
 \end{definition}
 \begin{definition}[Frequency direction spacing]
@@ -409,7 +409,7 @@ If $f_{pq}$ is a \textit{baseline dependent windowing function}, then:
 where $d_{t_i}$ is an element of the vector $\mathbf{d}_{t}=\overline{\overline{\mathbf{U}^{s}}}_{pq,t}$ and $d_{\nu_j}$ is an element 
 of the vector $\mathbf{d}^{}_{\nu}$.
 \end{definition}
-The previous algorithm is correct. But unfortunately, the algorithm does not suppressed out FoV sources and we loosed  in sensitivity. 
+The previous algorithm is correct. But unfortunately, the algorithm did not suppress out FoV sources and we lost  in sensitivity. 
 Although simple averaging "means high sensitivity", we do need to eliminate at a certain rate out FoV sources in such a way that the 
 overall SNR becomes higher than the one of averaging. We described such an algorithm in the following section.
 \begin{figure}
@@ -424,9 +424,9 @@ In theory, windowing functions and signals generally extend to  infinity. Unfort
 filter, one need to define a cut-off interval. Therefore, if one  wants to achieve sufficiently an accurate  estimate of the 
 windowing function ideal spectrum, one need a wide cut-off interval as far as the spectrum approaches the ideal when the windowing function 
 order increases. An overlap baseline dependent windowing function aims to extend the order of the baseline dependent windowing function in 
-such a way that, we approaches the ideal spectrum.
+such a way that, we approach the ideal spectrum.
 %, but by maintaining the same cut-off interval like the boxcar one. 
-The only drawback of this technique is the increased of the time needed for processing the output sample of the signals being integrate.  
+The only drawback of this technique is the increase in time needed for processing the output sample of the signals being integrate.  
 \subsection{Methods}
 The weight of a visibility is not defined by a unique baseline dependent windowing, but by the strength of the correlation between the 
 overall  overlapping baseline dependent windowing functions on the visibility. Now, consider that $f^{a}_{pq}$ is an overlap-\textit{BDWF} 
@@ -490,7 +490,7 @@ definitions, the following derivation is trivial
  \Big\{\Delta t,\hspace{0.17cm}\Delta \nu \Big\}=\Big\{\Delta_l t \cup \Delta_m t \cup \Delta_r t, \hspace{0.17cm}\Delta_l \nu \cup 
 \Delta_m \nu \cup \Delta_r \nu \Big\}.
 \end{equation*}
- They follows the below rules:
+ They follow the rules below:
 \begin{eqnarray*}
  \Delta_m t= \left\{ 
   \begin{array}{l l}
@@ -512,7 +512,7 @@ and
 \label{subsec:Windowing functions}
 In signal processing a windowing function is a mathematical function that is zero-values outside of some chosen interval, and when another 
 function or a signal is multiplied by the windowing function, the product is also zero-values outside the interval.
-In this section, we evaluation the Peak Sidelobe Level (PSL), the Main 
+In this section, we evaluate the Peak Sidelobe Level (PSL), the Main 
 Lobe width (MLW) and the Sidelobes Roll-off (SLR) of some windowing functions spectrum. This study will allow us to make 
 a suitable choice of the window that by tapering with the sky, we conserve the brightness of sources in the field of 
 interest and attenuate sidelobes confusion from strong sources out of the field of interest.\\
@@ -526,7 +526,7 @@ Conventional signal processing literature and baseline dependent windowing funct
   \hline\hline
   {\footnotesize Frequency (freq) domain} &{\footnotesize Image plane} \\
   {\footnotesize Time domain} &{\footnotesize Fourier plane}\\
-  {\footnotesize Spectral response} & {\footnotesize Image taper}\\
+  {\footnotesize Spectral response or freq response} & {\footnotesize Image taper}\\
   {\footnotesize Cut-off time interval or time pass band} &{\footnotesize $\Delta t$ and/or $\Delta \nu$}\\
   {\footnotesize Cut-off freq interval or freq pass band} &{\footnotesize FoV}\\
   {\footnotesize Time stop band} &{\footnotesize Outside $\Delta t$ and/or $\Delta \nu$}\\
@@ -534,7 +534,7 @@ Conventional signal processing literature and baseline dependent windowing funct
   \end{tabular}
 \end{tabular}
 \subsubsection{Boxcar window}
-This window take a hunk of the data without modification, and  this leads to discontinuities at the edges\footnote{unless it 
+This window takes a hunk of the data without modification, and  this leads to discontinuities at the edges\footnote{unless its 
 happens that the signal  fit exactly with the window width. Nevertheless, it is rare to find such a situation.}. For 
 a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 \begin{equation}
@@ -544,10 +544,10 @@ a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation}
-Fig.\ref{fig:fig_box} and Fig.\ref{fig:fig_box_freq} gives the graph of $\Pi(t)$ and its spectrum respectively. The blue and 
-the red curve of Fig.\ref{fig:fig_box_freq} are the spectrum of $\Pi(t)$ for a time cut-off interval, $[-t_a, t_a]$ and 
+Fig.\ref{fig:fig_box} and Fig.\ref{fig:fig_box_freq} give the graph of $\Pi(t)$ and its spectrum respectively. The blue and 
+the red curves of Fig.\ref{fig:fig_box_freq} are the spectrum of $\Pi(t)$ for a time cut-off interval, $[-t_a, t_a]$ and 
 $[-t_a/2,t_a/2]$ respectively. We noticed that when the cut-off interval is large, the MLW of the spectrum is 
-narrower, the PSL is lower and the SLR drop faster.
+narrower, the PSL is lower and the SLR drops faster.
 \subsubsection{Gaussian window}
 A Gaussian window centred at mean zero with standard deviation, $\sigma$ is given by: 
 \begin{equation}
@@ -556,13 +556,13 @@ A Gaussian window centred at mean zero with standard deviation, $\sigma$ is give
 Here, $b=(2\sigma^2)^{-1}$ and  $\mathcal{F}^{-1}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
 This shows us that the inverse Fourier transform of a Gaussian with standard deviation $\sigma$ is a Gaussian with a standard 
 deviation $\sigma '= (2\pi\sigma)^{-1}$.
-Fig.\ref{fig:fig_gauss} and Fig.\ref{fig:fig_gauss_freq} gives the graph of $G(t)$ and its spectrum respectively, where $G(t)$ 
+Fig.\ref{fig:fig_gauss} and Fig.\ref{fig:fig_gauss_freq} give the graph of $G(t)$ and its spectrum respectively, where $G(t)$ 
 is truncate within the cut-off frequency interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red one. We noticed 
-that when the standard deviation is large, the MLW of the spectrum is narrower, the PSL is higher and the SLR drop slowly compare to a 
+that when the standard deviation is large, the MLW of the spectrum is narrower, the PSL is higher and the SLR drops slowly compared to a 
 smaller standard deviation.
 \subsubsection{Butterworth window}
 The time response of the Butterworth window is flat  in the pass band, and rolls off towards zero in the stop band, and it is 
-characterized by two independent parameters, the cut-off time $t_a$ and the order $p$. These two parameters controls the 
+characterized by two independent parameters, the cut-off time $t_a$ and the order $p$. These two parameters control the 
 bandwidth and side lobes  attenuation. The time response of the Butterworth window is given by:
 \begin{equation}
 BW(t)= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
@@ -571,14 +571,14 @@ For the same frequency interval $[-t_a,t_a]$, we plotted  three curves $\{p=1, p
 their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}.  We noticed that when the other $p$ is getting bigger, the MLW of the 
 spectrum is conserved, while the PSL is getting higher and the SLR is dropping  faster.
 \subsubsection{Sinc Window}
-The sinc window  is an infinitely large convolution window as it is non zero everywhere. The sinc is defined as follow:
+The sinc window  is an infinitely large convolution window as it is non-zero everywhere. The sinc is defined as follow:
 \begin{equation}
 S(t)= sinc\big(\pi b t\big).
 \end{equation}
  Fig.\ref{fig:fig_sinc} and Fig.\ref{fig:fig_sinc_freq} gives the graph of $S(t)$ and its spectrum respectively, where 
 $S(t)$ is truncate within the cut-off time interval $[-t_a,t_a]$. We noticed that when the cut-off time interval is large 
 (Fig.\ref{fig:fig_sinc_freq}, blue curve), the spectrum becomes perfectly flat at the passband while the MLW becomes narrower,  the PSL 
-becomes lower and the SLR drop faster compare to a cut-off interval of $[-t_a,t_a]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). 
+becomes lower and the SLR drops faster compared to a cut-off interval of $[-t_a,t_a]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). 
 \subsubsection{Bessel Function of the First Kind}
 discuss the Bessel here\\
 \begin{tabular}{*3{c}}
@@ -593,11 +593,11 @@ discuss the Bessel here\\
   {\footnotesize $J_{0t}$} &{\footnotesize  $\approx- $} &{\footnotesize $ -$ }&{\footnotesize  $ -$}
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}\\
-A windowing function with a narrower main lobe width for a better spectral resolution, lower PSL to have less
-masking of nearby sources, and faster SLR to have less masking for far away sources  is preferably in this work. 
-Nevertheless, The energy is more concentrated in the frequency domain main lobe when the  lobe width is narrower. Therefore, the frequency 
-domain of the boxcar  and the Butterworth window look similar, but the other of the Butterworth frequency domain can be control with the 
-goal to concentrate more energy in the frequency main lobe. However, the  sinc window is preferable as we expect in this work, signals in a 
+A windowing function with a narrower main lobe width for a better spectral resolution, lowers PSL to achieve least
+masking of nearby sources, and faster SLR to achieve least masking for far away sources  is preferably in this work. 
+Nevertheless, the energy is more concentrated in the frequency domain main lobe when the  lobe width is narrower. Therefore, the frequency 
+domain of the boxcar  and the Butterworth window look similar, but the other of the Butterworth frequency domain can be controlled in order 
+to concentrate more energy in the frequency main lobe. However, the  sinc window is preferable as we expect in this work, signals in a 
 wide dynamic range.
 \begin{figure*}
   \centering
@@ -632,7 +632,7 @@ response of Bessel first kind window}\label{fig:fig_5} \end {minipage}
 \end{figure*}
 \section{Noise and comparison}
 Several windowing functions  were described in the previous section, the sinc window, the Bessel of the first kind and the 
-Butterwordth approaches well our specifications, and they are taken under consideration throughout the rest of this paper. We took  
+Butterwordth approach well our specifications, and they are taken under consideration throughout the rest of this paper. We took  
 $sinc(X,Y)=sinc(X)sinc(Y)$, J$_0(X,Y)=$J$_0(\sqrt{X^2 + Y^2})$ and $BW(X,Y)=BW(\sqrt{X^2 + Y^2})$ for a two dimensional 
 sinc window, Bessel of the first kind and Butterwordth window respectively. We show in this 
 section that, applying our methods means that you are filtering the Fourier plane with a sort of hybrids filters (boxcar window on 
@@ -701,7 +701,7 @@ The tables below summarized the array overall  theoretical rms noise ratio and t
   \hline\hline
   {\footnotesize Bl-sinc-W0$\times$0} &{\footnotesize $1.17$} &{\footnotesize $1.23$}\\
   {\footnotesize Bl-J$_0$-W0$\times$0} &{\footnotesize  $1.11$}&{\footnotesize  $1.14$}\\
-  {\footnotesize Bl-BW-W0$\times$0} & {\footnotesize $1.16$}&{\footnotesize  $-$}\\
+  {\footnotesize Bl-BW-W0$\times$0} & {\footnotesize $1.16$}&{\footnotesize  $1.55$}\\
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}\\
 \begin{tabular}{*3{c}}
@@ -711,17 +711,17 @@ The tables below summarized the array overall  theoretical rms noise ratio and t
   \hline\hline
   {\footnotesize Bl-sinc-W100$\times$25} &{\footnotesize $1.02$} &{\footnotesize $1.18$}\\
   {\footnotesize Bl-J$_0$-W100$\times$25} &{\footnotesize  $0.91$}&{\footnotesize  $1.08$}\\
-  {\footnotesize Bl-BW-W100$\times$25} & {\footnotesize $1.44$}&{\footnotesize  $-$}\\
+  {\footnotesize Bl-BW-W100$\times$25} & {\footnotesize $1.44$}&{\footnotesize  $1.49$}\\
   \hline
   {\footnotesize Bl-sinc-W150$\times$50} &{\footnotesize $1.03$} &{\footnotesize $1.27$}\\
   {\footnotesize Bl-J$_0$-W150$\times$50} &{\footnotesize  $0.92$}&{\footnotesize  $1.13$}\\
-  {\footnotesize Bl-BW-W150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $-$}\\
+  {\footnotesize Bl-BW-W150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $1.44$}\\
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}
 \section{Simulations and results}
 In order to test the algorithms described in section \ref{baseline1} and section \ref{baseline2}, we performed  multiple tests on JVLA 
 simulated measurement sets (MS). In 
-this section we summarized and discussed those results. Two MS is used in 
+this section we summarized and discussed those results. Two MS are used in 
 our simulation, a high resolution MS (HR-MS) that contained the observed JVLA data of short integration time and frequency, a low resolution 
 MS (LR-MS), where the results of simple averaging or the weighted averaging are saved. To apply the second algorithm described in 
 section 
@@ -753,7 +753,7 @@ can affect the brightness of sources. Another obvious problem is the  CLEAN algo
 perfect clean maps. Therefore we need to avoid sideslobes confusion. Each of the sky model is simulated 
 with a JVLA HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
 time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. We therefore applied the actual method (simple averaging) and 
-our methods, each result is save into a LR-MS of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We 
+our methods, each result is saved into a LR-MS of 1min30s synthesis, with a 150s integration time,  with 1 channels of width 6.25MHz. We 
 considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{1min30s,6250kHz\}$, 
 $\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHzkHz\}$, 
 $n_{t,ovlp}=\{0,100,150\}$ 
@@ -763,11 +763,11 @@ the simulation, where we represented the brightness of the source as a function 
 figures, we 
 considered three cases of the sinc window, and three of the Bessel first kind ($Bl$-$sinc$ $W n_{t,ovlp} \times n_{\nu,ovlp}$, $Bl$-J$_0$ 
 $W n_{t,ovlp} \times n_{\nu,ovlp}$ with  $n_{t,ovlp}=\{0,100,150\}$ and $n_{\nu,ovlp}=\{0,25,50\}$). We evaluated the loss in signal 
-amplitude with longer LR-MS integration time interval $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency interval $\Delta 
+amplitude with longer LR-MS integration time intervals $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency intervals $\Delta 
 \nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
 the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
 % $r$: source position in degrees.}
-These results shows that:
+These results showed that:
 \begin{itemize}
  \item We measured more than $90\%$ of the source brightness within $\approx 75\%$ of the FoV using $Bl$-$sinc$ $W0 \times 0$ and 
       $Bl$-J$_0$ $W0\times0$. Unfortunately, the attenuation rate of the source out of the FoV is approximately the same when performing 
@@ -780,50 +780,52 @@ looking at these figures, it appears that the curves of the overlaps filters are
 filters attenuated $\approx 99\%$ of the source brightness out of the FoV.
   \item  When
 looking at these figures, it appears that the sinc window conserved the signal within the FoV compared to the Bessel of the 
-first kind window, while the Bessel of the first kind suppressed the signal out of the FoV compare to the sinc. However, the reason for 
+first kind window, while the Bessel of the first kind suppressed the signal out of the FoV compared to the sinc. However, the reason for 
 this is that
 the main lobe width of the sinc is narrower than the one of the Bessel first kind and the Bessel first kind has low 
 sidelobes level compared to the sinc.
 \end{itemize}
-When performing the baseline dependent filters, smearing is eliminated within the FoV while we compressed 
+When performing the baseline dependent filters, smearing was eliminated within the FoV while we compressed 
 the data by integrating over a large time interval and wider frequency interval of a LR-MS. However, under some assumptions,
-the overlap baseline dependent filters significantly attenuate the source  out of the FoV  to a greater extent than simple averaging. Thus,
+the overlap baseline dependent filters significantly attenuated the source  out of the FoV  to a greater extent than simple averaging. Thus,
 in all cases the SNR obtained using these methods are greater than the one using the simple averaging method even as there is loss in 
 sensitivity.
 \subsection{Maximal integration}
-In this section, the maximal frequency and time integration that can be consider in the frequency direction and the time 
-direction without smearing in the FoV while the methods accurately suppressed the source when this is out of the FoV is evaluated. However, 
+In this section, the maximal frequency and time integration that can be considered in the frequency direction and the time 
+direction without smearing in the FoV while the methods accurately suppressed the source when this is out of the FoV are evaluated. 
+However, 
 we considered $6$ sky models of a 1Jy source with different coordinates ($r=\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 
 2^\circ\}$). The methods are performed with a $2^\circ$ FoV sinc and Bessel first kind filters centered in the phase centre.
 \subsubsection{Frequency direction}
 In this case, each of these sky model is simulated with a JVLA HR-MS of 1 timeslots synthesis, with a short integration time of $\Delta 
-t^{hrms}=0.1s$ at 1.4GHz. The aims of a short HR-MS integration time is to avoid time direction smearing and therefore accurately evaluate
+t^{hrms}=0.1s$ at 1.4GHz. The aim of a short HR-MS integration time is to avoid time direction smearing and therefore accurately evaluate
 smearing in the frequency direction. We considered 150 channels, and varied the width, $\Delta \nu^{hrms}$ in the interval $[125,1187.5]$ 
 kHz.   We therefore applied the actual method 
-(simple averaging) and our methods both in the frequency direction, each result is save into a LR-MS of 1 timeslot synthesis, with 0.1s 
-integration time and 1 channels of width $\Delta \nu^{hrms}\times50$ kHz. We considered, $\nu^{hrms}_{start}=\Delta \nu^{hrms}kHz$, 
+(simple averaging) and our methods both in the frequency direction, each result was saved into a LR-MS of 1 timeslot synthesis, with 0.1s 
+integration time and 1 channel of width $\Delta \nu^{hrms}\times50$ kHz. We considered, $\nu^{hrms}_{start}=\Delta \nu^{hrms}kHz$, 
 $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
 $\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.\\
 We compared in Fig.\ref{fig:max-integ-freq-sinc-w1x1-fov2} and Fig.\ref{fig:max-integ-freq-sinc-w1x50-fov2}  the results of simple 
 frequency averaging and the one of  $Bl$-$sinc$ $W n_{\nu,ovlp}$ performed in the frequency direction. We compared in 
 Fig.\ref{fig:max-integ-freq-bessel-w1x1-fov2} and Fig.\ref{fig:max-integ-freq-bessel-w1x50-fov2} the results of simple 
 frequency averaging and the one of  $Bl$-J$_0$ $W n_{\nu,ovlp}$. Here we took $n_{\nu,ovlp}=\{0,50\}$ frequency overlap bins. These results 
-shows that:
+showed that:
 \begin{itemize}
- \item Firstly, these results show that, we can significantly integrate over a wider LR-MS frequency interval without a lost of signal 
+ \item Firstly,  we can significantly integrate over a wider LR-MS frequency interval without a lost of signal 
 amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
 closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from the phase 
 centre.  
  \item Secondly, looking on Fig.\ref{fig:max-integ-freq-sinc-w1x50-fov2} and 
 \ref{fig:max-integ-freq-bessel-w1x50-fov2}, when the source is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
-$[6.2,12.6]MHz$ with the overlap frequency direction filters compare to simple frequency averaging.
- \item Finally, the sinc filter performed well on signal recovery compare to the Bessel first kind and the Bessel first kind suppressed the 
-source when this is out of the FoV compare to the sinc.  
+$[6.2,12.6]MHz$ with the overlap frequency direction filters compared to simple frequency averaging.
+ \item Finally, the sinc filter performed well on signal recovery compared to the Bessel first kind and the Bessel first kind suppressed 
+the 
+source when this is out of the FoV compared to the sinc.  
 \end{itemize}
 \subsubsection{Time direction}
 In this case, each of these sky model is simulated with a JVLA HR-MS of $300$ timeslots synthesis, and we varied the integration time 
-$\Delta t^{hrms}$ in the interval $[0.5,5.5]$s at 1.4GHz. We considered 1 channels of width, $\Delta \nu^{hrms}=125kHz$.   We 
-therefore applied the actual method (simple averaging) and our methods both in the time direction then the result of each simulation is 
+$\Delta t^{hrms}$ in the interval $[0.5,5.5]$s at 1.4GHz. We considered 1 channel of width, $\Delta \nu^{hrms}=125kHz$.   We 
+therefore applied the actual method (simple averaging) and our methods both in the time direction then the result of each simulation was 
 saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ integration time, with 1 channels of width 
 $125kHz$. We considered, $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100$timeslots$\times\Delta t^{hrms} s$, 
 $t^{hrms}_{end}=300$timeslots$\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200$timeslots$\times\Delta t^{hrms}s$.\\
@@ -831,7 +833,7 @@ We compared in Fig.\ref{fig:max-integ-time-sinc-w1x1-fov2} and Fig.\ref{fig:max-
 time averaging and the one of  $Bl$-$sinc$ $W n_{t,ovlp}$ performed in the time direction. We compared in 
 Fig.\ref{fig:max-integ-time-bessel-w1x1-fov2} and Fig.\ref{fig:max-integ-time-bessel-w100x1-fov2} the results of simple time averaging 
 and the one of  $Bl$-J$_0$ $W n_{t,ovlp}$. Here, we took $n_{t,ovlp}=\{0,100\}$ time overlap bins. These results 
-shows that:
+showed that:
 \begin{itemize}
  \item Firstly, we can significantly integrate over a longer LR-MS time interval without a lost of signal 
 amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
@@ -839,16 +841,16 @@ closer to the affine equation $y=1$, which differ from the curves when the sourc
 centre.  
  \item Secondly, looking on Fig.\ref{fig:max-integ-freq-sinc-w1x50-fov2} and 
 \ref{fig:max-integ-freq-bessel-w1x50-fov2}, when the source is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
-$[50,150]$ with the overlap time direction filters compare to simple time averaging.
+$[50,150]$ with the overlap time direction filters compared to simple time averaging.
  \item Finally, the sinc filter performed well on signal recovery compare to the Bessel first kind and the Bessel first kind suppressed the 
-source when this is out of the FoV compare to the sinc.  
+source when this is out of the FoV compared to the sinc.  
 \end{itemize}
 \vspace{-0.5cm}
 \subsubsection{Time and frequency direction}
 In this case, each sky model is simulated with a JVLA HR-MS of $300$ timeslots synthesis, and varied  the integration time $\Delta 
 t^{hrms}$ in $[0.5,5.5]s$ at $1.4GHz$.  We considered $150$ channels and varied the width $\Delta \nu^{hrms}$  within the interval $[ 
 125.,750.]kHz$. We therefore applied the actual method (simple averaging) and our methods both in the frequency direction and time 
-direction, each result is save into a LR-MS of  $100$timeslots$\times\Delta t^{hrms}s$ synthesis, with $100$timeslots$\times\Delta 
+direction, each result was saved into a LR-MS of  $100$timeslots$\times\Delta t^{hrms}s$ synthesis, with $100$timeslots$\times\Delta 
 t^{hrms}$ integration time and 1 channels of width $50$channels$\times\Delta \nu^{hrms}kHz$. We considered, $t^{hrms}_{start}=0s$, 
 $t^{lrms}_{start}=100$timeslots$\times\Delta t^{hrms} s$, $t^{hrms}_{end}=300$timeslots$\times\Delta t^{hrms}s$ and 
 $t^{lrms}_{end}=200$timeslots$\times\Delta t^{hrms}s$, $\nu^{hrms}_{start}=\Delta \nu^{hrms}kHz$, 
@@ -859,37 +861,45 @@ simple time and frequency averaging and the one of  $Bl$-$sinc$ $W n_{t,ovlp}\ti
 direction. We compared in Fig.\ref{fig:max-integ-timefreq-bessel-w1x1-fov2} and Fig.\ref{fig:max-integ-timefreq-bessel-w100x50-fov2} the 
 results of simple time and frequency averaging and the one of  $Bl$-J$_0$ $W n_{t,ovlp}\times n_{\nu,ovlp}$ performed in the time and 
 frequency direction. Here, we took $n_{t,ovlp}=\{0,100\}$ time overlap bins and $n_{\nu,ovlp}=\{0,50\}$ frequency overlap bins. These 
-results shows that:
+results showed that:
 \begin{itemize}
  \item Firstly, we can significantly integrate over a longer LR-MS time interval and frequency interval at the same time without a lost of 
 signal amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase 
-centre are closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from 
+centre are closer to the affine equation $y=1$, which differs from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from 
 the phase centre. 
  \item Secondly, looking on Fig.\ref{fig:max-integ-timefreq-sinc-w100x50-fov2} and \ref{fig:max-integ-timefreq-bessel-w100x50-fov2}, when 
 the source is at $1.5^{\circ}$ and $2^{\circ}$, it appears that the curves of the overlaps filters are below the one of simple averaging. 
 These suggest that, when we are integrating both over a wider LR-MS time interval and frequency interval, the source is suppressed 
 significantly out of the FoV without any constraint on the integration time and frequency.
- \item Finally, the sinc filter performed well on signal recovery compare to the Bessel first kind and the Bessel first kind suppressed the 
-source when this is out of the FoV compare to the sinc.  
+ \item Finally, the sinc filter performed well on signal recovery compared to the Bessel first kind and the Bessel first kind suppressed 
+the 
+source when this is out of the FoV compared to the sinc.  
 \end{itemize}
 \subsection{One strong source in the sky model and attenuation efficiency}
 \begin{figure*}
   \centering
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
 direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-synthesis at 6.25MHz bandwidth.}\label{fig:Bl-sinc-FoV2}\end{minipage}
+synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV2}\end{minipage}
 \hspace{1cm}
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
 direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-synthesis at 6.25MHz bandwidth.}\label{fig:Bl-sinc-FoV4} 
+synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV4} 
 \end{minipage}\\
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
 direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-integration synthesis at 6.25MHz bandwidth.}\label{fig:Bl-bessel-FoV2}\end{minipage}
+integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV2}\end{minipage}
 \hspace{1cm}
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
-direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-integration synthesis at 6.25MHz bandwidth.}\label{fig:Bl-bessel-FoV4}\end{minipage}
+direction Bessel first kind filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV4}\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
+direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
+150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}\caption{Time and frequency 
+direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV4}\end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
@@ -962,7 +972,7 @@ overlap Bessel first kind filter.}
 \end{figure*}
 \subsection{Discussion}
 \section{Conclusions}
-The goal of this paper was threefold. The first objective was to investigate **** windowing functions***\\
+The goal of this paper was threefold. The first goal was to investigate **** windowing functions***\\
 The second objective  was to study ****first algorithm data compression***\\
 The final objective was to ****second algorithm data compression and out field suppression*** \\
 Drawback and futures works*** drawback and futures works*****
@@ -1037,34 +1047,35 @@ In Eq.\ref{eq:vall}, the matrix $\mathbf{A}$ of size $(4N_v)\times (4N_{pix})$ i
     \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n}\cdot \mathbf{S}_{jl,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
   \end{bmatrix}
 \end{equation*}
-\section[]{Similar way of imaging}
+\\
+\\
+\\
+\\
+\section[]{Sky tapering function with averaging}
 \label{label:similarimaging}
-Each baseline has his own baseline dependent windowing functions during integration. Unfortunately, we can not accurately estimate the 
-resulting spectrum of all windowing functions that multiply the sky seen by these baselines (if we supposed that all baselines are seen the 
-same sky). The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
-measured at each baseline. The mathematics behind this is as follow:
+The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
+measured at each baseline.
 \begin{eqnarray*}
- \mathcal{I}^{D}_{l,m}&=&\mathcal{F}^{-1}\Bigg\{\sum_{pq}\mathcal{S}_{pq}\cdot \Bigg(c_{pq}\cdot\big(\mathcal{W}_{pq}\circ 
-\mathcal{V}\big)\Bigg)_{(t,\nu)}\Bigg\}
+ \mathcal{I}^{D}_{l,m}&=& \mathcal{F}^{-1}\Bigg\{\sum_{pq} c_{pq,(t,\nu)}\cdot\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg\}\\
+		      &=&\sum_{pq} \mathcal{F}^{-1}\{c_{pq,(t,\nu)}\}\circ \Big(\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot 
+\mathcal{F}^{-1}\{V_{pq,(t,\nu)}^{samp}\}\Big)
 \end{eqnarray*}
-where $\mathcal{S}_{pq}$ is the sampling function of the baseline $pq$.  This can be rewritten as
-\begin{eqnarray*}
- \mathcal{I}^{D}_{l,m}&=&\sum_{pq}\mathcal{B}_{pq}\circ \Bigg(\mathcal{F}^{-1}\big\{c\big\}_{pq}\circ\big(\mathcal{R}_{pq}\cdot
-\mathcal{I}^{sky}\big)\Bigg)_{(l,m)}
+\begin{eqnarray*}	     
+\mathcal{I}^{D}_{l,m}&=&\sum_{pq}\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot\bigg(\mathcal{F}^{-1}\{S_{pq}\cdot V_{pq,(t,\nu)}\}
+\bigg)
 \end{eqnarray*}
-Here, $\mathcal{R}_{pq}=\mathcal{W}_{pq}$ is the sky response or smearing response for the baseline $pq$. The same sky seen by all 
-baselines is $\mathcal{I}^{sky}$ and $\mathcal{B}_{pq}$ is the synthesized beam or point spread function of the baseline $pq$. 
-$\Bigg(\mathcal{F}^{-1}\big\{c\big\}_{pq}\circ\big(\mathcal{R}_{pq}\cdot \mathcal{I}^{sky}\big)\Bigg)_{(l,m)}= 
-\big(\mathcal{R}_{pq}\cdot\mathcal{I}^{sky}\big)_{(l,m)}$. Therefore, the dirty beam can be written as: 
-\begin{eqnarray*}
- \mathcal{I}^{D}_{l,m}&=&\Bigg(\sum_{pq}\mathcal{B}_{pq}\circ \bigg(\mathcal{R}_{pq}\cdot
-\mathcal{I}\bigg)\Bigg)_{(l,m)}
+recall from section \ref{sec:AvgCon} that $S_{pq}$ is the sampling function of the baseline $pq$ and $\Pi_{pq,(t,\nu)}$ is the 
+boxcar window.  This can be re-written as
+\begin{eqnarray*}	     
+\mathcal{I}^{D}_{l,m}&=&\sum_{pq} \mathcal{R}_{pq} \cdot\bigg(\mathcal{B}_{pq}\circ \mathcal{I}^{sky}_{l,m}\bigg)
 \end{eqnarray*}
-If the integration windowing function were the same in all baseline, then we can write:
-\begin{eqnarray*}
- \mathcal{I}^{D}_{l,m}&=&\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \bigg(\mathcal{R}\cdot
-\mathcal{I}\bigg)\Bigg)_{(l,m)}
+If all baselines are seen the same sky, then we can write:
+\begin{eqnarray*}	     
+\mathcal{I}^{D}_{l,m}&=&\mathcal{R}_{}\cdot\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \mathcal{I}^{sky}_{l,m}\Bigg)
 \end{eqnarray*}
+Here, $\mathcal{B}_{pq}$ is the point spread function for the baseline $pq$ and $\mathcal{R}_{pq}= \mathcal{R}$ is the sky taper, where 
+$\mathcal{R}_{}=sinc$.\\
+\\
 \bsp
 \label{lastpage}
 \end{document}
