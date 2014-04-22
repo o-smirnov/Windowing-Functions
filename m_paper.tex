@@ -144,12 +144,12 @@ Array (VLA)\cite{1} and  could also be used for future radio telescopes such as 
 \section[]{ Overviews and definitions}
 \subsection{Visibility and relation with the sky }
 \label{sec:visSky}
-An interferometer array measures a quantity $V=V(u,v,w)$ known classically as the visibility function (see \cite{5}).
+An interferometer array measures a quantity $V=V(u,v,w)$ known classically as the visibility function.
 The variables $u,v$ and $w$ are in unit of wavelength and they are the coordinates of the vector of which the norm is the distance between 
 two antennas, known in interferometry as a baseline. A source in the sky will see $u$ and $v$ oriented towards the direction East-West and 
 South-North respectively and $w$ is directed towards the phase centre of the source plane or image plane. The projection of $u$ and $v$ in 
 the image plane are $l$ and $m$ respectively. They are the observed source coordinates, measured in radian. The ideal measurement of 
-interferometric wide-field imaging also known as the van Cittert-Zernike theorem (Thompson et \textit{al}. 2001, Eq.6) is given by
+interferometric wide-field imaging also known as the van Cittert-Zernike theorem \citep{thompson1999fundamentals} is given by
 \begin{equation}
  V_{pq,(u,v,w)}=\int \int \frac{I(l,m)}{\sqrt{1-l^2 - m^2}}e^{-2\pi i \phi (u,v,w)}dldm, \label{eq1:visSky}
 \end{equation} 
@@ -222,15 +222,14 @@ of the array are all suppose equally in term of the statistical analyse of the s
 is not the case, since we lost informations on some baselines than order due to the incomplete sampling of the Fourier component that 
 differ from one baseline to another.
 \subsection{Effect of time and bandwidth averaging}
-During imaging \citep{Marti2008}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
-$sinc$ function therefore multiply the sky (see appendix\ref{label:similarimaging} for a short discussion and illustration). Thus, the 
+During imaging \citep{briggs1999imaging}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
+$sinc$ function therefore multiply the sky (see appendix \ref{label:similarimaging} for a short discussion and illustration). The 
 sky map is tapered by the $sinc$ function in the $l$ and $m$ directions, the response is maximal for sources at the phase centre 
 ($l=0,m=0$), while for off-phase centre sources, the response is smeared (decreased) for larger $\Delta t$ and $\Delta \nu$. The 
 Fourier phase components $2\pi \phi(u,v,w)$ is a function of the direction in the sky, the wavelength, the separation of antennas as well 
 as the integration time and frequency. Therefore, a maximal phase will occur on longer baselines while a small phase will occur on shorter 
-baselines. 
-Thus, this explained while the degree of smearing increases with the position of a source and the baseline length (see Thompson 
-et \textit{al}.)
+baselines. This explained while the degree of smearing increases with the position of a source and the baseline 
+length \citep{bregman2012system}.
 \begin{itemize}
  \item Fig.\ref{timessear1} shows the attenuation of a source at various coordinates in the sky for various integration time intervals. 
 More than $90\%$ of the source brightness is measured for integration less than or equal to $25s$ when this source is within 
@@ -261,7 +260,8 @@ $\Delta \nu$ bandwidth.}\label{timessear2}\end{minipage}
 Recall from the previous section that, the boxcar windowing function can be replaced by a windowing function, $W_{pq,(t,\nu)}$ that depends 
 on $(u,v)$ spacing. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is a $n_t \times n_{\nu}$ matrix of elements 
 $W_{pq,(t_i,\nu_j)}|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of $(u,v)$ points. From the full sky Radio Interferometry Measurement Equation 
-(RIME) formalism (see Hamaka et \textit{al}, O.M. Smirnov (2010a)), the sampled visibilities can be presented mathematically as a $4\times 
+(RIME) formalism \citep{smirnov2011revisiting}, \citep{smirnov2011revisiting}, the sampled visibilities can be presented mathematically as 
+a $4\times 
 n_t\times n_{\nu}$ matrix of four polarization times and 
 frequencies dependent matrices each of size $n_t\times n_{\nu}$.
 \begin{eqnarray*}
@@ -347,7 +347,7 @@ Missing spaces between sampled $(u,v)$ coordinates has an important dependence o
 baselines $(u,v)$ coordinates are wider than the one on shorter baselines, this is the obvious effect that explained why sources are more 
 distorted on longer baselines compared to shorter ones. Therefore, if one have to attribute a $(u,v)$ weight, it may be as a function of 
 the baseline length, in such a way that the distortion rate is taken into account over baselines. We aimed in this section, to 
-describe an algorithm that we used with a baseline-dependent windowing function to assign a proper weight to a data reference by a $(u,v)$ 
+describe an algorithm that we used with a  windowing function to assign a proper weight to a data reference by a $(u,v)$ 
 coordinate considering the \textit{spacing}\footnote{The \textit{distance} also has huge 
 dependences on the baseline length and allows us to formally define the data
 weight of a $uv$ point over the entire $uv$ plane.} between the baseline $(u,v)$ coordinates.
@@ -415,7 +415,7 @@ overall SNR becomes higher than the one of averaging. We described such an algor
 \begin{figure}
   \centering
     \includegraphics[width=0.5\textwidth]{./Figures/uvcov.png}
-    \caption{Coverage of one integration}
+    \caption{Coverage of one integration}\label{fig:uvcov}
 \end{figure}
 \section{Algorithm 2: FoV signals recovery and out FoV suppression}
 \label{baseline2}
@@ -510,13 +510,14 @@ and
 \end{eqnarray*}
 \subsection{Windowing functions}
 \label{subsec:Windowing functions}
-In signal processing a windowing function is a mathematical function that is zero-values outside of some chosen interval, and when another 
-function or a signal is multiplied by the windowing function, the product is also zero-values outside the interval.
+In signal processing a windowing function is a mathematical function that has zero-values outside some chosen interval, and when a signal 
+is multiplied by the windowing function, the product has also zero-values outside the interval.
 In this section, we evaluate the Peak Sidelobe Level (PSL), the Main 
-Lobe width (MLW) and the Sidelobes Roll-off (SLR) of some windowing functions spectrum. This study will allow us to make 
-a suitable choice of the window that by tapering with the sky, we conserve the brightness of sources in the field of 
-interest and attenuate sidelobes confusion from strong sources out of the field of interest.\\
-Conventional signal processing literature and baseline dependent windowing functions:\\ 
+Lobe width (MLW) and the Sidelobes Roll-off (SLR) for some windowing functions spectrum. The goal of this study is to find a windowing 
+function that its spectral response  will conserved the signal within a field of interest while suppressing sidelobes confusion from strong 
+sources outside the field of interest.\\
+In the table below, we present the terminology that will be using in this paper in contrast of the terminology of  conventional signal 
+processing.\\ 
 \begin{tabular}{*3{c}}\\
  \multicolumn{3}{|c|}{}
  \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
@@ -534,7 +535,8 @@ Conventional signal processing literature and baseline dependent windowing funct
   \end{tabular}
 \end{tabular}
 \subsubsection{Boxcar window}
-This window takes a hunk of the data without modification, and  this leads to discontinuities at the edges\footnote{unless its 
+The Boxcar window is a function that  conserved a constant non-zero value  inside a chosen  interval and zero value outside this interval.
+When a signal is cut-off with this window, this leads to discontinuities at the edges\footnote{unless its 
 happens that the signal  fit exactly with the window width. Nevertheless, it is rare to find such a situation.}. For 
 a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 \begin{equation}
@@ -546,41 +548,43 @@ a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 \end{equation}
 Fig.\ref{fig:fig_box} and Fig.\ref{fig:fig_box_freq} give the graph of $\Pi(t)$ and its spectrum respectively. The blue and 
 the red curves of Fig.\ref{fig:fig_box_freq} are the spectrum of $\Pi(t)$ for a time cut-off interval, $[-t_a, t_a]$ and 
-$[-t_a/2,t_a/2]$ respectively. We noticed that when the cut-off interval is large, the MLW of the spectrum is 
+$[-t_a/2,t_a/2]$ respectively. Note that when the cut-off interval is large, the MLW of the spectrum is 
 narrower, the PSL is lower and the SLR drops faster.
 \subsubsection{Gaussian window}
-A Gaussian window centred at mean zero with standard deviation, $\sigma$ is given by: 
+A Gaussian window centred at mean zero with standard deviation $\sigma$ is given by: 
 \begin{equation}
-  G(t)= e^{-bt^{2}}.
+  G(t)= e^{-bt^{2}}, \label{eq:gauss}
 \end{equation}
-Here, $b=(2\sigma^2)^{-1}$ and  $\mathcal{F}^{-1}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
+where, $b=(2\sigma^2)^{-1}$. The inverse Fourier transform of Eq.\ref{eq:gauss} is given by 
+$\mathcal{F}^{-1}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
 This shows us that the inverse Fourier transform of a Gaussian with standard deviation $\sigma$ is a Gaussian with a standard 
 deviation $\sigma '= (2\pi\sigma)^{-1}$.
 Fig.\ref{fig:fig_gauss} and Fig.\ref{fig:fig_gauss_freq} give the graph of $G(t)$ and its spectrum respectively, where $G(t)$ 
-is truncate within the cut-off frequency interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red one. We noticed 
+is truncated within the cut-off frequency interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Note 
 that when the standard deviation is large, the MLW of the spectrum is narrower, the PSL is higher and the SLR drops slowly compared to a 
 smaller standard deviation.
 \subsubsection{Butterworth window}
 The time response of the Butterworth window is flat  in the pass band, and rolls off towards zero in the stop band, and it is 
 characterized by two independent parameters, the cut-off time $t_a$ and the order $p$. These two parameters control the 
-bandwidth and side lobes  attenuation. The time response of the Butterworth window is given by:
+bandwidth and sidelobes  attenuation. The time response of the Butterworth window is given by:
 \begin{equation}
 BW(t)= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
-For the same frequency interval $[-t_a,t_a]$, we plotted  three curves $\{p=1, p=3, p=5\}$ of $BW_{t}$ in Fig.\ref{fig:fig_butter} and 
-their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}.  We noticed that when the other $p$ is getting bigger, the MLW of the 
-spectrum is conserved, while the PSL is getting higher and the SLR is dropping  faster.
+For the same frequency interval $[-t_a,t_a]$ we plotted  three curves $\{p=1, p=3, p=5\}$ of $BW_{t}$ in Fig.\ref{fig:fig_butter} and 
+their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}. Note that when the order $p$ increases, the MLW of the 
+spectrum is conserved, while the PSL also increase and the SLR drops faster.
 \subsubsection{Sinc Window}
-The sinc window  is an infinitely large convolution window as it is non-zero everywhere. The sinc is defined as follow:
+The sinc window is defined as follow:
 \begin{equation}
 S(t)= sinc\big(\pi b t\big).
 \end{equation}
  Fig.\ref{fig:fig_sinc} and Fig.\ref{fig:fig_sinc_freq} gives the graph of $S(t)$ and its spectrum respectively, where 
-$S(t)$ is truncate within the cut-off time interval $[-t_a,t_a]$. We noticed that when the cut-off time interval is large 
-(Fig.\ref{fig:fig_sinc_freq}, blue curve), the spectrum becomes perfectly flat at the passband while the MLW becomes narrower,  the PSL 
+$S(t)$ is truncated within the cut-off time interval $[-t_a,t_a]$. Note that when the cut-off time interval is large 
+(Fig.\ref{fig:fig_sinc_freq}, blue curve), the spectrum becomes perfectly flat at the pass band while the MLW becomes narrower,  the PSL 
 becomes lower and the SLR drops faster compared to a cut-off interval of $[-t_a,t_a]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). 
 \subsubsection{Bessel Function of the First Kind}
 discuss the Bessel here\\
+ The table below summarizes the MLW, the PSL and the SLR of the windows taken under consideration in this section.
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
  \begin{tabular}{|l|l|l|l|}
@@ -593,12 +597,8 @@ discuss the Bessel here\\
   {\footnotesize $J_{0t}$} &{\footnotesize  $\approx- $} &{\footnotesize $ -$ }&{\footnotesize  $ -$}
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}\\
-A windowing function with a narrower main lobe width for a better spectral resolution, lowers PSL to achieve least
-masking of nearby sources, and faster SLR to achieve least masking for far away sources  is preferably in this work. 
-Nevertheless, the energy is more concentrated in the frequency domain main lobe when the  lobe width is narrower. Therefore, the frequency 
-domain of the boxcar  and the Butterworth window look similar, but the other of the Butterworth frequency domain can be controlled in order 
-to concentrate more energy in the frequency main lobe. However, the  sinc window is preferable as we expect in this work, signals in a 
-wide dynamic range.
+A windowing function with a narrower main lobe width (for a better spectral resolution), lowers PSL (to achieve less
+masking of nearby sources), and faster SLR (to achieve less masking for far away sources) is preferably in this work.
 \begin{figure*}
   \centering
   \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
@@ -631,20 +631,17 @@ first King windows NB: this figure is coming very soon}\label{fig:fig_4}\end{min
 response of Bessel first kind window}\label{fig:fig_5} \end {minipage}
 \end{figure*}
 \section{Noise and comparison}
-Several windowing functions  were described in the previous section, the sinc window, the Bessel of the first kind and the 
-Butterwordth approach well our specifications, and they are taken under consideration throughout the rest of this paper. We took  
+Several windowing functions  were described in the previous section, however in the rest of this paper we only consider the sinc 
+window, the Bessel of the first kind and the Butterwordth.  We considered 
 $sinc(X,Y)=sinc(X)sinc(Y)$, J$_0(X,Y)=$J$_0(\sqrt{X^2 + Y^2})$ and $BW(X,Y)=BW(\sqrt{X^2 + Y^2})$ for a two dimensional 
-sinc window, Bessel of the first kind and Butterwordth window respectively. We show in this 
-section that, applying our methods means that you are filtering the Fourier plane with a sort of hybrids filters (boxcar window on 
-shorter baselines and the window you actually considered on longer baselines). We furthermore evaluate the theoretical noise predicted in 
-Eq.\ref{eq:noise}.\\
-Fig.\ref{fig:longshortmid-sinc}, Fig.\ref{fig:longshortmid-bessel} and Fig.\ref{fig:longshortmid-butter} are the baseline dependent 
-windowing functions obtained using the sinc, the Bessel first kind and the Butterwordth respectively.  It appears on these figures that the 
-baseline dependent windowing functions differ from the baseline $(u,v)$ spacing, and for shorter baselines the window gets closer to the 
-boxcar window. Nevertheless, we reduced the thermal noise on shorter baselines while we increased the spectral dynamic range 
-on longer baselines. \\
-Fig.\ref{fig:corrSigVLAMxBl_overlapLdelta}, Fig.\ref{fig:corrSigVLAMxBl} and Fig.\ref{fig:corrSigVLAMxBl_overlapGdelta} shows the three 
-cases of an overlap baseline dependent windowing function obtained with the sinc.
+sinc window, Bessel of the first kind and Butterwordth window respectively. We show in this section that on shorter baselines, the 
+windowing functions reduce to the Boxcar window. Therefore, we effectively applying a hybrid filter; a Boxcar on the shorter baselines and 
+the given windowing function on the longer baselines (see Fig.\ref{fig:longshortmid-sinc}, Fig.\ref{fig:longshortmid-bessel} and 
+Fig.\ref{fig:longshortmid-butter}). We furthermore show the behaviour of an overlap baseline dependent windowing function 
+in Fig.\ref{fig:corrSigVLAMxBl_overlapLdelta}, Fig.\ref{fig:corrSigVLAMxBl} and Fig.\ref{fig:corrSigVLAMxBl_overlapGdelta} and evaluate the 
+theoretical noise predicted in 
+Eq.\ref{eq:noise} (see \ref{fig:per-baseline-noise-ratio-sinc}, Fig.\ref{fig:per-baseline-noise-ratio-bessel} 
+and \ref{fig:per-baseline-noise-ratio-BW}).
 \begin{figure*}
  \centering
   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-sinc.pdf}
@@ -681,19 +678,19 @@ averaging}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
 \end{figure*}
 \begin{itemize}
  \item In Fig.\ref{fig:per-baseline-noise-ratio-sinc}, Fig.\ref{fig:per-baseline-noise-ratio-bessel} 
-and \ref{fig:per-baseline-noise-ratio-BW} we plotted the ratio $\frac{\sigma_{pq,w}}{\sigma_{pq,avg}}$ of the theoretical noise as a 
-function of $\overline{\mathbf{d}}_t$ (the mean of  $(u,v)$ distance) using the sinc, the Bessel first kind and the 
-Butterwordth respectively. Here, $\sigma_{pq,w}$ and $\sigma_{pq,avg}$ are the per baseline theoretical rms noise of the baseline dependent 
-windowing function and the one of averaging respectively. These figures shows that, the noise increases with baseline $(u,v)$ distances.
-   \item On shorter baselines, the noise is approximately the same with the one of averaging and drop significantly with the number of  
-overlap time and frequency bins. This is because on shorter  baselines, the baseline dependent windowing function are closer to the boxcar 
-window, and when the number of overlap time  and frequency  bins increases, we have:
+and \ref{fig:per-baseline-noise-ratio-BW} we plotted the ratio of per baseline theoretical rms noise of the baseline dependent 
+windowing function taken under consideration by the one of boxcar averaging. The ratio is plotted as a function of 
+$\overline{\mathbf{d}}_t$ (the mean of  $(u,v)$ distance). These figures shows that, the noise increases with baseline length.
+   \item On shorter baselines, the noise using the baseline dependent windowing function is approximately the same with the one of boxcar
+averaging. However, the noise drops significantly with the number of  overlap time and frequency bins. As mention above, this is because on 
+shorter  baselines, the baseline dependent windowing function are closer to the boxcar window, and when the number of overlap time  and 
+frequency  bins increases, we have:
 \begin{eqnarray*}
  \frac{\sigma_{pq, w}}{\sigma_{pq,avg}} &\approx& \Bigg(\frac{n_t n_{\nu}}{(n_t + n_{lt} + n_{rt})(n_{\nu} + n_{l\nu} + 
 n_{r\nu})}\Bigg)^{\frac{1}{2}}
 \end{eqnarray*}
 \end{itemize}
-The tables below summarized the array overall  theoretical rms noise ratio and the simulation one.\\
+The tables below summarized the overall  theoretical rms noise ratio and the simulation one.\\
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
  \begin{tabular}{|l|l|l|l|}
@@ -722,10 +719,10 @@ The tables below summarized the array overall  theoretical rms noise ratio and t
 In order to test the algorithms described in section \ref{baseline1} and section \ref{baseline2}, we performed  multiple tests on JVLA 
 simulated measurement sets (MS). In 
 this section we summarized and discussed those results. Two MS are used in 
-our simulation, a high resolution MS (HR-MS) that contained the observed JVLA data of short integration time and frequency, a low resolution 
-MS (LR-MS), where the results of simple averaging or the weighted averaging are saved. To apply the second algorithm described in 
-section 
-\ref{baseline2}, the following conditions are satisfied:
+our simulation, a high resolution MS (HR-MS) that contains the observed JVLA data of short integration time and frequency, a low 
+resolution 
+MS (LR-MS), where the results of boxcar averaging or baseline dependent windowing functions are saved. To apply the second algorithm 
+described in section \ref{baseline2}, the following conditions have to be satisfied:
 \begin{enumerate}
  \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively. $n_{t,ovlp}$ the number 
 of timeslots extended across the time direction, and  $\Delta t^{hrms}$ the HR-MS integration time, then 
@@ -749,7 +746,8 @@ the number of channels extended across the frequency direction, and  $\Delta \nu
 \subsection{Smearing elimination and out FoV suppression}
 We considered $40$ different sky models each  containing a 1Jy source; the sky models differ from each other by the source coordinates. 
 The reason for having  only one source in the sky model is to avoid standard imaging artefacts in the sky maps (cite here \cite{2}), which 
-can affect the brightness of sources. Another obvious problem is the  CLEAN algorithm (cite here \cite{2}), which does not created 
+can affect the brightness of sources. Another obvious problem is the  CLEAN algorithm \citep{cornwell1999deconvolution}, which does not 
+created 
 perfect clean maps. Therefore we need to avoid sideslobes confusion. Each of the sky model is simulated 
 with a JVLA HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
 time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz. We therefore applied the actual method (simple averaging) and 
