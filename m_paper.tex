@@ -217,7 +217,7 @@ Here, $c_{pq,(t,\nu)}$ is a function that samples the result of $\Big(\Pi_{pq}\c
 the centre time interval and centre frequency interval. 
 \\%Its is defined as:$c_{pq,(t_i,\nu_j)}=0$ for \\
 %$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
-Nevertheless, we note that this is not an efficient mode of attributing the weight of baselines visibilities. This mean that, the baselines 
+Nevertheless, note that this is not an efficient mode of attributing the weight of baselines visibilities. This mean that, the baselines 
 of the array are all suppose equally in term of the statistical analyse of the signals from the astronomical source. Unfortunately, this 
 is not the case, since we lost informations on some baselines than order due to the incomplete sampling of the Fourier component that 
 differ from one baseline to another.
@@ -516,7 +516,7 @@ In this section, we evaluate the Peak Sidelobe Level (PSL), the Main
 Lobe width (MLW) and the Sidelobes Roll-off (SLR) for some windowing functions spectrum. The goal of this study is to find a windowing 
 function that its spectral response  will conserved the signal within a field of interest while suppressing sidelobes confusion from strong 
 sources outside the field of interest.\\
-In the table below, we present the terminology that will be using in this paper in contrast of the terminology of  conventional signal 
+In the table below, we present the terminology that will be using in this paper in contrast of the terminology used in signal 
 processing.\\ 
 \begin{tabular}{*3{c}}\\
  \multicolumn{3}{|c|}{}
@@ -570,7 +570,7 @@ bandwidth and sidelobes  attenuation. The time response of the Butterworth windo
 \begin{equation}
 BW(t)= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
-For the same frequency interval $[-t_a,t_a]$ we plotted  three curves $\{p=1, p=3, p=5\}$ of $BW_{t}$ in Fig.\ref{fig:fig_butter} and 
+For the same frequency interval $[-t_a,t_a]$ we plotted  three curves $\{p=1, p=3, p=5\}$ of $BW(t)$ in Fig.\ref{fig:fig_butter} and 
 their corresponding spectrum in Fig.\ref{fig:fig_butter_freq}. Note that when the order $p$ increases, the MLW of the 
 spectrum is conserved, while the PSL also increase and the SLR drops faster.
 \subsubsection{Sinc Window}
@@ -581,9 +581,16 @@ S(t)= sinc\big(\pi b t\big).
  Fig.\ref{fig:fig_sinc} and Fig.\ref{fig:fig_sinc_freq} gives the graph of $S(t)$ and its spectrum respectively, where 
 $S(t)$ is truncated within the cut-off time interval $[-t_a,t_a]$. Note that when the cut-off time interval is large 
 (Fig.\ref{fig:fig_sinc_freq}, blue curve), the spectrum becomes perfectly flat at the pass band while the MLW becomes narrower,  the PSL 
-becomes lower and the SLR drops faster compared to a cut-off interval of $[-t_a,t_a]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). 
-\subsubsection{Bessel Function of the First Kind}
-discuss the Bessel here\\
+becomes lower and the SLR drops faster compared to a cut-off interval of $[-t_a/2,t_a/2]$ (Fig.\ref{fig:fig_sinc_freq}, red curve). 
+\subsubsection{Bessel Function of the First Kind of order zero}
+ This function can  be determined using the infinity power series expansion:
+\begin{equation}
+J_0(t) = \sum_{k=0}^{\infty}\frac{(-1)^k (x/2)^{2k}}{(k!)^2}
+\end{equation}
+ Fig.\ref{fig:bessel} and Fig.\ref{fig:freq_resp_bessel} gives the graph of J$_0(t)$ and its spectrum respectively, where 
+J$_0(t)$ is truncated within the cut-off time interval $[-t_a,t_a]$. Note that when the cut-off time interval is large 
+(Fig.\ref{fig:freq_resp_bessel}, blue curve), the spectrum is flat at the pass band while the MLW becomes narrower,  the PSL 
+becomes lower and the SLR drops faster compared to a cut-off interval of $[-t_a/2,t_a/2]$ (Fig.\ref{fig:freq_resp_bessel}, red curve).\\
  The table below summarizes the MLW, the PSL and the SLR of the windows taken under consideration in this section.
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
@@ -594,7 +601,7 @@ discuss the Bessel here\\
   {\footnotesize $S_t$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  $-12,42$} \\
   {\footnotesize $G_{t}$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
   {\footnotesize $BW_{t}$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
-  {\footnotesize $J_{0t}$} &{\footnotesize  $\approx- $} &{\footnotesize $ -$ }&{\footnotesize  $ -$}
+  {\footnotesize $J_{0t}$} &{\footnotesize  $\approx 0,39$} &{\footnotesize $ -15,01$ }&{\footnotesize  $ -14,01$}
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}\\
 A windowing function with a narrower main lobe width (for a better spectral resolution), lowers PSL (to achieve less
@@ -624,11 +631,11 @@ Gaussian windows}\label{ fig:fig_gauss_freq } \end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Bessel 
-first King windows NB: this figure is coming very soon}\label{fig:fig_4}\end{minipage}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/bessel.pdf}\caption{Bessel 
+first King windows NB: this figure is coming very soon}\label{fig:bessel}\end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Frequency 
-response of Bessel first kind window}\label{fig:fig_5} \end {minipage}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_bessel.pdf}\caption{Frequency 
+response of Bessel first kind window}\label{fig:freq_resp_bessel} \end {minipage}
 \end{figure*}
 \section{Noise and comparison}
 Several windowing functions  were described in the previous section, however in the rest of this paper we only consider the sinc 
@@ -690,7 +697,7 @@ frequency  bins increases, we have:
 n_{r\nu})}\Bigg)^{\frac{1}{2}}
 \end{eqnarray*}
 \end{itemize}
-The tables below summarized the overall  theoretical rms noise ratio and the simulation one.\\
+The tables below summarized the interferometer theoretical rms noise ratio and the simulation one.\\
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
  \begin{tabular}{|l|l|l|l|}
@@ -911,15 +918,25 @@ integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-but
       \label{fig:max-integ-freq-sinc-w1x50-fov2}
       \end{minipage}\\
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
-      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
-filter.}
+      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind of 
+order zero filter.}
       \label{fig:max-integ-freq-bessel-w1x1-fov2}
       \end{minipage}
 \hspace{1cm}
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel first 
-kind filter.}
+kind filter of order zero filter.}
       \label{fig:max-integ-freq-bessel-w1x50-fov2}
+      \end{minipage}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Butterwordth filter.}
+      \label{fig:max-integ-freq-butter-w1x1-fov2}
+      \end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Butterwordth 
+filter.}
+      \label{fig:max-integ-freq-butter-w1x50-fov2}
       \end{minipage}
 \end{figure*}
 \begin{figure*}
@@ -928,24 +945,35 @@ kind filter.}
 	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
   \centering
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
-	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency sinc filter.}
+	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time sinc filter.}
 	\label{fig:max-integ-time-sinc-w1x1-fov2}
 	\end{minipage} \hspace{1cm}
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
-        \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency overlap sinc 
+        \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap sinc 
 filter.}
       \label{fig:max-integ-time-sinc-w100x1-fov2}
       \end{minipage}\\
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency Bessel first kind
+    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Bessel first kind of 
+order zero
 filter.}
     \label{fig:max-integ-time-bessel-w1x1-fov2}
     \end{minipage} 
  \hspace{1cm}
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ frequency overlap 
-      Bessel first kind filter.}
-    \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}
+    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
+      Bessel first kind of order zero filter.}
+    \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}\\
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
+    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Butterwordth 
+filter.}
+    \label{fig:max-integ-time-butter-w1x1-fov2}
+    \end{minipage} 
+ \hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
+    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
+      Butterwordth filter.}
+    \label{fig:max-integ-time-butter-w100x1-fov2}\end{minipage}   
 \end{figure*}
 \begin{figure*}
   \centering
@@ -960,13 +988,22 @@ sinc filter.}
     \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-Bessel first kind filter.}
+Bessel first kind of order zero filter.}
       \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
 \hspace{1cm}
 \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-overlap Bessel first kind filter.}
+overlap Bessel first kind of order zero filter.}
   \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+Butterwordth filter.}
+      \label{fig:max-integ-timefreq-butter-w1x1-fov2}\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
+      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+overlap Butterwordth filter.}
+  \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
 \end{figure*}
 \subsection{Discussion}
 \section{Conclusions}
@@ -1034,21 +1071,17 @@ made of $\textbf{V}_{pq,(t,\nu)}^{samp}$. These matrices are explicitly expresse
 \mathbf{V}_{pq,(t,\nu)}^{samp,n}&=&\Bigg[\mathbf{V}_{pq,(t,\nu)}^{samp},\dots, \mathbf{V}_{pq,(t,\nu)}^{samp}, \dots,
 \mathbf{V}_{pq,(t,\nu)}^{samp}\Bigg]^T. 
 \end{eqnarray*}
-In Eq.\ref{eq:vall}, the matrix $\mathbf{A}$ of size $(4N_v)\times (4N_{pix})$ is defined as follow
+In Eq.\ref{eq:noise}, the matrix $\mathbf{B}$ of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ is defined as follow
 \begin{equation*}
-\mathbf{A}_{}=
+\mathbf{B}_{}=
   \begin{bmatrix}
-    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{n}\\
     \vdots\\
-    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n}\cdot \mathbf{S}_{ik,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n}\cdot \mathbf{S}_{ik,(t,\nu)}^{n}\\
     \vdots \\
-    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n}\cdot \mathbf{S}_{jl,(t,\nu)}^{block,n} \cdot\mathbf{F}\\
+    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n}\cdot \mathbf{S}_{jl,(t,\nu)}^{n}
   \end{bmatrix}
 \end{equation*}
-\\
-\\
-\\
-\\
 \section[]{Sky tapering function with averaging}
 \label{label:similarimaging}
 The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
