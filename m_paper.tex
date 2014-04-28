@@ -761,15 +761,15 @@ time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz.  Each HR
 dependent windowing function averaging the results are saved into a LR-MS of 1min30s synthesis, with a 150s integration time,  with 1 
 channels of width 6.25MHz. We 
 considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{1min30s,6250kHz\}$, 
-$\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHzkHz\}$, 
-$n_{t,ovlp}=\{0,100,150\}$ 
-and $n_{\nu,ovlp}=\{0,25,50\}$.\\
+$\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHz\}$, 
+$n_{t,ovlp}\in\{0,100,150\}$ 
+and $n_{\nu,ovlp}\in\{0,25,50\}$.\\
 In Fig.\ref{fig:Bl-sinc-FoV2}- Fig.\ref{fig:Bl-bessel-FoV4} we
 %Fig.\ref{fig:Bl-sinc-FoV4}, Fig.\ref{fig:Bl-bessel-FoV2} and
 show the recovered source brightness as a function of  distance from the phase centre for boxcar averaging and the baseline dependent 
-windowing functions we are considering. We considered three cases of the sinc ($Bl$-$sinc$ $W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
-of the first kind of order zero ($Bl$-J$_0$ $W n_{t,ovlp} \times n_{\nu,ovlp}$) and the Butterwordth ($Bl$-$BW$ $W n_{t,ovlp} \times 
-n_{\nu,ovlp}$),  with  $n_{t,ovlp}=\{0,100,150\}$ and $n_{\nu,ovlp}=\{0,25,50\}$). We evaluated the loss in signal 
+windowing functions we are considering. We considered three cases of the sinc ($Bl$-$sinc$-$W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
+of the first kind of order zero ($Bl$-J$_0$-$W n_{t,ovlp} \times n_{\nu,ovlp}$) and the Butterwordth ($Bl$-$BW$-$W n_{t,ovlp} \times 
+n_{\nu,ovlp}$),  with  $n_{t,ovlp}\in\{0,100,150\}$ and $n_{\nu,ovlp}\in\{0,25,50\}$). We evaluated the loss in signal 
 amplitude with longer LR-MS integration time intervals $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency intervals $\Delta 
 \nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
 the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
@@ -804,7 +804,7 @@ In this section, we evaluated the maximum frequency and time integration interva
 considered in the frequency and the time 
 directions without smearing in the FoV, with optimal source suppression out of the FoV. We considered $6$ different sky 
 models each  containing a 1Jy source; the sky models differ from each other by the source distance, $r$ from the phase centre
-($r=\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$).
+($r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$).
 \subsubsection{Frequency direction}
 The baseline dependent windowing functions under considerations and the boxcar averaging are performed in the frequency direction.
 The sky models is simulated with a JVLA HR-MS of 1 timeslot of width $\Delta t^{hrms}=0.1s$ at $1.4$GHz. The raison of a short HR-MS 
@@ -814,8 +814,8 @@ channel of width $\Delta \nu^{hrms}\times50$kHz. We considered, $\nu^{hrms}_{sta
 $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
 $\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.\\
 In Fig.\ref{fig:max-integ-freq-sinc-w1x1-fov2}-Fig.\ref{fig:max-integ-freq-butter-w1x50-fov2} we compared the result of boxcar frequency 
-averaging and of  Bl-sinc-$W n_{\nu,ovlp}$, Bl-J$_0$ $W n_{\nu,ovlp}$, Bl-BW-$W n_{\nu,ovlp}$ performed in the frequency 
-direction. We took $n_{\nu,ovlp}=\{0,50\}$ the number of frequency overlap bins. These results show that:
+averaging and of  Bl-sinc-$W n_{\nu,ovlp}$, Bl-J$_0$-$W n_{\nu,ovlp}$, Bl-BW-$W n_{\nu,ovlp}$ performed in the frequency 
+direction. We took $n_{\nu,ovlp}\in\{0,50\}$ the number of frequency overlap bins. These results show that:
 \begin{itemize}
  \item Firstly,  we can integrate over a wider LR-MS frequency interval without a loss of signal 
 amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
@@ -823,36 +823,34 @@ closer to the affine equation $y=1$, which differ from the curves when the sourc
 centre.  
  \item Secondly, looking on Fig.\ref{fig:max-integ-freq-sinc-w1x50-fov2} and Fig.\ref{fig:max-integ-freq-bessel-w1x50-fov2}, when the source 
 is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
-$[6.2,12.6]MHz$ with the overlap frequency direction filters compared to boxcar frequency averaging. This is not the case with Fig.
+$[6.2,12.6]$ with the overlap frequency direction filters compared to boxcar frequency averaging. This is not the case with Fig.
 \ref{fig:max-integ-freq-butter-w1x50-fov2}. Nevertheless, out FoV source suppression start with the Butterwordth when the source is at 
 $2.5^{\circ}$ or above (see Fig.\ref{fig:Bl-butter-FoV2}) 
  \item Finally, the sinc filter performed well on signal recovery compared to J$_0$ and J$_0$ suppressed 
 the source when this is out of the FoV compared to the sinc.  
 \end{itemize}
 \subsubsection{Time direction}
-In this case, each of these sky model is simulated with a JVLA HR-MS of $300$ timeslots synthesis, and we varied the integration time 
-$\Delta t^{hrms}$ in the interval $[0.5,5.5]$s at 1.4GHz. We considered 1 channel of width, $\Delta \nu^{hrms}=125kHz$.   We 
-therefore applied the actual method (simple averaging) and our methods both in the time direction then the result of each simulation was 
-saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ integration time, with 1 channels of width 
-$125kHz$. We considered, $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100$timeslots$\times\Delta t^{hrms} s$, 
-$t^{hrms}_{end}=300$timeslots$\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200$timeslots$\times\Delta t^{hrms}s$.\\
-We compared in Fig.\ref{fig:max-integ-time-sinc-w1x1-fov2} and Fig.\ref{fig:max-integ-time-sinc-w100x1-fov2}  the results of simple 
-time averaging and the one of  $Bl$-$sinc$ $W n_{t,ovlp}$ performed in the time direction. We compared in 
-Fig.\ref{fig:max-integ-time-bessel-w1x1-fov2} and Fig.\ref{fig:max-integ-time-bessel-w100x1-fov2} the results of simple time averaging 
-and the one of  $Bl$-J$_0$ $W n_{t,ovlp}$. Here, we took $n_{t,ovlp}=\{0,100\}$ time overlap bins. These results 
-showed that:
+The baseline dependent windowing functions under considerations and the boxcar averaging are performed in the time direction.
+The sky models is simulated with a JVLA HR-MS of $300$ timeslots both of width $\Delta t^{hrms}s$ at 1.4GHz. The value of  
+$\Delta t^{hrms}$ is chosen within the interval $[0.5,5.5]$. We considered 1 channel of width, $\Delta \nu^{hrms}=125kHz$. The result of the 
+process was saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ integration time at 1.4GHz, with 
+1 channels of width $125kHz$. We considered $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, 
+$t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200\times\Delta t^{hrms}s$.\\
+In Fig.\ref{fig:max-integ-time-sinc-w1x1-fov2}-Fig.\ref{fig:max-integ-time-butter-w100x1-fov2} we compared the result of boxcar time
+averaging and of  Bl-sinc-$W n_{t,ovlp}$, Bl-J$_0$-$W n_{t,ovlp}$, Bl-BW-$W n_{t,ovlp}$ performed in the time 
+direction. We took $n_{t,ovlp}\in\{0,100\}$ the number of time overlap bins. These results show that:
 \begin{itemize}
- \item Firstly, we can significantly integrate over a longer LR-MS time interval without a lost of signal 
+ \item Firstly,  we can integrate over longer LR-MS time interval without a loss of signal 
 amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
 closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from the phase 
 centre.  
- \item Secondly, looking on Fig.\ref{fig:max-integ-freq-sinc-w1x50-fov2} and 
-\ref{fig:max-integ-freq-bessel-w1x50-fov2}, when the source is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
-$[50,150]$ with the overlap time direction filters compared to simple time averaging.
- \item Finally, the sinc filter performed well on signal recovery compare to the Bessel first kind and the Bessel first kind suppressed the 
-source when this is out of the FoV compared to the sinc.  
+ \item Secondly, looking on Fig.\ref{fig:max-integ-time-sinc-w100x1-fov2} and Fig.\ref{fig:max-integ-time-bessel-w100x1-fov2}, when the 
+source is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
+$[50,150]$ with the overlap time direction filters compared to boxcar time averaging. This is not the case with 
+Fig.\ref{fig:max-integ-time-butter-w100x1-fov2} (see the previous section)
+ \item Finally, the sinc filter performed well on signal recovery compared to J$_0$ and J$_0$ suppressed 
+the source when this is out of the FoV compared to the sinc.  
 \end{itemize}
-\vspace{-0.5cm}
 \subsubsection{Time and frequency direction}
 In this case, each sky model is simulated with a JVLA HR-MS of $300$ timeslots synthesis, and varied  the integration time $\Delta 
 t^{hrms}$ in $[0.5,5.5]s$ at $1.4GHz$.  We considered $150$ channels and varied the width $\Delta \nu^{hrms}$  within the interval $[ 
