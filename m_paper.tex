@@ -367,16 +367,14 @@ Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix o
 $\mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on 
 top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
 respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model 
-without a source, $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}=\sigma_{uv}^i|_{i=1\cdots 
-N_v\times n_t \times n_{\nu}}$, where $\sigma_{uv}^i=\sigma_{uv}^j$ ($i\neq j$) is the expected rms noise per visibility before boxcar 
-averaging or BDWF averaging and $N_v \times n_t \times n_{\nu}$ is the total number of these visibilities. For convenience let  
-$\sigma_{uv}^i=\sigma_{uv}$, Eq.\ref{eq:noise1} can therefore be rewritten as:
+without a source, $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}=\sigma_{uv}\mathbf{G}$, 
+where $\sigma_{uv}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
+n_{\nu}) \times (4 n_t n_{\nu})$ unity matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
 \begin{eqnarray}
  \widetilde{\epsilon}_{o,o}		
 &=&\frac{\sigma_{uv}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
 \bigg).\label{eq:noise}
 \end{eqnarray}
-Here, $\mathbf{G}$ is a $(N_v 4 n_t n_{\nu}) \times (4 n_t n_{\nu})$ unity matrix.
 The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
 \section{FoV signals recovery and out field suppression}
 \subsection{FoV signals recovery: description and method}
