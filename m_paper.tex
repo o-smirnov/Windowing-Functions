@@ -361,13 +361,23 @@ inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. The est
 \Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\							
 		      &=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\		
 &=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
-\nu)}^{ samp } \bigg)\label{eq:noise}.
+\nu)}^{ samp } \bigg)\label{eq:noise1}.
 \end{eqnarray}
 Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
 $\mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on 
 top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
-respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). The formalism of Eq.\ref{eq:noise} will 
-be used to derive the noise estimate in section \ref{subsec:noise}.
+respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model 
+without a source, $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}=\sigma_{uv}^i|_{i=1\cdots 
+N_v\times n_t \times n_{\nu}}$, where $\sigma_{uv}^i=\sigma_{uv}^j$ ($i\neq j$) is the expected rms noise per visibility before boxcar 
+averaging or BDWF averaging and $N_v \times n_t \times n_{\nu}$ is the total number of these visibilities. For convenience let  
+$\sigma_{uv}^i=\sigma_{uv}$, Eq.\ref{eq:noise1} can therefore be rewritten as:
+\begin{eqnarray}
+ \widetilde{\epsilon}_{o,o}		
+&=&\frac{\sigma_{uv}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
+\bigg).\label{eq:noise}
+\end{eqnarray}
+Here, $\mathbf{G}$ is a $(N_v 4 n_t n_{\nu}) \times (4 n_t n_{\nu})$ unity matrix.
+The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
 \section{FoV signals recovery and out field suppression}
 \subsection{FoV signals recovery: description and method}
 \label{sec:baseline1}
@@ -451,7 +461,7 @@ output sample of the signals being integrate.
 Fig.\ref{fig:corrSigVLAMxBl_overlapGdelta} shows the behaviour of an overlap BDFW. We noticed from this figure that, with an overlap BDWF, 
 the weight of a uv-bin is not defined by a unique BDWF, but by the strength of the correlation between the overall  overlapping BDWF on the 
 bin. That said, the weight of a uv-bin becomes the summation of overlapping BDWF samples on the uv-bin normalized by the summation of the 
-overall uv-bins weights within the range where these BDWF overlap.
+overall uv-bins weights within the range where these BDWF overlap are defined.
 \begin{figure*}
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/uvcov.png}\caption{Coverage of 
 one integration}\label{fig:uvcov}\end{minipage}
@@ -644,22 +654,30 @@ effectively looking at the true Fourier transform of the signal through the conv
 \mathcal{F}\Big\{V_{t}\circ W_{t}\Big\} = \mathcal{F}\Big\{V_{t}\Big\}\cdot \mathcal{F}\Big\{W_{t}\Big\}
 \end{equation}
 One can replaced the convolution window by its Fourier transform. Therefore, we want a convolution window 
-($W_{t}$ or $\mathcal{F}\Big\{W_{t}\Big\}$) with a narrower MLW (for a better spectral resolution), lowers PSL (to 
+($W_{t}$ or $\mathcal{F}\Big\{W_{t}\Big\}$) with a narrower MLW (for a wide dynamic range or to maintain the desire FoV), lowers PSL (to 
 achieve less masking of nearby sources), and faster SLR (to achieve less masking for far away sources). 
- The table below summarizes the MLW, the PSL and the SLR of $|\mathcal{F}\Big\{W_{t}\Big\}|$ under consideration.\\
+ The table below summarizes the MLW, the PSL and the SLR of $W_{t}$ or $|\mathcal{F}\Big\{W_{t}\Big\}|$ under consideration.\\
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
- \begin{tabular}{|l|l|l|l|}
+ \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
   \footnotesize $|\mathcal{F}\Big\{W_{t}\Big\}|$ &\textbf{\footnotesize MLL (-3db)}&\textbf{\footnotesize PSL (db)} &\textbf{\footnotesize 
 SLR (db/octave) }  \\
   \hline\hline
-  {\footnotesize $|\mathcal{F}\Big\{\Pi(t)\Big\}|$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize $-6,78$}\\
-  {\footnotesize $|\mathcal{F}\Big\{S(t)\Big\}|$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  $-12,42$} \\
+  {\footnotesize $|\mathcal{F}\Big\{\Pi(t)\Big\}|=|S(t)|$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize 
+$-6,78$}\\
+  {\footnotesize $|\mathcal{F}\Big\{S(t)\Big\}|=|\Pi(t)|$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  
+$-12,42$} \\
   {\footnotesize $|\mathcal{F}\Big\{G(t)\Big\}|$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
   {\footnotesize $|\mathcal{F}\Big\{BW(t)\Big\}|$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
   {\footnotesize $|\mathcal{F}\Big\{J_0(t)\Big\}|$} &{\footnotesize  $\approx 0,39$} &{\footnotesize $ -15,01$ }&{\footnotesize  $ -14,01$}
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}\\
+\\
+
+\hspace{-0.6cm}In the rest of this paper we only consider the sinc 
+window, the Bessel of the first kind and the Butterwordth as they approach our specifications (see the table above).  We considered 
+$sinc(X,Y)=sinc(X)sinc(Y)$, J$_0(X,Y)=$J$_0(\sqrt{X^2 + Y^2})$ and $BW(X,Y)=BW(\sqrt{X^2 + Y^2})$ for a two dimensional 
+sinc window, Bessel of the first kind and Butterwordth window respectively.
 \begin{figure*}
   \centering
   \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
@@ -693,17 +711,13 @@ response of Bessel first kind window}\label{fig:freq_resp_bessel} \end {minipage
 \end{figure*}
 \subsection{Theoretical noise estimate and simulation noise}
 \label{subsec:noise}
-Several windowing functions  were described in the previous section, however in the rest of this paper we only consider the sinc 
-window, the Bessel of the first kind and the Butterwordth.  We considered 
-$sinc(X,Y)=sinc(X)sinc(Y)$, J$_0(X,Y)=$J$_0(\sqrt{X^2 + Y^2})$ and $BW(X,Y)=BW(\sqrt{X^2 + Y^2})$ for a two dimensional 
-sinc window, Bessel of the first kind and Butterwordth window respectively. We show in this section that on shorter baselines, the 
-windowing functions reduce to the Boxcar window. Therefore, we effectively applying a hybrid filter; a Boxcar on the shorter baselines and 
-the given windowing function on the longer baselines (see Fig.\ref{fig:longshortmid-sinc}, Fig.\ref{fig:longshortmid-bessel} and 
-Fig.\ref{fig:longshortmid-butter}). We furthermore show the behaviour of an overlap baseline dependent windowing function 
-in Fig.\ref{fig:corrSigVLAMxBl_overlapLdelta}, Fig.\ref{fig:corrSigVLAMxBl} and Fig.\ref{fig:corrSigVLAMxBl_overlapGdelta} and evaluate the 
-theoretical noise predicted in 
-Eq.\ref{eq:noise} (see \ref{fig:per-baseline-noise-ratio-sinc}, Fig.\ref{fig:per-baseline-noise-ratio-bessel} 
-and \ref{fig:per-baseline-noise-ratio-BW}).
+ We show in this section that on shorter baselines, the 
+WFs under consideration reduce to the Boxcar window. Therefore, we effectively applying a hybrid filter; a Boxcar on the shorter baselines 
+and 
+the WF under consideration on the longer baselines (see Fig.\ref{fig:longshortmid-sinc}, Fig.\ref{fig:longshortmid-bessel} and 
+Fig.\ref{fig:longshortmid-butter}). We furthermore evaluated the 
+theoretical noise predicted in Eq.\ref{eq:noise} (see \ref{fig:per-baseline-noise-ratio-sinc}, 
+Fig.\ref{fig:per-baseline-noise-ratio-bessel} and \ref{fig:per-baseline-noise-ratio-BW}).
 \begin{figure*}
  \centering
   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-sinc.pdf}
