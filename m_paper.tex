@@ -269,7 +269,8 @@ Under this, smearing is totally eliminated over the field of view if $(\Delta t,
 \{\mathcal{N}_t, \mathcal{N}_{\nu}\}$). Although this principle has been known for some time, its  maintained sidelobes contamination from 
 out field of view sources (see Fig.\ref{timessear1} and Fig.\ref{timessear2}) and produced $\mathcal{N}_t\times\mathcal{N}_{\nu}$ uv-bins 
 which leads to storage issues. To reduce smearing when 
-$\Delta t$ and  $\Delta \nu$ are large enough to save memory, this work investigates various windowing functions (WF) in term of the 
+$\Delta t$ and  $\Delta \nu$ are large enough with the aims to save memory, this work investigates various windowing functions (WF) in term 
+of the 
 optimal image plane response (see Fig.\ref{optimalres.pdf}). 
 \begin{figure*}
   \centering
@@ -325,16 +326,17 @@ size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. We can write:
 \begin{equation}
 \mathbf{V}_{pq,(t' \nu')}^{corr}= 
 \mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky },\label{eqv:linear}
+\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky }+\epsilon_{pq},\label{eqv:linear}
 \end{equation}
-if the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
+our data is always corrupted by a random error component or noise, $\epsilon_{pq}$ (the error component of the baseline (p,q)).
+If the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
 $\textbf{F}$ is a block diagonal Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.\\
 We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
 measured over all baselines with $N_v=N_{bl}\times N_v^{pq}$ in this case. Here, $N_{bl}$ is the number of baseline. We then have:
 \begin{equation}
  \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
 \end{equation}
-Our data is always corrupted by a random error component or noise, $\epsilon$. $\mathbf{A}$ is a \textit{design} matrix of size 
+ Here, $\epsilon$ is the array error component. $\mathbf{A}$ is a \textit{design} matrix of size 
 $(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
 \mathbf{S}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{F}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each order and correspond 
 to $N_v$ visibilities weights with $n_a$ the number of antenna. The \textit{design} matrix is defined as:
@@ -355,30 +357,31 @@ The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived 
 \mathcal{I}_{l,m}^{D}=\bigg(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}^{sky}\bigg)_{(l,m)} + \epsilon.
 \end{equation}
 Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
-inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$. The estimate of  $\epsilon$, for the map centre pixel is given by:
+inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.\\ The estimate of  $\epsilon$, for the map centre pixel is given 
+by:
 \begin{eqnarray}
  \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - 
 \Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\							
-		      &=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\		
+		      %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\		
 &=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
 \nu)}^{ samp } \bigg)\label{eq:noise1}.
 \end{eqnarray}
 Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
 $\mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on 
 top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
-respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model 
-without a source, $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}=\sigma_{uv}\mathbf{G}$, 
-where $\sigma_{uv}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
+respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model, 
+$\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}=\sigma_{}\mathbf{G}$, 
+where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
 n_{\nu}) \times (4 n_t n_{\nu})$ unity matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
 \begin{eqnarray}
  \widetilde{\epsilon}_{o,o}		
-&=&\frac{\sigma_{uv}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
+&=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
 \bigg).\label{eq:noise}
 \end{eqnarray}
 The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
 \section{FoV signals recovery and out field suppression}
 \subsection{FoV signals recovery: description and method}
-\label{sec:baseline1}
+\label{baseline1}
 Missing spaces between sampled $(u,v)$ coordinates has an important dependence on the baseline length. However, the spacings between longer 
 baselines $(u,v)$ coordinates are wider than the one on shorter baselines, this is the obvious effect that explained why sources are more 
 distorted on longer baselines compared to shorter ones. Therefore, if one have to attribute a $(u,v)$ weight, it may be proportional to 
@@ -551,9 +554,9 @@ one integration}\label{fig:uvcov}\end{minipage}
 In signal processing a windowing function is a mathematical function that has zero-values outside some chosen interval, and when a signal 
 is multiplied by the windowing function, the product has also zero-values outside the interval.
 In this section, we evaluate the Peak Sidelobe Level (PSL), the Main 
-Lobe width (MLW) and the Sidelobes Roll-off (SLR) for some WFs. 
-The terminology that will be using in this paper in contrast of the terminology used in signal processing is summarized in the table 
-below.
+Lobe width (MLW) and the Sidelobes Roll-off (SLR) for some WFs. To allow this paper to be useful both in signal processing and radio 
+astronomy community, we presented in the below table the terminology that is used in radio astronomy in contrast of the terminology used 
+in signal processing.
 \begin{tabular}{*3{c}}\\
  \multicolumn{3}{|c|}{}
  \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
@@ -572,16 +575,21 @@ below.
 \end{tabular}\\
 \\
 
-The goal of this study is twofold, find a WF that its IPR will conserved the signal within a field of interest while 
-suppressing sidelobes confusion from strong sources outside this field of interest. Such a WF is very common in theory, is a continuous 
-function (unsampled function) over an illimitable interval with unit area (see Fig.\ref{fig:idealWF}). The ideal IPR of this WF is as 
-presented in Fig.\ref{fig:idealIRF}. 
+The goal of this section is threefold, find a WF that its IPR will:
+\begin{itemize}
+  \item Conserved the signal within a field of interest "\textit{regime 1}": a WF with a narrower MLW.
+  \item Achieved less masking of nearby sources by restricting "\textit{regime 2}" to a narrower band: a WF with a lower PSL.
+  \item Suppressed sidelobes confusion from far away sources "\textit{regime 3}": a WF with a SLR that drops faster.
+\end{itemize}
+Such a WF is very common in theory, is a continuous 
+function (unsampled function) over an illimitable interval, with unit area shown in Fig.\ref{fig:idealWF} and its ideal IPR in 
+Fig.\ref{fig:idealIRF}. 
 \begin{figure*}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/idealsinc.png}\caption{Ideal 
+\begin{minipage}{0.4\linewidth}\includegraphics[width=1.1\textwidth]{./Figures/idealsinc.png}\caption{Ideal 
 WF}\label{fig:idealWF}
 \end{minipage}
   \hspace{1cm} 
-\begin{minipage}{0.45\linewidth}\includegraphics[width=1.2\textwidth]{./Figures/boxideal.png}\caption{Ideal 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/idealIPR.png}\caption{Ideal 
 IPR}\label{fig:idealIRF}\end{minipage}
 \end{figure*}
 % \begin{itemize}
@@ -651,10 +659,8 @@ effectively looking at the true Fourier transform of the signal through the conv
 \begin{equation}
 \mathcal{F}\Big\{V_{t}\circ W_{t}\Big\} = \mathcal{F}\Big\{V_{t}\Big\}\cdot \mathcal{F}\Big\{W_{t}\Big\}
 \end{equation}
-One can replaced the convolution window by its Fourier transform. Therefore, we want a convolution window 
-($W_{t}$ or $\mathcal{F}\Big\{W_{t}\Big\}$) with a narrower MLW (for a wide dynamic range or to maintain the desire FoV), lowers PSL (to 
-achieve less masking of nearby sources), and faster SLR (to achieve less masking for far away sources). 
- The table below summarizes the MLW, the PSL and the SLR of $W_{t}$ or $|\mathcal{F}\Big\{W_{t}\Big\}|$ under consideration.\\
+One can replaced the convolution window, $W_{t}$ by its Fourier transform. The table below summarized the MLW, the PSL and the SLR of the 
+windows taken under consideration.\\
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
  \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
@@ -672,10 +678,19 @@ $-12,42$} \\
 \end{tabular}\\
 \\
 
-\hspace{-0.6cm}In the rest of this paper we only consider the sinc 
-window, the Bessel of the first kind and the Butterwordth as they approach our specifications (see the table above).  We considered 
-$sinc(X,Y)=sinc(X)sinc(Y)$, J$_0(X,Y)=$J$_0(\sqrt{X^2 + Y^2})$ and $BW(X,Y)=BW(\sqrt{X^2 + Y^2})$ for a two dimensional 
-sinc window, Bessel of the first kind and Butterwordth window respectively.
+\hspace{-0.6cm}The sinc, Bessel of the first kind of order zero (J$_0$) and the Butterwordth (BW)  approach our specifications and they 
+are taken under consideration in the rest of this paper.  We considered $sinc(X,Y)=sinc(X)sinc(Y)$, J$_0(X,Y)=$J$_0(\sqrt{X^2 + Y^2})$ and 
+$BW(X,Y)=BW(\sqrt{X^2 + Y^2})$ for a two dimensional 
+sinc, J$_0$ and BW respectively.
+The following designations will be used in the rest of this paper:
+
+Bl-WF-$n_{ovlpt}\times -$, Baseline dependent WF applied across the time direction, WF is one of the window under 
+consideration (sinc, J$_0$ and BW) and $2n_{ovlpt}$ is the number of overlap time bins.
+
+Bl-WF-$-\times n_{ovlp\nu}$, Baseline dependent WF applied across the frequency direction with $2n_{ovlp\nu}$ the number of overlap 
+frequency bins.
+
+Bl-WF-$n_{ovlpt}\times n_{ovlp\nu}$, Baseline dependent WF applied across both time and frequency direction (two dimensional BDWF).
 \begin{figure*}
   \centering
   \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
@@ -713,9 +728,14 @@ response of Bessel first kind window}\label{fig:freq_resp_bessel} \end {minipage
 WFs under consideration reduce to the Boxcar window. Therefore, we effectively applying a hybrid filter; a Boxcar on the shorter baselines 
 and 
 the WF under consideration on the longer baselines (see Fig.\ref{fig:longshortmid-sinc}, Fig.\ref{fig:longshortmid-bessel} and 
-Fig.\ref{fig:longshortmid-butter}). We furthermore evaluated the 
-theoretical noise predicted in Eq.\ref{eq:noise} (see \ref{fig:per-baseline-noise-ratio-sinc}, 
-Fig.\ref{fig:per-baseline-noise-ratio-bessel} and \ref{fig:per-baseline-noise-ratio-BW}).
+Fig.\ref{fig:longshortmid-butter}). We furthermore evaluated the array
+theoretical noise ratio, $R_{\epsilon}=\epsilon_{oo}^{bd}/\epsilon_{oo}^{bx}$ of BDWF 
+averaging  by the one of boxcar averaging both predicted in Eq.\ref{eq:noise} and compare this ratio to the simulation one. For the 
+analysis we used a JVLAC measurement set (MS) of 7min30s synthesis with a 1.5s
+integration time at 1.4Ghz, with 150 channels of width 125kHz. We filled this MS with 1Jy thermal noise. We then processed boxcar 
+averaging and BDWF averaging over 1min30s (width of the time integration) and 12500kHz (channel with). Two overlaps BDWF are presented, 
+the first overlap over 2min60s across time and 3125kHz across frequency and the second overlap over 3min45s across time and 6250kHz across 
+frequency.
 \begin{figure*}
  \centering
   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-sinc.pdf}
@@ -744,70 +764,62 @@ averaging}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
 \end{figure*}
 \begin{itemize}
  \item In Fig.\ref{fig:per-baseline-noise-ratio-sinc}, Fig.\ref{fig:per-baseline-noise-ratio-bessel} 
-and \ref{fig:per-baseline-noise-ratio-BW} we plotted the ratio of per baseline theoretical rms noise of the baseline dependent 
-windowing function taken under consideration by the one of boxcar averaging. The ratio is plotted as a function of 
-$\overline{\mathbf{d}}_t$ (the mean of  $(u,v)$ distance). These figures shows that, the noise increases with baseline length.
-   \item On shorter baselines, the noise using the baseline dependent windowing function is approximately the same with the one of boxcar
-averaging. However, the noise drops significantly with the number of  overlap time and frequency bins. As mention above, this is because on 
-shorter  baselines, the baseline dependent windowing function are closer to the boxcar window, and when the number of overlap time  and 
+and \ref{fig:per-baseline-noise-ratio-BW} each \textit{dot mark} is the ratio 
+\footnote{$\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo}$, see 
+Eq.\ref{eqv:linear} for a recall of $\epsilon^{bd}_{pq,oo}$ and $\epsilon^{bx}_{pq,oo}$.} of per baseline centre pixel theoretical rms 
+noise ($\epsilon^{bd}_{pq,oo}$) of BDWF 
+averaging  by the one of boxcar averaging ($\epsilon^{bx}_{pq,oo}$). The ratio is plotted as a function of 
+$\overline{\mathbf{d}}_t$ (the mean of the baseline $(u,v)$ distance). These figures shows that, the noise increases with baseline 
+length.
+   \item On shorter baselines, the noise estimate of BDWF averaging is approximately the same with the one 
+of boxcar averaging. However, on shorter baselines, the noise drops significantly with the number of  overlap time and frequency bins. As 
+mention above, this is because on 
+shorter  baselines, the BDWF are closer to the boxcar window, and when the number of overlap time  and 
 frequency  bins increases, we have:
-\begin{eqnarray*}
- \frac{\sigma_{pq, w}}{\sigma_{pq,avg}} &\approx& \Bigg(\frac{n_t n_{\nu}}{(n_t + n_{lt} + n_{rt})(n_{\nu} + n_{l\nu} + 
-n_{r\nu})}\Bigg)^{\frac{1}{2}}
-\end{eqnarray*}
+ $\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo} \approx \sqrt{n_t n_{\nu}/\big((n_t + 2n_{ovlpt})(n_{\nu} + 
+2n_{ovlp\nu})\big)}$%\bigg)^{\frac{1}{2}}
 \end{itemize}
-\subsection{Noises comparison}
-The tables below summarized the interferometer theoretical rms noise ratio and the simulation one.\\
-\begin{tabular}{*3{c}}
- \multicolumn{3}{|c|}{}\\
- \begin{tabular}{|l|l|l|l|}
+The tables below summarized the array theoretical rms noise ratio and the simulation one.\\
+\begin{tabular}{l*{6}{c}r}
   \footnotesize $f_{pq}$ &\textbf{\footnotesize Theoretical}&\textbf{\footnotesize Simulation}\\
   \hline\hline
-  {\footnotesize Bl-sinc-W0$\times$0} &{\footnotesize $1.17$} &{\footnotesize $1.23$}\\
-  {\footnotesize Bl-J$_0$-W0$\times$0} &{\footnotesize  $1.11$}&{\footnotesize  $1.14$}\\
-  {\footnotesize Bl-BW-W0$\times$0} & {\footnotesize $1.16$}&{\footnotesize  $1.55$}\\
-  \end{tabular}& \label{BDWBnoise}
-\end{tabular}\\
-\begin{tabular}{*3{c}}
- \multicolumn{3}{|c|}{}\\
- \begin{tabular}{|l|l|l|l|}
-  \footnotesize $g_{pq}$ &\textbf{\footnotesize Theoretical}&\textbf{\footnotesize Simulation}\\
-  \hline\hline
-  {\footnotesize Bl-sinc-W100$\times$25} &{\footnotesize $1.02$} &{\footnotesize $1.18$}\\
-  {\footnotesize Bl-J$_0$-W100$\times$25} &{\footnotesize  $0.91$}&{\footnotesize  $1.08$}\\
-  {\footnotesize Bl-BW-W100$\times$25} & {\footnotesize $1.44$}&{\footnotesize  $1.49$}\\
-  \hline
-  {\footnotesize Bl-sinc-W150$\times$50} &{\footnotesize $1.03$} &{\footnotesize $1.27$}\\
-  {\footnotesize Bl-J$_0$-W150$\times$50} &{\footnotesize  $0.92$}&{\footnotesize  $1.13$}\\
-  {\footnotesize Bl-BW-W150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $1.44$}\\
-  \end{tabular}& \label{BDWBnoise}
+  {\footnotesize Bl-sinc-0$\times$0} &{\footnotesize $1.17$} &{\footnotesize $1.23$}\\
+  {\footnotesize Bl-J$_0$-0$\times$0} &{\footnotesize  $1.11$}&{\footnotesize  $1.14$}\\
+  {\footnotesize Bl-BW-0$\times$0} & {\footnotesize $1.16$}&{\footnotesize  $1.55$}\\
+  {\footnotesize Bl-sinc-100$\times$25} &{\footnotesize $1.02$} &{\footnotesize $1.18$}\\
+  {\footnotesize Bl-J$_0$-100$\times$25} &{\footnotesize  $0.91$}&{\footnotesize  $1.08$}\\
+  {\footnotesize Bl-BW-100$\times$25} & {\footnotesize $1.44$}&{\footnotesize  $1.49$}\\
+  {\footnotesize Bl-sinc-150$\times$50} &{\footnotesize $1.03$} &{\footnotesize $1.27$}\\
+  {\footnotesize Bl-J$_0$-150$\times$50} &{\footnotesize  $0.92$}&{\footnotesize  $1.13$}\\
+  {\footnotesize Bl-BW-150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $1.44$}\\
+%  \bottomrule[1.25pt]
 \end{tabular}
 \section{Simulations and results}
-In order to test the algorithms described in section \ref{baseline1} and section \ref{baseline2}, we performed  multiple tests on JVLA 
-simulated measurement sets (MS). In 
+In order to test the approaches described in section \ref{baseline1} and section \ref{baseline2}, we performed  multiple tests on JVLAC 
+simulated MS. In 
 this section we summarized and discussed those results. Two MS are used in 
-our simulation, a high resolution MS (HR-MS) that contains the observed JVLA data of short integration time and frequency, a low 
+our simulation, a high resolution MS (HR-MS) that contains the observed JVLAC data of short integration time and frequency, a low 
 resolution 
-MS (LR-MS), where the results of boxcar averaging or baseline dependent windowing functions are saved. To apply the second algorithm 
-described in section \ref{baseline2}, the following conditions have to be satisfied:
+MS (LR-MS), where the results of boxcar averaging or BDWF averaging are saved. In order to apply an overlap BDWF  the following 
+conditions have to be satisfied:
 \begin{enumerate}
- \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively. $n_{t,ovlp}$ the number 
-of timeslots extended across the time direction, and  $\Delta t^{hrms}$ the HR-MS integration time, then 
+ \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively and  $\Delta t^{hrms}$ the 
+HR-MS integration time, then 
       %\begin{eqnarray*}
-	    $t^{lrms}_{start}\geq t^{hrms}_{start} + n_{t,ovlp}\times \Delta t^{hrms}$. 
+	    $t^{lrms}_{start}\geq t^{hrms}_{start} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
       %\end{eqnarray*}
   \item If $t^{hrms}_{end}$ and $t^{lrms}_{end}$ are the ending time of the HR-MS and LR-MS respectively, then 
       %\begin{eqnarray*}
-	    $t^{lrms}_{end}\leq t^{hrms}_{end} + n_{t,ovlp}\times \Delta t^{hrms}$. 
+	    $t^{lrms}_{end}\leq t^{hrms}_{end} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
       %\end{eqnarray*}
- \item If $\nu^{hrms}_{start}$ and $\nu^{lrms}_{start}$ are the starting frequency of the HR-MS and LR-MS respectively. $n_{\nu,ovlp}$ 
-the number of channels extended across the frequency direction, and  $\Delta \nu^{hrms}$ the HR-MS width, then 
+ \item If $\nu^{hrms}_{start}$ and $\nu^{lrms}_{start}$ are the starting frequency of the HR-MS and LR-MS respectively and  $\Delta 
+\nu^{hrms}$ the HR-MS channel width, then 
       %\begin{eqnarray*}
-	    $\nu^{lrms}_{start} \geq \nu^{hrms}_{start} + n_{\nu,ovlp}\times \Delta \nu^{hrms}$. 
+	    $\nu^{lrms}_{start} \geq \nu^{hrms}_{start} + 2n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
       %\end{eqnarray*}
  \item If $\nu^{hrms}_{end}$ and $\nu^{lrms}_{end}$ are the ending frequency of the HR-MS and LR-MS respectively, then 
       %\begin{eqnarray*}
-	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{\nu,ovlp}\times \Delta \nu^{hrms}$. 
+	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
       %\end{eqnarray*}
 \end{enumerate}
 \subsection{Smearing elimination and out FoV suppression}
@@ -815,43 +827,48 @@ We considered $40$ different sky models each  containing a 1Jy source; the sky m
 The reason for having  only one source in the sky model is to avoid standard imaging artefacts in the sky maps, which 
 can affect the brightness of sources. Another obvious problem is the  CLEAN algorithm \citep{cornwell1999deconvolution}, which does not 
 created 
-perfect clean maps. Therefore we need to avoid sideslobes confusion. Each of the sky model is simulated 
-with a JVLA HR-MS of 7min30s snapshot synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
-time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz.  Each HR-MS is then processed with boxcar averaging and baseline 
-dependent windowing function averaging the results are saved into a LR-MS of 1min30s synthesis, with a 150s integration time,  with 1 
-channels of width 6.25MHz. We 
-considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{1min30s,6250kHz\}$, 
+perfect clean maps. Each of the sky model is simulated 
+with a JVLAC HR-MS of 7min30s synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
+time at 1.4GHz,  with 150 channels of width $\Delta \nu^{hrms}$=125kHz.  Each HR-MS is then processed with boxcar averaging and BDWF 
+averaging the results are saved into a JVLAC LR-MS of one timeslot of with  150s,  with 1 channels of width 6.25MHz. We 
+considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{150s,6250kHz\}$, 
 $\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHz\}$, 
-$n_{t,ovlp}\in\{0,100,150\}$ 
-and $n_{\nu,ovlp}\in\{0,25,50\}$.\\
-In Fig.\ref{fig:Bl-sinc-FoV2}- Fig.\ref{fig:Bl-bessel-FoV4} we
+$n_{ovlpt}\in\{0,100,150\}$ 
+and $n_{ovlp\nu}\in\{0,25,50\}$.
+In Fig.\ref{fig:Bl-sinc-FoV2} to Fig.\ref{fig:Bl-bessel-FoV4} we
 %Fig.\ref{fig:Bl-sinc-FoV4}, Fig.\ref{fig:Bl-bessel-FoV2} and
-show the recovered source brightness as a function of  distance from the phase centre for boxcar averaging and the baseline dependent 
-windowing functions we are considering. We considered three cases of the sinc ($Bl$-$sinc$-$W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
-of the first kind of order zero ($Bl$-J$_0$-$W n_{t,ovlp} \times n_{\nu,ovlp}$) and the Butterwordth ($Bl$-$BW$-$W n_{t,ovlp} \times 
-n_{\nu,ovlp}$),  with  $n_{t,ovlp}\in\{0,100,150\}$ and $n_{\nu,ovlp}\in\{0,25,50\}$). We evaluated the loss in signal 
-amplitude with longer LR-MS integration time intervals $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency intervals $\Delta 
-\nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
-the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
-% $r$: source position in degrees.}
+show the recovered source brightness as a function of the source radius centered at the phase centre.
+% 
+% We considered three cases of the 
+% sinc ($Bl$-$sinc$-$W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
+% of the first kind of order zero ($Bl$-J$_0$-$W n_{t,ovlp} \times n_{\nu,ovlp}$) and the Butterwordth ($Bl$-$BW$-$W n_{t,ovlp} \times 
+% n_{\nu,ovlp}$),  with  $n_{t,ovlp}\in\{0,100,150\}$ and $n_{\nu,ovlp}\in\{0,25,50\}$). We evaluated the loss in signal 
+% amplitude with longer LR-MS integration time intervals $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency intervals $\Delta 
+% \nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
+% the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
+% % $r$: source position in degrees.}
 These results show that:
 \begin{itemize}
- \item We recover more than $90\%$ of the source brightness within $\approx 75\%$ of the FoV using $Bl$-$sinc$-$W0 \times 0$, 
-      $Bl$-J$_0$-$W0\times0$ and $Bl$-BW-$W0\times0$. However, boxcar averaging is better at suppressing out FoV sources. 
- \item We recover more than $90\%$ of the source brightness within $\approx 95\%$ of the FoV with the overlap sinc and J$_0$. As 
+ \item We recover more than $90\%$ of the source flux density within $\approx 75\%$ of \textit{regime 1} with $Bl$-$sinc$-$0 \times 0$, 
+      $Bl$-J$_0$-$0\times0$ and $Bl$-BW-$0\times0$. These are good results compare to boxcar averaging.
+ \item We recover more than $90\%$ of the source flux density within $\approx 95\%$  of \textit{regime 1} with the overlap sinc and 
+J$_0$\footnote{As 
 mention in section \ref{subsec:Windowing functions} the reason for this is that, the overlap filter is an accurate practical evaluation of 
-the window theoretical representation\footnote{windowing function theoretically extend to infinitely}. This is not the case with the 
-overlap Butterwordth because the Butterwordth is similar to the boxcar at the passband and produced less signal leakage at the 
-transition band compare to the boxcar. 
- \item Also note that for the overlap filters, out FoV source suppression is significantly improved.  When
+the window theoretical representation}. This is not the case with the 
+overlap Butterwordth because in \textit{regime 1}, the IPR of the Butterwordth is similar to the IPR of the boxcar (see 
+Fig.\ref{fig:fig_butter_freq}). 
+\item  In \textit{regime 2}, it is seen on these Figures that the baseline dependent J$_0$ performed well compared to the baseline 
+dependent sinc as the curve of the baseline dependent J$_0$ drops faster. The result of the baseline dependent BW is not accurate in this 
+\textit{regime 2}. Nevertheless, one can manipulate the order $p$ of BW in the aims to achieve an accurate result.
+\item Also note that for the overlap filters, out FoV source suppression is significantly improved.  When
 looking at these figures, it appears that the curves of the overlaps filters are below the one of boxcar averaging when the source is out 
-FoV. These overlapping windowing functions performed much better than boxcar averaging up to  $\approx 99\%$ of out FoV source flux.
+FoV ("\textit{regime 3}"). 
   \item  When
-looking at these figures, it appears that the sinc window conserved the signal within the FoV compared to J$_0$, while J$_0$ suppressed the 
-signal out of the FoV compared to the sinc. However, the reason for 
+looking at these figures, it appears that the baseline dependent sinc conserved the signal in \textit{regime 1} compared to the 
+baseline dependent J$_0$, while the baseline dependent J$_0$ suppressed the 
+signal in \textit{regime 3} compared to the baseline dependent sinc. However, the reason for 
 this is that
-the main lobe width of the sinc is narrower than that of J$_0$ and J$_0$ has low 
-sidelobes level compared to the sinc.
+the MLW of the sinc is narrower than that of J$_0$ and the SLR of J$_0$ drops faster compared to the SLR of the sinc.
 \end{itemize}
 When performing the baseline dependent filters, smearing was eliminated within the FoV while we compressed 
 the data by integrating over a large time interval and wider frequency interval of a LR-MS. However,
@@ -1069,7 +1086,8 @@ overlap Butterwordth filter.}
   \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
 \end{figure*}
 \section{Conclusions}
-The goal of this paper was threefold. The first goal was to investigate **** windowing functions***\\
+The goal of this paper was threefold. The original motivation behind the work presented in this
+paper was to **** windowing functions***\\
 The second objective  was to study ****first algorithm data compression***\\
 The final objective was to ****second algorithm data compression and out field suppression*** \\
 Drawback and futures works*** drawback and futures works*****
