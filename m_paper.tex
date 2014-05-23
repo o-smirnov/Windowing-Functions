@@ -251,11 +251,11 @@ increases with the position of a source and the baseline length \citep{bregman20
 Fig.\ref{timessear1} and Fig.\ref{timessear2} show the attenuation of a 1 Jy source at various coordinates in the sky for various 
 integration time intervals and channels respectively. The instrument that is used in this results is the JVLA C configuration.
 \begin{itemize}
- \item Fig.\ref{timessear1} shows that more than $99\%$ of the source brightness is measured for integration less than or equal to $25s$ 
+ \item Figure \ref{timessear1} shows that more than $99\%$ of the source brightness is measured for integration less than or equal to $25s$ 
 when this source is within $[0^\circ,0.5^\circ]$. The FoV of JVLA C configuration is $1^\circ$ centred at the phase centre, it is seen on 
 this figure that, we can not maintain the $99\%$ of the source brightness within $[0^\circ,0.5^\circ]$ and suppressed the source out of 
 $[0^\circ,0.5^\circ]$ with these shorts integrations.
-  \item Fig.\ref{timessear2} also shows that more than $99\%$ of the source brightness is measured for channels less than or equal to 
+  \item Figure \ref{timessear2} also shows that more than $99\%$ of the source brightness is measured for channels less than or equal to 
 $1250$kHz when this source is within 
 $[0^\circ,0.5^\circ]$. We observed from this figure the same phenomenon as in Fig.\ref{timessear1} when the source is out of
 $[0^\circ,0.5^\circ]$.
@@ -268,11 +268,12 @@ For example, if the synthesis time is $T$ and the frequency range is $F$, then $
 and $F = N_{\nu}\times \Delta \nu$. The reduction of smearing becomes proportional to the width of the time integration and the channel. 
 Under this, smearing is totally eliminated over the field of view if $(\Delta t, \Delta \nu)$ remain sufficiently small ($\{ T, F\} \propto 
 \{\mathcal{N}_t, \mathcal{N}_{\nu}\}$). Although this principle has been known for some time, its  maintained sidelobes contamination from 
-out field of view sources (see Fig.\ref{timessear1} and Fig.\ref{timessear2}) and produced $\mathcal{N}_t\times\mathcal{N}_{\nu}$ uv-bins 
+out field of view sources (see Figure \ref{timessear1} and \ref{timessear2}) and produced $\mathcal{N}_t\times\mathcal{N}_{\nu}$ 
+uv-bins 
 which leads to storage issues. To reduce smearing when 
 $\Delta t$ and  $\Delta \nu$ are large enough with the aims to save memory, this work investigates various windowing functions (WF) in term 
 of the 
-optimal image plane response (see Fig.\ref{optimalres.pdf}). 
+optimal image plane response (see Figure \ref{fig:idealIRF}). 
 \begin{figure*}
   \centering
   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.pdf}\caption{Attenuation of the 
@@ -291,14 +292,14 @@ $W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv
 with the same weight $W_{pq,(t_i,\nu_j)}$. Therefore, the sampled visibilities can be presented mathematically as a $4\times n_t\times 
 n_{\nu}$ matrix of four polarization times and frequencies dependent matrices each of size $n_t\times n_{\nu}$.
 \begin{eqnarray*}
-\mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
+\mathbf{V}_{pq,(t,\nu)}^{samp,i}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
 ^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
 \end{eqnarray*}
 where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can re-write Eq.\ref{f4} 
 in terms of a series of linear transformations or functional models as:
 \begin{equation}
 V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
-\mathbf{V}_{pq,(t,\nu)}^{samp}.\label{eqbb:linear}
+\mathbf{V}_{pq,(t,\nu)}^{samp,i}.\label{eqbb:linear}
 \end{equation}
 Here, $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are  blocks diagonals matrices of size $(4n_t 
 n_{\nu})\times(4n_t n_{\nu})$, the block elements are $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ and $\mathbf{C}_{pq,(t,\nu)}$ 
@@ -321,9 +322,9 @@ $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ respecti
 sampled  visibilities 
 $\textbf{V}_{pq,(t,\nu)}^{samp,n_{block}}=\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ is a one 
 row matrix of size 
-$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp}$ on top of each other and the matrix 
+$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp,i}$ on top of each other and the matrix 
 $\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}$ is the sampling function for the visibilities $\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ of 
-size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. We can write:
+size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. Note that $i=1,\dots, N_v^{pq}$ and we can write:
 \begin{equation}
 \mathbf{V}_{pq,(t' \nu')}^{corr}= 
 \mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
@@ -338,19 +339,20 @@ measured over all baselines with $N_v=N_{bl}\times N_v^{pq}$ in this case. Here,
  \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
 \end{equation}
  Here, $\epsilon$ is the array error component. $\mathbf{A}$ is a \textit{design} matrix of size 
-$(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
+$(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
 \mathbf{S}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{F}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each order and correspond 
 to $N_v$ visibilities weights with $n_a$ the number of antenna. The \textit{design} matrix is defined as:
 \begin{equation*}
 \mathbf{A}_{}=
   \begin{bmatrix}
-    \mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{01,(t,\nu)}^{n_{block}} 
+    \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{01,(t,\nu)}^{n_{block}} 
 \cdot\mathbf{F}\\
     \vdots\\
-    \mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{ik,(t,\nu)}^{n_{block}} 
+    \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{ik,(t,\nu)}^{n_{block}} 
 \cdot\mathbf{F}\\
     \vdots \\
-    \mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} \cdot\mathbf{F}\\
+    \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} 
+\cdot\mathbf{F}\\
   \end{bmatrix}
 \end{equation*}
 The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived as follow:
@@ -368,12 +370,13 @@ by:
 \nu)}^{ samp } \bigg)\label{eq:noise1}.
 \end{eqnarray}
 Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
-$\mathbf{C}_{(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on 
+$\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ 
+on 
 top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
 respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model, 
-$\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}=\sigma_{}\mathbf{G}$, 
+$\mathbf{V}_{array,(t, \nu)}^{ samp } =\sigma_{}\mathbf{G}$, 
 where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
-n_{\nu}) \times (4 n_t n_{\nu})$ unity matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
+n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
 \begin{eqnarray}
  \widetilde{\epsilon}_{o,o}		
 &=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
@@ -617,9 +620,9 @@ A Gaussian window centered at mean zero with standard deviation $\sigma$ is give
 \begin{equation}
   G(t)= e^{-bt^{2}}, \label{eq:gauss}
 \end{equation}
-where, $b=(2\sigma_1^2)^{-1}$. The inverse Fourier transform of Eq.\ref{eq:gauss} is given by 
-$\mathcal{F}^{-1}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
-This shows us that the inverse Fourier transform of a Gaussian with standard deviation $\sigma_1$ is a Gaussian with a standard 
+where, $b=(2\sigma_1^2)^{-1}$. The  Fourier transform of Eq.\ref{eq:gauss} is given by 
+$\mathcal{F}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
+This shows us that the Fourier transform of a Gaussian with standard deviation $\sigma_1$ is a Gaussian with a standard 
 deviation $\sigma_2= (2\pi\sigma_1)^{-1}$.
 Figure \ref{fig:fig_gauss} and \ref{fig:fig_gauss_freq} give the graph of $G(t)$ and its IPR respectively, where $G(t)$ 
 is truncated within the cut-off time interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Note 
@@ -655,7 +658,7 @@ J_0(t) = \sum_{k=0}^{\infty}\frac{(-1)^k (x/2)^{2k}}{(k!)^2}
 J$_0(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
 (Figure \ref{fig:freq_resp_bessel}, blue curve), the IPR is flat at the frequency pass band (FoV) while the MLW becomes narrower,  the PSL 
 becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (Figure \ref{fig:freq_resp_bessel}, red curve).
-\subsection{The convolution theorem and WFs comparison}
+\subsection{Convolution theorem and WFs comparison}
 We begin with a continuous signal $V_{t}$ (supposed the data is only time dependent) and sample it in order to obtain the set of 
 measurement (see section \ref{sec:AvgCon}). When the signal is limited in the time interval $[-t_a,t_a]$ and convolved with a window 
 $W_{t}$, it 
@@ -666,19 +669,20 @@ effectively looking at the true Fourier transform of the signal through the conv
 \end{equation}
 One can replaced the convolution window, $W_{t}$ by its Fourier transform. The table below summarized the MLW, the PSL and the SLR of the 
 windows that had been study previously.\\
-\begin{tabular}{*3{c}}
+
+\hspace{0.008cm}\begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
  \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
   \footnotesize $|\mathcal{F}\Big\{W_{t}\Big\}|$ &\textbf{\footnotesize MLL (-3db)}&\textbf{\footnotesize PSL (db)} &\textbf{\footnotesize 
 SLR (db/octave) }  \\
   \hline\hline
-  {\footnotesize $|\mathcal{F}\Big\{\Pi(t)\Big\}|=|S(t)|$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize 
+  {\footnotesize $\Pi(t)$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize 
 $-6,78$}\\
-  {\footnotesize $|\mathcal{F}\Big\{S(t)\Big\}|=|\Pi(t)|$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  
+  {\footnotesize $S(t)$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  
 $-12,42$} \\
-  {\footnotesize $|\mathcal{F}\Big\{G(t)\Big\}|$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
-  {\footnotesize $|\mathcal{F}\Big\{BW(t)\Big\}|$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
-  {\footnotesize $|\mathcal{F}\Big\{J_0(t)\Big\}|$} &{\footnotesize  $\approx 0,39$} &{\footnotesize $ -15,01$ }&{\footnotesize  $ -14,01$}
+  {\footnotesize $G(t)$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
+  {\footnotesize $BW(t)$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
+  {\footnotesize $J_0(t)$} &{\footnotesize  $\approx 0,39$} &{\footnotesize $ -15,01$ }&{\footnotesize  $ -14,01$}
   \end{tabular}& \label{BDWBnoise}
 \end{tabular}\\
 \\
@@ -689,19 +693,19 @@ J$_0$(X,Y)=J$_0(\sqrt{X^2 + Y^2})$ and BW(X,Y)=BW($\sqrt{X^2 + Y^2})$ for a two 
 sinc, J$_0$ and BW respectively.
 The following designations will be used in the rest of this paper:
 
-Bl-WF-$n_{ovlpt}\times -$: Baseline dependent WF applied across the time direction; WF is one of the window under 
-consideration (sinc, J$_0$ and BW) and $2n_{ovlpt}$ is the number of overlap time bins (one dimensional BDWF).
+Bl-WF-$n_{ovlpt}\times -$: On dimensional BDWF applied across the time direction; WF is one of the window under 
+consideration (sinc, J$_0$ and BW) and $2n_{ovlpt}$ is the number of overlap time bins.
 
-Bl-WF-$-\times n_{ovlp\nu}$: Baseline dependent WF applied across the frequency direction with $2n_{ovlp\nu}$ the number of overlap 
-frequency bins (one dimensional BDWF).
+Bl-WF-$-\times n_{ovlp\nu}$: One dimensional BDWF applied across the frequency direction with $2n_{ovlp\nu}$ the number of overlap 
+frequency bins.
 
-Bl-WF-$n_{ovlpt}\times n_{ovlp\nu}$: Baseline dependent WF applied across both time and frequency direction (two dimensional BDWF).
+Bl-WF-$n_{ovlpt}\times n_{ovlp\nu}$: Two dimensional BDWF applied across both time and frequency direction.
 
-Bx-avg-$n_{ovlpt}\times -$: Boxcar averaging applied across the time direction (one dimensional boxcar averaging).
+Bx-avg-$0\times -$: Boxcar averaging applied across the time direction.
 
-Bx-avg-$-\times n_{ovlp\nu}$: Boxcar averaging applied across the frequency direction (one dimensional boxcar averaging). 
+Bx-avg-$-\times 0$: Boxcar averaging applied across the frequency direction. 
 
-Bx-avg-$n_{ovlpt}\times n_{ovlp\nu}$: Boxcar averaging applied across both time and frequency direction (two dimensional boxcar averaging).
+Bx-avg-$0\times 0$: Boxcar averaging applied across both time and frequency direction.
 \begin{figure*}
   \centering
   \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
@@ -739,12 +743,12 @@ response of Bessel first kind window}\label{fig:freq_resp_bessel} \end {minipage
 Therefore, we effectively applying a hybrid window in the Fourier plane; a Boxcar on the shorter baselines 
 and the WF under consideration on the longer baselines (see Figure \ref{fig:longshortmid-sinc}, \ref{fig:longshortmid-bessel} and 
 \ref{fig:longshortmid-butter}). We furthermore evaluated the array
-theoretical noise ratio, $R_{\epsilon}=\epsilon_{oo}^{bd}/\epsilon_{oo}^{bx}$ of BDWF 
-averaging  by the one of boxcar averaging both predicted in Eq.\ref{eq:noise} and compared this ratio to the simulation one. For the 
+theoretical noise ratio, $R_{\sigma}=\epsilon_{ar,oo}^{bd}/\epsilon_{ar,oo}^{bx}$ predicted in Eq.\ref{eq:noise} of a $2^\circ$ BDWF 
+averaging  by the one of boxcar averaging and compared the ratio to the simulation one. For the 
 analysis we used a JVLAC measurement set (MS) of 7min30s synthesis with a 1.5s
 integration time at 1.4Ghz, with 150 channels of width 125kHz. The MS is filled with 1Jy thermal noise. We then processed boxcar 
 averaging and BDWF averaging over 1min30s (width of the time integration) and 12500kHz (channel with). Two overlaps BDWF are presented, 
-the first overlap over 2min60s across time and 3125kHz across frequency and the second overlap over 3min45s across time and 6250kHz across 
+the first overlap over 2min60s across time and 3125kHz across frequency; the second overlap over 3min45s across time and 6250kHz across 
 frequency.
 \begin{figure*}
  \centering
@@ -777,12 +781,12 @@ averaging}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
 and \ref{fig:per-baseline-noise-ratio-BW} each \textit{dot mark} is the ratio 
 \footnote{$\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo}$, see 
 Eq.\ref{eqv:linear} for a recall of $\epsilon^{bd}_{pq,oo}$ and $\epsilon^{bx}_{pq,oo}$.} of per baseline centre pixel theoretical rms 
-noise ($\epsilon^{bd}_{pq,oo}$) of BDWF 
+noise ($\epsilon^{bd}_{pq,oo}$) of a $2^\circ$ BDWF 
 averaging  by the one of boxcar averaging ($\epsilon^{bx}_{pq,oo}$). The ratio is plotted as a function of 
 $\overline{\mathbf{d}}_t$ (the mean of the baseline $(u,v)$ distance). The figures show that, the noise increases with baseline 
 length.
    \item On shorter baselines, the noise estimate of BDWF averaging is approximately the same with the one 
-of boxcar averaging. However, on shorter baselines, the noise drops significantly with the number of  overlap time and frequency bins. As 
+of boxcar averaging. Also, on shorter baselines, the noise drops significantly with the number of  overlap time and frequency bins. As 
 mention above, this is because on 
 shorter  baselines, the BDWF are closer to the boxcar window, and when the number of overlap time  and 
 frequency  bins increases, the ratio:
@@ -855,12 +859,12 @@ The source flux density as a function of the source distance from the phase cent
 The study in Figure \ref{fig:Bl-sinc-FoV2}, \ref{fig:Bl-bessel-FoV2} and \ref{fig:Bl-butter-FoV2} 
 compared boxcar averaging with $2^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
 Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively. A study with a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
-$0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $2^\circ$ and "\textit{Regime 3}" from $2^\circ$ to infinity.
+$0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to infinity.
 The study in Figure \ref{fig:Bl-sinc-FoV4}, \ref{fig:Bl-bessel-FoV4} and \ref{fig:Bl-butter-FoV4} 
 compared boxcar averaging with $4^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
 Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively.  A study with a $4^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
 $0^\circ$ 
-to $2^\circ$; "\textit{Regime 2}" from $2^\circ$ to $4^\circ$ and "\textit{Regime 3}" from $4^\circ$ to infinity. 
+to $2^\circ$; "\textit{Regime 2}" from $2^\circ$ to $3^\circ$ and "\textit{Regime 3}" from $3^\circ$ to infinity. 
 % 
 % We considered three cases of the 
 % sinc ($Bl$-$sinc$-$W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
@@ -884,18 +888,15 @@ averaging than the sinc and J$_0$ overlap BDWF averaging while within $\approx 7
 averaging suppressed the source compared to the boxcar averaging. The performance of the overlap BW BDWF averaging is not accurate in this 
 regime.
 \item "\textit{Regime 3}" (far away sources attenuation): It appears on Figures \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4}  that  
-the curves of boxcar averaging (see bx-avg) mid that of Bl-sinc-$0\times0$ and Bl-J$_0$-$0\times0$ which implied an equivalent flux density 
+the curves of boxcar averaging (see Bx-avg-$0\times0$) mid that of Bl-sinc-$0\times0$ and Bl-J$_0$-$0\times0$ which implied an equivalent 
+flux density 
 attenuation while the curve of 
-Bl-sinc-$100\times25$, Bl-sinc-$150\times50$, Bl-J$_0$-$100\times25$ and Bl-J$_0$-$150\times50$ are below the one of bx-avg which implied 
+Bl-sinc-$100\times25$, Bl-sinc-$150\times50$, Bl-J$_0$-$100\times25$ and Bl-J$_0$-$150\times50$ are below the one of Bx-avg-$0\times0$ which 
+implied 
 that the overlap sinc and J$_0$ BDWF attenuated the source in the regime more than boxcar averaging. Also, as the overlap time and frequency 
-bins increase, the attenuation becomes significant. The similar results occurs with BW BDWF averaging $1^{\circ}$ away from the regime 
-starting interval.
+bins increase, the attenuation becomes significant. The similar results occurs $1^{\circ}$ away from the regime 
+starting interval with BW BDWF averaging.
 \end{itemize}
-The study describes the performances of the WF under consideration. As presented, the sinc performed well in \textit{Regime 1} compared 
-to J$_0$ while J$_0$ performed well in \textit{Regime 2} and \textit{Regime 3} compared to the sinc.
-The great potential  of the overlap windows is the accurate performance in the three regimes. An interesting improvement of this study is 
-the possibility of using WF capable of providing higher dynamic range images and attenuating sidelobes confusion. This advanced techniques 
-is required by the radio telescopesof the future.
 % 
 % suppression
 % the overlaps filters are below the one of boxcar averaging when the source is out
@@ -922,87 +923,96 @@ In this section, the maximum frequency and time integration intervals  that can 
 considered in the frequency and the time 
 directions without loss of signal amplitude in the field of interest while attenuating sidelobes confusion. The study considered $6$ sky 
 models each  containing a 1Jy source; the sky models differ by the source 
-coordinates with radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$.
+coordinates with radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$. The study compared one direction (frequency 
+or time) boxcar averaging to a $2^\circ$ BDWF averaging. As mention above, a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" 
+is defined from $0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to 
+infinity. Therefore, a sky model with a source radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ\}$ belongs to "\textit{Regime 1}", 
+$r= 1.5^\circ$ belongs to  "\textit{Regime 2}" and $r=2^\circ$ to "\textit{Regime 3}".
 \subsubsection{Frequency direction}
 Boxcar and BDWF averaging are processed across the frequency direction.
-Each of the sky models is simulated with a JVLA HR-MS of 1 timeslot of width $\Delta t^{hrms}=0.1s$ at $1.4$GHz. The raison of a short 
+Each of the sky models is simulated with a JVLAC HR-MS of 1 timeslot of width $\Delta t^{hrms}=0.1s$ at $1.4$GHz. The raison of a short 
 HR-MS 
 integration time is to avoid time direction smearing. The simulation considered 150 channels and varied the channels width $\Delta 
 \nu^{hrms}$ in the range $[125,1187.5]$kHz. The result of the process was saved into a LR-MS of 1 timeslot of width $\Delta 
 t^{lrms}=0.1s$ at $1.4$GHz with 1 
 channel of width $\Delta \nu^{hrms}\times50$kHz. We considered $\nu^{hrms}_{start}=\Delta \nu^{hrms}kHz$, 
 $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
-$\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.\\
-\\
-In Fig.\ref{fig:max-integ-freq-sinc-w1x1-fov2}-Fig.\ref{fig:max-integ-freq-butter-w1x50-fov2} we compared the result of boxcar frequency 
-averaging and of  Bl-sinc-$W n_{\nu,ovlp}$, Bl-J$_0$-$W n_{\nu,ovlp}$, Bl-BW-$W n_{\nu,ovlp}$ performed in the frequency 
-direction. We considered $n_{\nu,ovlp}\in\{0,50\}$ the number of frequency overlap bins. These results show that:
+$\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
+
+The source flux density as a function of the channel width is depicted in Figures \ref{fig:max-integ-freq-sinc-w1x1-fov2} to 
+\ref{fig:max-integ-freq-butter-w1x50-fov2}. The study compared the maximal channel width of the boxcar frequency  averaging 
+(Bx-avg-$-\times 0$) 
+with that of  $2^{\circ}$ FoV BDWF frequency averaging (Bl-sinc-$-\times 0$, Bl-sinc-$-\times 50$, Bl-J$_0$-$-\times 0$, Bl-J$_0$-$-\times 
+50$, Bl-BW-$-\times 0$ and Bl-BW-$-\times 50$). 
+The results show that:
 \begin{itemize}
- \item Firstly,  we can integrate over a wider LR-MS frequency interval without a loss of signal 
-amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
-closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from the phase 
-centre.  
- \item Secondly, looking on Fig.\ref{fig:max-integ-freq-sinc-w1x50-fov2} and Fig.\ref{fig:max-integ-freq-bessel-w1x50-fov2}, when the source 
-is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
-$[6.2,12.6]$ with the overlap frequency direction filters compared to boxcar frequency averaging. This is not the case with Fig.
-\ref{fig:max-integ-freq-butter-w1x50-fov2}. Nevertheless, out FoV source suppression start with the Butterwordth when the source is at 
-$2.5^{\circ}$ or above (see Fig.\ref{fig:Bl-butter-FoV2}) 
- \item Finally, the sinc filter performed well on signal recovery compared to J$_0$ and J$_0$ suppressed 
-the source when this is out of the FoV compared to the sinc.  
+ \item "\textit{Regime 1}":  The BDWF frequency averaging maintained the flux density of the source for wider frequency channels. However, 
+it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the channel width increases.
+ \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar frequency averaging attenuated the sources in 
+these regime compare to BDWF frequency averaging without overlap while overlap sinc and J$_0$ frequency averaging attenuated the source for 
+channels widths between $[6.2,12.6]$ compare to the boxcar. 
 \end{itemize}
 \subsubsection{Time direction}
-The baseline dependent windowing functions under considerations and the boxcar averaging are performed in the time direction.
-The sky models is simulated with a JVLA HR-MS of $300$ timeslots both of width $\Delta t^{hrms}s$ at 1.4GHz. The value of  
-$\Delta t^{hrms}$ is chosen within the interval $[0.5,5.5]$. We considered 1 channel of width, $\Delta \nu^{hrms}=125kHz$. The result of the 
-process was saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ integration time at 1.4GHz, with 
-1 channels of width $125kHz$. We considered $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, 
-$t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200\times\Delta t^{hrms}s$.\\
-In Fig.\ref{fig:max-integ-time-sinc-w1x1-fov2}-Fig.\ref{fig:max-integ-time-butter-w100x1-fov2} we compared the result of boxcar time
-averaging and of  Bl-sinc-$W n_{t,ovlp}$, Bl-J$_0$-$W n_{t,ovlp}$, Bl-BW-$W n_{t,ovlp}$ performed in the time 
-direction. We considered $n_{t,ovlp}\in\{0,100\}$ the number of time overlap bins. These results show that:
+Boxcar and BDWF averaging are processed across the time direction.
+ Each of the sky models is simulated with a JVLAC HR-MS of $300$ timeslots of width $\Delta t^{hrms}s$ at 1.4GHz. The value of  
+$\Delta t^{hrms}$ is chosen within the range $[0.5,5.5]$. The simulation considered  1 channel of width $\Delta \nu^{hrms}=125kHz$ and the 
+results of the process was saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ 
+integration time at 1.4GHz, with 
+1 channel of width $125kHz$. We considered $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, 
+$t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200\times\Delta t^{hrms}s$.
+
+The source flux density as a function of the integration time width is depicted in Figures \ref{fig:max-integ-time-sinc-w1x1-fov2} to 
+ \ref{fig:max-integ-time-butter-w100x1-fov2}. The study compared the maximal integration time width of the boxcar time  averaging 
+(Bx-avg-$0\times -$) 
+with that of  $2^{\circ}$ FoV BDWF time averaging (Bl-sinc-$100\times -$, Bl-sinc-$100\times -$, Bl-J$_0$-$0\times -$, 
+Bl-J$_0$-$100\times-$, Bl-BW-$0\times -$ and Bl-BW-$100\times -$). 
+The results show that:
 \begin{itemize}
- \item Firstly,  we can integrate over longer LR-MS time interval without a loss of signal 
-amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
-closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from the phase 
-centre.  
- \item Secondly, looking on Fig.\ref{fig:max-integ-time-sinc-w100x1-fov2} and Fig.\ref{fig:max-integ-time-bessel-w100x1-fov2}, when the 
-source is at $1.5^{\circ}$ and $2^{\circ}$, the attenuation is significant within 
-$[50,150]$ with the overlap time direction filters compared to boxcar time averaging. This is not the case with 
-Fig.\ref{fig:max-integ-time-butter-w100x1-fov2} (see the previous section)
- \item Finally, the sinc filter performed well on signal recovery compared to J$_0$ and J$_0$ suppressed 
-the source when this is out of the FoV compared to the sinc.  
+ \item "\textit{Regime 1}":  The BDWF time averaging maintained the flux density of the source for large integration time. 
+However, 
+it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time increases.
+ \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar time averaging attenuated the sources in 
+these regime compare to BDWF time averaging without overlap while overlap sinc and J$_0$ time averaging attenuated the source in a variable 
+integration time range compare to the boxcar (see black and red curve in Figure \ref{fig:max-integ-time-sinc-w100x1-fov2} and 
+\ref{fig:max-integ-time-bessel-w100x1-fov2}). The integration time range where the source is attenuated  depends on the 
+WF (sinc or J$_0$) and the overlap time bins which cause its to variate. 
 \end{itemize}
 \subsubsection{Time and frequency direction}
-The baseline dependent windowing functions under considerations and the boxcar averaging are performed both in the time and 
-frequency direction. The sky models is simulated with a JVLA HR-MS of $300$ timeslots, and we varied  the integration time $\Delta 
-t^{hrms}$ within the interval $[0.5,5.5]s$ at $1.4GHz$. We considered $150$ channels, and we varied the width $\Delta \nu^{hrms}$  
-within the interval $[ 
-125.,750.]kHz$.  The result of the process was saved into a LR-MS of  $100\times\Delta t^{hrms}s$ synthesis, with 
+Boxcar and BDWF averaging are processed across the time and the frequency direction.
+Each sky model is simulated with a JVLAC HR-MS of $300$ timeslots and  the integration time $\Delta 
+t^{hrms}$ is chosen within the range $[0.5,5.5]s$ at $1.4GHz$. The simulation considered $150$ channels of width $\Delta 
+\nu^{hrms}$  chosen within the range $[125.,750.]kHz$.  The result of the process was saved into a LR-MS of  $100\times\Delta t^{hrms}s$ 
+synthesis, with 
 $100\times\Delta t^{hrms}$ integration time and 1 channel of width $50\times\Delta \nu^{hrms}kHz$.  We considered, 
 $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, $t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and 
 $t^{lrms}_{end}=200\times\Delta t^{hrms}s$, $\nu^{hrms}_{start}=\Delta 
 \nu^{hrms}kHz$, $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
-$\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.\\ 
-In Fig.\ref{fig:max-integ-timefreq-sinc-w1x1-fov2}-Fig.\ref{fig:max-integ-timefreq-butter-w100x50-fov2} we compared the result of boxcar 
-time
-averaging and of  Bl-sinc-$W n_{t,ovlp}\times n_{\nu,ovlp}$, Bl-J$_0$-$W n_{t,ovlp}\times n_{\nu,ovlp}$, Bl-BW-$W n_{t,ovlp}\times 
-n_{\nu,ovlp}$ performed in the time and frequency direction. We considered $n_{t,ovlp}\times n_{\nu,ovlp}\in\{0\times 0,100\times 50\}$. 
-These results show that:
+$\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
+
+The source flux density as a function of the integration time and channels width is depicted in Figures 
+\ref{fig:max-integ-timefreq-sinc-w1x1-fov2} to 
+ \ref{fig:max-integ-timefreq-butter-w100x50-fov2}. The study compared the maximal integration time and channels width of two dimensional 
+boxcar  averaging (Bx-avg-$0\times 0$) 
+with that of  $2^{\circ}$ FoV of two BDWF averaging (Bl-sinc-$100\times 50$, Bl-sinc-$100\times 50$, Bl-J$_0$-$0\times 50$, 
+Bl-J$_0$-$100\times 50$, Bl-BW-$0\times 50$ and Bl-BW-$100\times 50$). 
+The results show that:
 \begin{itemize}
- \item Firstly,  we can integrate over both a longer LR-MS time and frequency interval without a loss of signal 
-amplitude. However, looking at these figures, the curves of the source at $0.09^{\circ},0.25^{\circ},0.5^{\circ}$ from the phase centre are 
-closer to the affine equation $y=1$, which differ from the curves when the source is at $1^{\circ},1.5^{\circ}, 2^{\circ}$ from the phase 
-centre.  
- \item Secondly, looking on Fig.\ref{fig:max-integ-timefreq-sinc-w100x50-fov2} and Fig.\ref{fig:max-integ-timefreq-bessel-w100x50-fov2}, 
-when the 
-source is at $1.5^{\circ}$ and $2^{\circ}$, it appear that the curves of the overlaps filters are below the one of boxcar averaging. These 
-results suggest that, when we are integrating both over a wider LR-MS time interval and frequency interval, the source is suppressed 
-significantly out of the FoV without any constraint on the integration time and frequency interval.  This is 
-not the case with Fig.\ref{fig:max-integ-timefreq-butter-w100x50-fov2} (see the previous sections for the explanation).
- \item Finally, the sinc filter performed well on signal recovery compared to J$_0$ and J$_0$ suppressed 
-the source when this is out of the FoV compared to the sinc. 
+ \item "\textit{Regime 1}": BDWF averaging maintained the flux density of the source for large integration time and wide channels widths. 
+However, 
+it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time and 
+channels width increases.
+ \item  "\textit{Regime 2}" and "\textit{Regime 3}":  It appear that the curves of the overlaps sinc and J$_0$ are below the one of boxcar 
+averaging for all integrations and channels widths. The 
+results suggest that one do not need to worry about sidelobes confusion for large integration time and wide channels widths. 
 \end{itemize}
-\subsection{One strong source in the sky model and attenuation efficiency}
+
+\hspace{-0.64cm}\textbf{Discussion:}
+The study describes the performances of the WF under consideration. As presented, the sinc performed well in \textit{Regime 1} compared 
+to the J$_0$ while the J$_0$ performed well in \textit{Regime 2} and \textit{Regime 3} compared to the sinc. The great potential  of the 
+two dimensional overlap sinc and the J$_0$ is the accurate performance in the three regimes. An interesting improvement of this study is 
+the possibility of using WF capable of providing higher dynamic range images. This advanced techniques 
+is required by the radio telescopes of the future.
+\section{Realistic field synthesis: 3C147}
  \begin{figure*}
     \centering
   \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
@@ -1024,10 +1034,16 @@ the source when this is out of the FoV compared to the sinc.
   direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
   150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
   \hspace{1cm}
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}\caption{Time and frequency 
+  \begin{minipage}{0.36\linewidth}
+  \includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}
+   \caption{Time and frequency 
+   direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+  integration synthesis at 6.25MHz bandwidth, natural weighting.}
+  \label{fig:Bl-butter-FoV4}\end{minipage}
+  \caption{Time and frequency 
   direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-  integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV4}\end{minipage}
-  \end{figure*}
+  integration synthesis at 6.25MHz bandwidth, natural weighting.}
+  \end{figure*} 
   \begin{figure*}
     \centering
   \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
@@ -1130,14 +1146,15 @@ overlap Butterwordth filter.}
   \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
 \end{figure*}
 \section{Conclusions}
-The goal of this paper was threefold. The original motivation behind the work presented in this
+The goal of this paper was threefold. The original motivation behind the work presented in this
+
 paper was to **** windowing functions***\\
 The second objective  was to study ****first algorithm data compression***\\
 The final objective was to ****second algorithm data compression and out field suppression*** \\
 Drawback and futures works*** drawback and futures works*****
 \section*{Acknowledgements}
-This research has made use of the MeqTrees software system, designed to implement numerical models for third-generation calibration (3GC), 
- Python Extensions for Interferometry and Python. It has been supported by the South Africa National Research Foundation.
+The research has made use of the MeqTrees software system, designed to implement numerical models for third-generation calibration (3GC), 
+ Python Extensions for Interferometry and Python. The research has been supported by the South Africa National Research Foundation.
 \bibliographystyle{mn2e}
 \bibliography{m_paper}
 \appendix
@@ -1145,8 +1162,7 @@ This research has made use of the MeqTrees software system, designed to implemen
 \label{app:complexmatrices}
 The complex matrices used in section \ref{sec:imaging} are explicitly derived in this appendix. In Eq.\ref{eqbb:linear}, the matrices
 $\mathbf{C}_{(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are blocks diagonals  both of size $(4n_t n_{\nu})\times(4n_t 
-n_{\nu})$, and  the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp}$ is a vector of size $4\times (n_t n_{\nu})$. These matrices are 
-explicitly expressed as follow:
+n_{\nu})$ explicitly expressed as follow:
 \begin{equation*}
 \mathbf{C}_{(t,\nu)}^{block}=
   \begin{bmatrix}
@@ -1165,26 +1181,23 @@ explicitly expressed as follow:
       0 & 0 & 0 & \mathbf{W}_{pq,(t,\nu)}\\
   \end{bmatrix}
 \end{equation*}
-\begin{eqnarray*}
-\mathbf{V}_{pq,(t,\nu)}^{samp}&=&\Bigg[\mathcal{V}_{pq,(t,\nu)}^{0},\mathcal{ V } 
-^1_{pq,(t,\nu)},\mathcal{V}^2_{pq,(t,\nu)},\mathcal{V}_{pq,(t,\nu)}^{3 } \Bigg]^T. 
-\end{eqnarray*}
-In Eq.\ref{eq2:block}, the matrices $\mathbf{C}_{(t,\nu)}^{block,n}$ and 
-$\mathbf{W}_{pq,(t,\nu)}^{block,n}$ are blocks diagonals both of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$, and 
-the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp,n}$ is a one row matrix of size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ 
+In Eq.\ref{eq2:block}, the matrices $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and 
+$\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are blocks diagonals both of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$, and 
+the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp,nblock}$ is a one row matrix of size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t 
+n_{\nu})$ 
 made of $\textbf{V}_{pq,(t,\nu)}^{samp}$. These matrices are explicitly expressed as follow:
 \begin{equation*}
-\mathbf{C}_{(t,\nu)}^{block,n}=
+\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}=
   \begin{bmatrix}
-    \mathbf{C}_{(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
+    \mathbf{C}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
     \vdots & \vdots & \vdots & \vdots & \vdots\\
-    0 & \dots& \mathbf{C}_{(t,\nu)}^{block} &\dots & 0\\
+    0 & \dots& \mathbf{C}_{pq,(t,\nu)}^{block} &\dots & 0\\
     \vdots & \vdots & \vdots & \vdots & \vdots \\
-    0 & \dots& 0 &\dots & \mathbf{C}_{(t,\nu)}^{block}\\
+    0 & \dots& 0 &\dots & \mathbf{C}_{pq,(t,\nu)}^{block}\\
   \end{bmatrix}
 \end{equation*}
 \begin{equation*}
-\mathbf{W}_{pq,(t,\nu)}^{block,n}=
+\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}=
   \begin{bmatrix}
     \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
     \vdots & \vdots & \vdots & \vdots & \vdots\\
@@ -1194,45 +1207,45 @@ made of $\textbf{V}_{pq,(t,\nu)}^{samp}$. These matrices are explicitly expresse
   \end{bmatrix}
 \end{equation*}
 \begin{eqnarray*}
-\mathbf{V}_{pq,(t,\nu)}^{samp,n}&=&\Bigg[\mathbf{V}_{pq,(t,\nu)}^{samp},\dots, \mathbf{V}_{pq,(t,\nu)}^{samp}, \dots,
-\mathbf{V}_{pq,(t,\nu)}^{samp}\Bigg]^T. 
+\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}&=&\Big(\mathbf{V}_{pq,(t,\nu)}^{samp,1},\dots, \mathbf{V}_{pq,(t,\nu)}^{samp,k}, \dots,
+\mathbf{V}_{pq,(t,\nu)}^{samp,N^{pq}_v}\Big)^{\dagger}. 
 \end{eqnarray*}
-In Eq.\ref{eq:noise}, the matrix $\mathbf{B}$ of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ is defined as follow
+In Eq.\ref{eq:noise}, the matrix $\mathbf{B}$ of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ is defined as follow:
 \begin{equation*}
 \mathbf{B}_{}=
   \begin{bmatrix}
-    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n}\cdot \mathbf{S}_{01,(t,\nu)}^{n}\\
+    \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\\
     \vdots\\
-    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n}\cdot \mathbf{S}_{ik,(t,\nu)}^{n}\\
+    \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\\
     \vdots \\
-    \mathbf{C}_{(t,\nu)}^{block,n}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n}\cdot \mathbf{S}_{jl,(t,\nu)}^{n}
+    \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}
   \end{bmatrix}
 \end{equation*}
-\section[]{Sky tapering function with averaging}
-\label{label:similarimaging}
-The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
-measured at each baseline.
-\begin{eqnarray*}
- \mathcal{I}^{D}_{l,m}&=& \mathcal{F}^{-1}\Bigg\{\sum_{pq} c_{pq,(t,\nu)}\cdot\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg\}\\
-		      &=&\sum_{pq} \mathcal{F}^{-1}\{c_{pq,(t,\nu)}\}\circ \Big(\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot 
-\mathcal{F}^{-1}\{V_{pq,(t,\nu)}^{samp}\}\Big)
-\end{eqnarray*}
-\begin{eqnarray*}	     
-\mathcal{I}^{D}_{l,m}&=&\sum_{pq}\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot\bigg(\mathcal{F}^{-1}\{S_{pq}\cdot V_{pq,(t,\nu)}\}
-\bigg)
-\end{eqnarray*}
-recall from section \ref{sec:AvgCon} that $S_{pq}$ is the sampling function of the baseline $pq$ and $\Pi_{pq,(t,\nu)}$ is the 
-boxcar window.  This can be re-written as
-\begin{eqnarray*}	     
-\mathcal{I}^{D}_{l,m}&=&\sum_{pq} \mathcal{R}_{pq} \cdot\bigg(\mathcal{B}_{pq}\circ \mathcal{I}^{sky}_{l,m}\bigg)
-\end{eqnarray*}
-If all baselines are seen the same sky, then we can write:
-\begin{eqnarray*}	     
-\mathcal{I}^{D}_{l,m}&=&\mathcal{R}_{}\cdot\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \mathcal{I}^{sky}_{l,m}\Bigg)
-\end{eqnarray*}
-Here, $\mathcal{B}_{pq}$ is the point spread function for the baseline $pq$ and $\mathcal{R}_{pq}= \mathcal{R}$ is the sky taper, where 
-$\mathcal{R}_{}=sinc$.\\
-\\
+% \section[]{Sky tapering function with averaging}
+% \label{label:similarimaging}
+% The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
+% measured at each baseline.
+% \begin{eqnarray*}
+%  \mathcal{I}^{D}_{l,m}&=& \mathcal{F}^{-1}\Bigg\{\sum_{pq} c_{pq,(t,\nu)}\cdot\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg\}\\
+% 		      &=&\sum_{pq} \mathcal{F}^{-1}\{c_{pq,(t,\nu)}\}\circ \Big(\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot 
+% \mathcal{F}^{-1}\{V_{pq,(t,\nu)}^{samp}\}\Big)
+% \end{eqnarray*}
+% \begin{eqnarray*}	     
+% \mathcal{I}^{D}_{l,m}&=&\sum_{pq}\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot\bigg(\mathcal{F}^{-1}\{S_{pq}\cdot V_{pq,(t,\nu)}\}
+% \bigg)
+% \end{eqnarray*}
+% recall from section \ref{sec:AvgCon} that $S_{pq}$ is the sampling function of the baseline $pq$ and $\Pi_{pq,(t,\nu)}$ is the 
+% boxcar window.  This can be re-written as
+% \begin{eqnarray*}	     
+% \mathcal{I}^{D}_{l,m}&=&\sum_{pq} \mathcal{R}_{pq} \cdot\bigg(\mathcal{B}_{pq}\circ \mathcal{I}^{sky}_{l,m}\bigg)
+% \end{eqnarray*}
+% If all baselines are seen the same sky, then we can write:
+% \begin{eqnarray*}	     
+% \mathcal{I}^{D}_{l,m}&=&\mathcal{R}_{}\cdot\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \mathcal{I}^{sky}_{l,m}\Bigg)
+% \end{eqnarray*}
+% Here, $\mathcal{B}_{pq}$ is the point spread function for the baseline $pq$ and $\mathcal{R}_{pq}= \mathcal{R}$ is the sky taper, where 
+% $\mathcal{R}_{}=sinc$.\\
+% \\
 \bsp
 \label{lastpage}
 \end{document}
