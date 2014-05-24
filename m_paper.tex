@@ -220,24 +220,23 @@ the centre time interval and centre frequency interval.
 %$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
 Nevertheless, for all combined two elements $(p,q)$ of an interferometer array, the current efficient observing mode suggest that, 
 $\Pi_{pq,(t,\nu)}$ remain constant ($\Pi_{pq,(t,\nu)}=1/n_t n_{\nu})$ across baselines $(u,v)$ measurement bins, although the distance 
-between a uv-bin and the centre uv-bin is proportional to the baseline length. In this paper, we evaluated the
-effects of such observing mode (see section \ref{sec:effectbw}) and presented a practically usable
+between a uv-bin and the centre uv-bin is proportional to the baseline length. The present work evaluate  the
+effects of such observing mode (see section \ref{sec:effectbw}) and present a practically usable
 observing mode (see section \ref{baseline1}) of 
-radio interferometric measurements. Our approach consist of assigning a weight of a uv-bin depending on the baseline 
-length and the distance between the uv-bin and the centre uv-bin. In the rest of this paper, we refer averaging as boxcar 
+radio interferometric measurements. The approach consists of assigning a weight of a uv-bin depending on the distance between the uv-bin 
+and the centre uv-bin. The remaining sections refer averaging as boxcar 
 averaging and our approach as baseline dependent \textit{windowing function}\footnote{\textit{windowing function} will be replaced by the 
 window we used. For example $sinc$, $Butterwordth$, etc}(BDWF) averaging.
 \subsection{Effect of time and bandwidth averaging}
 \label{sec:effectbw}
-This problem arise when the interferometer array is used to observe wide fields. Because of the finite time and frequency 
-integration intervals, Eq.\ref{eq2:conti} that take the rotation of the Earth into account and links
-the visibility to the image is no 
-longer exactly true and hold in the sampled form in the limit when $(\Delta t, \Delta \nu) \rightarrow (0,0)$. Nevertheless, as mention 
+This problem arises when the interferometer array is used to observe wide fields. Finite time and frequency 
+integration intervals make  Eq.\ref{eq2:conti} no longer exactly true and hold in the sampled form in the limit when $(\Delta t, \Delta 
+\nu) \rightarrow (0,0)$. Nevertheless, as mention 
 above, the Fourier phase components $2\pi \phi(u,v,w)$ is a function of the direction in the sky, the wavelength, the separation of 
 antennas as well as the time and frequency integration interval [see \citep{bregman2012system} for an intensive discussion]. Therefore, on 
 long baselines, a maximal Fourier phase component occurs for off phase centre  sources (with radius $\sqrt{l^2 + m^2}$ from the phase 
 centre) and course the distortion of these sources,  becomes more distorted as  $\sqrt{l^2 + m^2}$ increases and significant for large 
-$\Delta t$ and  $\Delta \nu$. A small phase occur on short baselines, this explained while the degree of smearing 
+$\Delta t$ and  $\Delta \nu$ while small phase occurs on short baselines. This is the raison of which the degree of smearing 
 increases with the position of a source and the baseline length \citep{bregman2012system}.\\
 % \\
 % During imaging \citep{briggs1999imaging}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
@@ -248,19 +247,18 @@ increases with the position of a source and the baseline length \citep{bregman20
 % as the integration time and frequency. Therefore, a maximal phase will occur on longer baselines while a small phase will occur on shorter 
 % baselines. This explained while the degree of smearing increases with the position of a source and the baseline 
 % length \citep{bregman2012system}.\\
-Fig.\ref{timessear1} and Fig.\ref{timessear2} show the attenuation of a 1 Jy source at various coordinates in the sky for various 
-integration time intervals and channels respectively. The instrument that is used in this results is the JVLA C configuration.
+Fig.\ref{timessear1} and Fig.\ref{timessear2} show the attenuation of  1 Jy source at various coordinates in the sky for various 
+integration time intervals and channels respectively. The instrument used is JVLAC configuration.
 \begin{itemize}
- \item Figure \ref{timessear1} shows that more than $99\%$ of the source brightness is measured for integration less than or equal to $25s$ 
-when this source is within $[0^\circ,0.5^\circ]$. The FoV of JVLA C configuration is $1^\circ$ centred at the phase centre, it is seen on 
-this figure that, we can not maintain the $99\%$ of the source brightness within $[0^\circ,0.5^\circ]$ and suppressed the source out of 
-$[0^\circ,0.5^\circ]$ with these shorts integrations.
-  \item Figure \ref{timessear2} also shows that more than $99\%$ of the source brightness is measured for channels less than or equal to 
-$1250$kHz when this source is within 
-$[0^\circ,0.5^\circ]$. We observed from this figure the same phenomenon as in Fig.\ref{timessear1} when the source is out of
-$[0^\circ,0.5^\circ]$.
+ \item Figure \ref{timessear1} shows that $\approx 99\%$ of the source flux density is measured for integration $\leq 25s$ 
+when the source is within $[0^\circ,0.5^\circ]$. The FoV of JVLAC  is $1^\circ$ centred at the phase centre, it is seen on 
+the figure that, $\approx 99\%$ of the source flux density can not be maintained within $[0^\circ,0.5^\circ]$ while the source is attenuated
+out of the interval for shorts integrations.
+  \item Figure \ref{timessear2} also shows $\approx 99\%$ of the source flux density is measured for channels $\leq1250$kHz when the 
+source is within $[0^\circ,0.5^\circ]$. The same phenomenon is observed in Figure \ref{timessear1} when the source is 
+out of $[0^\circ,0.5^\circ]$.
 \end{itemize}
-To reduce smearing with the current observing mode (boxcar averaging), the synthesis time and the frequency range are breaking into a 
+Reducing smearing with the current observing mode (boxcar averaging), the synthesis time and the frequency range are breaking into a 
 number of small time 
 integration and narrow channels. For each time integration or channel, correlation  is then treated as a distinct visibility each with its 
 own uv-bin.
@@ -270,16 +268,20 @@ Under this, smearing is totally eliminated over the field of view if $(\Delta t,
 \{\mathcal{N}_t, \mathcal{N}_{\nu}\}$). Although this principle has been known for some time, its  maintained sidelobes contamination from 
 out field of view sources (see Figure \ref{timessear1} and \ref{timessear2}) and produced $\mathcal{N}_t\times\mathcal{N}_{\nu}$ 
 uv-bins 
-which leads to storage issues. To reduce smearing when 
+which leads to storage issues. Reducing smearing when 
 $\Delta t$ and  $\Delta \nu$ are large enough with the aims to save memory, this work investigates various windowing functions (WF) in term 
 of the 
 optimal image plane response (see Figure \ref{fig:idealIRF}). 
 \begin{figure*}
   \centering
+%   distance.plot(wind1='',r1='Rav10.npy',l1='Lav10.npy',l2='Lav25.npy',l3='Lav50.npy',l4='Lav100.npy',l5='Lav150.npy',title=r'Time averaging; 
+% JVLAC snapshot; natural weighting',xlabel=r'Distance from the phase centre[deg]')
   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.pdf}\caption{Attenuation of the 
 intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at $1.4$GHz with
 125kHz bandwidth.}\label{timessear1}\end{minipage}
 \hspace{1cm}
+% distance.plot(wind1='',r1='Rav10000.npy',l1='Lav100000.npy',l2='Lav1250000.npy',l3='Lav2500000.npy',l4='Lav5000000.npy',l5='Lav6250000.npy',
+% title=r'Bandwidth averaging; JVLAC snapshot; natural weighting',xlabel=r'Distance from the phase centre[deg]')
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_bandwid_averaging.pdf}\caption{Attenuation of the 
 intensity of a 1Jy source move from the phase centre for $1$s integration synthesis at $1.4$GHz with
 $\Delta \nu$ bandwidth.}\label{timessear2}\end{minipage}
@@ -287,7 +289,7 @@ $\Delta \nu$ bandwidth.}\label{timessear2}\end{minipage}
 \subsection{Imaging and noise estimate}
 \label{sec:imaging}
 Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
-on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is a $n_t \times n_{\nu}$ matrix of elements 
+on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
 $W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv-bin is a set of four Stocks elements (XX, XY YX, YY) each 
 with the same weight $W_{pq,(t_i,\nu_j)}$. Therefore, the sampled visibilities can be presented mathematically as a $4\times n_t\times 
 n_{\nu}$ matrix of four polarization times and frequencies dependent matrices each of size $n_t\times n_{\nu}$.
@@ -449,7 +451,7 @@ If $f_{pq}$ is a \textit{baseline dependent windowing function}, then:
 Here $d_{t_i}$ is an element of the vector $\mathbf{d}_{t}=\overline{\overline{\mathbf{U}^{s}}}_{pq,t}$ and $d_{\nu_j}$ is an element 
 of the vector $\mathbf{d}^{}_{\nu}$.
 \end{definition}
-The previous approach is exact but unfortunately, we do not suppressed confusion sources and we lost in 
+The previous approach is exact but unfortunately, we do not suppress confusion sources and we lost in 
 sensitivity. Although boxcar averaging \textit{means high sensitivity}, we do need to attenuate confusion sources in such a 
 way that the overall Signal to Noise Ratio (SNR) becomes higher than that of boxcar averaging. The following section describe such 
 method.
@@ -462,17 +464,16 @@ the ideal when the WF order increases. An overlap BDWF aims to extend the order 
 such a way that, we approach the ideal IPR. The only drawback of this technique is the increase in time needed for processing the 
 output sample of the signals being integrate.
 
-Figure \ref{fig:corrSigVLAMxBl_overlapGdelta} shows the behaviour of an overlap BDFW. We noticed from the figure that, with an overlap 
-BDWF, 
-the weight of a uv-bin is not defined by a unique BDWF but by the strength of the correlation between the overall  overlapping BDWF. 
+Figure \ref{fig:corrSigVLAMxBl_overlapGdelta} shows an overlap BDFW. The weight of a uv-bin is not defined by a unique BDWF but by the 
+strength of the correlation between the overall  overlapping BDWF. 
 That said, the weight of a uv-bin becomes the summation of overlapping BDWF samples on the uv-bin normalized by the summation of the 
 overall uv-bins weights within the range where the overlap BDWF are defined.
 \begin{figure*}
 \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/uvcov.png}\caption{Coverage of 
 one integration}\label{fig:uvcov}\end{minipage}
   \hspace{1cm} 
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlap 
-		\textit{BDWF's}: $\Delta_u t=\emptyset$.}\label{fig:corrSigVLAMxBl_overlapGdelta}\end{minipage}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlap 
+baselines dependent windowing functions}\label{fig:corrSigVLAMxBl_overlapGdelta}\end{minipage}
 \end{figure*}
 %Now, consider that $f^{a}_{pq}$ is an overlap-\textit{BDWF} 
 %of width  $\Delta t$ and $\Delta \nu$ across the time and frequency direction respectively.
@@ -611,7 +612,7 @@ For a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation}
-Figure \ref{fig:fig_box} and \ref{fig:fig_box_freq} give the graph of $\Pi(t)$ and its IPR  respectively. The blue and 
+Figures \ref{fig:fig_box} and \ref{fig:fig_box_freq} give the graph of $\Pi(t)$ and its IPR  respectively. The blue and 
 the red curves of Figure \ref{fig:fig_box_freq} are the IPRs of $\Pi(t)$ for a cut-off time interval $[-t_a, t_a]$ and 
 $[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is large, the MLW of the IPR is 
 narrower, the PSL is lower and the SLR drops faster.
@@ -629,7 +630,7 @@ is truncated within the cut-off time interval $[-t_a,t_a]$, with $b = 3$ for the
 that when the standard deviation is large, the MLW of the IPR is narrower, the PSL is higher and the SLR drops slowly compared to a 
 smaller standard deviation.
 \subsection{Butterworth window}
-The time response of the Butterworth window is flat  in the time pass band, and rolls off towards zero in the time stop band, and it is 
+The time response of the Butterworth window is flat  in the time pass band, and rolls off towards zero in the time stop band and it is 
 characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. The two parameters control the 
 FoV and sidelobes  attenuation. The time response of the Butterworth window is given by:
 \begin{equation}
@@ -643,7 +644,7 @@ The sinc window is defined as follow:
 \begin{equation}
 S(t)= sinc\big(\pi b t\big).
 \end{equation}
- Figure \ref{fig:fig_sinc} and \ref{fig:fig_sinc_freq} give the graph of $S(t)$ and its IPR respectively, where 
+ Figures \ref{fig:fig_sinc} and \ref{fig:fig_sinc_freq} give the graph of $S(t)$ and its IPR respectively, where 
 $S(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
 (see Figure \ref{fig:fig_sinc_freq}, blue curve), the IPR becomes perfectly flat at the frequency pass band (FoV) while the MLW becomes 
 narrower,  the PSL 
@@ -654,7 +655,7 @@ curve).
 \begin{equation}
 J_0(t) = \sum_{k=0}^{\infty}\frac{(-1)^k (x/2)^{2k}}{(k!)^2}
 \end{equation}
- Figure \ref{fig:bessel} and Figure \ref{fig:freq_resp_bessel} give the graph of J$_0(t)$ and its IPR respectively, where 
+ Figures \ref{fig:bessel} and  \ref{fig:freq_resp_bessel} give the graph of J$_0(t)$ and its IPR respectively, where 
 J$_0(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
 (Figure \ref{fig:freq_resp_bessel}, blue curve), the IPR is flat at the frequency pass band (FoV) while the MLW becomes narrower,  the PSL 
 becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (Figure \ref{fig:freq_resp_bessel}, red curve).
@@ -708,33 +709,33 @@ Bx-avg-$-\times 0$: Boxcar averaging applied across the frequency direction.
 Bx-avg-$0\times 0$: Boxcar averaging applied across both time and frequency direction.
 \begin{figure*}
   \centering
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
 function.}\label{fig:fig_box}\end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_box.pdf}\caption{Frequency response of a boxcar 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_box.pdf}\caption{Frequency response of a boxcar 
 window}\label{fig:fig_box_freq}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/sinc.png}\caption{Sinc 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/sinc.png}\caption{Sinc 
 window}\label{fig:fig_sinc}\end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_sinc.pdf}\caption{Frequency response of the 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_sinc.pdf}\caption{Frequency response of the 
 sinc window }\label{fig:fig_sinc_freq}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Butterwordth.pdf}\caption{ Butterwordth 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Butterwordth.pdf}\caption{ Butterwordth 
 windows}\label{fig:fig_butter}\end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_butterwordh.pdf}\caption{Frequency response 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_butterwordh.pdf}\caption{Frequency response 
 of the Butterwordth windows}\label{fig:fig_butter_freq}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Gaussian windows}\label{fig:fig_gauss}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Gaussian windows}\label{fig:fig_gauss}
 \end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Frequency response of 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Frequency response of 
 Gaussian windows}\label{fig:fig_gauss_freq} \end{minipage}
 \end{figure*}
 \begin{figure*}
   \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/bessel.pdf}\caption{Bessel 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/bessel.pdf}\caption{Bessel 
 first King windows NB: this figure is coming very soon}\label{fig:bessel}\end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_bessel.pdf}\caption{Frequency 
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_bessel.pdf}\caption{Frequency 
 response of Bessel first kind window}\label{fig:freq_resp_bessel} \end {minipage}
 \end{figure*}
 \subsection{Theoretical noise estimate and simulation noise}
@@ -813,7 +814,7 @@ sky map centre pixel while the simulation results are an average of the sky map 
   {\footnotesize Bl-BW-150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $1.44$}
 \end{tabular}
 \section{Simulations and results}
-In order to test the approaches described in section \ref{baseline1} and \ref{baseline2}, multiple tests are performed on JVLAC 
+In order to test the approaches described in sections \ref{baseline1} and \ref{baseline2}, multiple tests are performed on JVLAC 
 simulated MS. This section summarized and discussed those results. Two MS are used in 
 the simulation, a high resolution MS (HR-MS) that contains the observed JVLAC data of short integration time and frequency and a low 
 resolution 
@@ -921,10 +922,10 @@ starting interval with BW BDWF averaging.
 \subsection{Maximum integration}
 In this section, the maximum frequency and time integration intervals  that can be 
 considered in the frequency and the time 
-directions without loss of signal amplitude in the field of interest while attenuating sidelobes confusion. The study considered $6$ sky 
-models each  containing a 1Jy source; the sky models differ by the source 
-coordinates with radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$. The study compared one direction (frequency 
-or time) boxcar averaging to a $2^\circ$ BDWF averaging. As mention above, a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" 
+directions without loss of signal amplitude is evaluated. The study considered $6$ sky 
+models each  containing 1Jy source; the sky models differ by the source 
+coordinates with radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$. The study compared the results of  boxcar 
+averaging to a $2^\circ$ BDWF averaging. As mention above, a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" 
 is defined from $0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to 
 infinity. Therefore, a sky model with a source radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ\}$ belongs to "\textit{Regime 1}", 
 $r= 1.5^\circ$ belongs to  "\textit{Regime 2}" and $r=2^\circ$ to "\textit{Regime 3}".
@@ -1015,26 +1016,26 @@ is required by the radio telescopes of the future.
 \section{Realistic field synthesis: 3C147}
  \begin{figure*}
     \centering
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
   direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV2}\end{minipage}
   \hspace{1cm}
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
   direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV4} 
   \end{minipage}\\
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
   direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV2}\end{minipage}
   \hspace{1cm}
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
   direction Bessel first kind filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV4}\end{minipage}\\
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
   direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
   150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
   \hspace{1cm}
-  \begin{minipage}{0.36\linewidth}
+  \begin{minipage}{0.38\linewidth}
   \includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}
    \caption{Time and frequency 
    direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
@@ -1046,34 +1047,34 @@ is required by the radio telescopes of the future.
   \end{figure*} 
   \begin{figure*}
     \centering
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
     \caption{Response to a 1Jy source at different positions, as a function of  bandwidth with $2^{\circ}$ frequency sinc filter.}
     \label{fig:max-integ-freq-sinc-w1x1-fov2}
   \end{minipage}
   \hspace{1cm}
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap sinc 
 filter.}
         \label{fig:max-integ-freq-sinc-w1x50-fov2}
         \end{minipage}\\
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
 of 
   order zero filter.}
         \label{fig:max-integ-freq-bessel-w1x1-fov2}
         \end{minipage}
   \hspace{1cm}
-  \begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel 
 first kind filter of order zero filter.}
         \label{fig:max-integ-freq-bessel-w1x50-fov2}
         \end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Butterwordth filter.}
       \label{fig:max-integ-freq-butter-w1x1-fov2}
       \end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Butterwordth 
 filter.}
       \label{fig:max-integ-freq-butter-w1x50-fov2}
@@ -1084,63 +1085,63 @@ filter.}
 %plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
 	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
   \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
 	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time sinc filter.}
 	\label{fig:max-integ-time-sinc-w1x1-fov2}
 	\end{minipage} \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
         \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap sinc 
 filter.}
       \label{fig:max-integ-time-sinc-w100x1-fov2}
       \end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Bessel first kind of 
 order zero
 filter.}
     \label{fig:max-integ-time-bessel-w1x1-fov2}
     \end{minipage} 
  \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
       Bessel first kind of order zero filter.}
     \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Butterwordth 
 filter.}
     \label{fig:max-integ-time-butter-w1x1-fov2}
     \end{minipage} 
  \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
       Butterwordth filter.}
     \label{fig:max-integ-time-butter-w100x1-fov2}\end{minipage}   
 \end{figure*}
 \begin{figure*}
   \centering
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
 sinc filter.}
     \label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
  \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
  overlap sinc filter.}
     \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
 Bessel first kind of order zero filter.}
       \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
 overlap Bessel first kind of order zero filter.}
   \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
 Butterwordth filter.}
       \label{fig:max-integ-timefreq-butter-w1x1-fov2}\end{minipage}
 \hspace{1cm}
-\begin{minipage}{0.36\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
+\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
 overlap Butterwordth filter.}
   \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
@@ -1153,7 +1154,7 @@ The second objective  was to study ****first algorithm data compression***\\
 The final objective was to ****second algorithm data compression and out field suppression*** \\
 Drawback and futures works*** drawback and futures works*****
 \section*{Acknowledgements}
-The research has made use of the MeqTrees software system, designed to implement numerical models for third-generation calibration (3GC), 
+The research  made use of  MeqTrees software system designed to implement numerical models for third-generation calibration (3GC) 
  Python Extensions for Interferometry and Python. The research has been supported by the South Africa National Research Foundation.
 \bibliographystyle{mn2e}
 \bibliography{m_paper}
