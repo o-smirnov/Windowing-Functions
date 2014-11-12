@@ -1,0 +1,131 @@
+%\documentclass[oldversion,referee]{aa}
+\documentclass[]{aa}
+%\documentclass[]{aa}
+\usepackage{graphicx}
+\usepackage{psfig}
+\usepackage{epstopdf}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{natbib}
+\usepackage{rotate}
+\usepackage{lscape}
+%\usepackage{dsfont}
+\usepackage{aalongtable}
+\usepackage{supertabular}
+\usepackage{mathbbol}
+\usepackage{bm}
+\usepackage{mathtools}
+%\usepackage[subnum]{cases}
+\usepackage{enumerate}
+\usepackage{draftcopy}
+%\psdraft
+
+\usepackage{arydshln}
+\usepackage{amsmath}
+
+\bibpunct{(}{)}{;}{a}{}{,}
+
+\newcommand{\tbsp}{\rule{0pt}{18pt}}
+\newcommand\sqdeg{deg$^{2}$}
+\newcommand\psqdeg{deg$^{-2}$}
+\newcommand\ugriz{u$^*$g'r'i'z'}
+\newcommand\mic{$\mu$m}
+\newcommand\AAn{\AA~}
+\newcommand\sfr{SFR$_{0.5}$}
+\newcommand\ssfr{sSFR$_{0.5}$}
+\newcommand\msol{\mbox{M$_{\odot}$}}
+\newcommand\wph{W.Hz$^{-1}$}
+\newcommand\lsol{\mbox{L$_{\odot}$}}
+\newcommand{\appropto}{\mathrel{\vcenter{
+  \offinterlineskip\halign{\hfil$##$\cr
+    \propto\cr\noalign{\kern2pt}\sim\cr\noalign{\kern-2pt}}}}}
+%\usepackage{newtxtext,newtxmath}
+
+\def\mathY{\bm{\mathcal{Y}}}
+%\def\mathY{\bm{\mathcal{V}}}
+\def\Bchi{\large\bm{\mathcal{\chi}}}
+%\def\Bchi{\chi}
+\def\PVec{\textbf{x}}
+%\input{Defs.tex}
+
+
+ \def\supertiny{ \font\supertinyfont = cmr10 at 4pt \relax \supertinyfont}
+
+
+
+\begin{document}      
+	      
+\title{Complex optimisation approach to radio interferometric calibration}
+
+\subtitle{}
+\author{N. Bourbaki}%\inst{1}}
+
+%% \institute{
+%% The caca institude
+%% %% Department of Physics \& Electronics, Rhodes University, PO Box 94,
+%% %% Grahamstown, 6140, South Africa
+%% %% \and
+%% %% SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Africa
+%% %% \and
+%% %% GEPI, Observatoire de Paris, CNRS, Universit\'e Paris Diderot,
+%% %% 5 place Jules Janssen, 92190 Meudon, France
+%% }
+%   \author{}
+%   \offprints{}
+%   \institute{}
+\date{Received <date> / Accepted <date>}
+
+
+\abstract{
+}
+
+\authorrunning{N. Bourbaki}
+
+
+
+%% \authorrunning{}
+\titlerunning{Optimisation over complex number field}
+   \maketitle
+
+\input{Defs.tex}
+
+
+
+%===============================
+\input{Wirtinger.tex}
+
+%===============================
+\input{Solver.tex}
+
+%===============================
+\input{Connection.tex}
+
+%===============================
+\input{RealData.tex}
+
+
+
+
+
+%% \begin{acknowledgements}
+%% No thanks
+%% \end{acknowledgements}
+
+
+\bibliographystyle{aa}
+\bibliography{references}
+
+%\pagebreak
+%\newpage
+
+
+%% \begin{appendix}
+%% \input{Initialisation.tex}
+%% \input{NoiseProps.tex}
+%% \end{appendix}
+
+\end{document}
+
+
+

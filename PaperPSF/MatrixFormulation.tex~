@@ -1,0 +1,185 @@
+\section{Matrix formulation of the problem - 1D interferometer}
+
+Here I intend to use convolution matrices properties to {\it qualitatively} study how ``pseudo-PSF'' vary as a
+function of source location. Here I limit myselves to a 1-dimensional
+interferometer (scalar only), so that
+Convolution matrices are Toeplitz-symetyric (see bellow). In a more
+general case, (along my intuition - but should be thought more
+carefully), convolution matrices should be block-Toeplitz (each
+block is a Toeplitz), while symetricity should still be true. 
+
+\subsection{Remarks on the convolution and linear algebra}
+
+In functional form the convolution theorem can be written as follows:
+
+
+\def\F{\mathcal{F}}
+\def\Fm{\bm{F}}
+\def\conv{\mathcal{*}}
+
+\begin{alignat}{2}
+%\label{eq:Lin}
+%\F \left{ a.b\right}=&\F \left{ a\right}.\F \left{b\right}\\
+\F \left\{  a.b\right\}=& \F \left\{a\right\}\conv\F \left\{b\right\}
+\end{alignat}
+
+Noting the convolution product is linear, we can reexpress the
+convolution product and associated theorem asing linear
+transformations:
+
+\newcommand{\C}[1]{\bm{\mathcal{C}}_{#1}}
+\newcommand{\vv}[1]{\bm{#1}}
+\def\one{\bm{1}}
+
+
+\begin{alignat}{2}
+\label{eq:ConvTh}
+%\F \left{ a.b\right}=&\F \left{ a\right}.\F \left{b\right}\\
+\Fm \vv{A}\vv{b}=& \C{\vv{A}}\Fm \vv{b}
+\end{alignat}
+
+\noindent where $\Fm$ is the Fourier operator of size 
+$n_{uv}\times n_{lm}$ ($\Fm$ is unitary $\Fm^H\Fm=\one$), $\vv{b}$ is
+a vector with size $n_{lm}$. The matrix $\vv{A}$ models the scalar
+multiplication of each point in $\vv{b}$, and is therefore diagonal of
+size $n_{lm}\times n_{lm}$, and $\C{\vv{A}}$ is the convolution matrix
+of size $n_{uv}\times n_{uv}$. There is a bijective relation
+
+\begin{alignat}{2}
+\label{eq:ConvTh}
+%\F \left{ a.b\right}=&\F \left{ a\right}.\F \left{b\right}\\
+\vv{A} \longleftrightarrow \C{\vv{A}}
+\end{alignat}
+ 
+\noindent in the sense that a scalar multiplucation defines a convolution
+function and conversely. The matrices $\vv{A}$ and $\C{\vv{A}}$ always
+have the following properties:
+
+\begin{itemize}
+  \item $\vv{A}$ is diagonal
+
+   \item In the 1D case
+\begin{itemize}
+  \item $\C{\vv{A}}$ is Toeplitz
+  \item In addition, for radiointerferometry, because the uv plane is
+\end{itemize}
+
+\end{itemize}
+
+The matrix $\C{\vv{A}}$ being Toeplitz, each row $\left[ \C{\vv{A}}
+  \right]_l$ with sky coordinate $l$ can be built using a
+rolling operator $\Delta_l$ that shifts the first row (the PSF at the field
+center for example) to location of row $l$:
+
+\begin{alignat}{2}
+\label{eq:ConvTh}
+%\F \left{ a.b\right}=&\F \left{ a\right}.\F \left{b\right}\\
+\left[ \C{\vv{A}} \right]_l =& \Delta_l \left\{ \left[ \C{\vv{A}} \right]_0 \right\}
+and&\\
+\left[ \C{\vv{A}} \right]_0 =& \Fm^H \ \text{diag}(\vv{A})
+\end{alignat}
+
+The rolling operator is essentially just a reindexing, and has the
+following properties:
+
+\begin{alignat}{2}
+\label{eq:PropsDelta0}
+%\F \left{ a.b\right}=&\F \left{ a\right}.\F \left{b\right}\\
+\Delta_l \left\{ a\vv{x} \right\} =&  a \Delta_l \left\{\vv{x} \right\} \\
+\label{eq:PropsDelta1}
+\Delta_l \left\{ \sum_i \vv{x}_i \right\} =& \sum_i \Delta_l \left\{ \vv{x}_i \right\} 
+\end{alignat}
+
+\newcommand{\roll}[1]{\Delta_l \left\{#1\right\}}
+
+
+\subsection{PSF behaviour}
+
+If $\vv{X}$ is the true sky, then the dirty image $\vv{X}^D_{ij}$ of
+baseline $(ij)$ can be written as:
+
+\begin{alignat}{2}
+\vv{x}^D_{ij} =& \Fm^H \vv{S}_{c,ij}  \C{\vv{T}} \vv{S}_{\square,ij} \Fm \vv{A} \vv{x}
+\end{alignat}
+
+\noindent where $\vv{A}_{ij}$ models the DDE effets and is an
+$n_{pix}\times n_{pix}$ diagonal matrix (taking polarisation into
+account it is an
+$4n_{pix}\times 4n_{pix}$ block diagonal matrix), $\vv{T}$ is the tapering/averaging function, 
+$\vv{S}_{\square}$ samples the region over which the
+tapering/averaging is made, and $\vv{S}_{c,ij}$ selects the central point
+of the averaged/tapered visibility set. Using Eq. \ref{eq:ConvTh}, we have:
+
+\begin{alignat}{2}
+\vv{x}^D_{ij} =&\ \C{\vv{S}_{c,ij}}  \vv{T} \C{\vv{S}_{\square,ij}}  \Fm^H \Fm \vv{A}_{ij} \vv{x}\\ 
+ =&\  \C{\vv{S}_{c,ij}}  \vv{T} \C{\vv{S}_{\square,ij}}  \vv{A}_{ij}  \vv{x}\\ 
+\label{eq:approx}
+ \sim&\  \C{\vv{S}_{c,ij}}  \vv{T}    \vv{A}_{ij} \vv{x}
+\end{alignat}
+
+\noindent where Eq. \ref{eq:approx} is true when the support of the
+function $T$ is smaller than the sampling domain of
+$\vv{S}_{\square}$. 
+
+Averaged over all baselines, the dirty image becomes:
+
+\begin{alignat}{2}
+\label{eq:PPSF}
+\vv{x}^D_{ij} =&\bm{\mathcal{C}} \vv{x}\\
+\text{with }\bm{\mathcal{C}}=&\sum_{ij}  \C{\vv{S}_{c,ij}}  \vv{T}    \vv{A}_{ij}
+\end{alignat}
+
+
+
+\subsection{Deriving the Pseudo-PSF}
+
+\subsubsection{PSF and Pseudo-PSF}
+
+{\bf We can already see that $\C{\vv{S}_{c,ij}}
+  \vv{T}    \vv{A}_{ij}$ in Eq. \ref{eq:approx} is NOT Toeplitz anymore
+  because each colunm is multiplied by a different value (DDE
+  muliplied by the tapering function). The dirty sky is therefore not
+  anymore the convolution of the true sky by the psf} {\it ie} the PSF
+varies accross the field of view.
+
+\subsubsection{Slow way}
+
+Calculate the psf estimating $\mathcal{C}$ from direct
+calculation. Eventually at discrete locations on a grid.
+
+
+\subsubsection{Quickly deriving the Pseudo-PSF}
+
+This is tricky part. The problem amount to finding any column $l$ of
+$\bm{\mathcal{C}}$ on demand. For notation convenience, we merge
+$\vv{T}$ and $\vv{A}_{ij}$ together in $\vv{A}_{ij}$. Operator
+$\left[\vec{M}\right]_l$ extracts column $l$ from matrix $\vec{M}$,
+and using Eq. \ref{eq:PropsDelta0}, \ref{eq:PropsDelta1} and \ref{eq:PPSF}:
+
+\begin{alignat}{2}
+\left[\bm{\mathcal{C}}\right]_l =&
+     \left[\sum_{ij}  \C{\vv{S}_{c,ij}}  \vv{A}_{ij}\right]_l\\
+=& \sum_{ij} a^l_{ij} \left[\C{\vv{S}_{c,ij}}\right]_l \\
+&\ \ \ \text{with } a^l_{ij}=\vv{A}_{ij}(l)\\
+=& \sum_{ij} \roll{a^l_{ij} \C{\vv{S}_{c,ij}}} \\
+=& \sum_{ij} \roll{\Fm^H a^l_{ij}\ \text{diag}\left(\vv{S}_{c,ij}\right) }
+\end{alignat}
+
+If we now assume that at any given location $l$, the scalar $a^l_{ij}$
+can be described by a smooth {\it function} of the uv coordinates
+($(ij)$-indices), then we can write:
+
+\begin{alignat}{2}
+\left[\bm{\mathcal{C}}\right]_l =
+& \sum_{ij} \roll{\C{a^l_{ij}}\ \Fm^H \text{diag}\left(\vv{S}_{c,ij}\right) }\\
+=& \sum_{ij} \roll{\C{a^l_{ij}}\ \C{\vv{S}_{c,ij}}}\\
+=& \left[\C{a^l_{ij}}\left[\bm{\mathcal{C}}\right]_0\right]_l
+\end{alignat}
+
+{\bf The approximate observed Pseudo-PSF is the convolution of the PSF at
+the phase center and the fourier transform of the uv-dependent tapering function at given
+lm. For example if the long baselines are more tapered, they are
+``attenuated''. The effective PSF on the edge of the field will get
+larger by the convolution...}
+
+Something like that...
