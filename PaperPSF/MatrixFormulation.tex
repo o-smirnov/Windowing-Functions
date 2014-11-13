@@ -205,21 +205,37 @@ We demonstrate the computational complexity of the quick, the slow derived PSF a
 perform a direct numerical results.
 \subsection{Slow derivation and computation cost}
 \subsection{Quick derivation and computation cost}
-We will now show how to derived a pseudo PSF  which is base and resolves on the nominal PSFbut labeled by a discrete set of integration.
+We will now show how to derived a pseudo PSF  which is base and resolves on the nominal PSF
+but labeled by a discrete set of integration.
 \subsubsection{Averaging case}
-The approach is base on the discrete  evaluation of the infinite integral:
+The approach is base on the  evaluation of the band limited case of the following infinite signal:
 \begin{alignat}{2}
-s(x_0) =& \int_{-\infty}^{+\infty}exp(jx)dx \label{eq11111}
+\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}exp(-j\kappa y)dy, \label{eq11111}
 \end{alignat}
-We are now in a position to discuss the discrete interpretation of the previous integral.
-If the integration interval is kept small enough, then Eq\ref{eq11111} can be rewritten as follows:
-\begin{alignat}{2}
-s(x_0) =& \frac{1}{\Delta x_0}\int_{x_c-\Delta x_0}^{x_c+\Delta x_0}exp(jx)dx\label{eq1111111}
-\end{alignat}
-From Eq.\ref{eq1111111} we see that  the integral is the Fourier transform of a top-hat function. Therefore,
-\begin{alignat}{2}
-s(x_0) =&sinc\frac{\Delta x_0}{2}exp(j x_c)
-\end{alignat}
+where $\kappa$ is a real number and $\tilde{s}(\kappa)$ is the Fourier transform of a unitary function, $s(y)=1$. We can also see 
+$\tilde{s}(\kappa)$ as a delta function, $\delta (\kappa)$.
+If we band limited $\tilde{s}(\kappa)$ in a small finite phase range  $\Delta x_0$ centered on the phase $x_c$, Eq.\ref{eq11111} becomes:
+\begin{alignat*}{2}
+(B_{\Delta x_0}s)(x) =& \frac{1}{\Delta x_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
+x_0}{2}}\tilde{s}(\kappa)exp(jx\kappa)d\kappa\label{eq1111111}\\
+		     =& \frac{1}{\Delta x_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta x_0}{2}}\bigg( 
+\int_{-\infty}^{+\infty}exp(-j\kappa y)dy\bigg)\\ 
+		      & exp(jx\kappa)d\kappa\\
+		     =&\int_{-\infty}^{+\infty}\bigg( \frac{1}{\Delta x_0} \int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
+x_0}{2}}exp(j(x-y)\kappa)d\kappa\bigg)dy\\
+		     =&\int_{-\infty}^{+\infty}K(x-y)dy\\
+		     =& K(x)\circ s(x)\\
+		     =&K(x)
+\end{alignat*}
+Where $s(x)=\mathcal{F}^{-1}\tilde{s}(\kappa)$ and,
+\begin{alignat*}{2}
+ K(x)=& \frac{1}{\Delta x_0} \int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta x_0}{2}}exp(jx\kappa )d\kappa\\
+     =& sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c)
+\end{alignat*}
+Then the result follows:
+\begin{alignat*}{2}
+(B_{\Delta x_0}s)(x) = & sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c)
+\end{alignat*}
 % the phase in frequency $x_0=x_0(\nu)$
 % Figure \ref{fig:amplitude_phase} shows that the averaged of sine functions can be approximate by a sinc function. Therefore, an approximate 
 % of Eq\ref{eq:sines} is given as:
@@ -228,9 +244,27 @@ s(x_0) =&sinc\frac{\Delta x_0}{2}exp(j x_c)
 % \end{alignat}
 In a two dimensional case, the previous becomes:
 \begin{alignat}{2}
-s(x_0,y_0)=&sinc\frac{\Delta y_0}{2}sinc\frac{\Delta x_0}{2}exp(j (x_c,y_c))
+(B_{\Delta x_0 \Delta e_0}s)(x,e)=&sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})\\
+				  &exp\big(j (xx_c+ee_c)\big)
 \end{alignat}
-where $x_c$ and $y_c$ are the centre of $\Delta x_0$ and $\Delta y_0$ respectively.\\
+Prof:
+\begin{alignat}{2}
+\tilde{s}(\kappa,\gamma) =& \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}exp\big(-j(\kappa y+\gamma h)\big)dydh, \label{eq2d}
+\end{alignat}
+where $\tilde{s}(\kappa,\gamma)=\delta(\kappa,\gamma)$ and if we band limited $\tilde{s}(\kappa,\gamma)$ in a small finite phase range  
+$\Delta x_0$ centered on the phase $x_c$ varieting in time and a small finite phase range  
+$\Delta e_0$ centered on the phase $e_c$ varieting in frequency, Eq.\ref{eq2d} becomes:\\
+\begin{alignat*}{2}
+(B_{\Delta x_0\Delta e_0}s)(x,e) =& \frac{1}{\Delta x_0\Delta e_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
+x_0}{2}}\int_{e_c-\frac{\Delta e_0}{2}}^{e_c+\frac{\Delta e_0}{2}}\tilde{s}(\kappa,\gamma)\\
+				  &exp(jx\kappa+je\gamma)d\kappa d\gamma\\
+		     =& \frac{1}{\Delta x_0 \Delta e_0}\int_{-\infty}^{+\infty}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
+x_0}{2}}exp\big(j\kappa(x-y)\big)\\
+		      &d\kappa dy \bigg[\int_{-\infty}^{+\infty}\int_{e_c-\frac{\Delta e_0}{2}}^{e_c+\frac{\Delta 
+e_0}{2}}exp\big(j\gamma(e-h)\big)d\gamma dh\bigg]\\
+		     =&K_1(e)K_2(x)\\
+		     =&sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})exp\big(j (xx_c+ee_c)\big)
+\end{alignat*}
 In this section, knowing the response of an array to a source at the phase centre $(l_0,m_0)$, we want to measure the array response at a 
 given location $(l,m)\neq(l_0,m_0)$.  A pair wise element $(p,q)$ of the array   measures the quantity at $(l,m)$:
 \begin{eqnarray}
@@ -277,7 +311,7 @@ PSF(l,m)\simeq&\bigg(\sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}si
 \begin{equation*}
 Tri(l,m)=\left\{
 \begin{array}{rl}
-a_{lm}\neq 1 & \mbox{if the source is in the map} \\
+a_{lm}\neq 1 & \mbox{Where there is a source} \\
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation*}
