@@ -206,11 +206,11 @@ perform a direct numerical results.
 \subsection{Slow derivation and computation cost}
 \subsection{Quick derivation and computation cost}
 We will now show how to derived a pseudo PSF  which is base and resolves on the nominal PSF
-but labeled by a discrete set of integration.
+but labelled by a set of band-limited integration.
 \subsubsection{Averaging case}
 The approach is base on the  evaluation of the band limited case of the following infinite signal:
 \begin{alignat}{2}
-\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}exp(-j\kappa y)dy, \label{eq11111}
+\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}exp(-j\kappa y)dy, \label{eq1111122}
 \end{alignat}
 where $\kappa$ is a real number and $\tilde{s}(\kappa)$ is the Fourier transform of a unitary function, $s(y)=1$. We can also see 
 $\tilde{s}(\kappa)$ as a delta function, $\delta (\kappa)$.
@@ -233,16 +233,16 @@ Where $s(x)=\mathcal{F}^{-1}\tilde{s}(\kappa)$ and,
      =& sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c)
 \end{alignat*}
 Then the result follows:
-\begin{alignat*}{2}
-(B_{\Delta x_0}s)(x) = & sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c)
-\end{alignat*}
+\begin{alignat}{2}
+(B_{\Delta x_0}s)(x) = & sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c). %\label{eq11avegcase}
+\end{alignat}
 % the phase in frequency $x_0=x_0(\nu)$
 % Figure \ref{fig:amplitude_phase} shows that the averaged of sine functions can be approximate by a sinc function. Therefore, an approximate 
 % of Eq\ref{eq:sines} is given as:
 % \begin{alignat}{2}
 % <s_{i}> \simeq sinc\frac{x_1}{2}exp(j\frac{x_2}{2})
 % \end{alignat}
-In a two dimensional case, the previous becomes:
+The result for a two dimensional case follows:
 \begin{alignat}{2}
 (B_{\Delta x_0 \Delta e_0}s)(x,e)=&sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})\\
 				  &exp\big(j (xx_c+ee_c)\big)
@@ -251,9 +251,9 @@ Prof:
 \begin{alignat}{2}
 \tilde{s}(\kappa,\gamma) =& \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}exp\big(-j(\kappa y+\gamma h)\big)dydh, \label{eq2d}
 \end{alignat}
-where $\tilde{s}(\kappa,\gamma)=\delta(\kappa,\gamma)$ and if we band limited $\tilde{s}(\kappa,\gamma)$ in a small finite phase range  
-$\Delta x_0$ centered on the phase $x_c$ varieting in time and a small finite phase range  
-$\Delta e_0$ centered on the phase $e_c$ varieting in frequency, Eq.\ref{eq2d} becomes:\\
+where $\tilde{s}(\kappa,\gamma)=\delta(\kappa,\gamma)$. If the complex phase of  $\tilde{s}(\kappa,\gamma)$ varies linearly in time within 
+the range $\Delta x_0$ centered on  $x_c$ and in frequency within the range
+$\Delta e_0$ centered on $e_c$, then Eq.\ref{eq2d} becomes:\\
 \begin{alignat*}{2}
 (B_{\Delta x_0\Delta e_0}s)(x,e) =& \frac{1}{\Delta x_0\Delta e_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
 x_0}{2}}\int_{e_c-\frac{\Delta e_0}{2}}^{e_c+\frac{\Delta e_0}{2}}\tilde{s}(\kappa,\gamma)\\
@@ -265,99 +265,141 @@ e_0}{2}}exp\big(j\gamma(e-h)\big)d\gamma dh\bigg]\\
 		     =&K_1(e)K_2(x)\\
 		     =&sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})exp\big(j (xx_c+ee_c)\big)
 \end{alignat*}
-In this section, knowing the response of an array to a source at the phase centre $(l_0,m_0)$, we want to measure the array response at a 
-given location $(l,m)\neq(l_0,m_0)$.  A pair wise element $(p,q)$ of the array   measures the quantity at $(l,m)$:
-\begin{eqnarray}
- V_{pq}(t, \nu)=& exp\bigg\{2j\pi\big(u_{pq}l+v_{pq}m+ w_{pq}n\big)\bigg\}\label{eq233},
-\end{eqnarray}
-where,
+We can therefore approximate averaging   by assuming that if $\Delta t$ and $\Delta \nu$ are
+small enough that the amplitude of the visibility, $V_{pq}$ of a baseline $(p,q)$ remains constant while
+the complex phase varies linearly in time and frequency. In a two dimensional case, the approximation then follows:
 \begin{alignat}{2}
-u_{pq}=&u_{pq}(t,\nu)\\
-v_{pq}=&v_{pq}(t,\nu)\\
-w_{pq}=&w_{pq}(t,\nu)
+ V_{pq}^{avg}(t_c, \nu_c)\simeq& sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{c},\nu_{c})\label{eq:visibility}.
 \end{alignat}
-The Earth rotation causes $V_{pq}(t, \nu)$ to variate in time and  frequency. 
-Taking this effect into account, Eq. $\ref{eq233}$ is  rewritten as an integration over narrower time and frequency band. From the above 
-derivation, $x_0=x_0(t)$ and $y_0=y_0(\nu)$, we then have (coming directly from RIME1, Oleg):
-\begin{alignat}{2}
- V_{pq}^{avg}(t_c, \nu_c)\simeq& sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{c},\nu_{c})\label{eq:visibility},
-\end{alignat}
-where $t_{c}=\frac{t_{s} + t_{e}}{2}$, $\nu_{c}=\frac{\nu_{s} + \nu_{e}}{2}$ and 
+Here, $\Delta \Psi$ and $\Delta \Phi$ are the phase changes in time and in frequency respectively, defined as:
 \begin{alignat}{2}
 \Delta \Phi=&arg V_{pq}(t_{c},\nu_{e})-arg V_{pq}(t_{c},\nu_{s})\\
 \Delta \Psi=&arg V_{pq}(t_{e},\nu_{c})-arg V_{pq}(t_{s},\nu_{c})
 \end{alignat}
-The total array response :
+The high resolution data $V_{pq}(t,\nu)$ that is been average is given by:
+\begin{eqnarray}
+ V_{pq}(t, \nu)=& exp\bigg\{2j\pi\big(u_{pq}l+v_{pq}m+ w_{pq}n\big)\bigg\}\label{eq233},
+\end{eqnarray}
+where, $u_{pq}$, $v_{pq}$ and $w_{pq}$ are the baseline coordinates that causes $V_{pq}$ to variate in time and frequency due to the Earth 
+rotation.\\
+% \begin{alignat}{2}
+% u_{pq}=&u_{pq}(t,\nu)\\
+% v_{pq}=&v_{pq}(t,\nu)\\
+% w_{pq}=&w_{pq}(t,\nu)
+% \end{alignat}
+% 
+% In this section, knowing the response of an array to a source at the phase centre $(l_0,m_0)$, we want to measure the array response at a 
+% given location $(l,m)\neq(l_0,m_0)$.  A pair wise element $(p,q)$ of the array   measures the quantity at $(l,m)$:
+% \begin{eqnarray}
+%  V_{pq}(t, \nu)=& exp\bigg\{2j\pi\big(u_{pq}l+v_{pq}m+ w_{pq}n\big)\bigg\}\label{eq233},
+% \end{eqnarray}
+% where,
+% \begin{alignat}{2}
+% u_{pq}=&u_{pq}(t,\nu)\\
+% v_{pq}=&v_{pq}(t,\nu)\\
+% w_{pq}=&w_{pq}(t,\nu)
+% \end{alignat}
+% The Earth rotation causes $V_{pq}(t, \nu)$ to variate in time and  frequency. 
+% Taking this effect into account, Eq. $\ref{eq233}$ is  rewritten as an integration over narrower time and frequency band. From the above 
+% derivation, $x_0=x_0(t)$ and $y_0=y_0(\nu)$, we then have (coming directly from RIME1, Oleg):
+% \begin{alignat}{2}
+%  V_{pq}^{avg}(t_c, \nu_c)\simeq& sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{c},\nu_{c})\label{eq:visibility},
+% \end{alignat}
+% where $t_{c}=\frac{t_{s} + t_{e}}{2}$, $\nu_{c}=\frac{\nu_{s} + \nu_{e}}{2}$ and 
+% \begin{alignat}{2}
+% \Delta \Phi=&arg V_{pq}(t_{c},\nu_{e})-arg V_{pq}(t_{c},\nu_{s})\\
+% \Delta \Psi=&arg V_{pq}(t_{e},\nu_{c})-arg V_{pq}(t_{s},\nu_{c})
+% \end{alignat}
+The  results of the instrument averaged visibilities for all baselines then follows:
 \begin{alignat}{2}
 V(t,\nu)\simeq&\sum_{pq} V_{pq}^{avg}(t_c, \nu_c)\\
-	\simeq&\sum_{pq} sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{mid},\nu_{mid})
+	\simeq&\sum_{pq} sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{c},\nu_{c})\label{eq24}
 \end{alignat}
-For convenience let assume $V_{pq}(t_{c},\nu_{c})$ the visibility of a source at the phase centre (coordinates $(l_0,m_0)$) and 
-$V_{pq}(t,\nu)$ the one of a source at $(l,m)\neq(l_0,m_o)$. That said:
+For convenience let assume $V_{pq}(t_{c},\nu_{c})$ the visibility of a source at the phase centre (coordinates $(l_0,m_0)$) during the 
+time $t_c$ at $\nu_c$. That said: 
 \begin{eqnarray}
  V_{pq}(t_c, \nu_c)=& exp\bigg\{2j\pi\big(u_{pq}l_0+v_{pq}m_0+ w_{pq}n_0\big)\bigg\},
 \end{eqnarray}
-then from the inverse Fourier transform and the convolution theorem we have:
+and $V_{pq}(t_{c},\nu_{e})$, $V_{pq}(t_{c},\nu_{s})$, $V_{pq}(t_{e},\nu_{c})$, $V_{pq}(t_{s},\nu_{c})$ the measurements data of a source 
+locate at $(l,m)\neq(l_0,m_0)$ during $t_c$ at $\nu_e$, $t_c$ at $\nu_s$, $t_e$ at $\nu_c$ and  $t_s$ at $\nu_c$ respectively.\\
+Eq\ref{eq24} is inverse Fourier transform and from the  convolution theorem, we have:
 \begin{alignat}{2}
-PSF(l,m)\simeq& \sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\bigg\}
-	\circ& PSF_{pq}(l_0,m_0)
+R(l,m)\simeq& \sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\bigg\}\\
+	\circ& R_{pq}(l_0,m_0).
 \end{alignat}
-Assuming that all the baselines are pointing at the same phase centre we have:
+Here, $R(l,m)$ is the instrument response (PSF) for a source at location $(l,m)$ and $R_{pq}(l_0,m_0)$ the response of the baseline 
+$(p,q)$ for a source at the phase centre.\\
+Assuming that all the baselines are pointing at the same phase centre then the previous becomes:
 \begin{alignat}{2}
-PSF(l,m)\simeq&\bigg(\sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\bigg\}\bigg)
-	\circ& PSF_{pq}(l_0,m_0)\\
-      \simeq& Tri(l,m)\circ PSF(l_0,m_0)\label{eqtota}
+R(l,m)\simeq&\bigg(\sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\bigg\}\bigg)
+	\circ& R_{}(l_0,m_0)\\
+      \simeq& Tri(l,m)\circ R(l_0,m_0).\label{eqtota}
 \end{alignat}
+With, $R(l_0,m_0)$ the instrument response for a source at the phase centre and the function, $Tri(l,m)$ is defined as:
 \begin{equation*}
 Tri(l,m)=\left\{
 \begin{array}{rl}
-a_{lm}\neq 1 & \mbox{Where there is a source} \\
+a_{lm}\neq 1 & \mbox{if (l,m) exist} \\
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation*}
 \subsubsection{General case}
-From our previous work, we shows that averaging is similar to convolving the visibilities with a top-hat function, therefore a general 
-case of equation Eq. $\ref{eq11111}$ is derived as follows:
-
-If we tape the visibilities with a window $f_b$ then:
+From our previous work, we showed that averaging is similar to convolving the visibilities with a top-hat function, then we 
+furthermore replaced the top-hat function by a function, $f_w$. With our terminology, if we tape the visibilities with a function $f_w$, a 
+general case of  Eq. $\ref{eq1111122}$ is derived as follows:
 \begin{alignat}{2}
-s(x_0) =& \int_{-\infty}^{+\infty}f_{b}(x-x_c)exp(jx)dx \\
-        =& exp(jx_c)\int_{-\infty}^{+\infty}f_{b}(u)exp(ju)du\\
-        =& exp(jx_c)F_b(x_0)\label{eq11115}
+\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}f_{w}(y)exp(-j\kappa y)dy \label{eq:genral} \\
+       % =& exp(jx_c)\int_{-\infty}^{+\infty}f_{b}(u)exp(ju)du\\
+        %=& exp(jx_c)F_b(x_0)\label{eq11115}
 \end{alignat}
-(\textbf{Also see how you can use convolution to easily derive what you want: Eq\ref{eq11115} is a convolution})\\
-\\
-For a narrower band limited, Eq.\ref{eq11115}  becomes (Yet to verify, not so sure):
-\begin{alignat}{2}
-s(x_0)=&  sinc\frac{\Delta x_0}{2}\circ F_{b}\bigg(\frac{\Delta x_0}{2}\bigg)exp(j x_c)
-\end{alignat}
+In this case, $\tilde{s}(\kappa)$ is the Fourier transform of $f_w(\kappa)$. Following the derivation of Eq.\ref{eqavegcase}, a general 
+case of the band-limited form of Eq.\ref{eq:genra} is:
+% \begin{alignat*}{2}
+% (B_{\Delta x_0}s)(x) =& \frac{1}{\Delta x_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
+% x_0}{2}}\tilde{s}(\kappa)exp(jx\kappa)d\kappa\label{eq1111111}\\
+% 		     =& \frac{1}{\Delta x_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta x_0}{2}}\bigg( 
+% \int_{-\infty}^{+\infty}f_b(y)exp(-j\kappa y)dy\bigg)\\ 
+% 		      & exp(jx\kappa)d\kappa\\
+% 		     =&\int_{-\infty}^{+\infty}f_b(y)\bigg(\frac{1}{\Delta x_0} \int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
+% x_0}{2}}exp(j(x-y)\kappa)d\kappa\bigg)dy\\
+% 		     =&\int_{-\infty}^{+\infty}K(x-y)f_b(y)dy\\
+% 		     =& K(x)\circ f_b(x)
+% \end{alignat*}
+%Then the result follows:
+\begin{alignat*}{2}
+(B_{\Delta x_0}s)(x) = & \bigg[sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c)\bigg]\circ f_w(x)\\
+		     = & \bigg[sinc \big(x\frac{\Delta x_0}{2} \big)\circ f_w(x)\bigg]exp(jxx_c)
+\end{alignat*}
 In a two dimensional case, the previous becomes:
-\begin{alignat}{2}
-s(x_0)=&  sinc\frac{\Delta x_0}{2}sinc\frac{\Delta y_0}{2}\\
-      \circ& F_{b}\bigg(\frac{\Delta y_0}{2}\bigg)F_{b}\bigg(\frac{\Delta 
-x_0}{2}\bigg)exp(j (x_c+y_c))
-\end{alignat}
+\begin{alignat*}{2}
+(B_{\Delta x_0 \Delta e_0}s)(x,e)=&\bigg[sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})\circ f_{w}(x,e)\bigg]\\
+				  &exp\big(j (xx_c+ee_c)\big)
+\end{alignat*}
 Eq.\ref{eq:visibility} can therefore be estimate in a general case as:
 \begin{alignat}{2}
- V_{pq}^{corr}(t_c, \nu_c)\simeq&sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\\
-			  \circ&F_{b}\bigg(\frac{\Delta\Psi}{2}\bigg)F_{b}\bigg(\frac{\Delta \Phi}{2}\bigg) V_{pq}(t_{c},\nu_{c})
+ V_{pq}^{corr}(t_c, \nu_c)\simeq& \bigg[sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\circ f_{w}(t_c,\nu_c)\bigg]
+			   V_{pq}(t_{c},\nu_{c})
 \end{alignat}
-The function $F_b$ depends on the nature of $f_b$. The total response in Eq.\ref{eqtota} becomes:
+The  results of the instrument weighted average visibilities for all baselines then follows:
 \begin{alignat}{2}
-PSF(l,m)\simeq&  \bigg(Tri(l,m)c_b(l,m)\bigg)\circ PSF(l_0,m_0)
+R(l,m)\simeq& \sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\circ f_{w}(t_c,\nu_c)\bigg\}\\
+	\circ& R_{pq}(l_0,m_0)\\
+	\simeq& \sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta 
+\Phi}{2}\bigg\}\mathcal{F}^{-1}\bigg\{f_{w}(t_c,\nu_c)\bigg\}\\
+	\circ& R_{pq}(l_0,m_0)\\
+	\simeq& \bigg[Tri(l,m)F_{w}(l_0,m_0)\bigg]\circ R(l_0,m_0),
 \end{alignat}
-We have to clarify well what we derived\\
-Also verify if:
-\begin{alignat}{2}
-\Delta \Psi\simeq& \Delta \Phi
-\end{alignat}
-\begin{figure*}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/amplitude_phase.pdf}\caption{averages sine 
-functions vs. sinc function}\label{fig:amplitude_phase}
-\end{minipage}
+where $\mathcal{F}^{-1}\bigg\{f_{w}(t_c,\nu_c)\bigg\}=F_{w}(l_0,m_0)$.
+% \begin{alignat}{2}
+% \Delta \Psi\simeq& \Delta \Phi
+% \end{alignat}
+% % \begin{figure*}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/amplitude_phase.pdf}\caption{averages sine 
+% % functions vs. sinc function}\label{fig:amplitude_phase}
+% % \end{minipage}
 %   \hspace{1cm} 
 % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlap 
 % baseline dependent windowing functions}\label{fig:corrSigVLAMxBl_overlapGdelta}\end{minipage}
-\end{figure*}
+%\end{figure*}
 \section{Simulation and comparison}
 \section{Discussion and conclusion}
