@@ -205,19 +205,20 @@ We demonstrate the computational complexity of the quick, the slow derived PSF a
 perform a direct numerical results.
 \subsection{Slow derivation and computation cost}
 \subsection{Quick derivation and computation cost}
-We will now show how to derived a pseudo PSF  which is base and resolves on the nominal PSF
+We will now show how to derived a pseudo PSF  which is based and resolved on the nominal PSF
 but labelled by a set of band-limited integration.
 \subsubsection{Averaging case}
-The approach is base on the  evaluation of the band limited case of the following infinite signal:
+The approach is based on the  evaluation of the band limited case of the following infinite signal:
 \begin{alignat}{2}
-\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}exp(-j\kappa y)dy, \label{eq1111122}
+\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}exp(-j\kappa y)dy, \label{eq:1dimintegral}
 \end{alignat}
 where $\kappa$ is a real number and $\tilde{s}(\kappa)$ is the Fourier transform of a unitary function, $s(y)=1$. We can also see 
 $\tilde{s}(\kappa)$ as a delta function, $\delta (\kappa)$.
-If we band limited $\tilde{s}(\kappa)$ in a small finite phase range  $\Delta x_0$ centered on the phase $x_c$, Eq.\ref{eq11111} becomes:
+If we band limited $\tilde{s}(\kappa)$ in a small finite phase range  $\Delta x_0$ centered on the phase $x_c$, Eq.\ref{eq:1dimintegral} 
+becomes:
 \begin{alignat*}{2}
 (B_{\Delta x_0}s)(x) =& \frac{1}{\Delta x_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
-x_0}{2}}\tilde{s}(\kappa)exp(jx\kappa)d\kappa\label{eq1111111}\\
+x_0}{2}}\tilde{s}(\kappa)exp(jx\kappa)d\kappa\\
 		     =& \frac{1}{\Delta x_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta x_0}{2}}\bigg( 
 \int_{-\infty}^{+\infty}exp(-j\kappa y)dy\bigg)\\ 
 		      & exp(jx\kappa)d\kappa\\
@@ -234,7 +235,7 @@ Where $s(x)=\mathcal{F}^{-1}\tilde{s}(\kappa)$ and,
 \end{alignat*}
 Then the result follows:
 \begin{alignat}{2}
-(B_{\Delta x_0}s)(x) = & sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c). %\label{eq11avegcase}
+(B_{\Delta x_0}s)(x) = & sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c). \label{eq:1dimavegcase}
 \end{alignat}
 % the phase in frequency $x_0=x_0(\nu)$
 % Figure \ref{fig:amplitude_phase} shows that the averaged of sine functions can be approximate by a sinc function. Therefore, an approximate 
@@ -242,18 +243,19 @@ Then the result follows:
 % \begin{alignat}{2}
 % <s_{i}> \simeq sinc\frac{x_1}{2}exp(j\frac{x_2}{2})
 % \end{alignat}
-The result for a two dimensional case follows:
+The result for a two dimensional case is giving as:
 \begin{alignat}{2}
 (B_{\Delta x_0 \Delta e_0}s)(x,e)=&sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})\\
-				  &exp\big(j (xx_c+ee_c)\big)
+				  &exp\big(j (xx_c+ee_c)\big)\label{eq:2dimavegcase}
 \end{alignat}
-Prof:
+Proof:
 \begin{alignat}{2}
-\tilde{s}(\kappa,\gamma) =& \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}exp\big(-j(\kappa y+\gamma h)\big)dydh, \label{eq2d}
+\tilde{s}(\kappa,\gamma) =& \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}exp\big(-j(\kappa y+\gamma h)\big)dydh, 
+\label{eq:2dimavegcaseproof}
 \end{alignat}
 where $\tilde{s}(\kappa,\gamma)=\delta(\kappa,\gamma)$. If the complex phase of  $\tilde{s}(\kappa,\gamma)$ varies linearly in time within 
 the range $\Delta x_0$ centered on  $x_c$ and in frequency within the range
-$\Delta e_0$ centered on $e_c$, then Eq.\ref{eq2d} becomes:\\
+$\Delta e_0$ centered on $e_c$, then the band-limit of Eq.\ref{eq:2dimavegcaseproof} is:
 \begin{alignat*}{2}
 (B_{\Delta x_0\Delta e_0}s)(x,e) =& \frac{1}{\Delta x_0\Delta e_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
 x_0}{2}}\int_{e_c-\frac{\Delta e_0}{2}}^{e_c+\frac{\Delta e_0}{2}}\tilde{s}(\kappa,\gamma)\\
@@ -265,9 +267,10 @@ e_0}{2}}exp\big(j\gamma(e-h)\big)d\gamma dh\bigg]\\
 		     =&K_1(e)K_2(x)\\
 		     =&sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})exp\big(j (xx_c+ee_c)\big)
 \end{alignat*}
-We can therefore approximate averaging   by assuming that if $\Delta t$ and $\Delta \nu$ are
-small enough that the amplitude of the visibility, $V_{pq}$ of a baseline $(p,q)$ remains constant while
-the complex phase varies linearly in time and frequency. In a two dimensional case, the approximation then follows:
+We can therefore approximate averaging   by assuming that the integration time $\Delta t$ and bandwidth $\Delta \nu$ are
+small enough to keep the  amplitude of the visibility for the baseline $(p,q)$, $V_{pq}$  constant while
+the complex phase varies linearly in time and frequency. From the above demonstrations, the averaged visibility, $V_{pq}^{avg}(t_c, 
+\nu_c)$ is approximated as:
 \begin{alignat}{2}
  V_{pq}^{avg}(t_c, \nu_c)\simeq& sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{c},\nu_{c})\label{eq:visibility}.
 \end{alignat}
@@ -276,11 +279,12 @@ Here, $\Delta \Psi$ and $\Delta \Phi$ are the phase changes in time and in frequ
 \Delta \Phi=&arg V_{pq}(t_{c},\nu_{e})-arg V_{pq}(t_{c},\nu_{s})\\
 \Delta \Psi=&arg V_{pq}(t_{e},\nu_{c})-arg V_{pq}(t_{s},\nu_{c})
 \end{alignat}
-The high resolution data $V_{pq}(t,\nu)$ that is been average is given by:
+The high resolution measurement $V_{pq}(t,\nu)$ that is been average is given by:
 \begin{eqnarray}
- V_{pq}(t, \nu)=& exp\bigg\{2j\pi\big(u_{pq}l+v_{pq}m+ w_{pq}n\big)\bigg\}\label{eq233},
+ V_{pq}(t, \nu)=& exp\bigg\{2j\pi\big(u_{pq}l+v_{pq}m+ w_{pq}n\big)\bigg\}\label{eq:hiresvisibilities},
 \end{eqnarray}
-where, $u_{pq}$, $v_{pq}$ and $w_{pq}$ are the baseline coordinates that causes $V_{pq}$ to variate in time and frequency due to the Earth 
+where, $u_{pq}$, $v_{pq}$ and $w_{pq}$ are the baseline coordinates that causes $V_{pq}(t,\nu)$ to variate in time and frequency due to the 
+Earth 
 rotation.\\
 % \begin{alignat}{2}
 % u_{pq}=&u_{pq}(t,\nu)\\
@@ -291,7 +295,7 @@ rotation.\\
 % In this section, knowing the response of an array to a source at the phase centre $(l_0,m_0)$, we want to measure the array response at a 
 % given location $(l,m)\neq(l_0,m_0)$.  A pair wise element $(p,q)$ of the array   measures the quantity at $(l,m)$:
 % \begin{eqnarray}
-%  V_{pq}(t, \nu)=& exp\bigg\{2j\pi\big(u_{pq}l+v_{pq}m+ w_{pq}n\big)\bigg\}\label{eq233},
+%  V_{pq}(t, \nu)=& exp\bigg\{2j\pi\big(u_{pq}l+v_{pq}m+ w_{pq}n\big)\bigg\}\label{eq:hiresvisibilities},
 % \end{eqnarray}
 % where,
 % \begin{alignat}{2}
@@ -310,10 +314,10 @@ rotation.\\
 % \Delta \Phi=&arg V_{pq}(t_{c},\nu_{e})-arg V_{pq}(t_{c},\nu_{s})\\
 % \Delta \Psi=&arg V_{pq}(t_{e},\nu_{c})-arg V_{pq}(t_{s},\nu_{c})
 % \end{alignat}
-The  results of the instrument averaged visibilities for all baselines then follows:
+The total  averaged visibilities estimate of the instrument is the summation of all averaged visibilities at each baseline.
 \begin{alignat}{2}
-V(t,\nu)\simeq&\sum_{pq} V_{pq}^{avg}(t_c, \nu_c)\\
-	\simeq&\sum_{pq} sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{c},\nu_{c})\label{eq24}
+V^{avg}(t_c,\nu_c)\simeq&\sum_{pq} V_{pq}^{avg}(t_c, \nu_c)\\
+	\simeq&\sum_{pq} sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2} V_{pq}(t_{c},\nu_{c})\label{eq:appoxaveraging}
 \end{alignat}
 For convenience let assume $V_{pq}(t_{c},\nu_{c})$ the visibility of a source at the phase centre (coordinates $(l_0,m_0)$) during the 
 time $t_c$ at $\nu_c$. That said: 
@@ -322,12 +326,12 @@ time $t_c$ at $\nu_c$. That said:
 \end{eqnarray}
 and $V_{pq}(t_{c},\nu_{e})$, $V_{pq}(t_{c},\nu_{s})$, $V_{pq}(t_{e},\nu_{c})$, $V_{pq}(t_{s},\nu_{c})$ the measurements data of a source 
 locate at $(l,m)\neq(l_0,m_0)$ during $t_c$ at $\nu_e$, $t_c$ at $\nu_s$, $t_e$ at $\nu_c$ and  $t_s$ at $\nu_c$ respectively.\\
-Eq\ref{eq24} is inverse Fourier transform and from the  convolution theorem, we have:
+Eq\ref{eq:appoxaveraging} is inverse Fourier transform:
 \begin{alignat}{2}
 R(l,m)\simeq& \sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\bigg\}\\
 	\circ& R_{pq}(l_0,m_0).
 \end{alignat}
-Here, $R(l,m)$ is the instrument response (PSF) for a source at location $(l,m)$ and $R_{pq}(l_0,m_0)$ the response of the baseline 
+Here, $R(l,m)$ is the instrument response (PSF) for a source located at $(l,m)$ and $R_{pq}(l_0,m_0)$ the response of the baseline 
 $(p,q)$ for a source at the phase centre.\\
 Assuming that all the baselines are pointing at the same phase centre then the previous becomes:
 \begin{alignat}{2}
@@ -346,14 +350,14 @@ a_{lm}\neq 1 & \mbox{if (l,m) exist} \\
 \subsubsection{General case}
 From our previous work, we showed that averaging is similar to convolving the visibilities with a top-hat function, then we 
 furthermore replaced the top-hat function by a function, $f_w$. With our terminology, if we tape the visibilities with a function $f_w$, a 
-general case of  Eq. $\ref{eq1111122}$ is derived as follows:
+general case of  Eq. $\ref{eq:1dimavegcase}$ is derived as follows:
 \begin{alignat}{2}
-\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}f_{w}(y)exp(-j\kappa y)dy \label{eq:genral} \\
+\tilde{s}(\kappa) =& \int_{-\infty}^{+\infty}f_{w}(y)exp(-j\kappa y)dy \label{eq:generalewindow} 
        % =& exp(jx_c)\int_{-\infty}^{+\infty}f_{b}(u)exp(ju)du\\
         %=& exp(jx_c)F_b(x_0)\label{eq11115}
 \end{alignat}
-In this case, $\tilde{s}(\kappa)$ is the Fourier transform of $f_w(\kappa)$. Following the derivation of Eq.\ref{eqavegcase}, a general 
-case of the band-limited form of Eq.\ref{eq:genra} is:
+In this case, $\tilde{s}(\kappa)$ is the Fourier transform of $f_w(\kappa)$. Following the derivation of Eq.\ref{eq:1dimavegcase}, a 
+general case of the band-limited form of Eq.\ref{eq:generalewindow} is:
 % \begin{alignat*}{2}
 % (B_{\Delta x_0}s)(x) =& \frac{1}{\Delta x_0}\int_{x_c-\frac{\Delta x_0}{2}}^{x_c+\frac{\Delta 
 % x_0}{2}}\tilde{s}(\kappa)exp(jx\kappa)d\kappa\label{eq1111111}\\
@@ -370,26 +374,25 @@ case of the band-limited form of Eq.\ref{eq:genra} is:
 (B_{\Delta x_0}s)(x) = & \bigg[sinc \big(x\frac{\Delta x_0}{2}\big) exp(jxx_c)\bigg]\circ f_w(x)\\
 		     = & \bigg[sinc \big(x\frac{\Delta x_0}{2} \big)\circ f_w(x)\bigg]exp(jxx_c)
 \end{alignat*}
-In a two dimensional case, the previous becomes:
+We can then generalize the  two dimensional expression:
 \begin{alignat*}{2}
 (B_{\Delta x_0 \Delta e_0}s)(x,e)=&\bigg[sinc (x\frac{\Delta x_0}{2})sinc(e\frac{\Delta e_0}{2})\circ f_{w}(x,e)\bigg]\\
-				  &exp\big(j (xx_c+ee_c)\big)
+				  &exp\big(j (xx_c+ee_c)\big),
 \end{alignat*}
-Eq.\ref{eq:visibility} can therefore be estimate in a general case as:
-\begin{alignat}{2}
+Then a generalize estimate for visibilities averaging of a pairwise antennas is derived:
+\begin{alignat*}{2}
  V_{pq}^{corr}(t_c, \nu_c)\simeq& \bigg[sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\circ f_{w}(t_c,\nu_c)\bigg]
 			   V_{pq}(t_{c},\nu_{c})
-\end{alignat}
-The  results of the instrument weighted average visibilities for all baselines then follows:
-\begin{alignat}{2}
+\end{alignat*}
+The  instrument total response for a source at $(l,m)$:
+\begin{alignat*}{2}
 R(l,m)\simeq& \sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\circ f_{w}(t_c,\nu_c)\bigg\}\\
 	\circ& R_{pq}(l_0,m_0)\\
 	\simeq& \sum_{pq}\mathcal{F}^{-1}\bigg\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta 
 \Phi}{2}\bigg\}\mathcal{F}^{-1}\bigg\{f_{w}(t_c,\nu_c)\bigg\}\\
 	\circ& R_{pq}(l_0,m_0)\\
-	\simeq& \bigg[Tri(l,m)F_{w}(l_0,m_0)\bigg]\circ R(l_0,m_0),
-\end{alignat}
-where $\mathcal{F}^{-1}\bigg\{f_{w}(t_c,\nu_c)\bigg\}=F_{w}(l_0,m_0)$.
+	\simeq& K(l,m)\circ R(l_0,m_0),
+\end{alignat*}
 % \begin{alignat}{2}
 % \Delta \Psi\simeq& \Delta \Phi
 % \end{alignat}
