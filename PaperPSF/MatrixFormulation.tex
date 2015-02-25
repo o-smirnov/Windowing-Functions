@@ -223,25 +223,24 @@ delay cause by the variation of b due to the Earth rotation and $c$ is the speed
 That said, the frequency $\nu$ and the time $\tau$ change small  enough $(d\nu, d\tau)$ so that $I_{\nu}(\mathbf{s})$
 remain constant while the complex phase, $\frac{-2\pi\nu i \mathbf{b}\mathbf{s}}{c}$ varies linearly.   Eq.\ref{eq:1} becomes:
 \begin{alignat}{2}
-V_{\nu}(\mathbf{s}) =& \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\int_{\Omega}I_{\nu}(\mathbf{s})e^{\frac{-2\pi\nu i \mathbf{b}\mathbf{s}}{c}}d\Omega d\tau d\nu \label{eq:2}\\	    
-		    =& \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\Big[\int_{}I_{\nu}(\mathbf{s})e^{-2\pi i (u_{t\nu}l+v_{t\nu}m+w_{t\nu}(n-1))}\\
-		     &dldm\Big] d\tau d\nu\label{eq:3}
+V_{\nu}(\mathbf{s}) =& \iiint\limits_{-\infty}^{+\infty}I_{\nu}(\mathbf{s})e^{\frac{-2\pi\nu i \mathbf{b}\mathbf{s}}{c}}d\Omega d\tau d\nu \label{eq:2}\\	    
+		    =& \iiint\limits_{-\infty}^{+\infty}I_{\nu}(\mathbf{s})e^{-2\pi i (u_{t\nu}l+v_{t\nu}m+w_{t\nu}(n-1))}dldm d\tau d\nu\label{eq:3}
 \end{alignat}
 Eq.\ref{eq:3} allows us to completely understand that in theory, we integrated over a continue elliptical arc both
 in frequency and time. For convenient and in the rest of this paper, Eq.\ref{eq:3} is restricted to the complex visibility
 measured by the two elements interferometer for a point source locates toward the direction $s$ with unitary brightness. 
 Therefore, we can write:
 \begin{alignat}{2}
-V_{\nu}(\mathbf{s})  =& \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}e^{-2\pi i (u_{t\nu}l+v_{t\nu}m+w_{t\nu}(n-1))}dt d\nu\label{eq:4}
-\end{alignat}
+V_{\nu}(\mathbf{s})  =& \iiint\limits_{-\infty}^{+\infty}e^{-2\pi i (u_{t\nu}l+v_{t\nu}m+w_{t\nu}(n-1))}dt d\nu\label{eq:4}
+\end{alignat} %\iint\limits_{\inf}^{\inf}
 In practice, the variation is limited to a small finite frequency range, $\Delta \nu$ centered at $\nu_c$ and time range $\Delta \tau$ centered
 at $\tau_c$, which implies that we are not more integrating over continues elliptical arcs but on shorts discrete
 segments across time and frequency, thus over a square taper. Eq.\ref{eq:4} is therefore approximated to:
 \begin{alignat}{2}
 V_{\nu}(\mathbf{s})^{box}_{t_c \nu_c} =& \frac{1}{\Delta \nu \Delta t}\int_{\nu_c - \frac{\Delta \nu}{2}}^{\nu_c + \frac{\Delta \nu}{2}}\int_{t_c - \frac{\Delta t}{2}}^{t_c + \frac{\Delta t}{2}}
  e^{-2\pi i (u_{t\nu}l+v_{t\nu}m+w_{t\nu}(n-1))}dt d\nu\\
-					 =& \frac{1}{\Delta \nu \Delta t}\int_{\nu_c - \frac{\Delta \nu}{2}}^{\nu_c + \frac{\Delta \nu}{2}}\int_{t_c - \frac{\Delta t}{2}}^{t_c + \frac{\Delta t}{2}}
-e^{-2\pi i (u_{t\nu}l+v_{t\nu}m+w_{t\nu}(n-1))} dt d\nu\\
+					 %=& \frac{1}{\Delta \nu \Delta t}\int_{\nu_c - \frac{\Delta \nu}{2}}^{\nu_c + \frac{\Delta \nu}{2}}\int_{t_c - \frac{\Delta t}{2}}^{t_c + \frac{\Delta t}{2}}
+%e^{-2\pi i (u_{t\nu}l+v_{t\nu}m+w_{t\nu}(n-1))} dt d\nu\\
 					 =&sinc\frac{-2\pi t\Delta \nu}{2}sinc\frac{-2\pi\nu\Delta t}{2}e^{-2\pi i (u_{t_c\nu_c}l+v_{t_c\nu_c}m+w_{t_c\nu_c}(n-1))}\label{eq:5}
 \end{alignat}
 It is then observed that for finite frequency and time range, the complex phase varies linearly within the range
@@ -280,14 +279,11 @@ where $PSF(\mathbf{s}_0)$ is the PSF at the phase tracking center
 and $C(\mathbf{s})$ is the image plane smearing response for a source
 located toward the direction $\mathbf{s}\neq \mathbf{s_0}$, defined as:
 \begin{alignat}{2}
-C(\mathbf{s}) = \sum_{pq}\mathcal{F}^{-1}\Big\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\circ \check{f}_{uv}(l,m)\}\Big\}
+C(\mathbf{s}) = \sum_{pq}\mathcal{F}^{-1}\Big\{sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}\circ \check{f}_{lm}(u_{t_c\nu_c},v_{t_c\nu_c})\}\Big\}
 \end{alignat}
 The smeared PSF of a source, $PSF(\mathbf{s})$ located toward the
 direction $\mathbf{s}$ was derived and shown that it is proportional
 to the PSF, $PSF(\mathbf{s}_0)$ of a source at the phase centre.
-
-
-
 \begin{figure*}
 \includegraphics[width=1\textwidth]{./Figures/averaging_brute_quick_good.png}\caption{Brute Vs approximate PSF for a source at 1.4deg}\label{fig:uvcov}
  \end{figure*}
@@ -296,8 +292,7 @@ to the PSF, $PSF(\mathbf{s}_0)$ of a source at the phase centre.
 \end{figure*}
  \begin{figure*}
 \includegraphics[width=1\textwidth]{./Figures/phasecentre.png}
-\end{figure*}
-
+\end{figure*}	````````````````````````````````````````````````````````````````````````````	`
 % \subsubsection{Computational cost}
 % 
 % \section{Simulation and comparison}
