@@ -225,7 +225,7 @@ finite nature of the tracking source and other effects. Assuming that the freque
 time $t$ change small  enough so that $I_{\nu}(\mathbf{s})$
 remains constant while the complex phase, $\frac{-2\pi\nu i \mathbf{b}\mathbf{s}}{c}$ varies linearly.   Eq.\ref{eq:1} becomes:
 \begin{alignat}{2}
-V_{\nu}(\mathbf{b}) =& \frac{1}{\Delta t \Delta \nu}\int_{\nu_c - \frac{\Delta \nu}{2}}^{\nu_c + \frac{\Delta \nu}{2}}\int_{t_c - \frac{\Delta t}{2}}^{t_c + \frac{\Delta t}{2}}\bigg[\int\limits_{\Omega}^{}I_{\nu}(\mathbf{s})e^{\frac{-2\pi\nu i \mathbf{b}\mathbf{s}}{c}} d\Omega\bigg] dt d\nu \label{eq:2}\\	    
+V_{\nu}(\mathbf{b}) =& \frac{1}{\Delta t \Delta \nu}\int_{\Delta \nu}^{}\int_{\Delta t}^{}\bigg[\int\limits_{\Omega}^{}I_{\nu}(\mathbf{s})e^{\frac{-2\pi\nu i \mathbf{b}\mathbf{s}}{c}} d\Omega\bigg] dt d\nu \label{eq:2}\\	    
 		    =& \iint\limits_{-\infty}^{\hspace{.3cm}+\infty}f_{\mathbf{s}}(\mathbf{b})\bigg[\int\limits_{\Omega}^{}I_{\nu}(\mathbf{s})e^{\frac{-2\pi\nu i \mathbf{b}\mathbf{s}}{c}}d\Omega \bigg]dt d\nu  \label{eq:3}.
 \end{alignat}
 Here, $f_{\mathbf{s}}(\mathbf{b})$ is the visibilities plane tapering funtion, theoretically it is an elliptical function that
@@ -269,7 +269,8 @@ It is then observed that for finite frequency and time range, the complex phase 
 $\Delta \Phi = −2\pi t\Delta \nu$ and $\Delta \Psi= −2\pi\nu\Delta t$ in frequency and time respectively.
 
 
-O.M. Smirnov (cite, Jan 2011) demonstrated that in the case where $f^{\Pi}_{lm}(u_{t\nu},v_{t\nu})=\Pi_{lm}(u_{t\nu},v_{t\nu})$, the bove Equation is approximated in term of the
+O.M. Smirnov (cite, Jan 2011) demonstrated that in the case of averaging, natural weighting where
+$f^{\Pi}_{lm}(u_{t\nu},v_{t\nu})=\Pi_{lm}(u_{t\nu},v_{t\nu})$, the bove Equation is approximated in term of the
 phase changes in time $\Delta \Psi$ and frequency  $\Delta \Phi$ for the case
 of smearing as:
 \begin{alignat*}{2}
@@ -290,7 +291,7 @@ range respectively.
 We then generalized the approximation of smearing for a
 random taper $f_{lm}(u_{t\nu},v_{t\nu})$ as follows:
 \begin{alignat*}{2}
-V_{\nu}(\mathbf{b})^{window}_{t_c \nu_c} =&\simeq \Bigg[sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}e^{-2\pi i (u_{t_c\nu_c}l+v_{t_c\nu_c}m+w_{t_c\nu_c}(n-1))}\Bigg]
+V_{\nu}(\mathbf{b})^{window}_{t_c \nu_c} &\simeq \Bigg[sinc\frac{\Delta \Psi}{2}sinc\frac{\Delta \Phi}{2}e^{-2\pi i (u_{t_c\nu_c}l+v_{t_c\nu_c}m+w_{t_c\nu_c}(n-1))}\Bigg]
 \end{alignat*}
 \begin{alignat}{2}
 					  & \circ \check{w}(u_{t_c\nu_c},v_{t_c\nu_c})\circ \check{f}_{lm}(u_{t_c\nu_c},v_{t_c\nu_c})\circ \delta(u_{t_c\nu_c},v_{t_c\nu_c})\label{eq:5}.
@@ -298,7 +299,7 @@ V_{\nu}(\mathbf{b})^{window}_{t_c \nu_c} =&\simeq \Bigg[sinc\frac{\Delta \Psi}{2
 Assuming that all the baselines are pointing at the same phase tracking centre, during conventional interferometric imaging,
 the baseline visibilities are mapped on a uv-plane, and the result is inverse Fourier transformed:
 \begin{alignat}{2}
-PSF(\mathbf{s}) \simeq & \mathcal{F}^{-1}\Big\{\sum_{i=1,j=1}^{n_v\times n_{bl}}V_{\nu}(\mathbf{b})^{window}_{t_i \nu_j}\big\}\\
+PSF(\mathbf{s}) \simeq & \mathcal{F}^{-1}\Bigg\{\sum_{i=1,j=1}^{n_v\times n_{bl}}V_{\nu}(\mathbf{b})^{window}_{t_i \nu_j}\Bigg\}\\
 		\simeq & C(\mathbf{s})PSF(\mathbf{s_0}),
 \end{alignat}
 where $PSF(\mathbf{s}_0)$ is the PSF at the phase tracking center
