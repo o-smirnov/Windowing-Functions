@@ -1,4 +1,37 @@
+% mn2esample.tex
+%
+% v2.1 released 22nd May 2002 (G. Hutton)
+%
+% The mnsample.tex file has been amended to highlight
+% the proper use of LaTeX2e code with the class file
+% and using natbib cross-referencing. These changes
+% do not reflect the original paper by A. V. Raveendran.
+%
+% Previous versions of this sample document were
+% compatible with the LaTeX 2.09 style file mn.sty
+% v1.2 released 5th September 1994 (M. Reed)
+% v1.1 released 18th July 1994
+% v1.0 released 28th January 1994
+
 \documentclass[useAMS,usenatbib]{mn2e}
+% If your system does not have the AMS fonts version 2.0 installed, then
+% remove the useAMS option.
+%
+% useAMS allows you to obtain upright Greek characters.
+% e.g. \umu, \upi etc.  See the section on "Upright Greek characters" in
+% this guide for further information.
+%
+% If you are using AMS 2.0 fonts, bold math letters/symbols are available
+% at a larger range of sizes for NFSS release 1 and 2 (using \boldmath or
+% preferably \bmath).
+%
+% The usenatbib command allows the use of Patrick Daly's natbib.sty for
+% cross-referencing.
+%
+% If you wish to typeset the paper in Times font (if you do not have the
+% PostScript Type 1 Computer Modern fonts you will need to do this to get
+% smoother fonts in a PDF file) then uncomment the next line
+% \usepackage{Times}
 
 %%%%% AUTHORS - PLACE YOUR OWN MACROS HERE %%%%%
 \newcommand{\conj}[1]{\overline{#1}}
@@ -10,7 +43,7 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
 \usepackage{graphicx}
-%\usepackage[sc]{mathpazo}
+\usepackage[sc]{mathpazo}
 \usepackage{amsmath}
 \usepackage{multirow}
 \usepackage{graphicx}
@@ -35,7 +68,8 @@
 
 \title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithms For Cheaper Surveys: Using Windowing Functions. 
 }
-\author[M. T. Atemkeng , O. M. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. T. Atemkeng$^{1}$, O. M. Smirnov$^{12}$\thanks{E-mail: m.atemkeng@gmail.com}, 
+\author[M. T. Atemkeng , O. M. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. T. Atemkeng$^{1}$, O. M. Smirnov$^{12}$\thanks{E-mail: 
+o.smirnov@ru.ac.za (OMS); m.atemkeng@gmail.com (MTA); cyril.tasse@obspm.fr (CT); griffin.foster@gmail.com (GF); j.jonas@ru.ac.za (JJ)}, 
  C. Tasse$^{123}$, G. Foster$^{12}$, J. Jonas$^{12}$ \\
 $^1$Department of Physics and Electronics, Rhodes University, PO Box 94, Grahamstown, 6140, South Africa\\
 $^2$SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Africa\\
@@ -65,82 +99,49 @@ Instrumentation: interferometers, Methods: data analysis, Methods: numerical, Te
 \end{keywords}
 
 \section[]{Introduction}
-
-A radio interferometer measures complex quantities called \emph{visibilities}, which, following the van Cittert-Zernike 
-relation \citep{tms}, correspond to Fourier modes of the sky brightness distribution, corrupted by various instrumental 
-and atmospheric effects. One particular effect, known as \emph{time} and \emph{bandwidth smearing} (or averaging) occurs 
-when the visibilities are averaged over a time and frequency bin of finite extent. This unavoidably happens in the correlator 
-(since the correlator output is, by definition, an average measurement over some bin), but also when data is further 
-averaged post-correlation (both for purposes of compression, and to reduce computational cost).
-
-The effect of smearing is to decrease the amplitude of off-axis sources. This is easy to understand: the visibility contribution of a point source of flux $S$ located in the direction given by the unit vector $\bmath{\sigma}$ is given by
-
+The recent radio astronomy techniques is to build a single, gigantic instrument called \textit{interferometer}, from the combination of 
+several small parabolic antennas separated over kilometres (\cite{2}). The signal from each antenna is combined at the level of a 
+cross-correlator to form the interferometer  data output. The cross-correlator carries out  data reduction and filters out an amount of 
+noise by averaging the signal of each baseline over discrete time and/or frequency bins.
+It is well known in interferometry that averaging 
+can lead to the loss of signal amplitude when the cross correlator integrate over a longer period of time and a wider bandwidth. This 
+effect is known as time-average smearing and bandwidth smearing (Thompson et \textit{al.} \cite{2}). The above effects cause the distortion 
+of sources within the 
+field of interest by decreasing their intensity.\\
+To keep smearing down at acceptable levels, a correlator must cross-correlate the signal over a shorter period of time and a narrower 
+bandwidth, hence producing a large amount of data for subsequence stage such as 
+imaging \citep{Marti2008,Linfield1986}, calibration (\cite{2}), etc. This huge amount of data is becoming an increasingly serious 
+problem 
+and becoming 
+more challenging as the computational demands of the next generation radio telescopes will rise significantly (see the SKA phase 1 
+specification \cite{2}). 
+Similarly, the next generation of radio telescopes will require an unprecedented level of SNR while mapping large regions of the sky. Thus, 
+a substantial 
+increase in \textit{SNR} can only be achieve by observing for longer time at wider bandwidth without loss of signal: this is not 
+realisable with averaging.
+Therefore, it becomes urgent to develop new decorrelation algorithm techniques that will allow the required SNR of the future radio 
+telescopes.\\
+In this paper, we investigate the efficiency of correlator windowing functions for the reduction of 
+interferometric data and the recovery of interferometers arrays desire FoV, with the ultimate goal of reaching higher SNR. The main idea is 
+to achieve a high SNR by conserving the astrophysical signal and by limiting the noise. Thermal noise can be driven arbitrary low by 
+increasing the observing time\footnote{...}, but in radio astronomy confusion noise is a major problem and can even cause calibration to 
+fail. Therefore, we seek to use a windowing function that will conserve the useful signal while also limiting sidelobes confusion from out 
+of FoV sources.
 \begin{equation}
-V = S \exp \big \{  \frac{2\pi i}{\lambda} \bmath{u}\cdot(\bmath{\sigma}-\bmath{\sigma}_0) \big \},
+ SNR=\frac{S_{use}}{N_{ter}+N_{con}}
 \end{equation}
-
-where $\bmath{u}$ is the baseline vector, and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
-Since $\bmath{u}$ changes with time (at least in an Earth- or orbit-based interferometer), the complex phase term above rotates as a 
-function of time and frequency (or, equivalently, wavelength $\lambda$). A vector average over a time/frequency bin then results 
-in a net loss of amplitude. The effect increases with baseline length and distance from phase centre. Besides reducing apparent source flux, smearing also distorts the PSF, since different baselines (and thus different Fourier modes) are attenuated differently.
-
-In the era of big interferometers, where computation becomes one of the main cost drivers, it is in principle desirable to average
-the data down as much as is consistent with the science goals, so as to reduce cost. There are natural limits to this: firstly, we still need to critically sample the $uv$-plane, secondly, we need to retain sufficient spectral resolution, thirdly, we don't want to average (at least pre-calibration) beyond the natural variation of the calibration parameters, and fourthly, we want to keep smearing at acceptable levels in order not to lose too much signal. In this work, we concentrate on the smearing problem. Here, we can identify two regimes:
-
 \begin{itemize}
-\item In a compact interferometer, the maximum usable field of view (FoV) corresponds to the primary beam (PB) of the antennas; in
-most cases (but surveys especially) we want the effective FoV to reach this limit. This imposes an upper limit on the size of a 
-time/frequency bin: it must be small enough to keep amplitude loss acceptably low across the entire PB FoV. 
-\item In VLBI, smearing is a lot more severe, so the effective FoV is determined by the smallest time/frequency bin size that a
-correlator can support, and is normally much smaller than the PB. Modern VLBI correlators overcome this by employing a technique 
-called multiple phase centre correlation, where the signal is correlated relative to multiple phase centres simultaneously, thus
-effectively ``tiling'' the PB by multiple FoVs. This has a computational cost that scales linearly with the number of phase centres.
+  \item "\textit{Useful signal}", $S_{use}$ the signal from source in the field of interest. These sources should be accurately recovered
+over the instrument entire FoV : correlator windowing functions maximized this signal by allowing the interferometer array to map a large 
+region of the sky.
+  \item "\textit{Sidelobe confusion}", $N_{con}$ signal from out field of view sources received from their  sidelobes. These sources are  
+not of interest and should be removed : correlator windowing functions acts as a remover of these signals when the array is mapping a large 
+region of the sky.
+  \item "\textit{Thermal noise}", $N_{ter}$ the thermal noise from the instrument, ionosphere, etc. Averaging presents theoretically  a 
+maximum sensitivity, but the use of extended correlator windowing functions can reduce or eliminate the loss of the nominal sensitivity.
 \end{itemize}
-
-On the other hand, smearing also has a useful side effect. In interferometry, anything outside the desired FoV is unwanted 
-signal. However, the PB pattern of any real-life antenna features sidelobes and backlobes 
-that extend across the entire sky, albeit at a relatively faint level. The faintness makes sidelobes useless for imaging any 
-but the brightest sources: the scientifically usable FoV is that given by the main lobe. However, the 
-sum total signal from all the sources in the PB sidelobes, modulated by their PSF sidelobes, contributes an unwanted global 
-background called the \emph{far sidelobe confusion noise} (FSCN). This imposes a fundamental sensitivity limit; in older 
-telescopes and surveys this was well below the achievable thermal noise and therefore not a worry, but modern and future 
-observatories are capable of reaching this limit \citep{Smirnov-FSCN}. Even in observations well above the FSCN, 
-individual extremely bright radio sources such as Cyg A or Cas A can contribute confusing signal from even the most distant 
-sidelobe: the LOFAR telescope \citep{LOFAR} has to deal with the so-called ``A-team'' sources on a routine basis. Since 
-smearing suppresses distant sources, this somewhat alleviates both the FSCN and A-team problems.
-
-When considering a short sequence of visibilities measured by one baseline, we can think of averaging as a convolution of the 
-true visibility by a boxcar function corresponding to the $uv$-extent of the averaging bin, followed by sampling at the 
-centre of each bin. Convolution in the visibility plane corresponds to multiplication of the image by a \emph{tapering function} 
-that is the Fourier transform (FT) of the convolution kernel; the FT of a boxcar is a Jinc-type taper. If
-we consider the entire $uv$-plane, averaging is only a pseudo-convolution, since the different $uv$-bins (and thus
-their boxcars) will have different sizes and shapes as determined by baseline length and orientation. Still, we can 
-qualitatively view smearing  as some kind of cumulative effect of an ensemble of image-plane tapers corresponding to all the 
-different boxcars\footnote{For completeness, we should note that  this ``smearing taper'' is not the only tapering effect 
-at work in interferometric imaging. Firstly, antennas have a non-zero 
-physical extent: a measured visibility is already convolved by the aperture illumination functions (AIFs) of each pair of 
-antennas. The resulting image-plane taper is exactly what the PB is. Secondly, most imaging software employs 
-convolutional gridding followed by an FFT, which produces an additional taper that suppresses aliasing of sources from 
-outside the imaged region.}. 
-
-What if we were to employ weighted averaging instead of simple averaging (whether in the correlator, or in post-processing)? 
-This would be pseudo-convolution of the $uv$-plane by some ensemble of \emph{windowing functions} (WFs), different from boxcars, 
-which would obviously yield different image-plane tapers, and thus result in different smearing behaviour. The optimal
-smearing behaviour would be one that was minimal across the desired FoV, and maximal outside it. In this work, 
-we apply filter theory to derive a set of correlator WFs (CWFs) that result in more optimal smearing behaviour. The trade-off is 
-an increase in thermal noise, since minimum noise can only be achieved with unweighted averaging. We then show that this effect 
-can be partially mitigated through the use of \emph{extended WFs}. 
-
-In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
-the main challenges, use of CWFs potentially offers additional leverage in optimizing radio observations. 
-Decreased smearing across the FoV allows for more agressive data averaging, thus reducing storage and compute costs. 
-The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, since CWFs also offer 
-increased suppression of unwanted signal from outside the FoV, the corresponding reduction in FSCN and A-team signal 
-could, conceivably, make up for the loss in nominal sensitivity. In the VLBI regime, use of CWFs potentially offers an increase in 
-effective FoV at the same correlator dump rate, or equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
-for smaller correlators.
-
-
+The proposed techniques are applied to MeerKAT (Karoo Array Telescope) \cite{1} and the Very Large 
+Array (VLA)\cite{1} and  could also be used for future radio telescopes such as the SKA.
 \section[]{ Overviews and definitions}
 \subsection{Visibility and relation with the sky }
 \label{sec:visSky}
