@@ -31,6 +31,9 @@
 \newcommand{\nat}{Nature}
 \newcommand{\physrep}{Phys. Rep.}
 
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithms For Cheaper Surveys: Using Windowing Functions. 
@@ -69,23 +72,24 @@ Instrumentation: interferometers, Methods: data analysis, Methods: numerical, Te
 A radio interferometer measures complex quantities called \emph{visibilities}, which, following the van Cittert-Zernike 
 relation \citep{tms}, correspond to Fourier modes of the sky brightness distribution, corrupted by various instrumental 
 and atmospheric effects. One particular effect, known as \emph{time} and \emph{bandwidth smearing} (or averaging) occurs 
-when the visibilities are averaged over a time and frequency bin of finite extent. This unavoidably happens in the correlator 
-(since the correlator output is, by definition, an average measurement over some bin), but also when data is further 
+when the visibilities are averaged over a time and frequency bin of non-zero extent. This unavoidably happens in the correlator 
+(since the correlator output is, by definition, an average measurement over some interval), but also if data is further 
 averaged post-correlation (both for purposes of compression, and to reduce computational cost).
 
-The effect of smearing is to decrease the amplitude of off-axis sources. This is easy to understand: the visibility contribution of a point source of flux $S$ located in the direction given by the unit vector $\bmath{\sigma}$ is given by
+The effect of smearing is mainly a decrease in the amplitude of off-axis sources. This is easy to understand: the visibility contribution of a point source of flux $S$ located in the direction given by the unit vector $\bmath{\sigma}$ is given by
 
 \begin{equation}
 V = S \exp \big \{  \frac{2\pi i}{\lambda} \bmath{u}\cdot(\bmath{\sigma}-\bmath{\sigma}_0) \big \},
 \end{equation}
 
 where $\bmath{u}$ is the baseline vector, and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
-Since $\bmath{u}$ changes with time (at least in an Earth- or orbit-based interferometer), the complex phase term above rotates as a 
-function of time and frequency (or, equivalently, wavelength $\lambda$). A vector average over a time/frequency bin then results 
-in a net loss of amplitude. The effect increases with baseline length and distance from phase centre. Besides reducing apparent source flux, smearing also distorts the PSF, since different baselines (and thus different Fourier modes) are attenuated differently.
+The complex phase term above rotates as a function of frequency (due to the inverse scaling with $\lambda$) and time (due to
+the fact that $\bmath{u}$ changes with time, at least in an Earth- or orbit-based interferometer). 
+Taking a vector average over a time/frequency bin then results  in a net loss of amplitude. The effect increases 
+with baseline length and distance from phase centre. Besides reducing apparent source flux, smearing also distorts the PSF, since different baselines (and thus different Fourier modes) are attenuated differently.
 
-In the era of big interferometers, where computation becomes one of the main cost drivers, it is in principle desirable to average
-the data down as much as is consistent with the science goals, so as to reduce cost. There are natural limits to this: firstly, we still need to critically sample the $uv$-plane, secondly, we need to retain sufficient spectral resolution, thirdly, we don't want to average (at least pre-calibration) beyond the natural variation of the calibration parameters, and fourthly, we want to keep smearing at acceptable levels in order not to lose too much signal. In this work, we concentrate on the smearing problem. Here, we can identify two regimes:
+In the era of big interferometers, where computation (and thus data size) becomes one of the main cost drivers, it is 
+in principle desirable to average the data down as much as possible, without compromising the science goals. There are natural limits to this: firstly, we still need to critically sample the $uv$-plane, secondly, we need to retain sufficient spectral resolution, thirdly, we don't want to average (at least pre-calibration) beyond the natural variation of the calibration parameters, and fourthly, we want to keep smearing at acceptable levels in order not to lose too much signal. In this work, we concentrate specifically on the smearing problem. Here, we can identify two regimes:
 
 \begin{itemize}
 \item In a compact interferometer, the maximum usable field of view (FoV) corresponds to the primary beam (PB) of the antennas; in
@@ -124,12 +128,13 @@ convolutional gridding followed by an FFT, which produces an additional taper th
 outside the imaged region.}. 
 
 What if we were to employ weighted averaging instead of simple averaging (whether in the correlator, or in post-processing)? 
-This would be pseudo-convolution of the $uv$-plane by some ensemble of \emph{windowing functions} (WFs), different from boxcars, 
-which would obviously yield different image-plane tapers, and thus result in different smearing behaviour. The optimal
-smearing behaviour would be one that was minimal across the desired FoV, and maximal outside it. In this work, 
-we apply filter theory to derive a set of correlator WFs (CWFs) that result in more optimal smearing behaviour. The trade-off is 
-an increase in thermal noise, since minimum noise can only be achieved with unweighted averaging. We then show that this effect 
-can be partially mitigated through the use of \emph{extended WFs}. 
+This would correspond to a  pseudo-convolution of the $uv$-plane by some ensemble of \emph{windowing functions} (WFs), 
+different from boxcars, which would obviously yield different image-plane tapers, and thus result in different 
+smearing response. Filter theory suggests that a WF can be tuned to achieve some desired tapering response. 
+An optimal taper would be one that was maximal across the desired FoV, and minimal outside it. In this work, 
+we apply filter theory to derive a set of correlator WFs (CWFs) that approximate this more optimal smearing 
+behaviour. The trade-off is an increase in thermal noise, since minimum noise can only be achieved with 
+unweighted averaging. We show that this effect can be partially mitigated through the use of \emph{extended WFs}. 
 
 In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
 the main challenges, use of CWFs potentially offers additional leverage in optimizing radio observations. 
@@ -137,45 +142,54 @@ Decreased smearing across the FoV allows for more agressive data averaging, thus
 The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, since CWFs also offer 
 increased suppression of unwanted signal from outside the FoV, the corresponding reduction in FSCN and A-team signal 
 could, conceivably, make up for the loss in nominal sensitivity. In the VLBI regime, use of CWFs potentially offers an increase in 
-effective FoV at the same correlator dump rate, or equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
+effective FoV at a given correlator dump rate, or equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
 for smaller correlators.
 
-
-\section[]{ Overviews and definitions}
-\subsection{Visibility and relation with the sky }
+\section{Overview and definitions}
+\subsection{Visibility and relation with the sky}
 \label{sec:visSky}
-An interferometer array measures a quantity $V_{pq,(u,v,w)}$ known classically as the visibility function.
-The coordinates $u,v$ and $w$ are vector components in unit of wavelength, describing the distance between two antennas $p$ and $q$, known 
-in interferometry as a baseline. A source in the sky will see $u$ and $v$ oriented towards the direction East-West and 
-South-North respectively and $w$ is directed towards the phase centre of the source plane or image plane. The projection of $u$ and $v$ in 
-the image plane are $l$ and $m$ respectively. They are the observed source coordinates, measured in radian. The ideal measurement of 
-interferometric wide-field imaging also known as the van Cittert-Zernike theorem \citep{thompson1999fundamentals} is given by:
+An interferometer array measures the quantity $V(u,v,w)$, known as the visibility function.
+Here, the coordinates $u,v$ and $w$ are vector components in units of metres, describing the distance between 
+two antennas $p$ and $q$, called the \emph{baseline}. The $w$ axis is oriented towards the \emph{phase centre} of the observation,
+while $u$ points East and $v$ North. Given a sky intensity distribution $I(l,m)$, where $l,m$ are the direction cosines,
+and a pair of antennas $p$ and $q$ forming a baseline $\bmath{u}=(u,v,w)$, the nominal observed visibility is given by the van 
+Cittert-Zernike theorem \citep{thompson1999fundamentals} as
 \begin{equation}
- V_{pq,(u,v,w)}=\int \int \frac{I_{(l,m)}}{\sqrt{1-l^2 - m^2}}e^{-2\pi i \phi (u,v,w)}dldm, \label{eq1:visSky}
+V^\mathrm{nom}_{pq}=\iint\limits_{lm} \frac{I(l,m)}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm, \label{eq:visSky:nom}
 \end{equation} 
-where $I(l,m)$ is the sky brightness and $\phi(u,v,w)=ul+vm+w(\sqrt{1-l^2 - m^2}-1)$ is a term from the cross-correlator that models the 
-direction in the sky and the separation of the two antennas. The term $n=\sqrt{1-l^2 - m^2}$ is the result of the projection of the 
-celestial 
-sphere on the image plane. When measuring the visibility function the antennas reception pattern or \textit{primary beam}, $A_{(l,m)}$ 
-which describes the sensitivity of the interferometer elements $p$ and $q$, with radius from the centre of the dish beam is taken into 
-account. Denoting the Fourier transform of the antennas reception pattern "\textit{aperture illumination function}" as 
-$\mathcal{A}_{(u,v,w)}$, the corresponding visibility $V_{pq,(u,v,w)}$ is given as:
+where $\phi(u,v,w)=\frac{1}{\lambda}[ul+vm+w(n-1)]$, and $n=\sqrt{1-l^2 - m^2}$ (the $n-1$ term comes about when fringe stopping is in effect, i.e. when 
+the correlator introduces a compensating delay to ensure $\phi=0$ at the centre of the field, otherwise the term is simply $n$). 
+Taking into account the \emph{primary beam} patterns $E_p(l,m)$ and $E_q(l,m)$ that define the directional sensitivity of 
+the antennas, this becomes 
 \begin{equation}
- V_{pq,(u,v,w)}= \mathcal{A}_{(u,v,w)}\circ \int \int \frac{I_{(l,m)}}{\sqrt{1-l^2 - m^2}}e^{-2\pi i \phi (u,v,w)}dldm, \label{eq2:visSky}
-\end{equation}
-where $\circ$ denotes the convolution operator.
-% In the radio astronomy community, it is well known that the Radio Interferometry Measurement Equation (RIME) description well the 
-% visibility equation of a pair of antennas (p,q). After the generic formulation of the RIME by Hamaka et \textit{al}. (), a full sky 
-% of the RIME is described mathematically by O.M. Smirnov (2010) and  it is given by
-% \begin{equation}
-%  V_{pq}=\textbf{G}_{p}\Bigg(\int \int B_{pq}e^{-2\pi i \big(\phi (u,v,w)-w.(\sqrt{1-l^2 - m^2}-1)\big)}dldm\Bigg)\textbf{G}_{pq}^{H}, 
-% \label{eq1:visSky},
-% \end{equation} 
-% $B_{pq}$
+ V_{pq}=\iint\limits_{lm} \frac{E_p I E_q}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm. \label{eq:visSky}
+\end{equation} 
+Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), this becomes a 2D Fourier transform (FT):
+\begin{equation}
+ V_{pq}=\iint\limits_{lm} E_p I E_q\,\ee^{-2\pi\ii\frac{1}{\lambda}(ul+vm)}dldm. \label{eq:visSky:2D}
+\end{equation} 
+
+\newcommand{\FF}{\mathcal{F}}
+
+The effect of the primary beam can alternatively be expressed in terms of a convolution with its FT, the \emph{aperture 
+illumination function} (AIF) $A_p(u,v)$:
+
+\begin{equation}
+ V_{pq} = A_p \circ V^\mathrm{nom}_{pq} \circ A_q.\label{eq:visSky:conv}
+\end{equation} 
+
 \subsection{Averaging and convolution}
+
 \label{sec:AvgCon}
-The Earth rotation causes the phase, $\phi (u,v,w)$ to variate in time. The baseline 
-coordinates are defined in units of wavelength, and making $\phi (u,v,w)$ to variate in frequency. 
+Earth rotation causes the baseline vector $\bmath{u}$ to rotate in time, thus varying the phase, while 
+the dependence on frequency is explicit. We can express this by treating $V_{pq}$ in eq.~(\ref{eq:visSky:2D}) as 
+a function of $t,\nu$:
+\begin{equation}
+ V_{pq}(t,\nu)=\iint\limits_{lm} E_p I E_q\,\ee^{-2\pi\ii\frac{\nu}{c}[u(t)l+v(t)m)]}dldm. \label{eq:visSky:2Dtf}
+\end{equation} 
+
+
+
 Taking this effect into account, Eq. \ref{eq2:visSky} is  rewritten as an integration over time and frequency interval. If $[t_s,t_e]$ and 
  $[\nu_s,\nu_e]$ are the time and frequency integration interval respectively, then Eq.\ref{eq2:visSky} can be re-written as:
 % variates in 
