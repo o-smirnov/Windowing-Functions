@@ -151,7 +151,8 @@ for smaller correlators.
 An interferometer array measures the quantity $V(u,v,w)$, known as the visibility function.
 Here, the coordinates $u,v$ and $w$ are vector components in units of metres, describing the distance between 
 two antennas $p$ and $q$, called the \emph{baseline}. The $w$ axis is oriented towards the \emph{phase centre} of the observation,
-while $u$ points East and $v$ North. Given a sky intensity distribution $I(l,m)$, where $l,m$ are the direction cosines,
+while $u$ points East and $v$ North. Given a sky intensity\footnote{For simplicity, we ignore polarization in this
+discussion. The formulations can equal well be written in terms of the brightness matrix and Jones matrices.} distribution $I(l,m)$, where $l,m$ are the direction cosines,
 and a pair of antennas $p$ and $q$ forming a baseline $\bmath{u}=(u,v,w)$, the nominal observed visibility is given by the van 
 Cittert-Zernike theorem \citep{thompson1999fundamentals} as
 \begin{equation}
@@ -162,11 +163,11 @@ the correlator introduces a compensating delay to ensure $\phi=0$ at the centre 
 Taking into account the \emph{primary beam} patterns $E_p(l,m)$ and $E_q(l,m)$ that define the directional sensitivity of 
 the antennas, this becomes 
 \begin{equation}
- V_{pq}=\iint\limits_{lm} \frac{E_p I E_q}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm. \label{eq:visSky}
+ V_{pq}=\iint\limits_{lm} \frac{E_p I E_q^*}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm. \label{eq:visSky}
 \end{equation} 
 Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), this becomes a 2D Fourier transform (FT):
 \begin{equation}
- V_{pq}=\iint\limits_{lm} E_p I E_q\,\ee^{-2\pi\ii\frac{1}{\lambda}(ul+vm)}dldm. \label{eq:visSky:2D}
+ V_{pq}=\iint\limits_{lm} E_p I E_q^*\,\ee^{-2\pi\ii\frac{1}{\lambda}(ul+vm)}dldm. \label{eq:visSky:2D}
 \end{equation} 
 
 \newcommand{\FF}{\mathcal{F}}
@@ -182,24 +183,26 @@ illumination function} (AIF) $A_p(u,v)$:
 
 \label{sec:AvgCon}
 Earth rotation causes the baseline vector $\bmath{u}$ to rotate in time, thus varying the phase, while 
-the dependence on frequency is explicit. We can express this by treating $V_{pq}$ in eq.~(\ref{eq:visSky:2D}) as 
+the dependence of phase on wavelength is explicit in the exponent. We can express this by 
+treating $V_{pq}$ in eq.~(\ref{eq:visSky:2D}) as 
 a function of $t,\nu$:
 \begin{equation}
  V_{pq}(t,\nu)=\iint\limits_{lm} E_p I E_q\,\ee^{-2\pi\ii\frac{\nu}{c}[u(t)l+v(t)m)]}dldm. \label{eq:visSky:2Dtf}
 \end{equation} 
 
-
-
-Taking this effect into account, Eq. \ref{eq2:visSky} is  rewritten as an integration over time and frequency interval. If $[t_s,t_e]$ and 
- $[\nu_s,\nu_e]$ are the time and frequency integration interval respectively, then Eq.\ref{eq2:visSky} can be re-written as:
-% variates in 
-% time when the Earth rotation is  if $\textbf{V}_{pq}^{true}(t,\nu)$ is the non integrated visibilities observed during 
-% the time interval $\Delta t$ at multi frequency  within the bandwidth $\Delta \nu$, then the cross correlate visibility, 
-% $\mathcal{V}_{pq,(t,\nu)}^{corr}$ of the  baseline (p,q) is given as:
+Each visibility sample (whether at the correlator output, or after averaging in post-processing) corresponds to the 
+average of $V_{pq}$ over some frequency and time bin $[t_s,t_e]\times[\nu_s,\nu_e]$, and can be associated with the time 
+and frequency centroid of the bin $t_c,\nu_c$:
 \begin{equation}
-V_{pq,(t_c,\nu_c)}^{corr}=\frac{1}{\Delta t \Delta \nu} \int_{t_s}^{t_e}\int_{\nu_s}^{\nu_e}V_{pq,(t,\nu)}d\nu dt.
+V_{pq}^\mathrm{samp}(t_c,\nu_c) = \frac{1}{\Delta t \Delta \nu} 
+\int\limits_{t_s}^{t_e}\int\limits_{\nu_s}^{\nu_e}V_{pq}(t,\nu)}d\nu dt.
 \label{eq2:conti}
 \end{equation}
+Note that while  this ignores the complexities of correlator architecture (where the visibilities are channelized via 
+a Fourier transform of a time series, before or after correlation), but does represent an accurate model of what is actually 
+measured.
+
+
 Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility,  
 $V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\cdot V_{pq,(t,\nu)}$ at a specific time and frequency. The sampling function, 
 $S_{pq,(t,\nu)}$ indicates where the $(u, v)$ data for the baseline (p,q) are measured  during the 
