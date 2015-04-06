@@ -208,98 +208,89 @@ Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre time in
 restricted to a short time and narrow 
 frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
 follows: 
-\begin{eqnarray}
-V_{pq,(t_c,\nu_c)}^{corr}&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq,(t,\nu)}^{samp}.\label{eq2:sample}
-%&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
-\end{eqnarray}
-Here, $n_t$ and $n_{\nu}$ are the number of discrete times and discrete frequencies within the time interval  and 
-the frequency interval  respectively. For convenience, let introduce a normalized \textit{Boxcar} windowing 
-function, $\Pi_{pq,(t_c - t,\nu_c -\nu)}$  that will attribute an equal weight (in this case $1/n_t n_{\nu}$) to all uv-bins. We can 
-therefore re-write Eq. \ref{eq2:sample} as:
-\begin{eqnarray}
-V_{pq,(t_c,\nu_c)}^{corr}&=&\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\Pi_{pq,(t_c - t_i,\nu_c -\nu_j)}V_{pq,(t_i,\nu_j)}^{samp}. 
-\label{eq:avscon}
-\end{eqnarray}
-It is worth noting that Eq.\ref{eq:avscon} is a naturally weighted visibility and is a two dimensional convolution between the 
-\textit{Boxcar} windowing function and the sampled visibility. Thus, averaging is equivalent to convolving the 
-sampled 
-visibility with a \textit{Boxcar} windowing function. Mathematically, this is described as follows:
+
+This can approximated by subdividing the averaging interval into $n_t\times n_\nu$ samples, and doing a discrete average:
 \begin{equation}
- V_{pq,(t_c,\nu_c)}^{corr}=c_{pq,(t,\nu)}\cdot\Bigg(\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg). \label{f4}
+V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq}(t_i,\nu_j).\label{eq2:sample}
+%&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
 \end{equation}
-Here, $c_{pq,(t,\nu)}$ is a function that samples the result of $\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}$ at 
-the centre time interval and centre frequency interval. 
-\\%Its is defined as:$c_{pq,(t_i,\nu_j)}=0$ for \\
-%$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
-Nevertheless, for all combined two elements (p,q) of an interferometer array, the current efficient observing mode suggest that, 
-$\Pi_{pq,(t,\nu)}$ remain constant ($\Pi_{pq,(t,\nu)}=1/n_t n_{\nu})$ across baselines $(u,v)$ measurement bins, although the distance 
-between a uv-bin and the centre uv-bin is proportional to the baseline length. The present work evaluate  the
-effects of such observing mode (see section \ref{sec:effectbw}) and present a practically usable
-observing mode (see section \ref{baseline1}) of 
-radio interferometric measurements. The approach consists of assigning a weight of a uv-bin depending on the distance between the uv-bin 
-and the centre uv-bin. The remaining sections refer averaging as boxcar 
-averaging and our approach as baseline dependent \textit{windowing function}\footnote{\textit{windowing function} will be replaced by the 
-window we used. For example $sinc$, $Butterwordth$, etc}(BDWF) averaging.
+
+We can represent the sampling process via multiplication by a sampling function $S_{pq}(t,\nu)$, which is a ``''bed of nails'' 
+functio that selects points where we sample the visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point on we will work with the sampled visibilities $V^\mathrm{samp}$ only.
+
+Now, let introduce a normalized \emph{boxcar} windowing function, $\Pi_{pq}^{(t_c\nu_c)}(t,\nu)$ that will attribute an equal weight (in this case $1/n_t n_{\nu}$) to all subsamples within the interval, and zero weight outside the interval. We can 
+then re-write Eq.~(\ref{eq2:sample}) as:
+\begin{equation}
+V_{pq}^\mathrm{corr}(t_c,\nu_c) = 
+\sum_{i,j=-\infty}^{\infty}\Pi_{pq}^{(t_c\nu_c)}(t_c - t_i,\nu_c -\nu_j)V_{pq}^\mathrm{samp}(t_i,\nu_j).
+\label{eq:avscon}
+\end{equation}
+This makes it explicit that each sampled (averaged) visibility is drawn from a convolution of the true visibilities with a boxcar function:
+\begin{equation}
+ V_{pq}^\mathrm{corr} = c^{(t_c\nu_c)} \cdot \Big( \Pi_{pq}^{(t_c\nu_c)} \circ V_{pq}^\mathrm{samp} \Big). 
+ \label{eq:avscon2}
+\end{equation}
+Here, $c^{(t_c,\nu_c)}$ is another sampling function that samples the point at $t_c,\nu_c$ and is zero elsewhere, i.e. an offset delta function:
+\begin{equation}
+c^{(t_c,\nu_c)}= \delta(t-t_c,\nu-\nu_c)
+\end{equation}
+Note what eq. (\ref{eq:avscon2}) does and does not say. It does say that each individual averaged visibility corresponds to 
+convolving the true visibilities by a boxcar. However, this boxcar is different for each baseline $pq$ and 
+time/frequency sample $t_c,\nu_c$ 
+(which is emphasized by the sub- and superscripts to $\Pi$ in the equations above), so averaging is not a ``true'' convolution,
+since the convolution kernel changes at every point in the $uv$-plane. We'll call this process a \emph{pseudo-convolution}, 
+and kernel being convolved with -- in this case the boxcar -- an example of a \emph{baseline-dependent windowing function} (BDWF). 
+In subsequent sections we will explore alternative BDWFs.
+
+% \\%Its is defined as:$c_{pq,(t_i,\nu_j)}=0$ for \\
+% %$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
+% Nevertheless, for all combined two elements (p,q) of an interferometer array, the current efficient observing mode suggest that, 
+% $\Pi_{pq,(t,\nu)}$ remain constant ($\Pi_{pq,(t,\nu)}=1/n_t n_{\nu})$ across baselines $(u,v)$ measurement bins, although the distance 
+% between a uv-bin and the centre uv-bin is proportional to the baseline length. The present work evaluate  the
+% effects of such observing mode (see section \ref{sec:effectbw}) and present a practically usable
+% observing mode (see section \ref{baseline1}) of 
+% radio interferometric measurements. The approach consists of assigning a weight of a uv-bin depending on the distance between the uv-bin 
+% and the centre uv-bin. The remaining sections refer averaging as boxcar 
+% averaging and our approach as baseline dependent \textit{windowing function}\footnote{\textit{windowing function} will 
+% be replaced by the 
+% window we used. For example $sinc$, $Butterwordth$, etc}(BDWF) averaging.
+
+
 \subsection{Effect of time and bandwidth boxcar averaging}
 \label{sec:effectbw}
-This problem arises when the interferometer array is used to observe wide fields. Finite time and frequency 
-integration intervals make  Eq.\ref{eq2:conti} to hold and in the sampled form in the limit when $(\Delta t, \Delta 
-\nu) \rightarrow (0,0)$. Nevertheless, as mention earlier, the Fourier phase components $2\pi \phi(u,v,w)$ is a function of the direction 
-in the sky, the wavelength, the separation of 
-antennas as well as the time and frequency integration interval [see \citep{bregman2012system} for an intensive discussion]. Therefore, on 
-long baselines, a maximal Fourier phase component occurs for off phase centre  sources (with radius $\sqrt{l^2 + m^2}$ from the phase 
-centre) and courses the distortion of these sources.  The distortion becomes significant when $\sqrt{l^2 + m^2}$ increases and  for large 
-time and wide frequency intervals. This is the raison of which the degree of smearing 
-increases with the position of a source and the baseline length \citep{bregman2012system}.\\
-% \\
-% During imaging \citep{briggs1999imaging}, Eq.\ref{f4} is inverse Fourier transform, and the convolution theorem is applied, the 
-% $sinc$ function therefore multiply the sky (see appendix \ref{label:similarimaging} for a short discussion and illustration). The 
-% sky map is tapered by the $sinc$ function in the $l$ and $m$ directions, the response is maximal for sources at the phase centre 
-% ($l=0,m=0$), while for off-phase centre sources, the response is smeared (decreased) for larger $\Delta t$ and $\Delta \nu$. The 
-% Fourier phase components $2\pi \phi(u,v,w)$ is a function of the direction in the sky, the wavelength, the separation of antennas as well 
-% as the integration time and frequency. Therefore, a maximal phase will occur on longer baselines while a small phase will occur on shorter 
-% baselines. This explained while the degree of smearing increases with the position of a source and the baseline 
-% length \citep{bregman2012system}.\\
-Figures \ref{timessear1} and \ref{timessear2} show the attenuation of  1 Jy source at various coordinates in the sky for various 
-integration time intervals and channels respectively. The instrument used is the JVLAC configuration.
-\begin{itemize}
- \item Figure \ref{timessear1} shows that $\approx 99\%$ of the source flux density is measured for integration $\leq 25s$ 
-when the source is within $[0^\circ,0.5^\circ]$. The FoV of JVLAC  is $1^\circ$ centred at the phase centre, it is seen on 
-the figure that, $\approx 99\%$ of the source flux density can not be maintained within $[0^\circ,0.5^\circ]$ while the source is attenuated
-out of the interval for shorts integrations.
-  \item Figure \ref{timessear2} also shows $\approx 99\%$ of the source flux density measured for channels $\leq1250$kHz when the 
-source is within $[0^\circ,0.5^\circ]$. The same phenomenon  in Figure \ref{timessear1} is observed when the source is 
-out of $[0^\circ,0.5^\circ]$.
-\end{itemize}
-Reducing smearing with the current observing mode (boxcar averaging), the synthesis time and the frequency range are breaking into a 
-number of short time 
-integration and narrow channels. For each time integration or channel, correlation  is then treated as a distinct visibility each with its 
-own uv-bin.
-For example, if the synthesis time is $T$ and the frequency range is $F$, then $T = N_t \times \Delta t$
-and $F = N_{\nu}\times \Delta \nu$. Here, $N_t$ and  $N_{\nu}$ are the number of time sample and frequency channels entering the Fourier 
-domain respectively. The reduction of smearing becomes proportional to the width of the time integration and the channel. 
-Under this, smearing is totally eliminated over the field of view if $(\Delta t, \Delta \nu)$ remain sufficiently small ($\{ T, F\} \propto 
-\{\mathcal{N}_t, \mathcal{N}_{\nu}\}$). Although this principle has been known for some time, its  maintained sidelobes contamination from 
-out field of view sources (see Figure \ref{timessear1} and \ref{timessear2}) and produced $\mathcal{N}_t\times\mathcal{N}_{\nu}$ 
-uv-bins 
-which leads to storage issues. Reducing smearing when 
-$\Delta t$ and  $\Delta \nu$ are large enough with the aims to save memory, this work investigates various windowing functions (WF) in term 
-of the 
-optimal image plane response (see Figure \ref{fig:idealIRF}). 
+
+
 \begin{figure*}
-  \centering
-%   distance.plot(wind1='',r1='Rav10.npy',l1='Lav10.npy',l2='Lav25.npy',l3='Lav50.npy',l4='Lav100.npy',l5='Lav150.npy',title=r'Time averaging; 
-% JVLAC snapshot; natural weighting',xlabel=r'Distance from the phase centre[deg]')
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_time_averaging.pdf}\caption{Attenuation of the 
-intensity of a 1Jy source move from the phase centre for $\Delta t$ integration synthesis at $1.4$GHz with
-125kHz bandwidth.}\label{timessear1}\end{minipage}
-\hspace{1cm}
-% distance.plot(wind1='',r1='Rav10000.npy',l1='Lav100000.npy',l2='Lav1250000.npy',l3='Lav2500000.npy',l4='Lav5000000.npy',l5='Lav6250000.npy',
-% title=r'Bandwidth averaging; JVLAC snapshot; natural weighting',xlabel=r'Distance from the phase centre[deg]')
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/effect_bandwid_averaging.pdf}\caption{Attenuation of the 
-intensity of a 1Jy source move from the phase centre for $1$s integration synthesis at $1.4$GHz with
-$\Delta \nu$ bandwidth.}\label{timessear2}\end{minipage}
+\includegraphics[width=\columnwidth]{./Figures/effect_time_averaging.pdf}%
+\includegraphics[width=\columnwidth]{./Figures/effect_bandwid_averaging.pdf}
+\caption{Effects of time and frewuency averaging: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, 
+as a function of distance from phase centre. (Left) Frequency interval fixed at 125 kHz, time interval varies; 
+(right) time interval fixed at 1s, frequency interval varies.}\label{fig:smear}
 \end{figure*}
+
+
+In the limit of $\Delta t,\Delta \nu \rightarrow 0$, averaging becomes equivalent to sampling. 
+The problem arises with wide fields, because an interferometer must intrinsically use a non-zero
+averaging interval. The Fourier phase component $2\pi\phi(u,v,w)$ is a function of frequency
+and time, with increasing variation over the averaging interval for sources far from the phase centre.
+This causes the averaging to effectively ``wash out'' source amplitude 
+\citep[for an extensive discussion, see][]{bregman2012system}.
+
+Figure \ref{fig:smear} shows the attenuation of a 1 Jy source as a function of distance
+from phase centre, for a set of different time and frequency intervals. The simulations correspond to JVLA 
+in the C configuration, with an observing frequency of 1.4 GHz. At this frequency, the first null of the PB is at 
+$r\approx36'$, and the half-power point is at $\sim16'$, thus we can consider the ``conventional'' FoV (i.e. the half-power 
+beam width, or HPBW) to be about $0.5^\circ$ across. Note that the sensitivity of the upgraded JVLA, as well as
+improvements in calibration techniques \cite{Perley2013}, allow imaging of the first PB sidelobe, so we could also
+consider an ``extended'' FoV extending out to the second null of the PB at $r\approx1.25^\circ$. Whatever definition
+of the FoV we adopt, Fig.~\ref{fig:smear} shows that to keep amplitude losses across
+the FoV to within some acceptable threshold, say 1\%, the averaging interval must be no more than some critical size,
+say 10s and 1 MHz. Conversely, if we were to adopt an aggressive averaging strategy for the purposes of data 
+compression, say 50s and 5 MHz, the curves indicate that we would suffer substantial amplitude loss towards the 
+egde of the FoV. Finally, note that the curves corresponding to low values of smearing across the FoV (i.e. up to 25s and 
+up to 1.25 MHz) have a very gentle slope, with correspondingly little suppression of sources \emph{outside} the FoV.
+
+
 \subsection{Imaging and noise estimate}
 \label{sec:imaging}
 Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
