@@ -136,6 +136,8 @@ we apply filter theory to derive a set of correlator WFs (CWFs) that approximate
 behaviour. The trade-off is an increase in thermal noise, since minimum noise can only be achieved with 
 unweighted averaging. We show that this effect can be partially mitigated through the use of \emph{extended WFs}. 
 
+Cite Offringa and LOFAR.
+
 In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
 the main challenges, use of CWFs potentially offers additional leverage in optimizing radio observations. 
 Decreased smearing across the FoV allows for more agressive data averaging, thus reducing storage and compute costs. 
@@ -176,7 +178,7 @@ The effect of the primary beam can alternatively be expressed in terms of a conv
 illumination function} (AIF) $A_p(u,v)$:
 
 \begin{equation}
- V_{pq} = A_p \circ V^\mathrm{nom}_{pq} \circ A_q.\label{eq:visSky:conv}
+ V_{pq} = A_p \circ V^\mathrm{nom}_{pq} \circ A_q^*.\label{eq:visSky:conv}
 \end{equation} 
 
 \subsection{Averaging and convolution}
@@ -185,58 +187,56 @@ illumination function} (AIF) $A_p(u,v)$:
 Earth rotation causes the baseline vector $\bmath{u}$ to rotate in time, thus varying the phase, while 
 the dependence of phase on wavelength is explicit in the exponent. We can express this by 
 treating $V_{pq}$ in eq.~(\ref{eq:visSky:2D}) as 
-a function of $t,\nu$:
+a continuous function of $t,\nu$:
 \begin{equation}
  V_{pq}(t,\nu)=\iint\limits_{lm} E_p I E_q\,\ee^{-2\pi\ii\frac{\nu}{c}[u(t)l+v(t)m)]}dldm. \label{eq:visSky:2Dtf}
 \end{equation} 
 
-Each visibility sample (whether at the correlator output, or after averaging in post-processing) corresponds to the 
+Each measured visibility  corresponds to the 
 average of $V_{pq}$ over some frequency and time bin $[t_s,t_e]\times[\nu_s,\nu_e]$, and can be associated with the time 
-and frequency centroid of the bin $t_c,\nu_c$:
+and frequency centroid of the bin $t_c,\nu_c$. Ideally, this can be represented by an integration:
 \begin{equation}
-V_{pq}^\mathrm{samp}(t_c,\nu_c) = \frac{1}{\Delta t \Delta \nu} 
-\int\limits_{t_s}^{t_e}\int\limits_{\nu_s}^{\nu_e}V_{pq}(t,\nu)}d\nu dt.
+V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{\Delta t \Delta \nu} 
+\int\limits_{t_s}^{t_e}\int\limits_{\nu_s}^{\nu_e}V_{pq}(t,\nu)d\nu dt,
 \label{eq2:conti}
 \end{equation}
-Note that while  this ignores the complexities of correlator architecture (where the visibilities are channelized via 
-a Fourier transform of a time series, before or after correlation), but does represent an accurate model of what is actually 
-measured.
-
-
-Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility,  
-$V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\cdot V_{pq,(t,\nu)}$ at a specific time and frequency. The sampling function, 
-$S_{pq,(t,\nu)}$ indicates where the $(u, v)$ data for the baseline (p,q) are measured  during the 
-integration. It is unity where measurement have been made, and zero otherwise.
-Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre time interval $t_c$ and centre frequency interval $\nu_c$  is 
-restricted to a short time and narrow 
-frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
-follows: 
-
-This can approximated by subdividing the averaging interval into $n_t\times n_\nu$ samples, and doing a discrete average:
+however, in actual fact, a correlator (or any averaging in post-processing) deals with averages of discrete samples.
+Let us represent the sampling process via multiplication of $V_{pq}(t,\nu)$ by a ``bed of nails'' sampling function $S_{pq}(t,\nu)$
+that selects points where we sample the discrete visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point 
+on we will work with the sampled visibilities $V^\mathrm{samp}$ only. We can now represent the averaging process by a discrete sum:
 \begin{equation}
 V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq}(t_i,\nu_j).\label{eq2:sample}
 %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
 \end{equation}
 
-We can represent the sampling process via multiplication by a sampling function $S_{pq}(t,\nu)$, which is a ``''bed of nails'' 
-functio that selects points where we sample the visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point on we will work with the sampled visibilities $V^\mathrm{samp}$ only.
+% Note that we ignores the complexities of correlator architecture (where the visibilities are channelized via 
+% a Fourier transform of a time series, before or after correlation), but does represent an accurate model of what is actually 
+% measured.
+% Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility,  
+% $V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\cdot V_{pq,(t,\nu)}$ at a specific time and frequency. The sampling function, 
+% $S_{pq,(t,\nu)}$ indicates where the $(u, v)$ data for the baseline (p,q) are measured  during the 
+% integration. It is unity where measurement have been made, and zero otherwise.
+% Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre time interval $t_c$ and centre frequency interval $\nu_c$  is 
+% restricted to a short time and narrow 
+% frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
+% follows: 
 
-Now, let introduce a normalized \emph{boxcar} windowing function, $\Pi_{pq}^{(t_c\nu_c)}(t,\nu)$ that will attribute an equal weight (in this case $1/n_t n_{\nu}$) to all subsamples within the interval, and zero weight outside the interval. We can 
+Now, let introduce a \emph{normalized boxcar windowing function}, $\Pi_{pq}^{(t_c\nu_c)}(t,\nu)$ that attributes
+equal weight of $1/n_t n_{\nu}$) to all subsamples within the averaging interval, and zero weight outside it. We can 
 then re-write Eq.~(\ref{eq2:sample}) as:
 \begin{equation}
 V_{pq}^\mathrm{corr}(t_c,\nu_c) = 
 \sum_{i,j=-\infty}^{\infty}\Pi_{pq}^{(t_c\nu_c)}(t_c - t_i,\nu_c -\nu_j)V_{pq}^\mathrm{samp}(t_i,\nu_j).
 \label{eq:avscon}
 \end{equation}
-This makes it explicit that each sampled (averaged) visibility is drawn from a convolution of the true visibilities with a boxcar function:
+This makes it explicit that each averaged visibility is drawn from a convolution of the underlying sampled visibilities 
+with a boxcar function:
 \begin{equation}
  V_{pq}^\mathrm{corr} = c^{(t_c\nu_c)} \cdot \Big( \Pi_{pq}^{(t_c\nu_c)} \circ V_{pq}^\mathrm{samp} \Big). 
  \label{eq:avscon2}
 \end{equation}
-Here, $c^{(t_c,\nu_c)}$ is another sampling function that samples the point at $t_c,\nu_c$ and is zero elsewhere, i.e. an offset delta function:
-\begin{equation}
-c^{(t_c,\nu_c)}= \delta(t-t_c,\nu-\nu_c)
-\end{equation}
+Here, $c^{(t_c,\nu_c)}$ is another sampling function that samples the point at $t_c,\nu_c$ and is zero elsewhere.
+
 Note what eq. (\ref{eq:avscon2}) does and does not say. It does say that each individual averaged visibility corresponds to 
 convolving the true visibilities by a boxcar. However, this boxcar is different for each baseline $pq$ and 
 time/frequency sample $t_c,\nu_c$ 
@@ -259,7 +259,7 @@ In subsequent sections we will explore alternative BDWFs.
 % window we used. For example $sinc$, $Butterwordth$, etc}(BDWF) averaging.
 
 
-\subsection{Effect of time and bandwidth boxcar averaging}
+\subsection{Effect of time and bandwidth smearing}
 \label{sec:effectbw}
 
 
@@ -284,7 +284,8 @@ from phase centre, for a set of different time and frequency intervals. The simu
 in the C configuration, with an observing frequency of 1.4 GHz. At this frequency, the first null of the PB is at 
 $r\approx36'$, and the half-power point is at $\sim16'$, thus we can consider the ``conventional'' FoV (i.e. the half-power 
 beam width, or HPBW) to be about $0.5^\circ$ across. Note that the sensitivity of the upgraded JVLA, as well as
-improvements in calibration techniques \cite{Perley2013}, allow imaging of the first PB sidelobe, so we could also
+improvements in calibration techniques \cite{Perley2013}, allow imaging to be done in the first PB sidelobe as well
+(and in fact it may be necessary for deep pointings, if only to deconvolve and subtratc sidelobe sources), so we could also
 consider an ``extended'' FoV extending out to the second null of the PB at $r\approx1.25^\circ$. Whatever definition
 of the FoV we adopt, Fig.~\ref{fig:smear} shows that to keep amplitude losses across
 the FoV to within some acceptable threshold, say 1\%, the averaging interval must be no more than some critical size,
