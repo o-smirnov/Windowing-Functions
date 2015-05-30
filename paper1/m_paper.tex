@@ -200,10 +200,25 @@ V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{\Delta t \Delta \nu}
 \int\limits_{t_s}^{t_e}\int\limits_{\nu_s}^{\nu_e}V_{pq}(t,\nu)d\nu dt,
 \label{eq2:conti}
 \end{equation}
+
 however, in actual fact, a correlator (or any averaging in post-processing) deals with averages of discrete samples.
 Let us represent the sampling process via multiplication of $V_{pq}(t,\nu)$ by a ``bed of nails'' sampling function $S_{pq}(t,\nu)$
 that selects points where we sample the discrete visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point 
 on we will work with the sampled visibilities $V^\mathrm{samp}$ only. We can now represent the averaging process by a discrete sum:
+
+This ignores the complexities of correlator architecture (where the visibilities are channelized via a Fourier transform of 
+a time series, before or after correlation), but it does represent an accurate model of the measured visibility.
+% Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility,  
+% $V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\cdot V_{pq,(t,\nu)}$ at a specific time and frequency. The sampling function, 
+% $S_{pq,(t,\nu)}$ indicates where the $(u, v)$ data for the baseline (p,q) are measured  during the 
+% integration. It is unity where measurement have been made, and zero otherwise.
+% Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre time 
+% interval $t_c$ and centre frequency interval $\nu_c$  is 
+% restricted to a short time and narrow 
+% frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
+% follows: 
+The integration can approximated by subdividing the averaging interval into $n_t\times n_\nu$ samples, and taking the average:
+
 \begin{equation}
 V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq}(t_i,\nu_j).\label{eq2:sample}
 %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
@@ -220,6 +235,11 @@ V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j
 % restricted to a short time and narrow 
 % frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
 % follows: 
+
+We can represent the sampling process via multiplication by a sampling function $S_{pq}(t,\nu)$, which is a ``bed of nails'' 
+function that selects points where we sample the visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point on 
+we will work with the sampled visibilities $V^\mathrm{samp}$ only.
+
 
 Now, let introduce a \emph{normalized boxcar windowing function}, $\Pi_{pq}^{(t_c\nu_c)}(t,\nu)$ that attributes
 equal weight of $1/n_t n_{\nu}$) to all subsamples within the averaging interval, and zero weight outside it. We can 
@@ -266,7 +286,7 @@ In subsequent sections we will explore alternative BDWFs.
 \begin{figure*}
 \includegraphics[width=\columnwidth]{./Figures/effect_time_averaging.pdf}%
 \includegraphics[width=\columnwidth]{./Figures/effect_bandwid_averaging.pdf}
-\caption{Effects of time and frewuency averaging: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, 
+\caption{Effects of time and frequency averaging: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, 
 as a function of distance from phase centre. (Left) Frequency interval fixed at 125 kHz, time interval varies; 
 (right) time interval fixed at 1s, frequency interval varies.}\label{fig:smear}
 \end{figure*}
@@ -291,8 +311,11 @@ of the FoV we adopt, Fig.~\ref{fig:smear} shows that to keep amplitude losses ac
 the FoV to within some acceptable threshold, say 1\%, the averaging interval must be no more than some critical size,
 say 10s and 1 MHz. Conversely, if we were to adopt an aggressive averaging strategy for the purposes of data 
 compression, say 50s and 5 MHz, the curves indicate that we would suffer substantial amplitude loss towards the 
-egde of the FoV. Finally, note that the curves corresponding to low values of smearing across the FoV (i.e. up to 25s and 
-up to 1.25 MHz) have a very gentle slope, with correspondingly little suppression of sources \emph{outside} the FoV.
+egde of the FoV. 
+
+Finally, note that the curves corresponding to acceptably low values of smearing across the FoV (i.e. up to 25s and 
+up to 1.25 MHz) have a very gentle slope, with very little suppression of sources \emph{outside} the FoV. 
+Figure~\ref{fig:idealIRF} illustrates the ideal smearing response; the boxcar averaging response is clearly far from ideal.
 
 
 \subsection{Imaging and noise estimate}
