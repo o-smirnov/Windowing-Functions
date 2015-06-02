@@ -136,78 +136,180 @@ we apply filter theory to derive a set of correlator WFs (CWFs) that approximate
 behaviour. The trade-off is an increase in thermal noise, since minimum noise can only be achieved with 
 unweighted averaging. We show that this effect can be partially mitigated through the use of \emph{extended WFs}. 
 
-Cite Offringa and LOFAR.
+{\bf Cite Offringa and LOFAR.}
 
 In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
 the main challenges, use of CWFs potentially offers additional leverage in optimizing radio observations. 
 Decreased smearing across the FoV allows for more agressive data averaging, thus reducing storage and compute costs. 
-The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, since CWFs also offer 
-increased suppression of unwanted signal from outside the FoV, the corresponding reduction in FSCN and A-team signal 
+The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, sinc
+
+ N and A-team signal 
 could, conceivably, make up for the loss in nominal sensitivity. In the VLBI regime, use of CWFs potentially offers an increase in 
 effective FoV at a given correlator dump rate, or equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
 for smaller correlators.
 
 \section{Overview and definitions}
+
+\newcommand{\VV}{\mathcal{V}}
+\newcommand{\WW}{\mathcal{W}}
+\newcommand{\II}{\mathcal{I}}
+\newcommand{\EE}{\mathcal{E}}
+\newcommand{\FF}{\mathcal{F}}
+\newcommand{\HH}{\mathcal{H}}
+
+The following formalism deals with visibilities both as functions (i.e. entire distributions on the $uv$-plane), 
+and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
+functional notation and their values, we will use $\VV$ or 
+$\VV(u,v)$ to denote functions, and $V$ to denote individual visibilities. Likewise, $\II(l,m)$ denotes a function 
+on the $lm$-plane i.e. an image. The symbol $\delta$ always denotes a function, that is a delta-function.
+
+Depending on whether we want to consider polarization or not, $\VV$ can be taken to represent either 
+scalar (complex) visibilities, or $2\times2$ complex visibility matrices  as per the radio interferometer 
+measurement equation (RIME) formalism \citep{smirnov2011revisiting}. Likewise, $\II$ can be treated as a scalar 
+(total intensity) image, or a $2\times2$ brightness matrix distribution. The derivations below 
+are valid in either case.
+
+We shall use the symbols $\mathbf{u}=(u,v)$ or $\mathbf{u}=(u,v,w)$ to represent baseline coordinates in units of wavelength, and 
+$\mathbf{u}^\mathrm{m}$ for units of metres, with $\mathbf{u} = \mathbf{u}^\mathrm{m}/\lambda = \mathbf{u}^\mathrm{m}\nu/c$
+
 \subsection{Visibility and relation with the sky}
 \label{sec:visSky}
-An interferometer array measures the quantity $V(u,v,w)$, known as the visibility function.
-Here, the coordinates $u,v$ and $w$ are vector components in units of metres, describing the distance between 
+An interferometer array measures the quantity $\VV(u,v,w)$, known as the visibility function.
+Here, the coordinates $u,v$ and $w$ are vector components in units of wavelength, describing the distance between 
 two antennas $p$ and $q$, called the \emph{baseline}. The $w$ axis is oriented towards the \emph{phase centre} of the observation,
-while $u$ points East and $v$ North. Given a sky intensity\footnote{For simplicity, we ignore polarization in this
-discussion. The formulations can equal well be written in terms of the brightness matrix and Jones matrices.} distribution $I(l,m)$, where $l,m$ are the direction cosines,
-and a pair of antennas $p$ and $q$ forming a baseline $\bmath{u}=(u,v,w)$, the nominal observed visibility is given by the van 
+while $u$ points East and $v$ North. Given a sky distribution $\II(l,m)$, where $l,m$ are the direction cosines,
+the nominal observed visibility is given by the van 
 Cittert-Zernike theorem \citep{thompson1999fundamentals} as
 \begin{equation}
-V^\mathrm{nom}_{pq}=\iint\limits_{lm} \frac{I(l,m)}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm, \label{eq:visSky:nom}
+\VV^\mathrm{nom}(u,v) =\iint\limits_{lm} \frac{\II(l,m)}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm, \label{eq:visSky:nom}
 \end{equation} 
-where $\phi(u,v,w)=\frac{1}{\lambda}[ul+vm+w(n-1)]$, and $n=\sqrt{1-l^2 - m^2}$ (the $n-1$ term comes about when fringe stopping is in effect, i.e. when 
+where $\phi(u,v,w)=ul+vm+w(n-1)$, and $n=\sqrt{1-l^2 - m^2}$ (the $n-1$ term comes about when fringe 
+stopping is in effect, i.e. when 
 the correlator introduces a compensating delay to ensure $\phi=0$ at the centre of the field, otherwise the term is simply $n$). 
-Taking into account the \emph{primary beam} patterns $E_p(l,m)$ and $E_q(l,m)$ that define the directional sensitivity of 
+
+Given a pair of antennas $p$ and $q$ forming a baseline $\bmath{u}_{pq}=(u_{pq},v_{pq},w_{pq})$, 
+and taking into account the \emph{primary beam} patterns $\EE_p(l,m)$ and $\EE_q(l,m)$ that define the directional sensitivity of 
 the antennas, this becomes 
 \begin{equation}
- V_{pq}=\iint\limits_{lm} \frac{E_p I E_q^*}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm. \label{eq:visSky}
+\VV_{pq}(u,v)=\iint\limits_{lm} \frac{\EE_p \II \EE_q^H}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm. \label{eq:visSky}
 \end{equation} 
 Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), this becomes a 2D Fourier transform (FT):
 \begin{equation}
- V_{pq}=\iint\limits_{lm} E_p I E_q^*\,\ee^{-2\pi\ii\frac{1}{\lambda}(ul+vm)}dldm. \label{eq:visSky:2D}
+\VV_{pq}(u,v)=\iint\limits_{lm} \EE_p \II \EE_q^H\,\ee^{-2\pi\ii(ul+vm)}dldm. \label{eq:visSky:2D}
 \end{equation} 
 
-\newcommand{\FF}{\mathcal{F}}
 
 The effect of the primary beam can alternatively be expressed in terms of a convolution with its FT, the \emph{aperture 
-illumination function} (AIF) $A_p(u,v)$:
-
+illumination function} (AIF) $\mathcal{A}_p(u,v)$. In functional form:
 \begin{equation}
- V_{pq} = A_p \circ V^\mathrm{nom}_{pq} \circ A_q^*.\label{eq:visSky:conv}
+\VV_{pq} = \mathcal{A}_p \circ \VV^\mathrm{nom}_{pq} \circ \mathcal{A}_q^H.\label{eq:visSky:conv}
 \end{equation} 
 
-\subsection{Averaging and convolution}
+
+
+\subsection{Imaging, averaging and convolution}
 
 \label{sec:AvgCon}
-Earth rotation causes the baseline vector $\bmath{u}$ to rotate in time, thus varying the phase, while 
-the dependence of phase on wavelength is explicit in the exponent. We can express this by 
-treating $V_{pq}$ in eq.~(\ref{eq:visSky:2D}) as 
+Earth rotation causes the baseline to rotate in time, which we can denote by
+$\bmath{u}^\mathrm{m}_{pq}=\bmath{u}^\mathrm{m}_{pq}(t)$. The baseline in units of wavelength 
+can be treated as a function of frequency and time:
+\begin{equation}
+\label{eq:uvtf}
+\bmath{u}_{pq}(t,\nu) = \bmath{u}^\mathrm{m}_{pq}(t)\nu/c.
+\end{equation} 
+This, in turn, allows us to express the visibility in eq.~(\ref{eq:visSky:2D}) as 
 a continuous function of $t,\nu$:
 \begin{equation}
- V_{pq}(t,\nu)=\iint\limits_{lm} E_p I E_q\,\ee^{-2\pi\ii\frac{\nu}{c}[u(t)l+v(t)m)]}dldm. \label{eq:visSky:2Dtf}
+\VV_{pq}(t,\nu)=\iint\limits_{lm} \EE_p \II \EE_q^H\,\ee^{-2\pi\ii(u_{pq}(t)l+v_{pq}(t)m)}dldm. \label{eq:visSky:2Dtf}
 \end{equation} 
 
-Each measured visibility  corresponds to the 
-average of $V_{pq}$ over some frequency and time bin $[t_s,t_e]\times[\nu_s,\nu_e]$, and can be associated with the time 
-and frequency centroid of the bin $t_c,\nu_c$. Ideally, this can be represented by an integration:
+Synthesis imaging recovers a so-called ``dirty image'' as the inverse Fourier transform of some measured  
+visibility distribution $\VV^\mathrm{(m)}$. This is sampled by a number of baselines $pq$ and time/frequency points 
+$t_k,\nu_l$. Designating each such sample by the index $pqkl$, we can express the imaging process as
 \begin{equation}
-V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{\Delta t \Delta \nu} 
-\int\limits_{t_s}^{t_e}\int\limits_{\nu_s}^{\nu_e}V_{pq}(t,\nu)d\nu dt,
+\label{eq:imaging}
+\II = \FF^{-1}[ \WW\cdot \VV^\mathrm{(m)} ]  
+\end{equation}
+where $\WW$ is the (weighted) sampling function -- a ``bed-of-nails'' function that is non-zero at points where we 
+are sampling a visibility, and zero elsewhere. 
+Since the Fourier transform is linear, this can be represented by a sum of  ``single-nail'' functions $\WW_{pqkl}$:
+\begin{equation}
+\WW = \sum_{pqkl} \WW_{pqkl} = \sum_{pqkl} W_{pqkl} \delta_{pqkl},
+\end{equation}
+where $\delta_{pqkl}$ is a delta-function shifted to the $uv$-point being sampled:
+\begin{equation}
+\delta_{pqkl}(u,v) = \delta(u-u_{pq}(t_k,\nu_l),v-v_{pq}(t_k,\nu_l))
+\end{equation}
+and $W_{pqkl}$ is the 
+associated weight. The Fourier transform being linear, we can rewrite eq.~(\ref{eq:imaging}) as 
+\begin{equation}
+\label{eq:imaging2}
+\II = \sum_{pqkl} W_{pqkl} \mathcal{F}^{-1}[ \VV^\mathrm{(m)}_{pqkl} ],
+\end{equation}
+where 
+\begin{equation}
+\label{eq:imaging2a}
+\VV^\mathrm{(m)}_{pqkl} = \delta_{pqkl} V^\mathrm{(m)}_{pqkl}
+\end{equation}
+i.e. is a visibility distribution corresponding to the single visibility sample $pqkl$. We can rewrite eq.~(\ref{eq:imaging})
+again as
+\begin{equation}
+\label{eq:imaging3}
+\II^D =  \sum_{pqkl} W_{pqkl} \II^D_{pqkl},~~
+\II^D_{pqkl} =  \FF^{-1}[ \VV^\mathrm{(m)}_{pqkl} ],
+\end{equation}
+which shows that the dirty image $\II^D$ is a weighted sum of dirty images corresponding to the individual visibility 
+samples $pqkl$ (each of which is essentially a single fringe pattern).
+
+Were we to measure instantaneous visibility samples, we would have the simple relation of
+\begin{equation}
+V^\mathrm{(m)}_{pqkl}  = \VV_{pq}(t_k,\nu_l),
+\end{equation}
+where the right-hand side is given by eq.~(\ref{eq:visSky:2Dtf}). However, an interferometer necessarily measures the
+average visibility over a rectangular time-frequency bin 
+\begin{equation}
+\mathsf{B}_{kl} = \bigg [ t_k-\frac{\Delta t}{2},t_k+\frac{\Delta t}{2} \bigg ]
+\times
+\bigg [ \nu_l-\frac{\Delta\nu}{2},\nu_l+\frac{\Delta\nu}{2} \bigg ],  
+\end{equation}
+which, ideally, can be represented by an integration:
+\begin{equation}
+V^\mathrm{(m)}_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
+\iint\limits_{\mathsf{B}_{kl}}
+\VV_{pq}(t,\nu)d\nu dt.
 \label{eq2:conti}
 \end{equation}
 
-however, in actual fact, a correlator (or any averaging in post-processing) deals with averages of discrete samples.
-Let us represent the sampling process via multiplication of $V_{pq}(t,\nu)$ by a ``bed of nails'' sampling function $S_{pq}(t,\nu)$
-that selects points where we sample the discrete visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point 
-on we will work with the sampled visibilities $V^\mathrm{samp}$ only. We can now represent the averaging process by a discrete sum:
+Inverting the relation of eq.~(\ref{eq:uvtf}), we can change variables to express this as an integration over the 
+corresponding bin $\mathsf{B}^{\prime}_{kl}$ in $uv$-space:
+\begin{equation}
+V^\mathrm{(m)}_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
+\iint\limits_{\mathsf{B}^{\prime}_{kl}}
+\VV_{pq}(u,v)\bigg| \frac{\partial(t,\nu)}{\partial(u,v)}\bigg| dudv,
+\label{eq2:conti:uv}
+\end{equation}
+where $\mathsf{B}^{\prime}_{kl}$ is the corresponding bin in $uv$-space. While $\mathsf{B}_{kl}$ is rectangular in $t\nu$ space, 
+$\mathsf{B}^{\prime}_{kl}$ is an arc segment in $uv$-space. Assuming a bin small enough that 
+$\partial\bmath{u}/\partial t$ is approximately constant over the bin, we then have
+\begin{equation}
+V^\mathrm{(m)}_{pqkl} \sim \iint\limits_{\mathsf{B}^{\prime}_{kl}}
+\VV_{pq}(u,v) dudv,
+\label{eq2:conti:uv1}
+\end{equation}
 
-This ignores the complexities of correlator architecture (where the visibilities are channelized via a Fourier transform of 
-a time series, before or after correlation), but it does represent an accurate model of the measured visibility.
+% In actual fact, a correlator (or an averaging operation in post-processing) deals with averages of discrete samples rather than a 
+% continuous integration. This can be represented by subdividing the bin $\mathsf{B}_{kl}$ into $n_t\times n_\nu$ samples $\{t_i\}$ and $\{\nu_j\}$, 
+% and taking the average. This ignores the complexities of correlator architecture (where the visibilities are channelized 
+% via a Fourier transform of a time series, before or after correlation), but it does represent an accurate model 
+% of the measured visibility:
+% \begin{equation}
+% V_{pqkl}^\mathrm{(m)} = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\VV_{pq}(t_i,\nu_j).\label{eq2:sample}
+% %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
+% \end{equation}  
+
+% Let us represent the sampling process via multiplication of $V_{pq}(t,\nu)$ by a ``bed of nails'' sampling function $S_{pq}(t,\nu)$
+% that selects points where we sample the discrete visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point 
+% on we will work with the sampled visibilities $V^\mathrm{samp}$ only. We can now represent the averaging process by a discrete sum:
 % Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility,  
 % $V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\cdot V_{pq,(t,\nu)}$ at a specific time and frequency. The sampling function, 
 % $S_{pq,(t,\nu)}$ indicates where the $(u, v)$ data for the baseline (p,q) are measured  during the 
@@ -217,13 +319,10 @@ a time series, before or after correlation), but it does represent an accurate m
 % restricted to a short time and narrow 
 % frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
 % follows: 
-The integration can approximated by subdividing the averaging interval into $n_t\times n_\nu$ samples, and taking the average:
-
-\begin{equation}
-V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq}(t_i,\nu_j).\label{eq2:sample}
-%&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
-\end{equation}
-
+% \begin{equation}
+% V_{pq}^\mathrm{(m)}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq}(t_i,\nu_j).\label{eq2:sample}
+% %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
+% \end{equation}
 % Note that we ignores the complexities of correlator architecture (where the visibilities are channelized via 
 % a Fourier transform of a time series, before or after correlation), but does represent an accurate model of what is actually 
 % measured.
@@ -236,52 +335,55 @@ V_{pq}^\mathrm{corr}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j
 % frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
 % follows: 
 
-We can represent the sampling process via multiplication by a sampling function $S_{pq}(t,\nu)$, which is a ``bed of nails'' 
-function that selects points where we sample the visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point on 
-we will work with the sampled visibilities $V^\mathrm{samp}$ only.
-
-
-Now, let introduce a \emph{normalized boxcar windowing function}, $\Pi_{pq}^{(t_c\nu_c)}(t,\nu)$ that attributes
-equal weight of $1/n_t n_{\nu}$) to all subsamples within the averaging interval, and zero weight outside it. We can 
-then re-write Eq.~(\ref{eq2:sample}) as:
+We can represent the underlying ``high-resolution'' sampling process via a multiplication of the continuous
+visibility distribution $\VV_{pq}(t,\nu)$ by a sampling function $\HH_{pq}(t,\nu)$,  which is another ``bed of nails''  
+function that selects the $t,\nu$ points corresponding to the sample points $\{t_i\}$ and $\{\nu_j\}$: 
 \begin{equation}
-V_{pq}^\mathrm{corr}(t_c,\nu_c) = 
-\sum_{i,j=-\infty}^{\infty}\Pi_{pq}^{(t_c\nu_c)}(t_c - t_i,\nu_c -\nu_j)V_{pq}^\mathrm{samp}(t_i,\nu_j).
+\VV^\mathrm{(s)}_{pq} = \HH_{pq}\cdot \VV_{pq}. 
+\end{equation}
+% From this point on  we will work with the sampled visibilities $V^\mathrm{samp}$ only.
+
+Now, let us introduce a \emph{normalized boxcar windowing function}, $\Pi_{pqkl}(t,\nu)$ 
+\begin{equation}
+$\Pi_{pqkl}(t,\nu)$ = \bigg \{ \begin{array}{cl}
+\frac{1}{\Delta t\Delta\nu}, &  |t|\leq\Delta t/2,~~|\nu|\leq\Delta\nu/2 \\
+0, & \mathrm{otherwise},
+\end{array}
+\end{equation}
+using which we may re-write eq.~(\ref{eq2:conti}) as
+\begin{equation}
+V^\mathrm{(m)}_{pqkl} =  
+\iint\limits_{\infty}
+\VV_{pq}(t,\nu) \Pi_{pqkl}(t-t_k,\nu-\nu_l) dtd\nu,
+\end{equation}
+which can also be expressed as a convolution:
+\begin{equation}
+V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Pi_{pqkl} ](t_k,\nu_l),
+\end{equation}
+
+Likewise, eq.~(\ref{eq2:conti:uv}) can also be rewritten as a convolution in $uv$-space:
+\begin{equation}
+V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Pi^\prime_{pqkl} ](u_{pq}(t_k),v_{pq}(\nu_l)),
 \label{eq:avscon}
 \end{equation}
-This makes it explicit that each averaged visibility is drawn from a convolution of the underlying sampled visibilities 
-with a boxcar function:
-\begin{equation}
- V_{pq}^\mathrm{corr} = c^{(t_c\nu_c)} \cdot \Big( \Pi_{pq}^{(t_c\nu_c)} \circ V_{pq}^\mathrm{samp} \Big). 
- \label{eq:avscon2}
-\end{equation}
-Here, $c^{(t_c,\nu_c)}$ is another sampling function that samples the point at $t_c,\nu_c$ and is zero elsewhere.
+where $\Pi^\prime_{pqkl}$ is a boxcar-like WF that corresponds to bin $\mathsf{B}^\prime_{kl}$ in $uv$-space 
+(and also includes the determinant term of eq.~\ref{eq2:conti:uv}). This makes it explicit that each averaged 
+visibility is drawn from a convolution of the underlying visibilities with a boxcar-like WF.
 
-Note what eq. (\ref{eq:avscon2}) does and does not say. It does say that each individual averaged visibility corresponds to 
-convolving the true visibilities by a boxcar. However, this boxcar is different for each baseline $pq$ and 
-time/frequency sample $t_c,\nu_c$ 
-(which is emphasized by the sub- and superscripts to $\Pi$ in the equations above), so averaging is not a ``true'' convolution,
-since the convolution kernel changes at every point in the $uv$-plane. We'll call this process a \emph{pseudo-convolution}, 
-and kernel being convolved with -- in this case the boxcar -- an example of a \emph{baseline-dependent windowing function} (BDWF). 
-In subsequent sections we will explore alternative BDWFs.
+Note what eq. (\ref{eq:avscon}) does and does not say. It does say that each individual averaged visibility corresponds to 
+convolving the true visibilities by some WF. However, this WF is different for each baseline $pq$ and 
+time/frequency sample $t_k,\nu_l$ (which is emphasized by the subscripts to $\Pi$ in the equations above). Averaging is thus 
+not a ``true'' convolution, since the convolution kernel changes at every point in the $uv$-plane. We'll call this 
+process a \emph{pseudo-convolution}, and the kernel being convolved with ($\Pi^\prime_{pqkl}$) an example of a 
+\emph{baseline-dependent windowing function} (BDWF). In subsequent sections we will explore alternative BDWFs.
 
-% \\%Its is defined as:$c_{pq,(t_i,\nu_j)}=0$ for \\
-% %$(t_i,\nu_j)\neq(t_c,\nu_c)$ and $c_{pq,(t_i,\nu_j)}=1$ for $(t_i,\nu_j)=(t_c,\nu_c)$.
-% Nevertheless, for all combined two elements (p,q) of an interferometer array, the current efficient observing mode suggest that, 
-% $\Pi_{pq,(t,\nu)}$ remain constant ($\Pi_{pq,(t,\nu)}=1/n_t n_{\nu})$ across baselines $(u,v)$ measurement bins, although the distance 
-% between a uv-bin and the centre uv-bin is proportional to the baseline length. The present work evaluate  the
-% effects of such observing mode (see section \ref{sec:effectbw}) and present a practically usable
-% observing mode (see section \ref{baseline1}) of 
-% radio interferometric measurements. The approach consists of assigning a weight of a uv-bin depending on the distance between the uv-bin 
-% and the centre uv-bin. The remaining sections refer averaging as boxcar 
-% averaging and our approach as baseline dependent \textit{windowing function}\footnote{\textit{windowing function} will 
-% be replaced by the 
-% window we used. For example $sinc$, $Butterwordth$, etc}(BDWF) averaging.
+In actual fact, a correlator (or an averaging operation in post-processing) deals with averages of discrete 
+samples, rather than a continuous integration. To represent this properly, we need to replace the integrals of 
+eqs.~(\ref{eq2:conti}-\ref{eq2:conti:uv1}) by discrete sums, in which case the convolution operation becomes 
+a discrete convolution, but the derivations do not change.
 
-
-\subsection{Effect of time and bandwidth smearing}
+\subsection{Effect of averaging on the image}
 \label{sec:effectbw}
-
 
 \begin{figure*}
 \includegraphics[width=\columnwidth]{./Figures/effect_time_averaging.pdf}%
@@ -291,13 +393,17 @@ as a function of distance from phase centre. (Left) Frequency interval fixed at 
 (right) time interval fixed at 1s, frequency interval varies.}\label{fig:smear}
 \end{figure*}
 
-
 In the limit of $\Delta t,\Delta \nu \rightarrow 0$, averaging becomes equivalent to sampling. 
-The problem arises with wide fields, because an interferometer must intrinsically use a non-zero
-averaging interval. The Fourier phase component $2\pi\phi(u,v,w)$ is a function of frequency
-and time, with increasing variation over the averaging interval for sources far from the phase centre.
-This causes the averaging to effectively ``wash out'' source amplitude 
-\citep[for an extensive discussion, see][]{bregman2012system}.
+An interferometer must, intrinsically, employ a finitely small averaging interval. The Fourier phase 
+component $2\pi\phi(u,v,w)$ is a function of frequency and time, with increasing variation over the averaging interval 
+for sources far from the phase centre. The average of a complex quantity with a varying phase then effectively ``washes out'' 
+amplitude, the effect being especially severe for wide FoVs \citep[for an extensive discussion, see][]{bregman2012system}. This
+effect is often referred to as \emph{time} and \emph{bandwidth smearing}.
+
+The discussion above provides an alternative way to look at smearing. Combining eqs.~(\ref{eq:imaging3}) and (\ref{eq:avscon}),
+
+
+
 
 Figure \ref{fig:smear} shows the attenuation of a 1 Jy source as a function of distance
 from phase centre, for a set of different time and frequency intervals. The simulations correspond to JVLA 
@@ -305,17 +411,31 @@ in the C configuration, with an observing frequency of 1.4 GHz. At this frequenc
 $r\approx36'$, and the half-power point is at $\sim16'$, thus we can consider the ``conventional'' FoV (i.e. the half-power 
 beam width, or HPBW) to be about $0.5^\circ$ across. Note that the sensitivity of the upgraded JVLA, as well as
 improvements in calibration techniques \cite{Perley2013}, allow imaging to be done in the first PB sidelobe as well
-(and in fact it may be necessary for deep pointings, if only to deconvolve and subtratc sidelobe sources), so we could also
+(and in fact it may be necessary for deep pointings, if only to deconvolve and subtract sidelobe sources), so we could also
 consider an ``extended'' FoV extending out to the second null of the PB at $r\approx1.25^\circ$. Whatever definition
 of the FoV we adopt, Fig.~\ref{fig:smear} shows that to keep amplitude losses across
 the FoV to within some acceptable threshold, say 1\%, the averaging interval must be no more than some critical size,
 say 10s and 1 MHz. Conversely, if we were to adopt an aggressive averaging strategy for the purposes of data 
 compression, say 50s and 5 MHz, the curves indicate that we would suffer substantial amplitude loss towards the 
-egde of the FoV. 
+edge of the FoV. 
 
 Finally, note that the curves corresponding to acceptably low values of smearing across the FoV (i.e. up to 25s and 
 up to 1.25 MHz) have a very gentle slope, with very little suppression of sources \emph{outside} the FoV. 
 Figure~\ref{fig:idealIRF} illustrates the ideal smearing response; the boxcar averaging response is clearly far from ideal.
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{./Figures/idealIPR.png}
+\caption{Boxcar response. In the $uv$-plane, this represents the windowing function corresponding to normal
+averaging of visibilities. In the image plane, this represents the ideal image-plane response function.}\label{fig:idealIRF}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{./Figures/idealsinc.png}%
+\caption{Sinc response. In the image plane, this represents the response function corresponding to a boxcar WF in 
+the $uv$-plane. In the $uv$-plane, this represents the ideal WF.}
+\label{fig:idealWF}
+\end{figure}
+
 
 
 \subsection{Imaging and noise estimate}
@@ -625,14 +745,7 @@ The goal of this section is threefold, find a WF that its IPR will:
 Such a WF is very common in theory, is a continuous 
 function (unsampled function) over an illimitable time interval with unit area as shown in Figure \ref{fig:idealWF} and its ideal IPR in 
 Figure \ref{fig:idealIRF}. 
-\begin{figure*}
-\begin{minipage}{0.4\linewidth}\includegraphics[width=1.1\textwidth]{./Figures/idealsinc.png}\caption{Ideal 
-WF}\label{fig:idealWF}
-\end{minipage}
-  \hspace{1cm} 
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/idealIPR.png}\caption{Ideal 
-IPR}\label{fig:idealIRF}\end{minipage}
-\end{figure*}
+
 % \begin{itemize}
 %   \item Find a windowing function that its IPR will conserved the signal within a field of interest 
 %   \item while suppressing sidelobes confusion from strong sources outside the field of interest.
