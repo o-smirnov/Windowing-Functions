@@ -148,14 +148,18 @@ could, conceivably, make up for the loss in nominal sensitivity. In the VLBI reg
 effective FoV at a given correlator dump rate, or equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
 for smaller correlators.
 
-\section{Overview and definitions}
+\section{Overview and problem statement}
 
 \newcommand{\VV}{\mathcal{V}}
 \newcommand{\WW}{\mathcal{W}}
 \newcommand{\II}{\mathcal{I}}
+\newcommand{\IID}{\mathcal{I}^\mathrm{D}}
+\newcommand{\IIDI}{\mathcal{I}^\mathrm{DI}}
 \newcommand{\EE}{\mathcal{E}}
 \newcommand{\FF}{\mathcal{F}}
 \newcommand{\HH}{\mathcal{H}}
+\newcommand{\TT}{\mathcal{T}}
+
 
 The following formalism deals with visibilities both as functions (i.e. entire distributions on the $uv$-plane), 
 and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
@@ -255,17 +259,24 @@ i.e. is a visibility distribution corresponding to the single visibility sample 
 again as
 \begin{equation}
 \label{eq:imaging3}
-\II^D =  \sum_{pqkl} W_{pqkl} \II^D_{pqkl},~~
-\II^D_{pqkl} =  \FF^{-1}[ \VV^\mathrm{(m)}_{pqkl} ],
+\IID =  \sum_{pqkl} W_{pqkl} \IID_{pqkl},~~
+\IID_{pqkl} =  \FF^{-1}[ \VV^\mathrm{(m)}_{pqkl} ],
 \end{equation}
-which shows that the dirty image $\II^D$ is a weighted sum of dirty images corresponding to the individual visibility 
+which shows that the dirty image $\IID$ is a weighted sum of dirty images corresponding to the individual visibility 
 samples $pqkl$ (each of which is essentially a single fringe pattern).
 
 Were we to measure instantaneous visibility samples, we would have the simple relation of
 \begin{equation}
 V^\mathrm{(m)}_{pqkl}  = \VV_{pq}(t_k,\nu_l),
 \end{equation}
-where the right-hand side is given by eq.~(\ref{eq:visSky:2Dtf}). However, an interferometer necessarily measures the
+where the right-hand side is given by eq.~(\ref{eq:visSky:2Dtf}). This results in what we'll call the \emph{ideal} dirty image 
+$\II^{DI}$:
+\begin{equation}
+\label{eq:imaging:DI}
+\IIDI =  \sum_{pqkl} W_{pqkl} \IIDI_{pqkl},~~
+\IIDI_{pqkl} =  \FF^{-1}[ \delta_{pqkl}\VV_{pq} ],
+\end{equation}
+However, an interferometer necessarily measures the
 average visibility over a rectangular time-frequency bin 
 \begin{equation}
 \mathsf{B}_{kl} = \bigg [ t_k-\frac{\Delta t}{2},t_k+\frac{\Delta t}{2} \bigg ]
@@ -335,17 +346,17 @@ V^\mathrm{(m)}_{pqkl} \sim \iint\limits_{\mathsf{B}^{\prime}_{kl}}
 % frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
 % follows: 
 
-We can represent the underlying ``high-resolution'' sampling process via a multiplication of the continuous
-visibility distribution $\VV_{pq}(t,\nu)$ by a sampling function $\HH_{pq}(t,\nu)$,  which is another ``bed of nails''  
-function that selects the $t,\nu$ points corresponding to the sample points $\{t_i\}$ and $\{\nu_j\}$: 
-\begin{equation}
-\VV^\mathrm{(s)}_{pq} = \HH_{pq}\cdot \VV_{pq}. 
-\end{equation}
-% From this point on  we will work with the sampled visibilities $V^\mathrm{samp}$ only.
+% We can represent the underlying ``high-resolution'' sampling process via a multiplication of the continuous
+% visibility distribution $\VV_{pq}(t,\nu)$ by a sampling function $\HH_{pq}(t,\nu)$,  which is another ``bed of nails''  
+% function that selects the $t,\nu$ points corresponding to the sample points $\{t_i\}$ and $\{\nu_j\}$: 
+% \begin{equation}
+% \VV^\mathrm{(s)}_{pq} = \HH_{pq}\cdot \VV_{pq}. 
+% \end{equation}
+% % From this point on  we will work with the sampled visibilities $V^\mathrm{samp}$ only.
 
 Now, let us introduce a \emph{normalized boxcar windowing function}, $\Pi_{pqkl}(t,\nu)$ 
 \begin{equation}
-$\Pi_{pqkl}(t,\nu)$ = \bigg \{ \begin{array}{cl}
+\Pi_{pqkl}(t,\nu) = \bigg \{ \begin{array}{cl}
 \frac{1}{\Delta t\Delta\nu}, &  |t|\leq\Delta t/2,~~|\nu|\leq\Delta\nu/2 \\
 0, & \mathrm{otherwise},
 \end{array}
@@ -379,18 +390,36 @@ process a \emph{pseudo-convolution}, and the kernel being convolved with ($\Pi^\
 
 In actual fact, a correlator (or an averaging operation in post-processing) deals with averages of discrete 
 samples, rather than a continuous integration. To represent this properly, we need to replace the integrals of 
-eqs.~(\ref{eq2:conti}-\ref{eq2:conti:uv1}) by discrete sums, in which case the convolution operation becomes 
-a discrete convolution, but the derivations do not change.
+eqs.~(\ref{eq2:conti}-\ref{eq2:conti:uv1}) by the discrete sums:
+\begin{equation}
+\label{eq:discrete:tf}
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=\infty}^{\infty}  \VV_{pq}(t_i,\nu_j) \Pi_{pqkl}(t_i-t_k,\nu_j-\nu_l)
+\end{equation}
+and
+\begin{equation}
+\label{eq:discrete:uv}
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=\infty}^{\infty}  \VV_{pq}(u_{ij},v_{ij}) \Pi^\prime_{pqkl}(u_{ij}-u_{kl},v_{ij}-v_{kl}),
+\end{equation}
+of which the first is a conventional discrete convolution (assuming a regular $t\nu$ grid), and the second is a convolution 
+on an irregular grid -- the $u_{ij},v_{ij}$ grid being schematically illustrated by Fig.~\ref{fig:uvcov}.
+
+\begin{figure}
+\includegraphics[width=1\columnwidth]{./Figures/uvcov.png}\caption{Schematic of $uv$-coverage for 
+regularly spaced time-frequency samples.}\label{fig:uvcov}
+\end{figure}
+
 
 \subsection{Effect of averaging on the image}
 \label{sec:effectbw}
 
 \begin{figure*}
-\includegraphics[width=\columnwidth]{./Figures/effect_time_averaging.pdf}%
-\includegraphics[width=\columnwidth]{./Figures/effect_bandwid_averaging.pdf}
-\caption{Effects of time and frequency averaging: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, 
-as a function of distance from phase centre. (Left) Frequency interval fixed at 125 kHz, time interval varies; 
-(right) time interval fixed at 1s, frequency interval varies.}\label{fig:smear}
+\includegraphics[width=.5\textwidth]{./Figures/idealIPR.png}%
+\includegraphics[width=.5\textwidth]{./Figures/idealsinc.png}\\
+\caption{Left: boxcar response. In the $uv$-plane, this represents the windowing function corresponding to normal
+averaging of visibilities. In the image plane, this represents the ideal image-plane tapering function. Right: 
+Sinc response. In the image plane, this represents the tapering function corresponding to a boxcar WF in 
+the $uv$-plane. In the $uv$-plane, this represents the ideal WF.}
+\label{fig:idealWF}
 \end{figure*}
 
 In the limit of $\Delta t,\Delta \nu \rightarrow 0$, averaging becomes equivalent to sampling. 
@@ -400,12 +429,31 @@ for sources far from the phase centre. The average of a complex quantity with a 
 amplitude, the effect being especially severe for wide FoVs \citep[for an extensive discussion, see][]{bregman2012system}. This
 effect is often referred to as \emph{time} and \emph{bandwidth smearing}.
 
-The discussion above provides an alternative way to look at smearing. Combining eqs.~(\ref{eq:imaging3}) and (\ref{eq:avscon}),
+The discussion above provides an alternative way to look at smearing. Combining eqs.~(\ref{eq:imaging}--\ref{eq:imaging:DI}) with 
+(\ref{eq:avscon}), and using the Fourier convolution theorem, we can see that the dirty image is formed up as
+\begin{equation}
+\IID =  \sum_{pqkl} W_{pqkl}  \TT_{pqkl} \IIDI_{pqkl},
+\end{equation}
+where the baseline-dependent \emph{tapering function} $\TT_{pqkl}$ is the inverse FT of the BDWF:
+\begin{equation}
+\TT_{pqkl} = \FF^{-1}[ \Pi^{\prime}_{pqkl}].
+\end{equation}
+In other words, the dirty image made from averaged visibilities is a weighted average of the per-visibility ideal dirty images, 
+each one multiplies by its own taper. The FT of a boxcar-like function is a sinc-like function, schematically illustrated in one
+dimension by Fig.~\ref{fig:idealWF}. Time and bandwidth smearing represents the average effect 
+of all these individual tapers. Shorter baselines correspond to smaller boxcars and wider tapers, longer baselines to larger 
+boxcars and narrower tapers, and are thus more prone to smearing.
 
+\begin{figure*}
+\includegraphics[width=\columnwidth]{./Figures/effect_time_averaging.pdf}%
+\includegraphics[width=\columnwidth]{./Figures/effect_bandwid_averaging.pdf}
+\caption{Effects of time and frequency averaging: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, 
+as a function of distance from phase centre. (Left) Frequency interval fixed at 125 kHz, time interval varies; 
+(right) time interval fixed at 1s, frequency interval varies.}\label{fig:smear}
+\end{figure*}
 
-
-
-Figure \ref{fig:smear} shows the attenuation of a 1 Jy source as a function of distance
+Figure \ref{fig:smear} (produced by simulating a series of high time-frequency resolution observation using MeqTrees, and 
+applying averaging) shows the attenuation of a 1 Jy source as a function of distance
 from phase centre, for a set of different time and frequency intervals. The simulations correspond to JVLA 
 in the C configuration, with an observing frequency of 1.4 GHz. At this frequency, the first null of the PB is at 
 $r\approx36'$, and the half-power point is at $\sim16'$, thus we can consider the ``conventional'' FoV (i.e. the half-power 
@@ -414,31 +462,166 @@ improvements in calibration techniques \cite{Perley2013}, allow imaging to be do
 (and in fact it may be necessary for deep pointings, if only to deconvolve and subtract sidelobe sources), so we could also
 consider an ``extended'' FoV extending out to the second null of the PB at $r\approx1.25^\circ$. Whatever definition
 of the FoV we adopt, Fig.~\ref{fig:smear} shows that to keep amplitude losses across
-the FoV to within some acceptable threshold, say 1\%, the averaging interval must be no more than some critical size,
+the FoV to within some acceptable threshold, say 1\%, the averaging interval cannot exceed some critical size,
 say 10s and 1 MHz. Conversely, if we were to adopt an aggressive averaging strategy for the purposes of data 
 compression, say 50s and 5 MHz, the curves indicate that we would suffer substantial amplitude loss towards the 
 edge of the FoV. 
 
 Finally, note that the curves corresponding to acceptably low values of smearing across the FoV (i.e. up to 25s and 
 up to 1.25 MHz) have a very gentle slope, with very little suppression of sources \emph{outside} the FoV. 
-Figure~\ref{fig:idealIRF} illustrates the ideal smearing response; the boxcar averaging response is clearly far from ideal.
 
-\begin{figure}
-\includegraphics[width=\columnwidth]{./Figures/idealIPR.png}
-\caption{Boxcar response. In the $uv$-plane, this represents the windowing function corresponding to normal
-averaging of visibilities. In the image plane, this represents the ideal image-plane response function.}\label{fig:idealIRF}
-\end{figure}
+\subsection{The case for alternative BDWFs}
 
-\begin{figure}
-\includegraphics[width=\columnwidth]{./Figures/idealsinc.png}%
-\caption{Sinc response. In the image plane, this represents the response function corresponding to a boxcar WF in 
-the $uv$-plane. In the $uv$-plane, this represents the ideal WF.}
-\label{fig:idealWF}
-\end{figure}
+The tapering response induced by normal averaging (Fig.~\ref{fig:smear}) is far from ideal: it either suppresses too much within 
+the FoV, or too little outside the FoV, or both. The optimal tapering response would be boxcar-like, as in 
+Fig.~\ref{fig:idealWF}(left). The BDWF that would produce such a response is sinc-like, as in Fig.~\ref{fig:idealWF}(right). 
+The problem with a sinc is that it has infinite support; applying it over finite-sized bins necessarily means a \emph{truncated} 
+BDWF that results in a suboptimal taper. The problem of optimal filtering has been well studied in signal processing (usually
+assuming a true convolution rather than the pseudo-convolution we deal with here), and we shall apply these lessons below.
+
+The derivations above make it clear that by using a different BDWF in place of the conventional boxcar-like $\Pi^\prime$ 
+could in principle yield more optimal tapering response. The obvious catch is a loss in 
+sensitivity. Each visibility sample is subject to an independent Gaussian noise term in the real and imaginary part; the noise of
+the average of a set of samples is minimized when the average is naturally weighted (or unweighted, if the noise is 
+constant across visibilities). Thus, any deviation from a boxcar WF must necessarily increase the noise in the 
+visibilities. Below we will study this effect both theoretically and via simulations, to establish whether this 
+trade-off is sensible, and under which conditions.
+
+\section{Overview of windowing functions}
+\label{subsec:Windowing functions}
+
+In signal processing, a WF is a mathematical function with limited support (i.e. zero outside some interval). Conventionally,
+a time series is convolved with a WF to produce some desired response in the frequency domain. Applying this to our problem
+can lead to quite some confusion in terminology. Table~\ref{tab:terms} provides a mapping between the terms commonly used in SP, 
+and their conceptual equivalent in BDWFs.
+
+\begin{table}
+\begin{tabular}{l|l}
+ Signal processing & BDWFs\\
+\hline\hline
+Frequency (freq) domain & Image plane \\
+Time domain & Fourier plane \\
+Spectral response\\
+~~or freq response & Image plane response (IPR)\\
+Time response & Fourier plane response\\
+Cut-off time interval  \\
+~~or time pass band & $uv$ averaging bin\\
+Cut-off freq interval \\
+~~or freq pass band, or main lobe & FoV\\
+Time stop band & Outside of the $uv$-bin\\
+Freq stop band & Outside of the FoV\\
+Octave & Doubling in size
+\end{tabular}
+\caption{Mapping of terminology between signal processing and BDWFs.}
+\label{tab:terms}
+\end{table}
+
+WF -- or rather their corresponding image-plane response (IPR) -- can be characterized in terms of various metrics. Some common 
+ones are the peak sidelobe level (PSL), the main lobe width (MLW) and the sidelobes roll-off (SLR) rate. In terms of the ``ideal'' 
+IPR (Fig.~\ref{fig:idealWF}, left), these correspond to the following desirable traits:
+
+\begin{itemize}
+\item Maximally conserve the signal within the FoV (``regime 1'' in the figure), and make the transition in ``regime 2'' as sharp as possible. Both of these correspond to larger MLW.
+\item Attenuate sources outside the FoV (``regime 3''): this corresponds to a lower PSL and higher SLR.
+\end{itemize}
+
+\subsection{Boxcar window}
+The Boxcar window is a function that  conserved a constant non-zero value  inside a chosen  interval and zero value outside this interval. 
+For a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
+\begin{equation}
+\Pi(t)=\left\{
+\begin{array}{rl}
+1 & \mbox{$-t_a \leq t \leq t_a$} \\
+0 & \mbox{otherwise}
+\end{array}\right.
+\end{equation}
+Figures \ref{fig:fig_box} and \ref{fig:fig_box_freq} give the graph of $\Pi(t)$ and its IPR  respectively. The blue and 
+the red curves of Figure \ref{fig:fig_box_freq} are the IPRs of $\Pi(t)$ for a cut-off time interval $[-t_a, t_a]$ and 
+$[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is large, the MLW of the IPR is 
+narrower, the PSL is lower and the SLR drops faster.
+\subsection{Gaussian window}
+A Gaussian window centered at mean zero with standard deviation $\sigma$ is given by: 
+\begin{equation}
+  G(t)= e^{-bt^{2}}, \label{eq:gauss}
+\end{equation}
+where, $b=(2\sigma_1^2)^{-1}$. The  Fourier transform of Eq.\ref{eq:gauss} is given by 
+$\mathcal{F}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
+This shows us that the Fourier transform of a Gaussian with standard deviation $\sigma_1$ is a Gaussian with a standard 
+deviation $\sigma_2= (2\pi\sigma_1)^{-1}$.
+Figure \ref{fig:fig_gauss} and \ref{fig:fig_gauss_freq} give the graph of $G(t)$ and its IPR respectively, where $G(t)$ 
+is truncated within the cut-off time interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Note 
+that when the standard deviation is large, the MLW of the IPR is narrower, the PSL is higher and the SLR drops slowly compared to a 
+smaller standard deviation.
+\subsection{Butterworth window}
+The time response of the Butterworth window is flat  in the time pass band, and rolls off towards zero in the time stop band and it is 
+characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. The two parameters control the 
+FoV and sidelobes  attenuation. The time response of the Butterworth window is given by:
+\begin{equation}
+BW(t)= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
+\end{equation}
+For a same time interval $[-t_a,t_a]$, three curves of $BW(t)$ ($p=1, p=3, p=5$) are plotted  in Figure \ref{fig:fig_butter} and 
+their corresponding IPRs are plotted in Figure \ref{fig:fig_butter_freq}. Note that when the order $p$ increases, the MLW of the 
+IPR is conserved, while the PSL increase and the SLR drop faster.
+\subsection{Sinc Window}
+The sinc window is defined as follow:
+\begin{equation}
+S(t)= sinc\big(\pi b t\big).
+\end{equation}
+ Figures \ref{fig:fig_sinc} and \ref{fig:fig_sinc_freq} give the graph of $S(t)$ and its IPR respectively, where 
+$S(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
+(see Figure \ref{fig:fig_sinc_freq}, blue curve), the IPR becomes perfectly flat at the frequency pass band (FoV) while the MLW becomes 
+narrower,  the PSL 
+becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (see Figure \ref{fig:fig_sinc_freq}, red 
+curve). 
+\subsection{Bessel Function of the First Kind of order zero}
+ The function can  be determined using the infinity power series expansion:
+\begin{equation}
+J_0(t) = \sum_{k=0}^{\infty}\frac{(-1)^k (x/2)^{2k}}{(k!)^2}
+\end{equation}
+ Figures \ref{fig:bessel} and  \ref{fig:freq_resp_bessel} give the graph of J$_0(t)$ and its IPR respectively, where 
+J$_0(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
+(Figure \ref{fig:freq_resp_bessel}, blue curve), the IPR is flat at the frequency pass band (FoV) while the MLW becomes narrower,  the PSL 
+becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (Figure \ref{fig:freq_resp_bessel}, red curve).
+\subsection{Convolution theorem and WFs comparison}
+We begin with a continuous signal $V_{t}$ (supposed the data is only time dependent) and sample it in order to obtain the set of 
+measurement (see section \ref{sec:AvgCon}). When the signal is limited in the time interval $[-t_a,t_a]$ and convolved with a window 
+$W_{t}$, it 
+follows from the convolution theorem that the process was equivalent to "\textit{tapering the  Fourier transform of the signal}" by 
+effectively looking at the true Fourier transform of the signal through the convolution window. This is presented mathematically as:
+\begin{equation}
+\mathcal{F}\Big\{V_{t}\circ W_{t}\Big\} = \mathcal{F}\Big\{V_{t}\Big\}\cdot \mathcal{F}\Big\{W_{t}\Big\}
+\end{equation}
+One can replaced the convolution window, $W_{t}$ by its Fourier transform. A summary of the MLW, the PSL and 
+the SLR of the windows study is showed in table below.
+
+\begin{tabular}{*3{c}}
+ \multicolumn{3}{|c|}{}\\
+ \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
+  \hline
+  \footnotesize $|\mathcal{F}\Big\{W_{t}\Big\}|$ &\textbf{\footnotesize MLL (-3db)}&\textbf{\footnotesize PSL (db)} &\textbf{\footnotesize 
+SLR (db/octave) }  \\
+  \hline\hline
+  {\footnotesize $\Pi(t)$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize 
+$-6,78$}\\
+  {\footnotesize $S(t)$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  
+$-12,42$} \\
+  {\footnotesize $G(t)$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
+  {\footnotesize $BW(t)$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
+  {\footnotesize $J_0(t)$} &{\footnotesize  $\approx 0,39$} &{\footnotesize $ -15,01$ }&{\footnotesize  $ -14,01$}
+  \end{tabular}& \label{BDWBnoise}
+\end{tabular}\\
+\\
+
+\hspace{-0.6cm}The sinc, the Bessel of the first kind of order zero (J$_0$) and the Butterwordth (BW)  
+approach the specification of this 
+research and they are taken under consideration in the rest of this paper.  We considered sinc(X,Y)=sinc(X)sinc(Y), 
+J$_0$(X,Y)=J$_0(\sqrt{X^2 + Y^2})$ and BW(X,Y)=BW($\sqrt{X^2 + Y^2})$ for  two dimensional 
+sinc, J$_0$ and BW respectively.
 
 
 
-\subsection{Imaging and noise estimate}
+
+\section{Imaging and noise estimate}
 \label{sec:imaging}
 Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
 on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
@@ -622,13 +805,10 @@ The weight of a uv-bin is not defined by a unique BDWF but by the
 strength of the correlation between the overall  overlapping BDWF as shown in Figure \ref{fig:corrSigVLAMxBl_overlapGdelta}. 
 That said, the weight of a uv-bin becomes the summation of overlapping BDWF samples on the uv-bin normalized by the summation of the 
 overall uv-bins weights within the range where the overlap samples are defined.
-\begin{figure*}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/uvcov.png}\caption{Coverage of 
-one integration}\label{fig:uvcov}\end{minipage}
-  \hspace{1cm} 
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlap 
-baseline dependent windowing functions}\label{fig:corrSigVLAMxBl_overlapGdelta}\end{minipage}
-\end{figure*}
+\begin{figure} 
+\includegraphics[width=1\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlap 
+baseline dependent windowing functions}\label{fig:corrSigVLAMxBl_overlapGdelta}
+\end{figure}
 %Now, consider that $f^{a}_{pq}$ is an overlap-\textit{BDWF} 
 %of width  $\Delta t$ and $\Delta \nu$ across the time and frequency direction respectively.
 % \begin{definition}[Left hand side overlapping functions]
@@ -708,6 +888,7 @@ baseline dependent windowing functions}\label{fig:corrSigVLAMxBl_overlapGdelta}\
 %        \emptyset  & \quad \text{otherwise}
 %   \end{array} \right.
 % \end{eqnarray*}
+
 \section{Analysis of windowing functions}
 \label{subsec:Windowing functions}
 In signal processing a WF is a mathematical function that has zero-values outside some chosen interval, and when a signal 
@@ -837,10 +1018,16 @@ $-12,42$} \\
 \end{tabular}\\
 \\
 
-\hspace{-0.6cm}The sinc, the Bessel of the first kind of order zero (J$_0$) and the Butterwordth (BW)  approach the specification of this 
+\hspace{-0.6cm}The sinc, the Bessel of the first kind of order zero (J$_0$) and the Butterwordth (BW)  
+approach the specification of this 
 research and they are taken under consideration in the rest of this paper.  We considered sinc(X,Y)=sinc(X)sinc(Y), 
 J$_0$(X,Y)=J$_0(\sqrt{X^2 + Y^2})$ and BW(X,Y)=BW($\sqrt{X^2 + Y^2})$ for  two dimensional 
 sinc, J$_0$ and BW respectively.
+
+
+
+
+
 The following designations will be used in the rest of the paper:
 
 Bl-WF-$n_{ovlpt}\times -$: One dimensional BDWF applied across the time direction; WF is one of the window under 
