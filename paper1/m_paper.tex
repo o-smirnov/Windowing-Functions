@@ -525,9 +525,36 @@ IPR (Fig.~\ref{fig:idealWF}, left), these correspond to the following desirable 
 \item Attenuate sources outside the FoV (``regime 3''): this corresponds to a lower PSL and higher SLR.
 \end{itemize}
 
+Below we provide an overview some common (one-dimensional) WFs employed in signal processing.
+
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/rect.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_box.pdf}
+\caption{Boxcar windowing function and its tapering response.}\label{fig:fig_box}
+\end{figure*}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/sinc.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_sinc.pdf}
+\caption{Sinc windowing function and its tapering response.}\label{fig:fig_box}
+\end{figure*}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/butterworth.pdf}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_butterworth.pdf}
+\caption{Butterworth windowing function and its tapering response.}\label{fig:fig_box}
+\end{figure*}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/gausian.pdf}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_gaussian.pdf}
+\caption{Gaussian windowing function and its tapering response.}\label{fig:fig_box}
+\end{figure*}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/bessel.pdf}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel.pdf}
+\caption{Bessel (of the first kind) windowing function and its tapering response.}\label{fig:fig_box}
+\end{figure*}
+
 \subsection{Boxcar window}
-The Boxcar window is a function that  conserved a constant non-zero value  inside a chosen  interval and zero value outside this interval. 
-For a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
+The Boxcar window is a function that  conserved a constant non-zero value  inside a chosen  interval and zero value outside this interval. For a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
 \begin{equation}
 \Pi(t)=\left\{
 \begin{array}{rl}
@@ -1043,37 +1070,9 @@ Bx-avg-$0\times -$: Boxcar averaging applied across the time direction.
 Bx-avg-$-\times 0$: Boxcar averaging applied across the frequency direction. 
 
 Bx-avg-$0\times 0$: Boxcar averaging applied across both time and frequency direction.
-\begin{figure*}
-  \centering
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/rect.png}\caption{Boxcar windowing 
-function.}\label{fig:fig_box}\end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_box.pdf}\caption{Frequency response of a boxcar 
-window}\label{fig:fig_box_freq}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/sinc.png}\caption{Sinc 
-window}\label{fig:fig_sinc}\end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_sinc.pdf}\caption{Frequency response of the 
-sinc window }\label{fig:fig_sinc_freq}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Butterwordth.pdf}\caption{ Butterwordth 
-windows}\label{fig:fig_butter}\end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_butterwordh.pdf}\caption{Frequency response 
-of the Butterwordth windows}\label{fig:fig_butter_freq}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/gausian.pdf}\caption{Gaussian windows}\label{fig:fig_gauss}
-\end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_gaussian.pdf}\caption{Frequency response of 
-Gaussian windows}\label{fig:fig_gauss_freq} \end{minipage}
-\end{figure*}
-\begin{figure*}
-  \centering
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/bessel.pdf}\caption{Bessel 
-first King windows NB: this figure is coming very soon}\label{fig:bessel}\end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/freq_resp_bessel.pdf}\caption{Frequency 
-response of Bessel first kind window}\label{fig:freq_resp_bessel} \end {minipage}
-\end{figure*}
+
+
+
 \subsection{Theoretical noise estimate and simulation noise}
 \label{subsec:noise}
  We show in this section that on shorter baselines, the sinc, the J$_0$ and the BW reduce to the Boxcar window. 
