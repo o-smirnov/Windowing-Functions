@@ -232,7 +232,7 @@ visibility distribution $\VV^\mathrm{(m)}$. This is sampled by a number of basel
 $t_k,\nu_l$. Designating each such sample by the index $pqkl$, we can express the imaging process as
 \begin{equation}
 \label{eq:imaging}
-\II = \FF^{-1}[ \WW\cdot \VV^\mathrm{(m)} ]  
+\II = \FF^H\{ \WW\cdot \VV^\mathrm{(m)} \}  
 \end{equation}
 where $\WW$ is the (weighted) sampling function -- a ``bed-of-nails'' function that is non-zero at points where we 
 are sampling a visibility, and zero elsewhere. 
@@ -260,7 +260,7 @@ again as
 \begin{equation}
 \label{eq:imaging3}
 \IID =  \sum_{pqkl} W_{pqkl} \IID_{pqkl},~~
-\IID_{pqkl} =  \FF^{-1}[ \VV^\mathrm{(m)}_{pqkl} ],
+\IID_{pqkl} =  \FF^H\{ \VV^\mathrm{(m)}_{pqkl} \},
 \end{equation}
 which shows that the dirty image $\IID$ is a weighted sum of dirty images corresponding to the individual visibility 
 samples $pqkl$ (each of which is essentially a single fringe pattern).
@@ -274,7 +274,7 @@ $\II^{DI}$:
 \begin{equation}
 \label{eq:imaging:DI}
 \IIDI =  \sum_{pqkl} W_{pqkl} \IIDI_{pqkl},~~
-\IIDI_{pqkl} =  \FF^{-1}[ \delta_{pqkl}\VV_{pq} ],
+\IIDI_{pqkl} =  \FF^H\{ \delta_{pqkl}\VV_{pq} \},
 \end{equation}
 However, an interferometer necessarily measures the
 average visibility over a rectangular time-frequency bin 
@@ -436,7 +436,7 @@ The discussion above provides an alternative way to look at smearing. Combining 
 \end{equation}
 where the baseline-dependent \emph{tapering function} $\TT_{pqkl}$ is the inverse FT of the BDWF:
 \begin{equation}
-\TT_{pqkl} = \FF^{-1}[ \Pi^{\prime}_{pqkl}].
+\TT_{pqkl} = \FF^H\{ \Pi^{\prime}_{pqkl} \}.
 \end{equation}
 In other words, the dirty image made from averaged visibilities is a weighted average of the per-visibility ideal dirty images, 
 each one multiplies by its own taper. The FT of a boxcar-like function is a sinc-like function, schematically illustrated in one
@@ -516,6 +516,7 @@ Octave & Doubling in size
 \label{tab:terms}
 \end{table}
 
+
 WF -- or rather their corresponding image-plane response (IPR) -- can be characterized in terms of various metrics. Some common 
 ones are the peak sidelobe level (PSL), the main lobe width (MLW) and the sidelobes roll-off (SLR) rate. In terms of the ``ideal'' 
 IPR (Fig.~\ref{fig:idealWF}, left), these correspond to the following desirable traits:
@@ -527,34 +528,13 @@ IPR (Fig.~\ref{fig:idealWF}, left), these correspond to the following desirable 
 
 Below we provide an overview some common (one-dimensional) WFs employed in signal processing.
 
+\subsection{Boxcar window}
 \begin{figure*}
 \includegraphics[width=.5\textwidth]{./Figures/rect.png}%
 \includegraphics[width=.5\textwidth]{./Figures/freq_resp_box.pdf}
-\caption{Boxcar windowing function and its tapering response.}\label{fig:fig_box}
+\caption{Boxcar windowing function and its tapering response.}\label{fig:wf:box}
 \end{figure*}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/sinc.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_sinc.pdf}
-\caption{Sinc windowing function and its tapering response.}\label{fig:fig_box}
-\end{figure*}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/butterworth.pdf}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_butterworth.pdf}
-\caption{Butterworth windowing function and its tapering response.}\label{fig:fig_box}
-\end{figure*}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/gausian.pdf}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_gaussian.pdf}
-\caption{Gaussian windowing function and its tapering response.}\label{fig:fig_box}
-\end{figure*}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/bessel.pdf}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel.pdf}
-\caption{Bessel (of the first kind) windowing function and its tapering response.}\label{fig:fig_box}
-\end{figure*}
-
-\subsection{Boxcar window}
-The Boxcar window is a function that  conserved a constant non-zero value  inside a chosen  interval and zero value outside this interval. For a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
+The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
 \begin{equation}
 \Pi(t)=\left\{
 \begin{array}{rl}
@@ -562,90 +542,120 @@ The Boxcar window is a function that  conserved a constant non-zero value  insid
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation}
-Figures \ref{fig:fig_box} and \ref{fig:fig_box_freq} give the graph of $\Pi(t)$ and its IPR  respectively. The blue and 
-the red curves of Figure \ref{fig:fig_box_freq} are the IPRs of $\Pi(t)$ for a cut-off time interval $[-t_a, t_a]$ and 
-$[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is large, the MLW of the IPR is 
-narrower, the PSL is lower and the SLR drops faster.
+Figure \ref{fig:wf:box} shows a plot of $\Pi(t)$ and its response. The blue and red curves 
+correspond to cut-off time intervals of $[-t_a, t_a]$ and 
+$[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is larger, the MLW is 
+narrower, and the sidelobes are lower.
+
+The other WFs given below are all multiplied with a boxcar to ensure a cut-off interval of $[-t_a,t_a]$.
+
 \subsection{Gaussian window}
-A Gaussian window centered at mean zero with standard deviation $\sigma$ is given by: 
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/gausian.pdf}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_gaussian.pdf}
+\caption{Gaussian windowing function and its tapering response.}\label{fig:wf:gauss}
+\end{figure*}
+A Gaussian WF centred at zero with a standard deviation of $\sigma_1$ is given by: 
 \begin{equation}
-  G(t)= e^{-bt^{2}}, \label{eq:gauss}
+  G(t)= \Pi(t) e^{-bt^{2}}, \label{eq:gauss}
 \end{equation}
-where, $b=(2\sigma_1^2)^{-1}$. The  Fourier transform of Eq.\ref{eq:gauss} is given by 
-$\mathcal{F}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
-This shows us that the Fourier transform of a Gaussian with standard deviation $\sigma_1$ is a Gaussian with a standard 
-deviation $\sigma_2= (2\pi\sigma_1)^{-1}$.
-Figure \ref{fig:fig_gauss} and \ref{fig:fig_gauss_freq} give the graph of $G(t)$ and its IPR respectively, where $G(t)$ 
-is truncated within the cut-off time interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Note 
-that when the standard deviation is large, the MLW of the IPR is narrower, the PSL is higher and the SLR drops slowly compared to a 
-smaller standard deviation.
+where $b=(2\sigma_1^2)^{-1}$. The FT of the Gaussian term is given by 
+$\mathcal{F}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$, i.e.
+is also a Gaussian with standard deviation of $\sigma_2= (2\pi\sigma_1)^{-1}$.
+
+Figure \ref{fig:wf:gauss} shows a plot of $G(t)$ and its response. The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Its response is characterized by extremely low sidelobes, but a narrow main lobe.
+
 \subsection{Butterworth window}
-The time response of the Butterworth window is flat  in the time pass band, and rolls off towards zero in the time stop band and it is 
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/butterworth.pdf}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_butterworth.pdf}
+\caption{Butterworth windowing function and its tapering response.}\label{fig:wf:bw}
+\end{figure*}
+
+A Butterworth WF is flat in the time pass band, and rolls off towards zero in the time stop band and it is 
 characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. The two parameters control the 
-FoV and sidelobes  attenuation. The time response of the Butterworth window is given by:
+FoV and sidelobes attenuation. The Butterworth WF is given by:
 \begin{equation}
-BW(t)= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
+BW(t)= \Pi(t) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
-For a same time interval $[-t_a,t_a]$, three curves of $BW(t)$ ($p=1, p=3, p=5$) are plotted  in Figure \ref{fig:fig_butter} and 
-their corresponding IPRs are plotted in Figure \ref{fig:fig_butter_freq}. Note that when the order $p$ increases, the MLW of the 
-IPR is conserved, while the PSL increase and the SLR drop faster.
-\subsection{Sinc Window}
-The sinc window is defined as follow:
-\begin{equation}
-S(t)= sinc\big(\pi b t\big).
-\end{equation}
- Figures \ref{fig:fig_sinc} and \ref{fig:fig_sinc_freq} give the graph of $S(t)$ and its IPR respectively, where 
-$S(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
-(see Figure \ref{fig:fig_sinc_freq}, blue curve), the IPR becomes perfectly flat at the frequency pass band (FoV) while the MLW becomes 
-narrower,  the PSL 
-becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (see Figure \ref{fig:fig_sinc_freq}, red 
-curve). 
-\subsection{Bessel Function of the First Kind of order zero}
- The function can  be determined using the infinity power series expansion:
-\begin{equation}
-J_0(t) = \sum_{k=0}^{\infty}\frac{(-1)^k (x/2)^{2k}}{(k!)^2}
-\end{equation}
- Figures \ref{fig:bessel} and  \ref{fig:freq_resp_bessel} give the graph of J$_0(t)$ and its IPR respectively, where 
-J$_0(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
-(Figure \ref{fig:freq_resp_bessel}, blue curve), the IPR is flat at the frequency pass band (FoV) while the MLW becomes narrower,  the PSL 
-becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (Figure \ref{fig:freq_resp_bessel}, red curve).
-\subsection{Convolution theorem and WFs comparison}
-We begin with a continuous signal $V_{t}$ (supposed the data is only time dependent) and sample it in order to obtain the set of 
-measurement (see section \ref{sec:AvgCon}). When the signal is limited in the time interval $[-t_a,t_a]$ and convolved with a window 
-$W_{t}$, it 
-follows from the convolution theorem that the process was equivalent to "\textit{tapering the  Fourier transform of the signal}" by 
-effectively looking at the true Fourier transform of the signal through the convolution window. This is presented mathematically as:
-\begin{equation}
-\mathcal{F}\Big\{V_{t}\circ W_{t}\Big\} = \mathcal{F}\Big\{V_{t}\Big\}\cdot \mathcal{F}\Big\{W_{t}\Big\}
-\end{equation}
-One can replaced the convolution window, $W_{t}$ by its Fourier transform. A summary of the MLW, the PSL and 
-the SLR of the windows study is showed in table below.
 
-\begin{tabular}{*3{c}}
- \multicolumn{3}{|c|}{}\\
- \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
-  \hline
-  \footnotesize $|\mathcal{F}\Big\{W_{t}\Big\}|$ &\textbf{\footnotesize MLL (-3db)}&\textbf{\footnotesize PSL (db)} &\textbf{\footnotesize 
-SLR (db/octave) }  \\
-  \hline\hline
-  {\footnotesize $\Pi(t)$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize 
-$-6,78$}\\
-  {\footnotesize $S(t)$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  
-$-12,42$} \\
-  {\footnotesize $G(t)$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
-  {\footnotesize $BW(t)$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
-  {\footnotesize $J_0(t)$} &{\footnotesize  $\approx 0,39$} &{\footnotesize $ -15,01$ }&{\footnotesize  $ -14,01$}
-  \end{tabular}& \label{BDWBnoise}
-\end{tabular}\\
-\\
+Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3,5$. Note that increasing 
+the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at the cost of pushing up the near-in sidelobes
 
-\hspace{-0.6cm}The sinc, the Bessel of the first kind of order zero (J$_0$) and the Butterwordth (BW)  
-approach the specification of this 
-research and they are taken under consideration in the rest of this paper.  We considered sinc(X,Y)=sinc(X)sinc(Y), 
-J$_0$(X,Y)=J$_0(\sqrt{X^2 + Y^2})$ and BW(X,Y)=BW($\sqrt{X^2 + Y^2})$ for  two dimensional 
-sinc, J$_0$ and BW respectively.
+\subsection{Sinc window}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/sinc.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_sinc.pdf}
+\caption{Sinc windowing function and its tapering response.}\label{fig:wf:sinc}
+\end{figure*}
+The sinc WF is defined as 
+\begin{equation}
+S(t)= \Pi(t) \frac{\sin(\pi b t)}{\pi b t} .
+\end{equation}
+Figures \ref{fig:wf:sinc} shows $S(t)$ for a fixed value of $b$, and cut-off intervals given by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$.
+Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
+
+\subsection{Bessel $J_0$ window}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/bessel.pdf}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel.pdf}
+\caption{Bessel (of the first kind) windowing function and its tapering response.}\label{fig:wf:bessel}
+\end{figure*}
 
 
+This WF is given by a Bessel function of the first kind of order zero. Using a power series expansion, we have:
+\begin{equation}
+J_0(t) = \Pi(t) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}
+\end{equation}h
+Figure \ref{fig:wf:bessel} shows J$_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
+$[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
+the sidelobes.
+
+\subsection{Relative performance}
+
+% \subsection{Convolution theorem and WFs comparison}
+% We begin with a continuous signal $V_{t}$ (supposed the data is only time dependent) and sample it in order to obtain the set of 
+% measurement (see section \ref{sec:AvgCon}). When the signal is limited in the time interval $[-t_a,t_a]$ and convolved with a window 
+% $W_{t}$, it 
+% follows from the convolution theorem that the process was equivalent to "\textit{tapering the  Fourier transform of the signal}" by 
+% effectively looking at the true Fourier transform of the signal through the convolution window. This is presented mathematically as:
+% \begin{equation}
+% \mathcal{F}\Big\{V_{t}\circ W_{t}\Big\} = \mathcal{F}\Big\{V_{t}\Big\}\cdot \mathcal{F}\Big\{W_{t}\Big\}
+% \end{equation}
+% One can replaced the convolution window, $W_{t}$ by its Fourier transform. A summary of the MLW, the PSL and 
+% the SLR of the windows study is showed in table below.
+
+\begin{table}
+\begin{tabular}{llll}
+\hline
+& {\bf MLW} (-3dB) & {\bf PSL} (dB) & {\bf SLR} (dB/oct)  \\
+\hline\hline
+$\Pi(t)$ &$\approx 0,073$ &$-6,68$ &$-6,78$\\
+$S(t)$ & $\approx0,306$& $-11,22$&  $-12,42$ \\
+$G(t)$ & $\approx0,0736$& $-30,28$& $-14,5$\\ 
+$BW(t)$ & $\approx0,079$ &$-10,08$ & $-15,39$\\
+$J_0(t)$ & $\approx 0,39$ &$ -15,01$ & $ -14,01$
+\end{tabular}
+\caption{\label{tab:WF:performance}Comparative performance of 
+different windowing functions. \bf{OMS: Marcellin, it is not clear what exact variation of the
+WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
+of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
+by different WFs is different.}}
+\end{table}
+
+Table~\ref{tab:WF:performance} summarizes the performance of the different WFs. From this it is clear that
+the sinc, the Butterworth (BW) and the Bessel ($J_0$) WFs provide the more optimal tapering response. It is these WFs that
+will serve as the basis of BDWFs developed in the rest of this work. 
+
+To construct two-dimensional BDWFs from one-dimensional WFs, we will use the following definitions:
+\begin{eqnarray}
+S(u,v) &=& S(u)S(v), \nonumber\\
+J_0(u,v) &=& J_0(r), \nonumber\\
+BW(u,v) &=& BW(r),~~~r=\sqrt{u^2+v^2}.
+\end{eqnarray}
+
+{\bf OMS: Marcellin, why not $\mathrm{sinc}(r)$ as well? The referee is bound to ask? Also, why did you never consider a 
+prolate spheroidal WF? I remember bringing it up a few times.}
 
 
 \section{Imaging and noise estimate}
@@ -916,142 +926,6 @@ baseline dependent windowing functions}\label{fig:corrSigVLAMxBl_overlapGdelta}
 %   \end{array} \right.
 % \end{eqnarray*}
 
-\section{Analysis of windowing functions}
-\label{subsec:Windowing functions}
-In signal processing a WF is a mathematical function that has zero-values outside some chosen interval, and when a signal 
-is multiplied by the WF, the product has also zero-values outside the interval.
-In this section, we evaluated the Peak Sidelobe Level (PSL), the Main 
-Lobe width (MLW) and the Sidelobes Roll-off (SLR) for some WFs. Allowing this paper to be useful both in signal processing and radio 
-astronomy community, the terminology that is used in radio astronomy in contrast of the terminology used 
-in signal processing is presented in the table below.\\
-\\
-\begin{tabular}{*3{c}}
- \multicolumn{3}{|c|}{}
- \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
-  \hspace{3cm}\footnotesize Table of terms \\
-  \hline
-  \footnotesize Signal processing &\footnotesize BDWFs\\
-  \hline\hline
-  {\footnotesize Frequency (freq) domain} &{\footnotesize Image plane} \\
-  {\footnotesize Time domain} &{\footnotesize Fourier plane}\\
-  {\footnotesize Spectral response or freq response} & {\footnotesize Image plane response}\\
-   {\footnotesize Time response} & {\footnotesize Fourier plane response}\\
-  {\footnotesize Cut-off time interval or time pass band} &{\footnotesize uv-bins range}\\
-  {\footnotesize Cut-off freq interval or freq pass band} &{\footnotesize FoV}\\
-  {\footnotesize Time stop band} &{\footnotesize Outside uv-bins range}\\
-  {\footnotesize Freq stop band} &{\footnotesize Outside edges of FoV}\\
-  \end{tabular}
-\end{tabular}\\
-\\
-
-The goal of this section is threefold, find a WF that its IPR will:
-\begin{itemize}
-  \item Conserved the signal within a field of interest "\textit{Regime 1}": that said a WF with a narrower MLW.
-  \item Achieved less masking of nearby sources by restricting "\textit{Regime 2}" to a narrower band: that said a WF with a lower PSL.
-  \item Attenuated sidelobes confusion from far away sources "\textit{Regime 3}": that said a WF with a SLR that drops faster.
-\end{itemize}
-Such a WF is very common in theory, is a continuous 
-function (unsampled function) over an illimitable time interval with unit area as shown in Figure \ref{fig:idealWF} and its ideal IPR in 
-Figure \ref{fig:idealIRF}. 
-
-% \begin{itemize}
-%   \item Find a windowing function that its IPR will conserved the signal within a field of interest 
-%   \item while suppressing sidelobes confusion from strong sources outside the field of interest.
-% \end{itemize}   
-\subsection{Boxcar window}
-The Boxcar window is a function that  conserved a constant non-zero value  inside a chosen  interval and zero value outside this interval. 
-For a cut-off time interval  $[-t_a,t_a]$ the boxcar window is defined as:
-\begin{equation}
-\Pi(t)=\left\{
-\begin{array}{rl}
-1 & \mbox{$-t_a \leq t \leq t_a$} \\
-0 & \mbox{otherwise}
-\end{array}\right.
-\end{equation}
-Figures \ref{fig:fig_box} and \ref{fig:fig_box_freq} give the graph of $\Pi(t)$ and its IPR  respectively. The blue and 
-the red curves of Figure \ref{fig:fig_box_freq} are the IPRs of $\Pi(t)$ for a cut-off time interval $[-t_a, t_a]$ and 
-$[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is large, the MLW of the IPR is 
-narrower, the PSL is lower and the SLR drops faster.
-\subsection{Gaussian window}
-A Gaussian window centered at mean zero with standard deviation $\sigma$ is given by: 
-\begin{equation}
-  G(t)= e^{-bt^{2}}, \label{eq:gauss}
-\end{equation}
-where, $b=(2\sigma_1^2)^{-1}$. The  Fourier transform of Eq.\ref{eq:gauss} is given by 
-$\mathcal{F}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$.
-This shows us that the Fourier transform of a Gaussian with standard deviation $\sigma_1$ is a Gaussian with a standard 
-deviation $\sigma_2= (2\pi\sigma_1)^{-1}$.
-Figure \ref{fig:fig_gauss} and \ref{fig:fig_gauss_freq} give the graph of $G(t)$ and its IPR respectively, where $G(t)$ 
-is truncated within the cut-off time interval $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Note 
-that when the standard deviation is large, the MLW of the IPR is narrower, the PSL is higher and the SLR drops slowly compared to a 
-smaller standard deviation.
-\subsection{Butterworth window}
-The time response of the Butterworth window is flat  in the time pass band, and rolls off towards zero in the time stop band and it is 
-characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. The two parameters control the 
-FoV and sidelobes  attenuation. The time response of the Butterworth window is given by:
-\begin{equation}
-BW(t)= \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
-\end{equation}
-For a same time interval $[-t_a,t_a]$, three curves of $BW(t)$ ($p=1, p=3, p=5$) are plotted  in Figure \ref{fig:fig_butter} and 
-their corresponding IPRs are plotted in Figure \ref{fig:fig_butter_freq}. Note that when the order $p$ increases, the MLW of the 
-IPR is conserved, while the PSL increase and the SLR drop faster.
-\subsection{Sinc Window}
-The sinc window is defined as follow:
-\begin{equation}
-S(t)= sinc\big(\pi b t\big).
-\end{equation}
- Figures \ref{fig:fig_sinc} and \ref{fig:fig_sinc_freq} give the graph of $S(t)$ and its IPR respectively, where 
-$S(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
-(see Figure \ref{fig:fig_sinc_freq}, blue curve), the IPR becomes perfectly flat at the frequency pass band (FoV) while the MLW becomes 
-narrower,  the PSL 
-becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (see Figure \ref{fig:fig_sinc_freq}, red 
-curve). 
-\subsection{Bessel Function of the First Kind of order zero}
- The function can  be determined using the infinity power series expansion:
-\begin{equation}
-J_0(t) = \sum_{k=0}^{\infty}\frac{(-1)^k (x/2)^{2k}}{(k!)^2}
-\end{equation}
- Figures \ref{fig:bessel} and  \ref{fig:freq_resp_bessel} give the graph of J$_0(t)$ and its IPR respectively, where 
-J$_0(t)$ is truncated within the time interval $[-t_a,t_a]$. Note that when the time interval is large 
-(Figure \ref{fig:freq_resp_bessel}, blue curve), the IPR is flat at the frequency pass band (FoV) while the MLW becomes narrower,  the PSL 
-becomes lower and the SLR drops faster compared to a narrower time interval $[-t_a/2,t_a/2]$ (Figure \ref{fig:freq_resp_bessel}, red curve).
-\subsection{Convolution theorem and WFs comparison}
-We begin with a continuous signal $V_{t}$ (supposed the data is only time dependent) and sample it in order to obtain the set of 
-measurement (see section \ref{sec:AvgCon}). When the signal is limited in the time interval $[-t_a,t_a]$ and convolved with a window 
-$W_{t}$, it 
-follows from the convolution theorem that the process was equivalent to "\textit{tapering the  Fourier transform of the signal}" by 
-effectively looking at the true Fourier transform of the signal through the convolution window. This is presented mathematically as:
-\begin{equation}
-\mathcal{F}\Big\{V_{t}\circ W_{t}\Big\} = \mathcal{F}\Big\{V_{t}\Big\}\cdot \mathcal{F}\Big\{W_{t}\Big\}
-\end{equation}
-One can replaced the convolution window, $W_{t}$ by its Fourier transform. A summary of the MLW, the PSL and 
-the SLR of the windows study is showed in table below.
-
-\begin{tabular}{*3{c}}
- \multicolumn{3}{|c|}{}\\
- \hspace{-1cm}\begin{tabular}{|l|l|l|l|}
-  \hline
-  \footnotesize $|\mathcal{F}\Big\{W_{t}\Big\}|$ &\textbf{\footnotesize MLL (-3db)}&\textbf{\footnotesize PSL (db)} &\textbf{\footnotesize 
-SLR (db/octave) }  \\
-  \hline\hline
-  {\footnotesize $\Pi(t)$} &{\footnotesize $\approx 0,073$} &{\footnotesize $-6,68$}&{\footnotesize 
-$-6,78$}\\
-  {\footnotesize $S(t)$} &{\footnotesize  $\approx0,306$}&{\footnotesize  $-11,22$}&{\footnotesize  
-$-12,42$} \\
-  {\footnotesize $G(t)$} & {\footnotesize $\approx0,0736$}&{\footnotesize  $-30,28$}&{\footnotesize  $-14,5$}\\ 
-  {\footnotesize $BW(t)$} &{\footnotesize  $\approx0,079$} &{\footnotesize $-10,08$ }&{\footnotesize  $-15,39$}\\
-  {\footnotesize $J_0(t)$} &{\footnotesize  $\approx 0,39$} &{\footnotesize $ -15,01$ }&{\footnotesize  $ -14,01$}
-  \end{tabular}& \label{BDWBnoise}
-\end{tabular}\\
-\\
-
-\hspace{-0.6cm}The sinc, the Bessel of the first kind of order zero (J$_0$) and the Butterwordth (BW)  
-approach the specification of this 
-research and they are taken under consideration in the rest of this paper.  We considered sinc(X,Y)=sinc(X)sinc(Y), 
-J$_0$(X,Y)=J$_0(\sqrt{X^2 + Y^2})$ and BW(X,Y)=BW($\sqrt{X^2 + Y^2})$ for  two dimensional 
-sinc, J$_0$ and BW respectively.
-
-
 
 
 
@@ -1133,25 +1007,28 @@ The table below summarized the array theoretical rms noise ratio and the simulat
 agreement of the theoretical noise results with the simulation one. Unfortunately, the theoretical noise results are the rms noise of the 
 sky map centre pixel while the simulation results are an average of the sky map overall pixels rms noise.\\
 \\
+
+
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
 \hspace{0.15cm}\begin{tabular}{l*{6}{c}r}
   \hline
-  \textbf{\footnotesize BDWF} &\textbf{\footnotesize Theoretical}&\textbf{\footnotesize Simulation}\\
+  \textbfBDWF} &\textbfTheoretical}&\textbfSimulation}\\
   \hline\hline
-  {\footnotesize Bl-sinc-0$\times$0} &{\footnotesize $1.17$} &{\footnotesize $1.23$}\\
-  {\footnotesize Bl-sinc-100$\times$25} &{\footnotesize $1.02$} &{\footnotesize $1.18$}\\
-  {\footnotesize Bl-sinc-150$\times$50} &{\footnotesize $1.03$} &{\footnotesize $1.27$}\\
+  Bl-sinc-0$\times$0} &$1.17$} &$1.23$}\\
+  Bl-sinc-100$\times$25} &$1.02$} &$1.18$}\\
+  Bl-sinc-150$\times$50} &$1.03$} &$1.27$}\\
   \hline
-  {\footnotesize Bl-J$_0$-0$\times$0} &{\footnotesize  $1.11$}&{\footnotesize  $1.14$}\\
-  {\footnotesize Bl-J$_0$-100$\times$25} &{\footnotesize  $0.91$}&{\footnotesize  $1.08$}\\
-  {\footnotesize Bl-J$_0$-150$\times$50} &{\footnotesize  $0.92$}&{\footnotesize  $1.13$}\\
+  Bl-J$_0$-0$\times$0} & $1.11$}& $1.14$}\\
+  Bl-J$_0$-100$\times$25} & $0.91$}& $1.08$}\\
+  Bl-J$_0$-150$\times$50} & $0.92$}& $1.13$}\\
   \hline
-  {\footnotesize Bl-BW-0$\times$0} & {\footnotesize $1.16$}&{\footnotesize  $1.55$}\\
-  {\footnotesize Bl-BW-100$\times$25} & {\footnotesize $1.44$}&{\footnotesize  $1.49$}\\
-  {\footnotesize Bl-BW-150$\times$50} & {\footnotesize $1.42$}&{\footnotesize  $1.44$}
+  Bl-BW-0$\times$0} & $1.16$}& $1.55$}\\
+  Bl-BW-100$\times$25} & $1.44$}& $1.49$}\\
+  Bl-BW-150$\times$50} & $1.42$}& $1.44$}
 \end{tabular}
-\end{tabular}
+
+
 \section{Simulations and results}
 In order to test the approaches described in sections \ref{baseline1} and \ref{baseline2}, multiple tests are performed on JVLAC 
 simulated MS. This section summarized and discussed those results. Two MS are used in 
