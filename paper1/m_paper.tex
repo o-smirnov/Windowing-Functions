@@ -986,6 +986,7 @@ averaging}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
   \caption{Per baseline noise ratio of Bl-BW-W$n_{lt}\times n_{l\nu}$ and averaging}\label{fig:per-baseline-noise-ratio-BW}
   \end{minipage}
 \end{figure*}
+
 \begin{itemize}
  \item In Figure \ref{fig:per-baseline-noise-ratio-sinc}, \ref{fig:per-baseline-noise-ratio-bessel} 
 and \ref{fig:per-baseline-noise-ratio-BW} each \textit{dot mark} is the ratio 
@@ -1003,33 +1004,35 @@ frequency  bins increases, the ratio:
  $\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo} \approx \sqrt{n_t n_{\nu}/\big((n_t + 2n_{ovlpt})(n_{\nu} + 
 2n_{ovlp\nu})\big)}$.%\bigg)^{\frac{1}{2}}
 \end{itemize}
+
 The table below summarized the array theoretical rms noise ratio and the simulation one. One do not need to worry about a perfect 
 agreement of the theoretical noise results with the simulation one. Unfortunately, the theoretical noise results are the rms noise of the 
-sky map centre pixel while the simulation results are an average of the sky map overall pixels rms noise.\\
-\\
+sky map centre pixel while the simulation results are an average of the sky map overall pixels rms noise.
 
 
 \begin{tabular}{*3{c}}
  \multicolumn{3}{|c|}{}\\
 \hspace{0.15cm}\begin{tabular}{l*{6}{c}r}
   \hline
-  \textbfBDWF} &\textbfTheoretical}&\textbfSimulation}\\
+  {\bf BDWF} & {\bf Theoretical} & {\bf Simulation}\\
   \hline\hline
-  Bl-sinc-0$\times$0} &$1.17$} &$1.23$}\\
-  Bl-sinc-100$\times$25} &$1.02$} &$1.18$}\\
-  Bl-sinc-150$\times$50} &$1.03$} &$1.27$}\\
+  Bl-sinc-0$\times$0 &$1.17$ &$1.23$\\
+  Bl-sinc-100$\times$25 &$1.02$ &$1.18$\\
+  Bl-sinc-150$\times$50 &$1.03$ &$1.27$\\
   \hline
-  Bl-J$_0$-0$\times$0} & $1.11$}& $1.14$}\\
-  Bl-J$_0$-100$\times$25} & $0.91$}& $1.08$}\\
-  Bl-J$_0$-150$\times$50} & $0.92$}& $1.13$}\\
+  Bl-J$_0$-0$\times$0 & $1.11$& $1.14$\\
+  Bl-J$_0$-100$\times$25 & $0.91$& $1.08$\\
+  Bl-J$_0$-150$\times$50 & $0.92$& $1.13$\\
   \hline
-  Bl-BW-0$\times$0} & $1.16$}& $1.55$}\\
-  Bl-BW-100$\times$25} & $1.44$}& $1.49$}\\
-  Bl-BW-150$\times$50} & $1.42$}& $1.44$}
+  Bl-BW-0$\times$0 & $1.16$& $1.55$\\
+  Bl-BW-100$\times$25 & $1.44$& $1.49$\\
+  Bl-BW-150$\times$50 & $1.42$& $1.44$
+\end{tabular}
 \end{tabular}
 
 
 \section{Simulations and results}
+
 In order to test the approaches described in sections \ref{baseline1} and \ref{baseline2}, multiple tests are performed on JVLAC 
 simulated MS. This section summarized and discussed those results. Two MS are used in 
 the simulation, a high resolution MS (HR-MS) that contains the observed JVLAC data of short integration time and frequency and a low 
@@ -1056,7 +1059,9 @@ HR-MS integration time, then
 	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
       %\end{eqnarray*}
 \end{enumerate}
+
 \subsection{Smearing elimination and out FoV suppression}
+
 The study considered $40$ different sky models each  containing a 1Jy source; the sky models differ from each other by the source 
 coordinates. 
 The reason for having  only one source in the sky model is to avoid standard imaging artefacts in the sky maps which 
