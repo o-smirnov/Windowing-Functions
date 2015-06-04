@@ -598,7 +598,7 @@ Note that the response to a sinc WF is almost perfectly flat in the main lobe (m
 \subsection{Bessel $J_0$ window}
 \begin{figure*}
 \includegraphics[width=.5\textwidth]{./Figures/besselgrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel.pdf}
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_besselgrey.png}
 \caption{Bessel (of the first kind) windowing function and its tapering response.}\label{fig:wf:bessel}
 \end{figure*}
 
@@ -626,15 +626,27 @@ the sidelobes.
 % the SLR of the windows study is showed in table below.
 
 \begin{table}
-\begin{tabular}{llll}
+\begin{tabular}{|l||l|l|l|l|}
 \hline
-& {\bf MLW} (-3dB) & {\bf PSL} (dB) & {\bf SLR} (dB/oct)  \\
+ \bf WFs& &\bf{Windows} & \bf response\\
+ &&{ MLW} & { PSL}  & { SLR}   \\
+  &&\hspace{-0.8cm}(deg and at -3dB) & (dB) & (dB/radian)  \\
 \hline\hline
-$\Pi(t)$ &$\approx 0,073$ &$-6,68$ &$-6,78$\\
-$S(t)$ & $\approx0,306$& $-11,22$&  $-12,42$ \\
-$G(t)$ & $\approx0,0736$& $-30,28$& $-14,5$\\ 
-$BW(t)$ & $\approx0,079$ &$-10,08$ & $-15,39$\\
-$J_0(t)$ & $\approx 0,39$ &$ -15,01$ & $ -14,01$
+
+{$\Pi(t)$}  & $t\in|t_a|$& $\sim 1.406$ &$-6.663$ &$-12.089$\\
+	    & $t\in|t_a/2|$&$\sim 2.812$ &$-6.671$ &$-11.065$\\
+\hline
+{$S(t)$} & $t\in|t_a|$ &$\sim 12.304$& $-10.889$&  $-12.661$ \\
+	 & $t\in|t_a/2|$ &$\sim 12.304$& $-13.241$&  $-11.447$ \\
+\hline
+{$J_0(t)$}& $t\in|t_a|$ &$\sim 9.843$ &$ -14.553$ & $ -12.011$\\
+	  & $t\in|t_a/2|$ &$\sim 9.140$ &$ -13.614$ & $ -11.794$\\
+\hline
+{$G(t)$} & b=3 &$\sim 2.109$& $-21.535$& $-9.589$\\ 
+	 & b=5 &$\sim 2.812$& $-30.211$& $-9.091$\\ 
+\hline
+{$BW(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
+	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
 different windowing functions. \bf{OMS: Marcellin, it is not clear what exact variation of the
@@ -643,9 +655,7 @@ of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For 
 by different WFs is different.}
 \emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
 I want to change the scaling of the windows so that we can easily see what you are asking.}}
-
 \end{table}
-
 Table~\ref{tab:WF:performance} summarizes the performance of the different WFs. From this it is clear that
 the sinc, the Butterworth (BW) and the Bessel ($J_0$) WFs provide the more optimal tapering response. It is these WFs that
 will serve as the basis of BDWFs developed in the rest of this work. 
