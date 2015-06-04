@@ -497,7 +497,8 @@ and their conceptual equivalent in BDWFs.
 
 \begin{table}
 \begin{tabular}{l|l}
- Signal processing & BDWFs\\
+\hline
+ \bf Signal processing & \bf BDWFs\\
 \hline\hline
 Frequency (freq) domain & Image plane \\
 Time domain & Fourier plane \\
@@ -580,7 +581,7 @@ FoV and sidelobes attenuation. The Butterworth WF is given by:
 BW(t)= \Pi(t) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
 
-Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3,5$. Note that increasing 
+Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3$. Note that increasing 
 the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at the cost of pushing up the near-in sidelobes
 
 \subsection{Sinc window}
@@ -607,7 +608,7 @@ Note that the response to a sinc WF is almost perfectly flat in the main lobe (m
 This WF is given by a Bessel function of the first kind of order zero. Using a power series expansion, we have:
 \begin{equation}
 J_0(t) = \Pi(t) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}
-\end{equation}h
+\end{equation}
 Figure \ref{fig:wf:bessel} shows J$_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
 $[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
 the sidelobes.
@@ -631,7 +632,7 @@ the sidelobes.
 \hline
  \bf WFs& &\bf{Windows} & \bf response\\
  &&{ MLW} & { PSL}  & { SLR}   \\
-  &&\hspace{-0.8cm}(deg and at -3dB) & (dB) & (dB/oct)  \\
+  &&\hspace{-0.8cm}(deg and at -3db) & (db) & (db/oct)  \\
 \hline\hline
 
 {$\Pi(t)$}  & $t\in|t_a|$& $\sim 1.406$ &$-6.663$ &$-12.089$\\
