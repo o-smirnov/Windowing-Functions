@@ -530,8 +530,8 @@ Below we provide an overview some common (one-dimensional) WFs employed in signa
 
 \subsection{Boxcar window}
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/rect.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_box.pdf}
+\includegraphics[width=.5\textwidth]{./Figures/boxcargrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_boxgrey.png}
 \caption{Boxcar windowing function and its tapering response.}\label{fig:wf:box}
 \end{figure*}
 The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
@@ -551,8 +551,8 @@ The other WFs given below are all multiplied with a boxcar to ensure a cut-off i
 
 \subsection{Gaussian window}
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/gausian.pdf}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_gaussian.pdf}
+\includegraphics[width=.5\textwidth]{./Figures/gaussiangrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_gaussiangrey.png}
 \caption{Gaussian windowing function and its tapering response.}\label{fig:wf:gauss}
 \end{figure*}
 A Gaussian WF centred at zero with a standard deviation of $\sigma_1$ is given by: 
@@ -567,8 +567,8 @@ Figure \ref{fig:wf:gauss} shows a plot of $G(t)$ and its response. The WF is tru
 
 \subsection{Butterworth window}
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/butterworth.pdf}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_butterworth.pdf}
+\includegraphics[width=.5\textwidth]{./Figures/butterworthgrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_butterworthgrey.png}
 \caption{Butterworth windowing function and its tapering response.}\label{fig:wf:bw}
 \end{figure*}
 
@@ -584,8 +584,8 @@ the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at t
 
 \subsection{Sinc window}
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/sinc.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_sinc.pdf}
+\includegraphics[width=.5\textwidth]{./Figures/sincgrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_sincgrey.png}
 \caption{Sinc windowing function and its tapering response.}\label{fig:wf:sinc}
 \end{figure*}
 The sinc WF is defined as 
@@ -597,7 +597,7 @@ Note that the response to a sinc WF is almost perfectly flat in the main lobe (m
 
 \subsection{Bessel $J_0$ window}
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/bessel.pdf}%
+\includegraphics[width=.5\textwidth]{./Figures/besselgrey.png}%
 \includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel.pdf}
 \caption{Bessel (of the first kind) windowing function and its tapering response.}\label{fig:wf:bessel}
 \end{figure*}
@@ -640,7 +640,10 @@ $J_0(t)$ & $\approx 0,39$ &$ -15,01$ & $ -14,01$
 different windowing functions. \bf{OMS: Marcellin, it is not clear what exact variation of the
 WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
 of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
-by different WFs is different.}}
+by different WFs is different.}
+\emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
+I want to change the scaling of the windows so that we can easily see what you are asking.}}
+
 \end{table}
 
 Table~\ref{tab:WF:performance} summarizes the performance of the different WFs. From this it is clear that
@@ -655,8 +658,11 @@ BW(u,v) &=& BW(r),~~~r=\sqrt{u^2+v^2}.
 \end{eqnarray}
 
 {\bf OMS: Marcellin, why not $\mathrm{sinc}(r)$ as well? The referee is bound to ask? Also, why did you never consider a 
-prolate spheroidal WF? I remember bringing it up a few times.}
-
+prolate spheroidal WF? I remember bringing it up a few times.}\\
+{\bf Marcellin: $\mathrm{sinc}(r)$ dosn't works well in signal recovery. I studied the prolate spheroidal wave functions(PSWF)
+and the oder 1 of PSWF was just slightly like the sinc but with low sidelobes. I can try and test this but for sure 
+the computational time is extremely huge. I was thinking to talk about 
+the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
 
 \section{Imaging and noise estimate}
 \label{sec:imaging}
