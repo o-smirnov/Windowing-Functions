@@ -575,7 +575,8 @@ Figure \ref{fig:wf:gauss} shows a plot of $G(t)$ and its response. The WF is tru
 \end{figure*}
 
 A Butterworth WF is flat in the time pass band, and rolls off towards zero in the time stop band and it is 
-characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. The two parameters control the 
+characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. 
+The two parameters control the 
 FoV and sidelobes attenuation. The Butterworth WF is given by:
 \begin{equation}
 BW(t)= \Pi(t) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
@@ -613,6 +614,63 @@ Figure \ref{fig:wf:bessel} shows J$_0(t)$ and its response, with $J_0(t)$ trunca
 $[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
 the sidelobes.
 
+\subsection{Prolate spheroidal wave $PS_{0}$ window}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/prolategrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_prolategrey.png}
+\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:prolate}
+\end{figure*}
+
+
+This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
+by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
+\citep{landau1978prolate,delsarte1985discrete}. 
+The two parameters control the  FoV and sidelobes attenuation.
+The prolate spheroidal wave $PS_0$ is the eigen function and solution of the integral :
+\begin{equation}
+\int_{-t_a}^{t_a} PS_{0}(x) \frac{sin(\frac{\alpha}{\pi}(t-x))}{\frac{\alpha}{\pi}(t-x)}dx=\lambda_{n=0,\alpha,t_a}PS_{0}(t), \label{prol}
+ \end{equation}
+where $\lambda_{n=0,\alpha,t_a}$ is the eigen value of the prolate spheroidal wave $PS_{0}(t)$ WF.
+Figure \ref{fig:wf:prolate} shows prolate spheroidal wave $PS_0(t)$ WFs for the same cut-off interval $[-t_a,t_a]$, 
+with orders of $\alpha=2\pi^3, 5\pi^3$. Note that increasing 
+the order $\alpha$ conserves the MLW, and dramatically lowers sidelobes.
+
+\subsection{Hamming-Sinc window}
+% This WF is the product of the Hamming and the sinc WF defined as:
+% \begin{equation}
+% HMS(t)= \left\{
+% \begin{array}{rl}
+% S(t)\Big(0.54 -0.46 \cos (2\pi n /M)\Big) & \mbox{$n\leq M$} \\
+% 0 & \mbox{otherwise}
+% \end{array}\right.\label{ham:sinc}
+% \end{equation}
+% where $M$ is the number of samples in the cut off interval $[-t_a,t_a]$. Figures \ref{fig:wf:sinc} shows $S(t)$ for a fixed value of $b$, and cut-off intervals given by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$.
+% Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
+
+\subsection{Hanning-Sinc window}
+% This WF is the product of the Hamming and the sinc WF defined as:
+% \begin{equation}
+% HMS(t)= \left\{
+% \begin{array}{rl}
+% S(t)\Big(0.5-0.5\cos(2\pi n/(M-1))\Big) & \mbox{$n\leq M$} \\
+% 0 & \mbox{otherwise}
+% \end{array}\right.\label{ham:sinc}
+% \end{equation}
+% where $M$ is the number of samples in the cut off interval $[-t_a,t_a]$. Figures \ref{fig:wf:sinc} shows $S(t)$ for a fixed value of $b$, and cut-off intervals given by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$.
+% Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
+
+\subsection{Blackman-Sinc window}
+% This WF is the product of the Hamming and the sinc WF defined as:
+% \begin{equation}
+% HMS(t)= \left\{
+% \begin{array}{rl}
+% S(t)\Big(0.426-0.496\cos(2\pi n/(M-1))+0.076\cos(4\pi n/(M-1))\Big) & \mbox{$n\leq M$} \\
+% 0 & \mbox{otherwise}
+% \end{array}\right.\label{ham:sinc}
+% \end{equation}
+% where $M$ is the number of samples in the cut off interval $[-t_a,t_a]$. Figures \ref{fig:wf:sinc} shows $S(t)$ for a fixed value of $b$, and cut-off intervals given by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$.
+% Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
+
 \subsection{Relative performance}
 
 % \subsection{Convolution theorem and WFs comparison}
@@ -648,7 +706,19 @@ the sidelobes.
 	 & b=5 &$\sim 2.812$& $-30.211$& $-9.091$\\ 
 \hline
 {$BW(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
-	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$
+	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$\\
+\hline
+{$PS_0(t)$} & $\alpha=2\pi^3$ &$\sim 3.515$& $-45.302$& $-7.424$\\ 
+	 & $\alpha=5\pi^3$ &$\sim 4.218$& $-73.597$& $-6.375$\\ 
+\hline
+{$HMS(t)$} &  && & \\ 
+	 & &&&\\ 
+\hline
+{$HNS(t)$} & &&&\\
+	 & &&&\\ 
+\hline
+{$BMS(t)$} & &&&\\ 
+	 & &&&
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
 different windowing functions. \bf{OMS: Marcellin, it is not clear what exact variation of the
