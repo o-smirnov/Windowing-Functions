@@ -413,8 +413,8 @@ regularly spaced time-frequency samples.}\label{fig:uvcov}
 \label{sec:effectbw}
 
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/idealIPR.png}%
-\includegraphics[width=.5\textwidth]{./Figures/idealsinc.png}\\
+\includegraphics[width=.5\textwidth]{./Figures/idealIPRgrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/idealsincgrey.png}\\
 \caption{Left: boxcar response. In the $uv$-plane, this represents the windowing function corresponding to normal
 averaging of visibilities. In the image plane, this represents the ideal image-plane tapering function. Right: 
 Sinc response. In the image plane, this represents the tapering function corresponding to a boxcar WF in 
@@ -497,10 +497,11 @@ and their conceptual equivalent in BDWFs.
 
 \begin{table}
 \begin{tabular}{l|l}
- Signal processing & BDWFs\\
+\hline
+ \bf Signal processing & \bf BDWFs\\
 \hline\hline
 Frequency (freq) domain & Image plane \\
-Time domain & Fourier plane \\
+Time domain & Fourier plane or $uv$ plane \\
 Spectral response\\
 ~~or freq response & Image plane response (IPR)\\
 Time response & Fourier plane response\\
@@ -543,7 +544,7 @@ The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation}
-Figure \ref{fig:wf:box} shows a plot of $\Pi(t)$ and its response. The blue and red curves 
+Fig. \ref{fig:wf:box} shows a plot of $\Pi(t)$ and its response. The blue and red curves 
 correspond to cut-off time intervals of $[-t_a, t_a]$ and 
 $[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is larger, the MLW is 
 narrower, and the sidelobes are lower.
@@ -564,7 +565,7 @@ where $b=(2\sigma_1^2)^{-1}$. The FT of the Gaussian term is given by
 $\mathcal{F}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$, i.e.
 is also a Gaussian with standard deviation of $\sigma_2= (2\pi\sigma_1)^{-1}$.
 
-Figure \ref{fig:wf:gauss} shows a plot of $G(t)$ and its response. The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Its response is characterized by extremely low sidelobes, but a narrow main lobe.
+Fig. \ref{fig:wf:gauss} shows a plot of $G(t)$ and its response. The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Its response is characterized by extremely low sidelobes, but a narrow main lobe.
 
 \subsection{Butterworth window}
 \begin{figure*}
@@ -574,13 +575,14 @@ Figure \ref{fig:wf:gauss} shows a plot of $G(t)$ and its response. The WF is tru
 \end{figure*}
 
 A Butterworth WF is flat in the time pass band, and rolls off towards zero in the time stop band and it is 
-characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. The two parameters control the 
+characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. 
+The two parameters control the 
 FoV and sidelobes attenuation. The Butterworth WF is given by:
 \begin{equation}
 BW(t)= \Pi(t) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
 
-Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3,5$. Note that increasing 
+Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3$. Note that increasing 
 the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at the cost of pushing up the near-in sidelobes
 
 \subsection{Sinc window}
@@ -593,10 +595,11 @@ The sinc WF is defined as
 \begin{equation}
 S(t)= \Pi(t) \frac{\sin(\pi b t)}{\pi b t} .
 \end{equation}
-Figures \ref{fig:wf:sinc} shows $S(t)$ for a fixed value of $b$, and cut-off intervals given by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$.
+Fig. \ref{fig:wf:sinc} shows $S(t)$ for a fixed value of $b$, and cut-off intervals given by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$.
 Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
 
 \subsection{Bessel $J_0$ window}
+\label{Bessel}
 \begin{figure*}
 \includegraphics[width=.5\textwidth]{./Figures/besselgrey.png}%
 \includegraphics[width=.5\textwidth]{./Figures/freq_resp_besselgrey.png}
@@ -607,13 +610,57 @@ Note that the response to a sinc WF is almost perfectly flat in the main lobe (m
 This WF is given by a Bessel function of the first kind of order zero. Using a power series expansion, we have:
 \begin{equation}
 J_0(t) = \Pi(t) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}
-\end{equation}h
-Figure \ref{fig:wf:bessel} shows J$_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
+\end{equation}
+Fig. \ref{fig:wf:bessel} shows J$_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
 $[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
 the sidelobes.
 
-\subsection{Relative performance}
+\subsection{Prolate spheroidal wave $PS_{0}$ window}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/prolategrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_prolategrey.png}
+\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:prolate}
+\end{figure*}
+This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
+by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
+\citep{landau1978prolate,delsarte1985discrete}. 
+The two parameters control the  FoV and sidelobes attenuation.
+The prolate spheroidal wave $PS_0$ is the eigen function and solution of the integral :
+\begin{equation}
+\int_{-t_a}^{t_a} PS_{0}(\xi) \frac{sin(\frac{\alpha}{\pi}(t-\xi))}{\frac{\alpha}{\pi}(t-\xi)}d\xi=\lambda_{n=0,\alpha,t_a}PS_{0}(t), 
+ \end{equation}
+where $\lambda_{n=0,\alpha,t_a}$ is the eigen value of the prolate spheroidal wave $PS_{0}(t)$ WF.
+Fig. \ref{fig:wf:prolate} shows prolate spheroidal wave $PS_0(t)$ WFs for the same cut-off interval $[-t_a,t_a]$, 
+with orders of $\alpha=2\pi^3, 5\pi^3$. Note that increasing 
+the order $\alpha$ increases the MLW, and dramatically lowers sidelobes.
 
+\subsection{$J_0$-Hamming, $J_0$-Hanning and $J_0$-Blackman windows}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/bessel-hamminggrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel-hamminggrey.png}
+\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:bessel-ham}
+\end{figure*}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/bessel-hanninggrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel-hanninggrey.png}
+\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:bessel-han}
+\end{figure*}
+\begin{figure*}
+\includegraphics[width=.5\textwidth]{./Figures/bessel-blackmangrey.png}%
+\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel-blackmangrey.png}
+\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:bessel-black}
+\end{figure*}
+A $J_0(t)$ WF can be used to filter out the input signal, providing an intermediate signal. The intermediate signal 
+can then be passed through a Hamming, Hanning or Blackman filter to further increase the pass band (regime 1 or FoV) and 
+increase the stop band (regime 3 or outside the FoV) attenuation. The process can be resume as follow:
+\begin{equation}
+BX(t)= J_0(t)X(t) 
+\end{equation}
+where $X(t)$ is either the Hamming or the Hanning or the Blackman WFs known in the litterature.
+Fig. \ref{fig:wf:bessel-ham}, Fig. \ref{fig:wf:bessel-han} and Fig. \ref{fig:wf:bessel-black}  show $BX(t)$ WFs and their
+response with the Hamming, Hanning and Blakman respectively. Compare to the $J_0(t)$ WF, the $BX(t)$ has lower PSL and higher SLR.
+
+\subsection{Relative performance}
 % \subsection{Convolution theorem and WFs comparison}
 % We begin with a continuous signal $V_{t}$ (supposed the data is only time dependent) and sample it in order to obtain the set of 
 % measurement (see section \ref{sec:AvgCon}). When the signal is limited in the time interval $[-t_a,t_a]$ and convolved with a window 
@@ -625,32 +672,43 @@ the sidelobes.
 % \end{equation}
 % One can replaced the convolution window, $W_{t}$ by its Fourier transform. A summary of the MLW, the PSL and 
 % the SLR of the windows study is showed in table below.
-
 \begin{table}
 \begin{tabular}{|l||l|l|l|l|}
 \hline
  \bf WFs& &\bf{Windows} & \bf response\\
  &&{ MLW} & { PSL}  & { SLR}   \\
-  &&\hspace{-0.8cm}(deg and at -3dB) & (dB) & (dB/oct)  \\
+  &&\hspace{-0.8cm}(deg and at -3db) & (db) & (db/oct)  \\
 \hline\hline
-
 {$\Pi(t)$}  & $t\in|t_a|$& $\sim 1.406$ &$-6.663$ &$-12.089$\\
 	    & $t\in|t_a/2|$&$\sim 2.812$ &$-6.671$ &$-11.065$\\
 \hline
 {$S(t)$} & $t\in|t_a|$ &$\sim 12.304$& $-10.889$&  $-12.661$ \\
 	 & $t\in|t_a/2|$ &$\sim 12.304$& $-13.241$&  $-11.447$ \\
 \hline
-{$J_0(t)$}& $t\in|t_a|$ &$\sim 9.843$ &$ -14.553$ & $ -12.011$\\
+{$J_0(t)$}& $t\in|t_a|$ &$\sim 9.140$ &$ -14.553$ & $ -12.011$\\
 	  & $t\in|t_a/2|$ &$\sim 9.140$ &$ -13.614$ & $ -11.794$\\
 \hline
 {$G(t)$} & b=3 &$\sim 2.109$& $-21.535$& $-9.589$\\ 
 	 & b=5 &$\sim 2.812$& $-30.211$& $-9.091$\\ 
 \hline
 {$BW(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
-	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$
+	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$\\
+\hline
+{$PS_0(t)$} & $\alpha=2\pi^3$ &$\sim 3.515$& $-45.302$& $-7.424$\\ 
+	 & $\alpha=5\pi^3$ &$\sim 4.218$& $-73.597$& $-6.375$\\ 
+\hline
+{$BX(t)$} & $t\in|t_a|$ &$\sim 9.140$&$-35.724$ & $-11.948$\\ 
+{$Hamming$}	 & $t\in|t_a/2|$ &$\sim 9.140$&$-22.670$&$-19.527$\\ 
+\hline
+{$BX(t)$}   & $t\in|t_a|$ &$\sim 9.140$&$-35.954$ &$-41.684$ \\ 
+{$Hanning$}   &$t\in|t_a/2|$ &$\sim 9.140 $&$-27.765$&$-46.233$\\ 
+\hline
+{$BX(t)$}  & $t\in|t_a/2|$ &$\sim 9.140$&$-48.660$&$-37.274$\\ 
+{$Blackman$}	 & $t\in|t_a/2|$ &$\sim 9.140$&$-24.723$&$-7.972$
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
-different windowing functions. \bf{OMS: Marcellin, it is not clear what exact variation of the
+different windowing functions. 
+\bf{OMS: Marcellin, it is not clear what exact variation of the
 WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
 of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
 by different WFs is different.}
