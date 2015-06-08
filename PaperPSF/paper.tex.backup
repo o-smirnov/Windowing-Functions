@@ -19,9 +19,6 @@
 %\usepackage[subnum]{cases}
 \usepackage{enumerate}
 \usepackage{draftcopy}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{pifont}
 
 \usepackage{caption}
 \usepackage{subcaption}
@@ -63,7 +60,7 @@
 \begin{document}      
 
 	      
-\title{Fast Scheme to Approximate an Offset Point Spread Function Response}
+\title{APPROXIMATING AN OFFSET POINT SPREAD FUNCTION RESPONSE}
 
 \subtitle{}
 \author{M. Atemkeng$^{1}$\thanks{E-mail: m.atemkeng@gmail.com}, O. Smirnov$^{12}$, 

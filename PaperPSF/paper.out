@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Motivation}{}% 2
+\BOOKMARK [1][-]{section.3}{Matrix formulation of the problem - 1D interferometer}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Remarks on the convolution and linear algebra}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{PSF behaviour}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Deriving the Pseudo-PSF}{section.3}% 6
+\BOOKMARK [3][-]{subsubsection.3.3.1}{PSF and Pseudo-PSF}{subsection.3.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Slow way}{subsection.3.3}% 8
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Quickly deriving the Pseudo-PSF}{subsection.3.3}% 9
+\BOOKMARK [1][-]{section.4}{Numerical Experiments}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Slow derivation}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Quick derivation}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Imaging}{section.4}% 13
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Computational cost}{subsection.4.3}% 14
+\BOOKMARK [1][-]{section.5}{Simulation and comparison}{}% 15
+\BOOKMARK [1][-]{section.6}{Discussion and conclusion}{}% 16
+\BOOKMARK [1][-]{appendix.A}{The Fourier Transform of a top-hat windowing function}{}% 17

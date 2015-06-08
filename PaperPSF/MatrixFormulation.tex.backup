@@ -405,69 +405,24 @@ I_{D}(l_0,m_0)&=\sum_{\mathbf{b} kj}P_{\mathbf{b}kj}(l_0,m_0)\circ \mathcal{F}^{
 \caption{From PSF contruct list of $du$ and $dv$}
 \label{CHalgorithm}
 \begin{algorithmic}[1]
-\Procedure{$Listduv$}{}
-\State $Ldu$ and $Ldv=0$ initialize to $0$
+\Procedure{$List-duv$}{}
+\State $list-u=0$, $list-v=0$
 \State $FoV = N \times \Delta l \times \Delta m$
-\State $\Delta u=\Delta v=1/FoV$
-\State $a=-(N-1)\times \Delta u /2$, $b=-a$, $h=(b-a)/(N-1)$
+\State $\Delta u=1/FoV$, $\Delta v=1/FoV$
+\State $u_{0}=-(N-1)\times \Delta u /2$, $v_{0}=-(N-1)\times \Delta v /2$
 \For{ $i$ from $1$ to $N$ }
-\For{ $j$ from $1$ to $N$ }
-\State from $(i,j)$ $\mathbf{u}$, $v=a$
-\State $v_{0}=v_{0}+()$
+\State Broadcast HELLO message to its neighbor
 \State let $k$ \Pisymbol{psy}{206} $N1$ ($i$) U {$i$} be s.t
 \State QOS($k$) = max {QOS($j$) \textbar $j$ \Pisymbol{psy}{206} $N1$($i$)  U $i$}
 \State MPRSet($i$) = $k$
-\EndFor
 \EndFor
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
 
-\begin{algorithm}
-\caption{From $du$, $du$ and PSF,  contruct Pseudo PSF}
-\label{CHalgorithm}
-\begin{algorithmic}[1]
-\Procedure{GiveAvgPseudoPSF}{}
-\State $Ldu$ and $Ldv=0$ initialize to $0$
-\State $FoV = N \times \Delta l \times \Delta m$
-\State $\Delta u=\Delta v=1/FoV$
-\State $a=-(N-1)\times \Delta u /2$, $b=-a$, $h=(b-a)/(N-1)$
-\For{ $i$ from $1$ to $N$ }
-\For{ $j$ from $1$ to $N$ }
-\State from $(i,j)$ $\mathbf{u}$, $v=a$
-\State $v_{0}=v_{0}+()$
-\State let $k$ \Pisymbol{psy}{206} $N1$ ($i$) U {$i$} be s.t
-\State QOS($k$) = max {QOS($j$) \textbar $j$ \Pisymbol{psy}{206} $N1$($i$)  U $i$}
-\State MPRSet($i$) = $k$
-\EndFor
-\EndFor
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
 
-
-\begin{algorithm}
-\caption{From $du$, $du$ and PSF,  contruct Pseudo PSF}
-\label{CHalgorithm}
-\begin{algorithmic}[1]
-\Procedure{GiveBDWFPseudoPSF}{}
-\State $Ldu$ and $Ldv=0$ initialize to $0$
-\State $FoV = N \times \Delta l \times \Delta m$
-\State $\Delta u=\Delta v=1/FoV$
-\State $a=-(N-1)\times \Delta u /2$, $b=-a$, $h=(b-a)/(N-1)$
-\For{ $i$ from $1$ to $N$ }
-\For{ $j$ from $1$ to $N$ }
-\State from $(i,j)$ $\mathbf{u}$, $v=a$
-\State $v_{0}=v_{0}+()$
-\State let $k$ \Pisymbol{psy}{206} $N1$ ($i$) U {$i$} be s.t
-\State QOS($k$) = max {QOS($j$) \textbar $j$ \Pisymbol{psy}{206} $N1$($i$)  U $i$}
-\State MPRSet($i$) = $k$
-\EndFor
-\EndFor
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}begin{alignat}{2}
+% \begin{alignat}{2}
 %\subsection{The case of hight time/frequency resolution post-correlation with averaging} V_{\mathbf{b}_0} =&f(\mathbf{b}_0)
 % \end{alignat}
 % \begin{alignat}{2}
@@ -478,7 +433,8 @@ I_{D}(l_0,m_0)&=\sum_{\mathbf{b} kj}P_{\mathbf{b}kj}(l_0,m_0)\circ \mathcal{F}^{
 % \end{alignat}
 % where $F_{\mathbf{b}_0}(l,m)=\sum_{\mathbf{b}_0}\mathcal{F}^{-1}\Big\{f(\mathbf{b}_0)\Big\}\neq \delta$
 \section{PSEUDO PSF's DECONVOLTION}
-\subsection{Gridding and degridding}
+\subsection{Major loop: gridding and degridding}
+\subsection{Minor loop}
 \section{RESULTS}
 % Taking this into account, Eq\ref{eq:theo} is rewritten as
 % \begin{alignat}{2}
