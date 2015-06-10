@@ -19,11 +19,16 @@
 %\usepackage[subnum]{cases}
 \usepackage{enumerate}
 \usepackage{draftcopy}
-%\psdraft
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pifont}
 
+\usepackage{caption}
+\usepackage{subcaption}
+%\psdraft
+%\usepackage{hyperref}
 \usepackage{arydshln}
 \usepackage{amsmath}
-
 \bibpunct{(}{)}{;}{a}{}{,}
 
 \newcommand{\tbsp}{\rule{0pt}{18pt}}
@@ -53,30 +58,29 @@
 
 
  \def\supertiny{ \font\supertinyfont = cmr10 at 4pt \relax \supertinyfont}
-
-
-
+ 
+ 
 \begin{document}      
+
 	      
-\title{Tapering, DDE, and PSFs}
+\title{Fast Scheme to Approximate an Offset Point Spread Function Response}
 
 \subtitle{}
-\author{}%\inst{1}}
-
-%% \institute{
-%% The caca institude
-%% %% Department of Physics \& Electronics, Rhodes University, PO Box 94,
-%% %% Grahamstown, 6140, South Africa
-%% %% \and
-%% %% SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Africa
-%% %% \and
-%% %% GEPI, Observatoire de Paris, CNRS, Universit\'e Paris Diderot,
-%% %% 5 place Jules Janssen, 92190 Meudon, France
-%% }
+\author{M. Atemkeng$^{1}$\thanks{E-mail: m.atemkeng@gmail.com}, O. Smirnov$^{12}$, 
+ C. Tasse$^{123}$, G. Foster$^{12}$, J. Jonas$^{12}$}
+\institute{
+Department of Physics \& Electronics, Rhodes University, PO Box 94,
+Grahamstown, 6140, South Africa
+\and
+SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Africa
+\and
+GEPI, Observatoire de Paris, CNRS, Universit\'e Paris Diderot,
+5 place Jules Janssen, 92190 Meudon, France
+}
 %   \author{}
 %   \offprints{}
 %   \institute{}
-\date{Received <date> / Accepted <date>}
+\date{Received  / Accepted }
 
 
 \abstract{
@@ -93,17 +97,21 @@
 
 \input{MatrixFormulation.tex}
 
-%% \begin{acknowledgements}
-%% No thanks
-%% \end{acknowledgements}
+ \begin{acknowledgements}
+ The research  made use of  MeqTrees software system designed to implement numerical models for third-generation calibration (3GC) 
+ Python Extensions for Interferometry and Python. The research has been supported by the South Africa National Research Foundation.
+ \end{acknowledgements}
 
-
-\bibliographystyle{aa}
-\bibliography{references}
-
+%\bibliographystyle{aa}
+%\bibliography{references}
+\bibliographystyle{mn2e}
+\bibliography{paper}
 %\pagebreak
 %\newpage
-
+\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+\input{AppendixA}
+%\input{Appendices/AppendixB}
+%\input{Appendices/AppendixC}
 
 %% \begin{appendix}
 %% \input{Initialisation.tex}
