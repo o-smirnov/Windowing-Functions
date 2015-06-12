@@ -159,7 +159,7 @@ for smaller correlators.
 \newcommand{\FF}{\mathcal{F}}
 \newcommand{\HH}{\mathcal{H}}
 \newcommand{\TT}{\mathcal{T}}
-
+\newcommand{\uu}{\bmath{u}}
 
 The following formalism deals with visibilities both as functions (i.e. entire distributions on the $uv$-plane), 
 and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
@@ -242,7 +242,7 @@ Since the Fourier transform is linear, this can be represented by a sum of  ``si
 \end{equation}
 where $\delta_{pqkl}$ is a delta-function shifted to the $uv$-point being sampled:
 \begin{equation}
-\delta_{pqkl}(u,v) = \delta(u-u_{pq}(t_k,\nu_l),v-v_{pq}(t_k,\nu_l))
+\delta_{pqkl}(\bmath{u}) = \delta(\bmath{u}-\bmath{u}_{pq}(t_k,\nu_l))
 \end{equation}
 and $W_{pqkl}$ is the 
 associated weight. The Fourier transform being linear, we can rewrite eq.~(\ref{eq:imaging}) as 
@@ -304,7 +304,7 @@ $\mathsf{B}^{\prime}_{kl}$ is an arc segment in $uv$-space. Assuming a bin small
 $\partial\bmath{u}/\partial t$ is approximately constant over the bin, we then have
 \begin{equation}
 V^\mathrm{(m)}_{pqkl} \sim \iint\limits_{\mathsf{B}^{\prime}_{kl}}
-\VV_{pq}(u,v) dudv,
+\VV_{pq}(\bmath{u}) d\bmath{u},
 \label{eq2:conti:uv1}
 \end{equation}
 
@@ -374,7 +374,7 @@ V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Pi_{pqkl} ](t_k,\nu_l),
 
 Likewise, eq.~(\ref{eq2:conti:uv}) can also be rewritten as a convolution in $uv$-space:
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Pi^\prime_{pqkl} ](u_{pq}(t_k),v_{pq}(\nu_l)),
+V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Pi^\prime_{pqkl} ](\bmath{u}_{pq}(t_k,\nu_l)),
 \label{eq:avscon}
 \end{equation}
 where $\Pi^\prime_{pqkl}$ is a boxcar-like WF that corresponds to bin $\mathsf{B}^\prime_{kl}$ in $uv$-space 
@@ -393,15 +393,15 @@ samples, rather than a continuous integration. To represent this properly, we ne
 eqs.~(\ref{eq2:conti}-\ref{eq2:conti:uv1}) by the discrete sums:
 \begin{equation}
 \label{eq:discrete:tf}
-V^\mathrm{(m)}_{pqkl} = \sum_{i,j=\infty}^{\infty}  \VV_{pq}(t_i,\nu_j) \Pi_{pqkl}(t_i-t_k,\nu_j-\nu_l)
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(t_i,\nu_j) \Pi_{pqkl}(t_i-t_k,\nu_j-\nu_l)
 \end{equation}
 and
 \begin{equation}
 \label{eq:discrete:uv}
-V^\mathrm{(m)}_{pqkl} = \sum_{i,j=\infty}^{\infty}  \VV_{pq}(u_{ij},v_{ij}) \Pi^\prime_{pqkl}(u_{ij}-u_{kl},v_{ij}-v_{kl}),
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(\bmath{u}_{ij}) \Pi^\prime_{pqkl}(\bmath{u}_{ij}-\bmath{u}_{kl}),
 \end{equation}
 of which the first is a conventional discrete convolution (assuming a regular $t\nu$ grid), and the second is a convolution 
-on an irregular grid -- the $u_{ij},v_{ij}$ grid being schematically illustrated by Fig.~\ref{fig:uvcov}.
+on an irregular grid -- the $\bmath{u}_{ij}$ grid being schematically illustrated by Fig.~\ref{fig:uvcov}.
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{./Figures/uvcov.png}\caption{Schematic of $uv$-coverage for 
@@ -512,7 +512,9 @@ Cut-off freq interval \\
 Time stop band & Outside of the $uv$-bin\\
 Freq stop band & Outside of the FoV\\
 Octave & Doubling in size\\
-Normalized freq & Distance from phase centre
+Normalized freq & Distance from phase centre \\
+Band-limited \\
+~~(applied to visibilities) & restricted FoV \\
 \end{tabular}
 \caption{Mapping of terminology between signal processing and BDWFs.}
 \label{tab:terms}
@@ -733,179 +735,56 @@ and the oder 1 of PSWF was just slightly like the sinc but with low sidelobes. I
 the computational time is extremely huge. I was thinking to talk about 
 the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
 
-\section{Imaging and noise estimate}
-\label{sec:imaging}
-Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
-on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
-$W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv-bin is a set of four Stocks elements (XX, XY YX, YY) each 
-with the same weight $W_{pq,(t_i,\nu_j)}$. Therefore, the sampled visibilities can be presented mathematically as a $4\times n_t\times 
-n_{\nu}$ matrix of four polarization times and frequencies dependent matrices each of size $n_t\times n_{\nu}$.
-\begin{eqnarray*}
-\mathbf{V}_{pq,(t,\nu)}^{samp,i}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
-^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
-\end{eqnarray*}
-where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can re-write Eq.\ref{f4} 
-in terms of a series of linear transformations or functional models as:
-\begin{equation}
-V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
-\mathbf{V}_{pq,(t,\nu)}^{samp,i}.\label{eqbb:linear}
-\end{equation}
-Here, $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are  blocks diagonals matrices of size $(4n_t 
-n_{\nu})\times(4n_t n_{\nu})$, the block elements are $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ and $\mathbf{C}_{pq,(t,\nu)}$ 
-respectively, where $\mathbf{C}_{pq,(t,\nu)}$ is the centre time and frequency interval sampling matrix of size $n_t\times 
-n_{\nu}$. This
-is the result of one time and frequency integration.
-For a synthesis, the baseline (p,q) made a complete  coverage in the $(u,v)$ plane. Therefore, we can  
-package into a single matrix, $\mathbf{V}_{pq,(t',\nu')}^{corr}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
-BDWF average visibilities of the  baseline (p,q) during the synthesis as follows: 
-\begin{equation}
-\mathbf{V}_{pq,(t',\nu')}^{corr}=\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}.\label{eq2:block}
-\end{equation}
-The size of 
-$\mathbf{V}_{pq,(t',\nu')}^{corr}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the total
-number of time and frequency visibilities (bins) for the baseline (p,q). The matrices
-$\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and $\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are diagonals blocks 
-matrices of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ where each diagonal block is the block diagonal matrix  
-$\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ respectively. The number of block elements is $n_{block}$. The 
-sampled  visibilities 
-$\textbf{V}_{pq,(t,\nu)}^{samp,n_{block}}=\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ is a one 
-row matrix of size 
-$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp,i}$ on top of each other and the matrix 
-$\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}$ is the sampling function for the visibilities $\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ of 
-size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. Note that $i=1,\dots, N_v^{pq}$ and we can write:
-\begin{equation}
-\mathbf{V}_{pq,(t' \nu')}^{corr}= 
-\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky }+\epsilon_{pq},\label{eqv:linear}
-\end{equation}
-our data is always corrupted by a random error component or noise, $\epsilon_{pq}$ (the error component of the baseline (p,q)).
-If the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
-$\textbf{F}$ is a block diagonal Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
 
-We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
-measured over all baselines with $N_v=N_{bl}\times N_v^{pq}$ where $N_{bl}$ is the number of baseline. We then have:\\
+\section{Application of WFs to visibilities}
+
+While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency the sampling
+positions go as $\sim\nu^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
+integrations (Fig.~\ref{fig:uvcov}). Applying a WF with a constant integration window in $t\nu$ space corresponds to 
+different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Pi^\prime$ of 
+eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
+the scale of the WF, this results in more smearing (i.e. a narrower taper) on longer baselines.
+
+By defining our alternative WFs in $uv$-space (in units of wavelength), we can attempt to ``even out'' the smearing 
+response across baselines. For example, adopting a Bessel windowing function $J_0(u,v)$, we have the following recipe 
+for computing averaged visibilities:
 \begin{equation}
- \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
+\label{eq:avg:bessel}
+V^\mathrm{(m)}_{pqkl} = \frac{\sum\limits_{{i,j}\in B_{kl}} \VV_{pq}(\bmath{u}_{ij}) J_0(\bmath{u}_{ij}-\bmath{u}_{kl})}
+{\sum\limits_{i=k_0}^{k_1} \sum\limits_{{i,j}\in B_{kl}} J_0(\bmath{u}_{ij}-\bmath{u}_{kl})},
 \end{equation}
- Here, $\epsilon$ is the array error component. $\mathbf{A}$ is a \textit{design} matrix of size 
-$(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{F}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each order, with $n_a$ the 
-number of antenna. The \textit{design} matrix is defined as:
-\begin{equation*}
-\mathbf{A}_{}=
-  \begin{bmatrix}
-    \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{01,(t,\nu)}^{n_{block}} 
-\cdot\mathbf{F}\\
-    \vdots\\
-    \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{ik,(t,\nu)}^{n_{block}} 
-\cdot\mathbf{F}\\
-    \vdots \\
-    \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} 
-\cdot\mathbf{F}\\
-  \end{bmatrix}
-\end{equation*}
-The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived as follow:
-\begin{equation}
-\mathcal{I}_{l,m}^{D}=\bigg(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}^{sky}\bigg)_{(l,m)} + \epsilon.
-\end{equation}
-Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
-inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+where $B_{kl}=[k_0\dots k_1]\times[l_0\dots l_1] $ represents the sample indices being averaged over, and
+$\bmath{u}_{kl}$ is the midpoint of the bin. The effective WF is therefore scaled by the baseline fringe rate, and 
+truncated at the edges of the averaging interval. On the shortest baselines, the truncation is extreme to the point of 
+approaching the boxcar-like $\Pi^\prime$ (Fig.~\ref{fig:WF:perbaseline}).
 
-The estimate of  $\epsilon$, for the map centre pixel is given by:
-\begin{eqnarray}
- \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - 
-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\							
-		      %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\		
-&=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
-\nu)}^{ samp } \bigg)\label{eq:noise1}.
-\end{eqnarray}
-Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
-$\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ 
-on 
-top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
-respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model, 
-$\mathbf{V}_{array,(t, \nu)}^{ samp } =\sigma_{}\mathbf{G}$, 
-where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
-n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
-\begin{eqnarray}
- \widetilde{\epsilon}_{o,o}		
-&=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
-\bigg).\label{eq:noise}
-\end{eqnarray}
-The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
-\section{FoV signals recovery and out field suppression}
-\subsection{FoV signals recovery: description and method}
-\label{baseline1}
-Missing spaces between sampled $(u,v)$ coordinates have an important dependence on the baseline length. However, the spacings between 
-longer 
-baselines $(u,v)$ coordinates are wider than the one on shorter baselines, this is the obvious effect that explained why sources are more 
-distorted on longer baselines compared to shorter ones. Therefore, if one has to attribute the weight of a uv-bin, it may be proportional 
-to 
-the baseline length, in such a way that the distortion rate is taken into account over baselines. The study in this section aims to 
-describe an approach that used a WF to assign a proper weight of a uv-bin considering the \textit{spacing} between the baseline uv-bins and 
-the centre uv-bin.
+\begin{figure*}%
+\includegraphics[width=.33\textwidth]{./Figures/longshortmid-sinc.pdf}\hfill%
+\includegraphics[width=.33\textwidth]{./Figures/longshortmid-bessel.pdf}\hfill%
+\includegraphics[width=.33\textwidth]{./Figures/longshortmid-butter.pdf}
+\caption{Cross-sections through three different BDWFs (left: sinc, centre: Bessel, right: Butterworth) defined in $uv$-space, 
+plotted along the time axis. This shows that the effective WF is a scaling and truncation of the underlying WF, with
+the shortest baselines reducing to a boxcar-like WF.}
+\label{fig:WF:perbaseline}
+\end{figure*}
 
-Figure \ref{fig:uvcov} shows a snapshot coverage of an integration time interval. For shorter baselines, the tracks are closer to the 
-centre 
-of 
-rotation and for longer baselines the tracks are farther away from the centre. The \textit{dot marks} are the uv-bins, 
-and the  arrows indicate the separation between uv-bins and the centre uv-bin. It is trivial to see on this 
-figure that these separations are wider on longer baselines. The results of boxcar averaging or BDWF averaging are assigned to the centre 
-uv-bin coloured in red.
+The downside of this simple approach is twofold. Firstly, while all of the WFs above boast far lower sidelobes than the boxcar
+(i.e. more suppression for out-of-FoV sources), they no longer perform that well under truncation, with extremely truncated WFs 
+at the shorter baselines becoming boxcar-like. Secondly, taking a weighted sum in eq.~\ref{eq:avg:bessel} increases 
+the noise in comparison to normal averaging.
 
-During integration, the Earth rotation makes baselines coordinates  to vary in time and 
-frequency. We can therefore package the $(u,v)$ coordinates changes and the frequency changes of a baseline (p,q) into a matrix of 
-size $n_t \times 2$ and  vector of dimension $n_{\nu}$ respectively. 
-\begin{eqnarray*}
-\mathbf{U}_{pq,t}&=& \Bigg(\mathbf{u}_{pq,t_s}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_e}\Bigg)^{\dagger}\\
- \mbox{\boldmath $\nu$}&=&\Bigg(\nu_s,\dots,\nu_c,\dots,\nu_e\Bigg)^{\dagger}.
-\end{eqnarray*}
-%where the indexes $s$, $c$ and $e$ depict the integration interval starting, centre and ending time respectively. 
-The 
-elements of $\mathbf{U}_{pq,t}$ are functions of time and frequency representing the $(u,v)$ coordinates.
-A function $\overline{\overline{\cdot}}$ on a $n_t \times 2$ matrix is defined as follow:
-\begin{eqnarray}
-\overline{\overline{\mathbf{U}}}_{pq,t}=\Bigg(||\mathbf{u}_{pq,t_s}||, \dots , ||\mathbf{u}_{pq,t_c}||, \dots, 
-||\mathbf{u}_{pq,t_e}||\Bigg)^{\dagger},
-\end{eqnarray}
-where $||.||$ is the Euclidean norm.
-\begin{definition}[Time direction spacing]
-\label{def:1}
-The vector of size $n_t$ that models the spacing between uv-bins and the centre uv-bin of a baseline (p,q) across the time 
-direction is defined as:
-\begin{eqnarray*}
- \mathbf{d}_{t} &=&\overline{\overline{\frac{\nu_c}{c}\cdot\Bigg\{\mathbf{U}_{pq,t}-\mathbf{H}_{pq,t} \Bigg \} }},
-\end{eqnarray*}
-where $c$ is the speed of the light in m/s and $\mathbf{H}_{pq,t}$ is a matrix of size $n_t \times 2$ that models the centre uv-bin,\\
-$\mathbf{H}_{pq,t}= \big(\mathbf{u}_{pq,t_c}, \dots , \mathbf{u}_{pq,t_c}, \dots, \mathbf{u}_{pq,t_c}\big)^{\dagger}$.
-\end{definition}
-\begin{definition}[Frequency direction spacing]
-\label{def:2}
-The vector of size $n_{\nu}$ that models the spacing between uv-bins and the centre uv-bin of a baseline (p,q) 
-across the frequency direction is defined as:
-\begin{eqnarray*}
-\mathbf{d}^{}_{\nu} &=&\frac{||\textbf{u}_{pq,t_c}||}{c}\cdot\Bigg\{\mbox{\boldmath 
-$\nu$}-\nu_c\cdot\mathbf{g}_{\nu} \Bigg \},
-\end{eqnarray*}
-where  $\mathbf{g}_{\nu}$ is a $n_{\nu}\times1$ unit matrix. 
-\end{definition}
-\begin{definition}[Baseline dependent windowing function]
-\label{def:3}
-If $f_{pq}$ is a \textit{baseline dependent windowing function}, then:
-\begin{eqnarray*}
- f_{pq}: \{\mathbf{\mathcal{R}},\mathbf{\mathcal{R}}\} &\rightarrow& \mathbf{\mathcal{R}}\\
-                   d_{t_i},d_{\nu_j} &\mapsto& \frac{w_{t_i,\nu_j}}{\sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}w_{t_i,\nu_j}}.
-\end{eqnarray*}
-Here $d_{t_i}$ is an element of the vector $\mathbf{d}_{t}$ and $d_{\nu_j}$ is an element 
-of the vector $\mathbf{d}^{}_{\nu}$.
-\end{definition}
-The previous approach is exact but unfortunately, we do not suppress confusion sources and we lost in 
-sensitivity. Although boxcar averaging \textit{means high sensitivity}, we do need to attenuate confusion sources in such a 
-way that the overall Signal to Noise Ratio (SNR) becomes higher than that of boxcar averaging. The following section describe such 
-method.
-\subsection{Out FoV suppression: description and method}
+\subsection{Overlapping BDWFs}
 \label{baseline2}
+
+A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the averaging bins $B_{kl}$ 
+in eq.~\ref{eq:avg:bessel} don't overlap, since they represent adjacent averaging intervals. There is, however, no reason 
+(apart from computational load) why we cannot enlarge the bins so that the averaging intervals actually overlap by 
+some number of samples. For normal averaging this makes little sense, since it effectively broadens $\Pi^\prime$ and therefore
+increases smearing. But for a well-behaved BDWF, enlarging the window (while maintaining the same WF scale) means 
+less truncation -- thus lower sidelobes -- and decreased noise, as more samples are taken into account.
+
+
+
 In theory, WFs and signals generally extend to  infinity. Unfortunately, in practice, filtering a signal with a low pass 
 filter, one need to define a cut-off interval (range of uv-bins). Therefore, if one  wants to achieve sufficiently an accurate  estimate 
 of the WF ideal image plane response (IPR), one need a wide cut-off interval as far as the IPR approaches 
@@ -1035,32 +914,6 @@ integration time at 1.4Ghz, with 150 channels of width 125kHz. The MS is filled 
 averaging and BDWF averaging over 1min30s (width of the time integration) and 12500kHz (channel with). Two overlaps BDWF are presented, 
 the first overlap over 2min60s across time and 3125kHz across frequency; the second overlap over 3min45s across time and 6250kHz across 
 frequency.
-\begin{figure*}
- \centering
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-sinc.pdf}
-  \caption{Time direction Bl-sinc-W0 of the shortest, medium and longest baseline}\label{fig:longshortmid-sinc}
-  \end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-bessel.pdf}
-  \caption{Time direction Bl-J$_0$-W0 of the shortest, medium and longest baseline}\label{fig:longshortmid-bessel}
-  \end{minipage}\\
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/longshortmid-butter.pdf}\\
-  \caption{Time direction Bl-BW-W0 of the shortest, medium and longest baseline}\label{fig:longshortmid-butter}
-  \end{minipage}
-% \end{figure*}
-% \begin{figure*}
-%  \centering
-    \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}
-  \caption{Per baseline noise ratio of Bl-sinc-W$n_{lt}\times n_{l\nu}$ and averaging}\label{fig:per-baseline-noise-ratio-sinc}
-  \end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}\\
-  \caption{Per baseline noise ratio of Bl-J$_0$-W$n_{lt}\times n_{l\nu}$ and 
-averaging}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}
-  \caption{Per baseline noise ratio of Bl-BW-W$n_{lt}\times n_{l\nu}$ and averaging}\label{fig:per-baseline-noise-ratio-BW}
-  \end{minipage}
-\end{figure*}
 
 \begin{itemize}
  \item In Figure \ref{fig:per-baseline-noise-ratio-sinc}, \ref{fig:per-baseline-noise-ratio-bessel} 
@@ -1104,6 +957,125 @@ sky map centre pixel while the simulation results are an average of the sky map 
   Bl-BW-150$\times$50 & $1.42$& $1.44$
 \end{tabular}
 \end{tabular}
+
+
+\begin{figure*}
+    \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}
+  \caption{Per baseline noise ratio of Bl-sinc-W$n_{lt}\times n_{l\nu}$ and averaging}\label{fig:per-baseline-noise-ratio-sinc}
+  \end{minipage}
+  \hspace{1cm}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}\\
+  \caption{Per baseline noise ratio of Bl-J$_0$-W$n_{lt}\times n_{l\nu}$ and 
+averaging}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
+  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}
+  \caption{Per baseline noise ratio of Bl-BW-W$n_{lt}\times n_{l\nu}$ and averaging}\label{fig:per-baseline-noise-ratio-BW}
+  \end{minipage}
+\end{figure*}
+
+
+\section{Imaging and noise estimate}
+\label{sec:imaging}
+Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
+on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
+$W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv-bin is a set of four Stocks elements (XX, XY YX, YY) each 
+with the same weight $W_{pq,(t_i,\nu_j)}$. Therefore, the sampled visibilities can be presented mathematically as a $4\times n_t\times 
+n_{\nu}$ matrix of four polarization times and frequencies dependent matrices each of size $n_t\times n_{\nu}$.
+\begin{eqnarray*}
+\mathbf{V}_{pq,(t,\nu)}^{samp,i}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
+^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
+\end{eqnarray*}
+where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can re-write Eq.\ref{f4} 
+in terms of a series of linear transformations or functional models as:
+\begin{equation}
+V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
+\mathbf{V}_{pq,(t,\nu)}^{samp,i}.\label{eqbb:linear}
+\end{equation}
+Here, $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are  blocks diagonals matrices of size $(4n_t 
+n_{\nu})\times(4n_t n_{\nu})$, the block elements are $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ and $\mathbf{C}_{pq,(t,\nu)}$ 
+respectively, where $\mathbf{C}_{pq,(t,\nu)}$ is the centre time and frequency interval sampling matrix of size $n_t\times 
+n_{\nu}$. This
+is the result of one time and frequency integration.
+For a synthesis, the baseline (p,q) made a complete  coverage in the $(u,v)$ plane. Therefore, we can  
+package into a single matrix, $\mathbf{V}_{pq,(t',\nu')}^{corr}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
+BDWF average visibilities of the  baseline (p,q) during the synthesis as follows: 
+\begin{equation}
+\mathbf{V}_{pq,(t',\nu')}^{corr}=\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
+\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}.\label{eq2:block}
+\end{equation}
+The size of 
+$\mathbf{V}_{pq,(t',\nu')}^{corr}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the total
+number of time and frequency visibilities (bins) for the baseline (p,q). The matrices
+$\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and $\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are diagonals blocks 
+matrices of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ where each diagonal block is the block diagonal matrix  
+$\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ respectively. The number of block elements is $n_{block}$. The 
+sampled  visibilities 
+$\textbf{V}_{pq,(t,\nu)}^{samp,n_{block}}=\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ is a one 
+row matrix of size 
+$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp,i}$ on top of each other and the matrix 
+$\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}$ is the sampling function for the visibilities $\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ of 
+size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. Note that $i=1,\dots, N_v^{pq}$ and we can write:
+\begin{equation}
+\mathbf{V}_{pq,(t' \nu')}^{corr}= 
+\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
+\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky }+\epsilon_{pq},\label{eqv:linear}
+\end{equation}
+our data is always corrupted by a random error component or noise, $\epsilon_{pq}$ (the error component of the baseline (p,q)).
+If the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
+$\textbf{F}$ is a block diagonal Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+
+We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
+measured over all baselines with $N_v=N_{bl}\times N_v^{pq}$ where $N_{bl}$ is the number of baseline. We then have:\\
+\begin{equation}
+ \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
+\end{equation}
+ Here, $\epsilon$ is the array error component. $\mathbf{A}$ is a \textit{design} matrix of size 
+$(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
+\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{F}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each order, with $n_a$ the 
+number of antenna. The \textit{design} matrix is defined as:
+\begin{equation*}
+\mathbf{A}_{}=
+  \begin{bmatrix}
+    \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{01,(t,\nu)}^{n_{block}} 
+\cdot\mathbf{F}\\
+    \vdots\\
+    \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{ik,(t,\nu)}^{n_{block}} 
+\cdot\mathbf{F}\\
+    \vdots \\
+    \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} 
+\cdot\mathbf{F}\\
+  \end{bmatrix}
+\end{equation*}
+The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived as follow:
+\begin{equation}
+\mathcal{I}_{l,m}^{D}=\bigg(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}^{sky}\bigg)_{(l,m)} + \epsilon.
+\end{equation}
+Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
+inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+
+The estimate of  $\epsilon$, for the map centre pixel is given by:
+\begin{eqnarray}
+ \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - 
+\Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\							
+		      %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\		
+&=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
+\nu)}^{ samp } \bigg)\label{eq:noise1}.
+\end{eqnarray}
+Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
+$\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ 
+on 
+top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
+respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model, 
+$\mathbf{V}_{array,(t, \nu)}^{ samp } =\sigma_{}\mathbf{G}$, 
+where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
+n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
+\begin{eqnarray}
+ \widetilde{\epsilon}_{o,o}		
+&=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
+\bigg).\label{eq:noise}
+\end{eqnarray}
+The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
+
+
 
 
 \section{Simulations and results}
