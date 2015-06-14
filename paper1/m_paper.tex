@@ -707,7 +707,6 @@ and the oder 1 of PSWF was just slightly like the sinc but with low sidelobes. I
 the computational time is extremely huge. I was thinking to talk about 
 the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
 
-
 \section{Application of WFs to visibilities}
 
 While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency the sampling
@@ -778,7 +777,7 @@ To distinguish overlapping BDWFs from non-overlapping ones, in the rest of the p
 WFs employed as \WF{\em WF}{\alpha}{\beta}. For example, \WF{sinc}{3}{2}, \WF{$J_0$}{1}{1} (i.e. no overlap), etc.
 If resampling is only done in one direction (only time or only frequency), we'll indicate this as e.g. \WF{$J_0$}{3}{-}.
 
-\subsection{Noise penalty estimates}
+\subsection{Noise penalty estimates: analytic}
 \label{sec:imaging}
 
 Replacing an unweigLet us now work out analytically the \emph{noise penalty} associated 
@@ -882,10 +881,7 @@ n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore b
 \end{eqnarray}
 The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
 
-
-
-
-\subsection{Theoretical noise estimate and simulation noise}
+\subsection{Noise penalty estimates: empirical}
 \label{subsec:noise}
  We show in this section that on shorter baselines, the sinc, the J$_0$ and the BW reduce to the Boxcar window. 
 Therefore, we effectively applying a hybrid window in the Fourier plane; a Boxcar on the shorter baselines 
@@ -942,7 +938,6 @@ sky map centre pixel while the simulation results are an average of the sky map 
 \end{tabular}
 \end{tabular}
 
-
 \begin{figure*}
 \includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}\hfill%
 \includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}\hfill%
@@ -953,9 +948,6 @@ sky map centre pixel while the simulation results are an average of the sky map 
 .}}
 \label{fig:per-baseline-noise}
 \end{figure*}
-
-
-
 
 \section{Simulations and results}
 
