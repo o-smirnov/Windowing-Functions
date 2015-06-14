@@ -160,6 +160,14 @@ for smaller correlators.
 \newcommand{\HH}{\mathcal{H}}
 \newcommand{\TT}{\mathcal{T}}
 \newcommand{\uu}{\bmath{u}}
+\newcommand{\Btf}{\mathsf{B}^{[\Delta t\Delta\nu]}}
+\newcommand{\Babtf}{\mathsf{B}^{[\alpha\Delta t,\beta\Delta\nu]}}
+\newcommand{\Bab}{\mathsf{B}^{[\alpha\beta]}}
+\newcommand{\Buv}{\mathsf{B}^{[uv]}}
+\newcommand{\Bij}{\mathsf{B}}
+\newcommand{\Ptf}{\Pi^{[t\nu]}}
+\newcommand{\Puv}{\Pi^{[uv]}}
+
 
 The following formalism deals with visibilities both as functions (i.e. entire distributions on the $uv$-plane), 
 and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
@@ -276,87 +284,43 @@ $\II^{DI}$:
 \IIDI =  \sum_{pqkl} W_{pqkl} \IIDI_{pqkl},~~
 \IIDI_{pqkl} =  \FF^H\{ \delta_{pqkl}\VV_{pq} \},
 \end{equation}
-However, an interferometer necessarily measures the
-average visibility over a rectangular time-frequency bin 
+However, an interferometer necessarily measures the average visibility over a rectangular time-frequency bin given by
+the \emph{time} and \emph{frequency sampling intervals} $\Delta t,\Delta \nu$, which
+we'll call the \emph{sampling bin}
 \begin{equation}
-\mathsf{B}_{kl} = \bigg [ t_k-\frac{\Delta t}{2},t_k+\frac{\Delta t}{2} \bigg ]
+\Btf_{kl} = \bigg [ t_k-\frac{\Delta t}{2},t_k+\frac{\Delta t}{2} \bigg ]
 \times
 \bigg [ \nu_l-\frac{\Delta\nu}{2},\nu_l+\frac{\Delta\nu}{2} \bigg ],  
 \end{equation}
-which, ideally, can be represented by an integration:
+This, ideally, can be represented by an integration:
 \begin{equation}
 V^\mathrm{(m)}_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
-\iint\limits_{\mathsf{B}_{kl}}
+\iint\limits_{\Btf_{kl}}
 \VV_{pq}(t,\nu)d\nu dt.
 \label{eq2:conti}
 \end{equation}
 
 Inverting the relation of eq.~(\ref{eq:uvtf}), we can change variables to express this as an integration over the 
-corresponding bin $\mathsf{B}^{\prime}_{kl}$ in $uv$-space:
+corresponding bin $\Buv_{pqkl}$ in $uv$-space:
 \begin{equation}
 V^\mathrm{(m)}_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
-\iint\limits_{\mathsf{B}^{\prime}_{kl}}
+\iint\limits_{\Buv_{pqkl}}
 \VV_{pq}(u,v)\bigg| \frac{\partial(t,\nu)}{\partial(u,v)}\bigg| dudv,
 \label{eq2:conti:uv}
 \end{equation}
-where $\mathsf{B}^{\prime}_{kl}$ is the corresponding bin in $uv$-space. While $\mathsf{B}_{kl}$ is rectangular in $t\nu$ space, 
-$\mathsf{B}^{\prime}_{kl}$ is an arc segment in $uv$-space. Assuming a bin small enough that 
-$\partial\bmath{u}/\partial t$ is approximately constant over the bin, we then have
-\begin{equation}
-V^\mathrm{(m)}_{pqkl} \sim \iint\limits_{\mathsf{B}^{\prime}_{kl}}
+where $\Buv_{pqkl}$ is the corresponding bin in $uv$-space. Note that the sampling bins in $t\nu$-space are
+perfectly rectangular and do not depend on baseline (assuming baseline-independent averaging), while the 
+sampling bins in $uv$-space are slightly curved, and do depend on baseline (hence the extra $pq$ index). 
+Assuming a bin small enough that the fringe rate $\partial\bmath{u}/\partial t$ is approximately constant over 
+the bin, we then have \begin{equation}
+V^\mathrm{(m)}_{pqkl} \sim \iint\limits_{\Buv_{pqkl}}
 \VV_{pq}(\bmath{u}) d\bmath{u},
 \label{eq2:conti:uv1}
 \end{equation}
 
-% In actual fact, a correlator (or an averaging operation in post-processing) deals with averages of discrete samples rather than a 
-% continuous integration. This can be represented by subdividing the bin $\mathsf{B}_{kl}$ into $n_t\times n_\nu$ samples $\{t_i\}$ and $\{\nu_j\}$, 
-% and taking the average. This ignores the complexities of correlator architecture (where the visibilities are channelized 
-% via a Fourier transform of a time series, before or after correlation), but it does represent an accurate model 
-% of the measured visibility:
-% \begin{equation}
-% V_{pqkl}^\mathrm{(m)} = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\VV_{pq}(t_i,\nu_j).\label{eq2:sample}
-% %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
-% \end{equation}  
-
-% Let us represent the sampling process via multiplication of $V_{pq}(t,\nu)$ by a ``bed of nails'' sampling function $S_{pq}(t,\nu)$
-% that selects points where we sample the discrete visibilities: $V^\mathrm{samp}_{pq} = S_{pq}\cdot V_{pq}$. From this point 
-% on we will work with the sampled visibilities $V^\mathrm{samp}$ only. We can now represent the averaging process by a discrete sum:
-% Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility,  
-% $V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\cdot V_{pq,(t,\nu)}$ at a specific time and frequency. The sampling function, 
-% $S_{pq,(t,\nu)}$ indicates where the $(u, v)$ data for the baseline (p,q) are measured  during the 
-% integration. It is unity where measurement have been made, and zero otherwise.
-% Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre time 
-% interval $t_c$ and centre frequency interval $\nu_c$  is 
-% restricted to a short time and narrow 
-% frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
-% follows: 
-% \begin{equation}
-% V_{pq}^\mathrm{(m)}(t_c,\nu_c) = \frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}V_{pq}(t_i,\nu_j).\label{eq2:sample}
-% %&=&\frac{1}{n_t n_{\nu}}  \sum_{i=1}^{n_t}\sum_{j=1}^{n_{\nu}}\mathcal{\textbf{V}}_{pq,(t,\nu)}^{meas} 
-% \end{equation}
-% Note that we ignores the complexities of correlator architecture (where the visibilities are channelized via 
-% a Fourier transform of a time series, before or after correlation), but does represent an accurate model of what is actually 
-% measured.
-% Here, $V_{pq,(t,\nu)}$ is a continuous function, in reality we know only the sampled visibility,  
-% $V_{pq,(t,\nu)}^{samp}=S_{pq,(t,\nu)}\cdot V_{pq,(t,\nu)}$ at a specific time and frequency. The sampling function, 
-% $S_{pq,(t,\nu)}$ indicates where the $(u, v)$ data for the baseline (p,q) are measured  during the 
-% integration. It is unity where measurement have been made, and zero otherwise.
-% Eq.\ref{eq2:conti} holds for many sources, when the signal at the centre time interval $t_c$ and centre frequency interval $\nu_c$  is 
-% restricted to a short time and narrow 
-% frequency intervals, this is the current efficient observing mode. However, the mathematics behind is as 
-% follows: 
-
-% We can represent the underlying ``high-resolution'' sampling process via a multiplication of the continuous
-% visibility distribution $\VV_{pq}(t,\nu)$ by a sampling function $\HH_{pq}(t,\nu)$,  which is another ``bed of nails''  
-% function that selects the $t,\nu$ points corresponding to the sample points $\{t_i\}$ and $\{\nu_j\}$: 
-% \begin{equation}
-% \VV^\mathrm{(s)}_{pq} = \HH_{pq}\cdot \VV_{pq}. 
-% \end{equation}
-% % From this point on  we will work with the sampled visibilities $V^\mathrm{samp}$ only.
-
-Now, let us introduce a \emph{normalized boxcar windowing function}, $\Pi_{pqkl}(t,\nu)$ 
+Now, let us introduce a \emph{normalized boxcar windowing function}, $\Ptf$ 
 \begin{equation}
-\Pi_{pqkl}(t,\nu) = \bigg \{ \begin{array}{cl}
+\Ptf(t,\nu) = \bigg \{ \begin{array}{cl}
 \frac{1}{\Delta t\Delta\nu}, &  |t|\leq\Delta t/2,~~|\nu|\leq\Delta\nu/2 \\
 0, & \mathrm{otherwise},
 \end{array}
@@ -365,43 +329,50 @@ using which we may re-write eq.~(\ref{eq2:conti}) as
 \begin{equation}
 V^\mathrm{(m)}_{pqkl} =  
 \iint\limits_{\infty}
-\VV_{pq}(t,\nu) \Pi_{pqkl}(t-t_k,\nu-\nu_l) dtd\nu,
+\VV_{pq}(t,\nu) \Ptf(t-t_k,\nu-\nu_l) dtd\nu,
 \end{equation}
 which can also be expressed as a convolution:
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Pi_{pqkl} ](t_k,\nu_l),
+V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Ptf ](t_k,\nu_l),
 \end{equation}
 
 Likewise, eq.~(\ref{eq2:conti:uv}) can also be rewritten as a convolution in $uv$-space:
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Pi^\prime_{pqkl} ](\bmath{u}_{pq}(t_k,\nu_l)),
+V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Puv_{pqkl} ](\bmath{u}_{pq}(t_k,\nu_l)),
 \label{eq:avscon}
 \end{equation}
-where $\Pi^\prime_{pqkl}$ is a boxcar-like WF that corresponds to bin $\mathsf{B}^\prime_{kl}$ in $uv$-space 
+where $\Puv_{pqkl}$ is a boxcar-like WF that corresponds to bin $\Buv_{pqkl}$ in $uv$-space 
 (and also includes the determinant term of eq.~\ref{eq2:conti:uv}). This makes it explicit that each averaged 
 visibility is drawn from a convolution of the underlying visibilities with a boxcar-like WF.
 
 Note what eq. (\ref{eq:avscon}) does and does not say. It does say that each individual averaged visibility corresponds to 
 convolving the true visibilities by some WF. However, this WF is different for each baseline $pq$ and 
-time/frequency sample $t_k,\nu_l$ (which is emphasized by the subscripts to $\Pi$ in the equations above). Averaging is thus 
-not a ``true'' convolution, since the convolution kernel changes at every point in the $uv$-plane. We'll call this 
-process a \emph{pseudo-convolution}, and the kernel being convolved with ($\Pi^\prime_{pqkl}$) an example of a 
+time/frequency sample $t_k,\nu_l$ (which is emphasized by the subscripts to $\Puv$ in the equations above). Averaging 
+is thus not a ``true'' convolution, since the convolution kernel changes at every point in the $uv$-plane. We'll call this 
+process a \emph{pseudo-convolution}, and the kernel being convolved with ($\Puv_{pqkl}$) an example of a 
 \emph{baseline-dependent windowing function} (BDWF). In subsequent sections we will explore alternative BDWFs.
 
 In actual fact, a correlator (or an averaging operation in post-processing) deals with averages of discrete 
-samples, rather than a continuous integration. To represent this properly, we need to replace the integrals of 
-eqs.~(\ref{eq2:conti}-\ref{eq2:conti:uv1}) by the discrete sums:
+samples, rather than a continuous integration. To represent this properly, we need to replace the integral of 
+eqs.~(\ref{eq2:conti}) by a discrete sum:
+\begin{equation}
+\label{eq:discrete:tf0}
+V^\mathrm{(m)}_{pqkl} = \sum_{ij\in\Bij_{kl}}  \VV_{pq}(t_i,\nu_j),
+\end{equation}
+where $\Bij_{kl}$ is the set of sample indices $ij$ corresponding to the sampling bin, i.e.
+\begin{equation}
+\Bij_{kl} = \big \{ ij:~t_i\nu_j \in \Btf_{kl} \big \}.
+\end{equation}
+Using the BDWF definitions above, this becomes a conventional discrete convolution (assuming a regular $t\nu$ grid):
 \begin{equation}
 \label{eq:discrete:tf}
-V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(t_i,\nu_j) \Pi_{pqkl}(t_i-t_k,\nu_j-\nu_l)
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(t_i,\nu_j) \Ptf(t_i-t_k,\nu_j-\nu_l).
 \end{equation}
-and
+In $uv$-space, this becomes a discrete convolution on an irregular grid (the $\bmath{u}_{ij}$ grid being schematically illustrated by Fig.~\ref{fig:uvcov}):
 \begin{equation}
 \label{eq:discrete:uv}
-V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(\bmath{u}_{ij}) \Pi^\prime_{pqkl}(\bmath{u}_{ij}-\bmath{u}_{kl}),
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(\bmath{u}_{ij}) \Puv_{pqkl}(\bmath{u}_{ij}-\bmath{u}_{kl}),
 \end{equation}
-of which the first is a conventional discrete convolution (assuming a regular $t\nu$ grid), and the second is a convolution 
-on an irregular grid -- the $\bmath{u}_{ij}$ grid being schematically illustrated by Fig.~\ref{fig:uvcov}.
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{./Figures/uvcov.png}\caption{Schematic of $uv$-coverage for 
@@ -436,7 +407,7 @@ The discussion above provides an alternative way to look at smearing. Combining 
 \end{equation}
 where the baseline-dependent \emph{tapering function} $\TT_{pqkl}$ is the inverse FT of the BDWF:
 \begin{equation}
-\TT_{pqkl} = \FF^H\{ \Pi^{\prime}_{pqkl} \}.
+\TT_{pqkl} = \FF^H\{ \Puv_{pqkl} \}.
 \end{equation}
 In other words, the dirty image made from averaged visibilities is a weighted average of the per-visibility ideal dirty images, 
 each one multiplies by its own taper. The FT of a boxcar-like function is a sinc-like function, schematically illustrated in one
@@ -479,7 +450,7 @@ The problem with a sinc is that it has infinite support; applying it over finite
 BDWF that results in a suboptimal taper. The problem of optimal filtering has been well studied in signal processing (usually
 assuming a true convolution rather than the pseudo-convolution we deal with here), and we shall apply these lessons below.
 
-The derivations above make it clear that by using a different BDWF in place of the conventional boxcar-like $\Pi^\prime$ 
+The derivations above make it clear that by using a different BDWF in place of the conventional boxcar-like $\Puv$ 
 could in principle yield more optimal tapering response. The obvious catch is a loss in 
 sensitivity. Each visibility sample is subject to an independent Gaussian noise term in the real and imaginary part; the noise of
 the average of a set of samples is minimized when the average is naturally weighted (or unweighted, if the noise is 
@@ -532,12 +503,19 @@ IPR (Fig.~\ref{fig:idealWF}, left), these correspond to the following desirable 
 
 Below we provide an overview some common (one-dimensional) WFs employed in signal processing.
 
+\newcommand{\FilterFigure}[4]{
+\begin{figure}
+\includegraphics[width=.5\columnwidth]{#1}%
+\includegraphics[width=.5\columnwidth]{#2}
+\caption{#3}\label{#4}
+\end{figure}
+}
+
 \subsection{Boxcar window}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/boxcargrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_boxgrey.png}
-\caption{Boxcar windowing function and its tapering response.}\label{fig:wf:box}
-\end{figure*}
+
+\FilterFigure{Figures/boxcargrey.png}{Figures/freq_resp_boxgrey.png}{Boxcar windowing 
+function and its tapering response.}{fig:wf:box}
+
 The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
 \begin{equation}
 \Pi(t)=\left\{
@@ -554,113 +532,107 @@ narrower, and the sidelobes are lower.
 The other WFs given below are all multiplied with a boxcar to ensure a cut-off interval of $[-t_a,t_a]$.
 
 \subsection{Gaussian window}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/gaussiangrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_gaussiangrey.png}
-\caption{Gaussian windowing function and its tapering response.}\label{fig:wf:gauss}
-\end{figure*}
+
+\FilterFigure{./Figures/gaussiangrey.png}{./Figures/freq_resp_gaussiangrey.png}{Gaussian 
+windowing function and its tapering response.}{fig:wf:gauss}
+
 A Gaussian WF centred at zero with a standard deviation of $\sigma_1$ is given by: 
 \begin{equation}
-  G(t)= \Pi(t) e^{-bt^{2}}, \label{eq:gauss}
+\mathrm{G}(t)= \Pi(t) e^{-bt^{2}}, \label{eq:gauss}
 \end{equation}
 where $b=(2\sigma_1^2)^{-1}$. The FT of the Gaussian term is given by 
-$\mathcal{F}\big\{G(t)\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$, i.e.
+$\mathcal{F}\big\{\mathrm{G}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$, i.e.
 is also a Gaussian with standard deviation of $\sigma_2= (2\pi\sigma_1)^{-1}$.
 
-Fig. \ref{fig:wf:gauss} shows a plot of $G(t)$ and its response. The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Its response is characterized by extremely low sidelobes, but a narrow main lobe.
+Fig. \ref{fig:wf:gauss} shows a plot of $\mathrm{G}(t)$ and its response. The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Its response is characterized by extremely low sidelobes, but a narrow main lobe.
 
 \subsection{Butterworth window}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/butterworthgrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_butterworthgrey.png}
-\caption{Butterworth windowing function and its tapering response.}\label{fig:wf:bw}
-\end{figure*}
+
+\FilterFigure{./Figures/butterworthgrey.png}{./Figures/freq_resp_butterworthgrey.png}{Butterworth 
+windowing function and its tapering response.}{fig:wf:bw}
 
 A Butterworth WF is flat in the time pass band, and rolls off towards zero in the time stop band and it is 
 characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. 
 The two parameters control the 
 FoV and sidelobes attenuation. The Butterworth WF is given by:
 \begin{equation}
-BW(t)= \Pi(t) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
+\mathrm{BW}(t)= \Pi(t) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
 \end{equation}
 
 Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3$. Note that increasing 
 the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at the cost of pushing up the near-in sidelobes
 
+\subsection{Prolate spheroidal window}
+
+\FilterFigure{./Figures/prolategrey.png}{./Figures/freq_resp_prolategrey.png}{Prolate 
+spheroidal wave (of oder zeros) windowing function and its tapering response.}{fig:wf:prolate}
+
+This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
+by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
+\citep{landau1978prolate,delsarte1985discrete}. 
+The two parameters control the  FoV and sidelobes attenuation.
+The prolate spheroidal wave function $\mathrm{PS}_0$ is the eigenfunction and solution of the integral:
+\begin{equation}
+\int\limits_{-t_a}^{t_a} \mathrm{PS}_{0}(\xi) \frac{sin(\frac{\alpha}{\pi}(t-\xi))}{\frac{\alpha}{\pi}(t-\xi)}d\xi=\lambda_{n=0,\alpha,t_a}\mathrm{PS}_{0}(t), 
+\end{equation}
+where $\lambda_{n=0,\alpha,t_a}$ is the coresponding eigenvalue. Fig. \ref{fig:wf:prolate} shows prolate 
+spheroidal WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $\alpha=2\pi^3, 5\pi^3$. 
+Note that increasing the order $\alpha$ increases the MLW, and dramatically lowers sidelobes.
+
 \subsection{Sinc window}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/sincgrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_sincgrey.png}
-\caption{Sinc windowing function and its tapering response.}\label{fig:wf:sinc}
-\end{figure*}
+
+\FilterFigure{./Figures/sincgrey.png}{./Figures/freq_resp_sincgrey.png}{Sinc 
+windowing function and its tapering response.}{fig:wf:sinc}
+
 The sinc WF is defined as 
 \begin{equation}
-S(t)= \Pi(t) \frac{\sin(\pi b t)}{\pi b t} .
+\mathrm{Sinc}(t)= \Pi(t) \frac{\sin(\pi b t)}{\pi b t} .
 \end{equation}
-Fig. \ref{fig:wf:sinc} shows $S(t)$ for a fixed value of $b$, and cut-off intervals given by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$.
-Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
+Fig. \ref{fig:wf:sinc} shows $\mathrm{Sinc}(t)$ for a fixed value of $b$, and cut-off intervals given 
+by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$. Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
 
 \subsection{Bessel $J_0$ window}
 \label{Bessel}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/besselgrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_besselgrey.png}
-\caption{Bessel (of the first kind) windowing function and its tapering response.}\label{fig:wf:bessel}
-\end{figure*}
-
 
 This WF is given by a Bessel function of the first kind of order zero. Using a power series expansion, we have:
 \begin{equation}
 J_0(t) = \Pi(t) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}
 \end{equation}
-Fig. \ref{fig:wf:bessel} shows J$_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
+Fig. \ref{fig:wf:bessel} shows $J_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
 $[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
 the sidelobes.
 
-\subsection{Prolate spheroidal wave $PS_{0}$ window}
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/prolategrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_prolategrey.png}
-\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:prolate}
+\includegraphics[width=.25\textwidth]{./Figures/besselgrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_besselgrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/bessel-hamminggrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-hamminggrey.png}\\
+\includegraphics[width=.25\textwidth]{./Figures/bessel-hanninggrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-hanninggrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/bessel-blackmangrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-blackmangrey.png}
+\caption{Bessel $J_0$ windowing and it tapering response, as well as the Bessel-Hamming, Bessel-Hanning
+and Bessel-Blackman combinations.}\label{fig:wf:bessels}
 \end{figure*}
-This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
-by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
-\citep{landau1978prolate,delsarte1985discrete}. 
-The two parameters control the  FoV and sidelobes attenuation.
-The prolate spheroidal wave $PS_0$ is the eigen function and solution of the integral :
-\begin{equation}
-\int_{-t_a}^{t_a} PS_{0}(\xi) \frac{sin(\frac{\alpha}{\pi}(t-\xi))}{\frac{\alpha}{\pi}(t-\xi)}d\xi=\lambda_{n=0,\alpha,t_a}PS_{0}(t), 
- \end{equation}
-where $\lambda_{n=0,\alpha,t_a}$ is the eigen value of the prolate spheroidal wave $PS_{0}(t)$ WF.
-Fig. \ref{fig:wf:prolate} shows prolate spheroidal wave $PS_0(t)$ WFs for the same cut-off interval $[-t_a,t_a]$, 
-with orders of $\alpha=2\pi^3, 5\pi^3$. Note that increasing 
-the order $\alpha$ increases the MLW, and dramatically lowers sidelobes.
 
 \subsection{$J_0$-Hamming, $J_0$-Hanning and $J_0$-Blackman windows}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/bessel-hamminggrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel-hamminggrey.png}
-\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:bessel-ham}
-\end{figure*}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/bessel-hanninggrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel-hanninggrey.png}
-\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:bessel-han}
-\end{figure*}
-\begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/bessel-blackmangrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/freq_resp_bessel-blackmangrey.png}
-\caption{Prolate spheroidal wave (of oder zeros) windowing function and its tapering response.}\label{fig:wf:bessel-black}
-\end{figure*}
+
+{\bf OMS: Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
+two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
+product, not two convolutions. So which one is correct? Also, please provide citations for the Hanning, Hamming and 
+Blackman filters. Also, in the figures the WFs look absolutely identical. Is this an error, or are they really so similar?
+If the latter, then we really shouldn't waste space...}
+
 A $J_0(t)$ WF can be used to filter out the input signal, providing an intermediate signal. The intermediate signal 
 can then be passed through a Hamming, Hanning or Blackman filter to further increase the pass band (regime 1 or FoV) and 
 increase the stop band (regime 3 or outside the FoV) attenuation. The process can be resume as follow:
 \begin{equation}
-BX(t)= J_0(t)X(t) 
+J_0^\mathrm{X} = J_0(t) X(t) 
 \end{equation}
-where $X(t)$ is either the Hamming or the Hanning or the Blackman WFs known in the litterature.
-Fig. \ref{fig:wf:bessel-ham}, Fig. \ref{fig:wf:bessel-han} and Fig. \ref{fig:wf:bessel-black}  show $BX(t)$ WFs and their
-response with the Hamming, Hanning and Blakman respectively. Compare to the $J_0(t)$ WF, the $BX(t)$ has lower PSL and higher SLR.
+where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs known in the litterature {\bf OMS: citation please}.
+Fig. \ref{fig:wf:bessel-ham}, Fig. \ref{fig:wf:bessel-han} and Fig. \ref{fig:wf:bessel-black} 
+show the $J_0^\mathrm{Hm}, J_0^\mathrm{Hn}, J_0^\mathrm{B}$ WFs and their responses. Compared to the $J_0(t)$ WF, 
+they show lower PSL and higher SLR.
 
 \subsection{Relative performance}
 % \subsection{Convolution theorem and WFs comparison}
@@ -684,29 +656,29 @@ response with the Hamming, Hanning and Blakman respectively. Compare to the $J_0
 {$\Pi(t)$}  & $t\in|t_a|$& $\sim 1.406$ &$-6.663$ &$-12.089$\\
 	    & $t\in|t_a/2|$&$\sim 2.812$ &$-6.671$ &$-11.065$\\
 \hline
-{$S(t)$} & $t\in|t_a|$ &$\sim 12.304$& $-10.889$&  $-12.661$ \\
+{$\mathrm{Sinc}(t)$} & $t\in|t_a|$ &$\sim 12.304$& $-10.889$&  $-12.661$ \\
 	 & $t\in|t_a/2|$ &$\sim 12.304$& $-13.241$&  $-11.447$ \\
 \hline
 {$J_0(t)$}& $t\in|t_a|$ &$\sim 9.140$ &$ -14.553$ & $ -12.011$\\
 	  & $t\in|t_a/2|$ &$\sim 9.140$ &$ -13.614$ & $ -11.794$\\
 \hline
-{$G(t)$} & b=3 &$\sim 2.109$& $-21.535$& $-9.589$\\ 
+{$\mathrm{G}(t)$} & b=3 &$\sim 2.109$& $-21.535$& $-9.589$\\ 
 	 & b=5 &$\sim 2.812$& $-30.211$& $-9.091$\\ 
 \hline
-{$BW(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
+{$\mathrm{BW}(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
 	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$\\
 \hline
-{$PS_0(t)$} & $\alpha=2\pi^3$ &$\sim 3.515$& $-45.302$& $-7.424$\\ 
+{$\mathrm{PS}_0(t)$} & $\alpha=2\pi^3$ &$\sim 3.515$& $-45.302$& $-7.424$\\ 
 	 & $\alpha=5\pi^3$ &$\sim 4.218$& $-73.597$& $-6.375$\\ 
 \hline
-{$BX(t)$} & $t\in|t_a|$ &$\sim 9.140$&$-35.724$ & $-11.948$\\ 
-{$Hamming$}	 & $t\in|t_a/2|$ &$\sim 9.140$&$-22.670$&$-19.527$\\ 
+{$J_0^\mathrm{Hm}(t)$} & $t\in|t_a|$ &$\sim 9.140$&$-35.724$ & $-11.948$\\ 
+ & $t\in|t_a/2|$ &$\sim 9.140$&$-22.670$&$-19.527$\\ 
 \hline
-{$BX(t)$}   & $t\in|t_a|$ &$\sim 9.140$&$-35.954$ &$-41.684$ \\ 
-{$Hanning$}   &$t\in|t_a/2|$ &$\sim 9.140 $&$-27.765$&$-46.233$\\ 
+{$J_0^\mathrm{Hn}(t)$}  & $t\in|t_a|$ &$\sim 9.140$&$-35.954$ &$-41.684$ \\ 
+ &$t\in|t_a/2|$ &$\sim 9.140 $&$-27.765$&$-46.233$\\ 
 \hline
-{$BX(t)$}  & $t\in|t_a/2|$ &$\sim 9.140$&$-48.660$&$-37.274$\\ 
-{$Blackman$}	 & $t\in|t_a/2|$ &$\sim 9.140$&$-24.723$&$-7.972$
+{$J_0^\mathrm{B}(t)$} & $t\in|t_a/2|$ &$\sim 9.140$&$-48.660$&$-37.274$\\ 
+ & $t\in|t_a/2|$ &$\sim 9.140$&$-24.723$&$-7.972$
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
 different windowing functions. 
@@ -741,22 +713,23 @@ the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel
 While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency the sampling
 positions go as $\sim\nu^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
 integrations (Fig.~\ref{fig:uvcov}). Applying a WF with a constant integration window in $t\nu$ space corresponds to 
-different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Pi^\prime$ of 
+different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Puv$ of 
 eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
-the scale of the WF, this results in more smearing (i.e. a narrower taper) on longer baselines.
+the scale of the WF, this results in more smearing (i.e. a narrower FoV) on longer baselines.
 
 By defining our alternative WFs in $uv$-space (in units of wavelength), we can attempt to ``even out'' the smearing 
 response across baselines. For example, adopting a Bessel windowing function $J_0(u,v)$, we have the following recipe 
-for computing averaged visibilities:
+for computing the averaged visibility sample $kl$:
 \begin{equation}
 \label{eq:avg:bessel}
-V^\mathrm{(m)}_{pqkl} = \frac{\sum\limits_{{i,j}\in B_{kl}} \VV_{pq}(\bmath{u}_{ij}) J_0(\bmath{u}_{ij}-\bmath{u}_{kl})}
-{\sum\limits_{i=k_0}^{k_1} \sum\limits_{{i,j}\in B_{kl}} J_0(\bmath{u}_{ij}-\bmath{u}_{kl})},
+V^\mathrm{(m)}_{pqkl} = \frac{\displaystyle\sum\limits_{{i,j}\in B_{kl}} \VV_{pq}(\bmath{u}_{ij}) J_0(\bmath{u}_{ij}-\bmath{u}_{kl})}
+{\displaystyle\sum\limits_{{i,j}\in B_{kl}} J_0(\bmath{u}_{ij}-\bmath{u}_{kl})},
 \end{equation}
-where $B_{kl}=[k_0\dots k_1]\times[l_0\dots l_1] $ represents the sample indices being averaged over, and
-$\bmath{u}_{kl}$ is the midpoint of the bin. The effective WF is therefore scaled by the baseline fringe rate, and 
-truncated at the edges of the averaging interval. On the shortest baselines, the truncation is extreme to the point of 
-approaching the boxcar-like $\Pi^\prime$ (Fig.~\ref{fig:WF:perbaseline}).
+where $\bmath{u}_{kl}$ is the midpoint of the sampling bin in $uv$-space. The main lobe of the WF then has the same scale
+across the entire $uv$-plane, while the sampling bins have different sizes. Conversely, in $t\nu$-space the sampling
+bins are regular, while the main lobe of the effective WF scales inversely with the baseline fringe rate. Furthermore, 
+the WF is truncated at the edge of each sampling bin; on the shortest baselines this truncation is extreme to the 
+point of approaching the boxcar-like $\Puv$ (Fig.~\ref{fig:WF:perbaseline}).
 
 \begin{figure*}%
 \includegraphics[width=.33\textwidth]{./Figures/longshortmid-sinc.pdf}\hfill%
@@ -764,7 +737,8 @@ approaching the boxcar-like $\Pi^\prime$ (Fig.~\ref{fig:WF:perbaseline}).
 \includegraphics[width=.33\textwidth]{./Figures/longshortmid-butter.pdf}
 \caption{Cross-sections through three different BDWFs (left: sinc, centre: Bessel, right: Butterworth) defined in $uv$-space, 
 plotted along the time axis. This shows that the effective WF is a scaling and truncation of the underlying WF, with
-the shortest baselines reducing to a boxcar-like WF.}
+the shortest baselines reducing to a boxcar-like WF.{\bf OMS: Marcellin please make the PDF figures greyscale, and the same size.
+Also please leave legend on only one of them, it's redundant.}}
 \label{fig:WF:perbaseline}
 \end{figure*}
 
@@ -776,205 +750,38 @@ the noise in comparison to normal averaging.
 \subsection{Overlapping BDWFs}
 \label{baseline2}
 
-A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the averaging bins $B_{kl}$ 
-in eq.~\ref{eq:avg:bessel} don't overlap, since they represent adjacent averaging intervals. There is, however, no reason 
-(apart from computational load) why we cannot enlarge the bins so that the averaging intervals actually overlap by 
-some number of samples. For normal averaging this makes little sense, since it effectively broadens $\Pi^\prime$ and therefore
-increases smearing. But for a well-behaved BDWF, enlarging the window (while maintaining the same WF scale) means 
-less truncation -- thus lower sidelobes -- and decreased noise, as more samples are taken into account.
+A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the bins $B_{kl}$ 
+in eq.~(\ref{eq:avg:bessel}) don't overlap for adjacent $kl$, since they represent adjacent averaging intervals. 
+There is, however, no reason (apart from computational load) why we cannot take the sum in eq.~(\ref{eq:avg:bessel}) 
+over larger bins. Let us define the \emph{windowing bin} for \emph{overlap factors} of $\alpha,\beta$ as
+\begin{equation}
+\Bab_{kl} = \big \{ ij:~t_i\nu_j \in \Babtf_{kl} \big \},
+\end{equation}
+i.e. as the set of sample indices corresponding to a bin of size $\alpha\Delta t\times\beta\Delta \nu$ in $t\nu$-space.
+Let us then compute the sums in eq.~(\ref{eq:avg:bessel}) over the windowing bin. This becomes distinct from the
+sampling bin: while the latter represents the spacing of the samples in the output, the former represents the size 
+of the convolution kernels. Only for $\alpha=\beta=1$ do the two bins become the same.
 
+BDWFs in the overlapping regime are schematically illustrated in Fig.~\ref{fig:overlap}. For normal averaging 
+overlapping offers no benefit, since it only broadens $\Puv$ and therefore increases smearing. But for a well-behaved 
+BDWF, enlarging the windowing bin (while maintaining the same WF scale) means less truncation -- thus lower 
+sidelobes -- and decreased noise, as more samples are taken into account.
 
-
-In theory, WFs and signals generally extend to  infinity. Unfortunately, in practice, filtering a signal with a low pass 
-filter, one need to define a cut-off interval (range of uv-bins). Therefore, if one  wants to achieve sufficiently an accurate  estimate 
-of the WF ideal image plane response (IPR), one need a wide cut-off interval as far as the IPR approaches 
-the ideal when the WF order increases. An overlap BDWF aims to extend the order of the BDWF in 
-such a way that, we approach the ideal IPR. The only drawback of this technique is the increase in time needed for processing the 
-output sample of the signals being integrate.
-
-The weight of a uv-bin is not defined by a unique BDWF but by the 
-strength of the correlation between the overall  overlapping BDWF as shown in Figure \ref{fig:corrSigVLAMxBl_overlapGdelta}. 
-That said, the weight of a uv-bin becomes the summation of overlapping BDWF samples on the uv-bin normalized by the summation of the 
-overall uv-bins weights within the range where the overlap samples are defined.
 \begin{figure} 
-\includegraphics[width=1\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlap 
-baseline dependent windowing functions}\label{fig:corrSigVLAMxBl_overlapGdelta}
+\includegraphics[width=\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlapping 
+BDWFs representing adjacent sampling bins. This corresponds to overlap factor $\alpha=3$ in time.}\label{fig:overlap}
 \end{figure}
-%Now, consider that $f^{a}_{pq}$ is an overlap-\textit{BDWF} 
-%of width  $\Delta t$ and $\Delta \nu$ across the time and frequency direction respectively.
-% \begin{definition}[Left hand side overlapping functions]
-% \label{def:4}
-% if $\Delta_l t$ and $\Delta_l \nu$ are the overlap time interval and frequency interval of the baseline dependent windowing function  
-% $f_{pq}^{a_0}$ respectively  and $\Big\{f_{pq}^{a_1},f_{pq}^{a_2},f_{pq}^{a_3}, \dots \Big\}$ the set of \textit{BDWF} overlapping  on the 
-% \textit{left hand side} of $f_{pq}^{a_0}$ then the resulting \textit{BDWF} within $\Delta_l t$ and $\Delta_l \nu$ is defined as
-% \begin{eqnarray*}
-%  g^{lhs}_{pq}: \{\mathbf{\mathcal{R}},\mathbf{\mathcal{R}}\} &\rightarrow& \mathbf{\mathcal{R}}\\
-%                    d_{t_i},d_{\nu_j} &\mapsto& \frac{1}{N_{lhs}}\Bigg(\sum_{k}f_{pq,(d_{t_i},d_{\nu_j})}^{a_k} 
-% + f_{pq,(d_{t_i},d_{\nu_j})}^{a_0}\Bigg).
-% \end{eqnarray*}
-% Here, $N_{lhs}$ is the normalization term defined as
-% \begin{eqnarray*}
-% N_{lhs}=\sum_{i=1}^{n_{lt}}\sum_{j=1}^{n_{l\nu}}\Bigg(\sum_{k}f_{pq,(d_{t_i},d_{\nu_j})}^{a_k} + f_{pq,(d_{t_i},d_{\nu_j})}^{a_0} \Bigg),
-% \end{eqnarray*}
-% where $n_{lt}$ and $n_{l\nu}$ are the number of $(u,v)$ coordinates changes and frequency changes  within $\Delta_l t$ and $\Delta_l \nu$ 
-% respectively.
-% \end{definition}
-% \begin{definition}[Right hand side overlapping functions]
-%  \label{def:4}
-%  if $\Delta_r t$ and $\Delta_r \nu$ are the overlap time and frequency interval of a \textit{BDWF} $f_{pq}^{a_0}$ 
-% respectively and  $\Big\{f_{pq}^{a_1},f_{pq}^{a_2},f_{pq}^{a_3}, \dots \Big\}$ the set of \textit{BDWF} overlapping on the \textit{right 
-% hand side} of $f_{pq}^{a_0}$, then the 
-% resulting \textit{BDWF} within $\Delta_r t$ and $\Delta_r \nu$ is defined as
-% \begin{eqnarray*}
-%  g^{rhs}_{pq}: \{\mathbf{\mathcal{R}},\mathbf{\mathcal{R}}\} &\rightarrow& \mathbf{\mathcal{R}}\\
-%                    d_{t_i},d_{\nu_j} &\mapsto& 
-% \frac{1}{N_{rhs}}\Bigg (f_{pq,(d_{t_i},d_{\nu_j})}^{a_0}+\sum_{k}f_{pq,(d_{t_i},d_{\nu_j})}^{a_k}\Bigg ).
-% \end{eqnarray*}
-% Here, $N_{rhs}$ is the normalization term defined as
-% \begin{eqnarray*}
-% N_{rhs}=\sum_{i=1}^{n_{rt}}\sum_{j=1}^{n_{r\nu}}\Bigg(f_{pq,(d_{t_i},d_{\nu_j})}^{a_0} + \sum_{k}f_{pq,(d_{t_i},d_{\nu_j})}^{a_k}\Bigg),
-% \end{eqnarray*}
-% where $n_{rt}$ and $n_{r\nu}$ are the number of $(u,v)$ coordinates changes and frequency changes  within $\Delta_r t$ and $\Delta_r \nu$ 
-% respectively.
-% \end{definition}
-% \begin{definition}[Overlap baseline dependent windowing functions]
-%  \label{def:4}
-% If $f_{pq}^{a_0}$ is a baseline dependent windowing function defined within the time interval $\Delta t$ and the frequency interval 
-% $\Delta \nu$, $g^{lhs}_{pq}$ the result of the left hand side of $f_{pq}^{a_0}$ overlapping windowing functions within the time interval 
-% $\Delta_l t$ and the frequency interval $\Delta_l \nu$, and $g^{rhs}_{pq}$  the result of the right hand side of $f_{pq}^{a_0}$ overlapping 
-% windowing functions within the time interval $\Delta_r t$ and the frequency interval 
-% $\Delta_r \nu$, then the overlap baseline dependent windowing function within  $\Delta t$ and $\Delta \nu$ is defined as:
-% \begin{eqnarray*}
-%  g^{}_{pq}: \{\mathbf{\mathcal{R}},\mathbf{\mathcal{R}}\} &\rightarrow& \mathbf{\mathcal{R}}\\
-%                    d_{t_i},d_{\nu_j} &\mapsto&
-%  \left\{ 
-%   \begin{array}{l l}
-%     g^{lhs}_{pq} & \quad \text{if $(t_i,\nu_j) \in (\Delta_l t, \Delta_l \nu)$}\\
-%     f^{a_0}_{pq} & \quad \text{if $(t_i,\nu_j) \in (\Delta_m t, \Delta_m \nu)$}\\
-%     g^{rhs}_{pq}& \quad \text{if $(t_i,\nu_j) \in (\Delta_r t, \Delta_r \nu)$}
-%   \end{array} \right.
-% \end{eqnarray*}
-% \end{definition}
-% where $\Delta_m t$ and $\Delta_m \nu$ are $f_{pq}^{a_0}$ uncorrelated time  and frequency interval respectively. From the above 
-% definitions, the following derivation is trivial 
-% \begin{equation*}
-%  \Big\{\Delta t,\hspace{0.17cm}\Delta \nu \Big\}=\Big\{\Delta_l t \cup \Delta_m t \cup \Delta_r t, \hspace{0.17cm}\Delta_l \nu \cup 
-% \Delta_m \nu \cup \Delta_r \nu \Big\}.
-% \end{equation*}
-%  They follow the rules below:
-% \begin{eqnarray*}
-%  \Delta_m t= \left\{ 
-%   \begin{array}{l l}
-%      \cup\{t_i\}_{i=s',\hspace{0.1cm} s' \geq s+1}^{e', \hspace{0.1cm}e'\leq e-1} & \quad \text{if $n_{lt}+n_{rt}< n_t$}\\
-%       \{t_c\}& \quad \text{if $n_{lt}+n_{rt} = n_t$}\\
-%        \emptyset  & \quad \text{otherwise}
-%   \end{array} \right.
-% \end{eqnarray*}
-% and
-% \begin{eqnarray*}
-%  \Delta_m \nu= \left\{ 
-%   \begin{array}{l l}
-%      \cup\{\nu_i\}_{i=s',\hspace{0.1cm} s'\geq s+1}^{e', \hspace{0.1cm}e'\leq e-1} & \quad \text{if $n_{l\nu}+n_{r\nu} < n_{\nu}$}\\
-%       \{\nu_c\}& \quad \text{if $n_{l\nu}+n_{r\nu} = n_{\nu}$}\\
-%        \emptyset  & \quad \text{otherwise}
-%   \end{array} \right.
-% \end{eqnarray*}
 
+\newcommand{\WF}[3]{{#1}-$#2${}$\times${}$#3$}
 
+To distinguish overlapping BDWFs from non-overlapping ones, in the rest of the paper we will designate the 
+WFs employed as \WF{\em WF}{\alpha}{\beta}. For example, \WF{sinc}{3}{2}, \WF{$J_0$}{1}{1} (i.e. no overlap), etc.
+If resampling is only done in one direction (only time or only frequency), we'll indicate this as e.g. \WF{$J_0$}{3}{-}.
 
-
-The following designations will be used in the rest of the paper:
-
-Bl-WF-$n_{ovlpt}\times -$: One dimensional BDWF applied across the time direction; WF is one of the window under 
-consideration (sinc, J$_0$ and BW) and $2n_{ovlpt}$ is the number of overlap time bins.
-
-Bl-WF-$-\times n_{ovlp\nu}$: One dimensional BDWF applied across the frequency direction with $2n_{ovlp\nu}$ the number of overlap 
-frequency bins.
-
-Bl-WF-$n_{ovlpt}\times n_{ovlp\nu}$: Two dimensional BDWF applied across both time and frequency direction.
-
-Bx-avg-$0\times -$: Boxcar averaging applied across the time direction.
-
-Bx-avg-$-\times 0$: Boxcar averaging applied across the frequency direction. 
-
-Bx-avg-$0\times 0$: Boxcar averaging applied across both time and frequency direction.
-
-
-
-\subsection{Theoretical noise estimate and simulation noise}
-\label{subsec:noise}
- We show in this section that on shorter baselines, the sinc, the J$_0$ and the BW reduce to the Boxcar window. 
-Therefore, we effectively applying a hybrid window in the Fourier plane; a Boxcar on the shorter baselines 
-and the WF under consideration on the longer baselines (see Figure \ref{fig:longshortmid-sinc}, \ref{fig:longshortmid-bessel} and 
-\ref{fig:longshortmid-butter}). We furthermore evaluated the array
-theoretical noise ratio, $R_{\sigma}=\epsilon_{ar,oo}^{bd}/\epsilon_{ar,oo}^{bx}$ predicted in Eq.\ref{eq:noise} of a $2^\circ$ BDWF 
-averaging  by the one of boxcar averaging and compared the ratio to the simulation one. For the 
-analysis we used a JVLAC measurement set (MS) of 7min30s synthesis with a 1.5s
-integration time at 1.4Ghz, with 150 channels of width 125kHz. The MS is filled with 1Jy thermal noise. We then processed boxcar 
-averaging and BDWF averaging over 1min30s (width of the time integration) and 12500kHz (channel with). Two overlaps BDWF are presented, 
-the first overlap over 2min60s across time and 3125kHz across frequency; the second overlap over 3min45s across time and 6250kHz across 
-frequency.
-
-\begin{itemize}
- \item In Figure \ref{fig:per-baseline-noise-ratio-sinc}, \ref{fig:per-baseline-noise-ratio-bessel} 
-and \ref{fig:per-baseline-noise-ratio-BW} each \textit{dot mark} is the ratio 
-\footnote{$\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo}$, see 
-Eq.\ref{eqv:linear} for a recall of $\epsilon^{bd}_{pq,oo}$ and $\epsilon^{bx}_{pq,oo}$.} of per baseline centre pixel theoretical rms 
-noise ($\epsilon^{bd}_{pq,oo}$) of a $2^\circ$ BDWF 
-averaging  by the one of boxcar averaging ($\epsilon^{bx}_{pq,oo}$). The ratio is plotted as a function of 
-$\overline{\mathbf{d}}_t$ (the mean of the baseline $(u,v)$ distance). The figures show that, the noise increases with baseline 
-length.
-   \item On shorter baselines, the noise estimate of BDWF averaging is approximately the same with the one 
-of boxcar averaging. Also, on shorter baselines, the noise drops significantly with the number of  overlap time and frequency bins. As 
-mention above, this is because on 
-shorter  baselines, the BDWF are closer to the boxcar window, and when the number of overlap time  and 
-frequency  bins increases, the ratio:
- $\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo} \approx \sqrt{n_t n_{\nu}/\big((n_t + 2n_{ovlpt})(n_{\nu} + 
-2n_{ovlp\nu})\big)}$.%\bigg)^{\frac{1}{2}}
-\end{itemize}
-
-The table below summarized the array theoretical rms noise ratio and the simulation one. One do not need to worry about a perfect 
-agreement of the theoretical noise results with the simulation one. Unfortunately, the theoretical noise results are the rms noise of the 
-sky map centre pixel while the simulation results are an average of the sky map overall pixels rms noise.
-
-
-\begin{tabular}{*3{c}}
- \multicolumn{3}{|c|}{}\\
-\hspace{0.15cm}\begin{tabular}{l*{6}{c}r}
-  \hline
-  {\bf BDWF} & {\bf Theoretical} & {\bf Simulation}\\
-  \hline\hline
-  Bl-sinc-0$\times$0 &$1.17$ &$1.23$\\
-  Bl-sinc-100$\times$25 &$1.02$ &$1.18$\\
-  Bl-sinc-150$\times$50 &$1.03$ &$1.27$\\
-  \hline
-  Bl-J$_0$-0$\times$0 & $1.11$& $1.14$\\
-  Bl-J$_0$-100$\times$25 & $0.91$& $1.08$\\
-  Bl-J$_0$-150$\times$50 & $0.92$& $1.13$\\
-  \hline
-  Bl-BW-0$\times$0 & $1.16$& $1.55$\\
-  Bl-BW-100$\times$25 & $1.44$& $1.49$\\
-  Bl-BW-150$\times$50 & $1.42$& $1.44$
-\end{tabular}
-\end{tabular}
-
-
-\begin{figure*}
-    \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}
-  \caption{Per baseline noise ratio of Bl-sinc-W$n_{lt}\times n_{l\nu}$ and averaging}\label{fig:per-baseline-noise-ratio-sinc}
-  \end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}\\
-  \caption{Per baseline noise ratio of Bl-J$_0$-W$n_{lt}\times n_{l\nu}$ and 
-averaging}\label{fig:per-baseline-noise-ratio-bessel}\end{minipage}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}
-  \caption{Per baseline noise ratio of Bl-BW-W$n_{lt}\times n_{l\nu}$ and averaging}\label{fig:per-baseline-noise-ratio-BW}
-  \end{minipage}
-\end{figure*}
-
-
-\section{Imaging and noise estimate}
+\subsection{Noise penalty estimates}
 \label{sec:imaging}
+
+Replacing an unweigLet us now work out analytically the \emph{noise penalty} associated 
 Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
 on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
 $W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv-bin is a set of four Stocks elements (XX, XY YX, YY) each 
@@ -1055,8 +862,8 @@ inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
 The estimate of  $\epsilon$, for the map centre pixel is given by:
 \begin{eqnarray}
  \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - 
-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\							
-		      %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\		
+\Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\             
+          %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\    
 &=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
 \nu)}^{ samp } \bigg)\label{eq:noise1}.
 \end{eqnarray}
@@ -1069,11 +876,83 @@ $\mathbf{V}_{array,(t, \nu)}^{ samp } =\sigma_{}\mathbf{G}$,
 where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
 n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
 \begin{eqnarray}
- \widetilde{\epsilon}_{o,o}		
+ \widetilde{\epsilon}_{o,o}   
 &=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
 \bigg).\label{eq:noise}
 \end{eqnarray}
 The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
+
+
+
+
+\subsection{Theoretical noise estimate and simulation noise}
+\label{subsec:noise}
+ We show in this section that on shorter baselines, the sinc, the J$_0$ and the BW reduce to the Boxcar window. 
+Therefore, we effectively applying a hybrid window in the Fourier plane; a Boxcar on the shorter baselines 
+and the WF under consideration on the longer baselines (see Figure \ref{fig:longshortmid-sinc}, \ref{fig:longshortmid-bessel} and 
+\ref{fig:longshortmid-butter}). We furthermore evaluated the array
+theoretical noise ratio, $R_{\sigma}=\epsilon_{ar,oo}^{bd}/\epsilon_{ar,oo}^{bx}$ predicted in Eq.\ref{eq:noise} of a $2^\circ$ BDWF 
+averaging  by the one of boxcar averaging and compared the ratio to the simulation one. For the 
+analysis we used a JVLAC measurement set (MS) of 7min30s synthesis with a 1.5s
+integration time at 1.4Ghz, with 150 channels of width 125kHz. The MS is filled with 1Jy thermal noise. We then processed boxcar 
+averaging and BDWF averaging over 1min30s (width of the time integration) and 12500kHz (channel with). Two overlaps BDWF are presented, 
+the first overlap over 2min60s across time and 3125kHz across frequency; the second overlap over 3min45s across time and 6250kHz across 
+frequency.
+
+\begin{itemize}
+ \item In Figure \ref{fig:per-baseline-noise-ratio-sinc}, \ref{fig:per-baseline-noise-ratio-bessel} 
+and \ref{fig:per-baseline-noise-ratio-BW} each \textit{dot mark} is the ratio 
+\footnote{$\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo}$, see 
+Eq.\ref{eqv:linear} for a recall of $\epsilon^{bd}_{pq,oo}$ and $\epsilon^{bx}_{pq,oo}$.} of per baseline centre pixel theoretical rms 
+noise ($\epsilon^{bd}_{pq,oo}$) of a $2^\circ$ BDWF 
+averaging  by the one of boxcar averaging ($\epsilon^{bx}_{pq,oo}$). The ratio is plotted as a function of 
+$\overline{\mathbf{d}}_t$ (the mean of the baseline $(u,v)$ distance). The figures show that, the noise increases with baseline 
+length.
+   \item On shorter baselines, the noise estimate of BDWF averaging is approximately the same with the one 
+of boxcar averaging. Also, on shorter baselines, the noise drops significantly with the number of  overlap time and frequency bins. As 
+mention above, this is because on 
+shorter  baselines, the BDWF are closer to the boxcar window, and when the number of overlap time  and 
+frequency  bins increases, the ratio:
+ $\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo} \approx \sqrt{n_t n_{\nu}/\big((n_t + 2n_{ovlpt})(n_{\nu} + 
+2n_{ovlp\nu})\big)}$.%\bigg)^{\frac{1}{2}}
+\end{itemize}
+
+The table below summarized the array theoretical rms noise ratio and the simulation one. One do not need to worry about a perfect 
+agreement of the theoretical noise results with the simulation one. Unfortunately, the theoretical noise results are the rms noise of the 
+sky map centre pixel while the simulation results are an average of the sky map overall pixels rms noise.
+
+
+\begin{tabular}{*3{c}}
+ \multicolumn{3}{|c|}{}\\
+\hspace{0.15cm}\begin{tabular}{l*{6}{c}r}
+  \hline
+  {\bf BDWF} & {\bf Theoretical} & {\bf Simulation}\\
+  \hline\hline
+  Bl-sinc-0$\times$0 &$1.17$ &$1.23$\\
+  Bl-sinc-100$\times$25 &$1.02$ &$1.18$\\
+  Bl-sinc-150$\times$50 &$1.03$ &$1.27$\\
+  \hline
+  Bl-J$_0$-0$\times$0 & $1.11$& $1.14$\\
+  Bl-J$_0$-100$\times$25 & $0.91$& $1.08$\\
+  Bl-J$_0$-150$\times$50 & $0.92$& $1.13$\\
+  \hline
+  Bl-BW-0$\times$0 & $1.16$& $1.55$\\
+  Bl-BW-100$\times$25 & $1.44$& $1.49$\\
+  Bl-BW-150$\times$50 & $1.42$& $1.44$
+\end{tabular}
+\end{tabular}
+
+
+\begin{figure*}
+\includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}\hfill%
+\includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}\hfill%
+\includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}\\
+\caption{Noise penalty w.r.t. normal averaging as a function of baseline length for three different filters 
+(sinc, Bessel and Butterworth), with and without overlap. JVLA-C, 1.4 GHz, sampling intervals of 150s and 
+6.25 MHz. {\bf OMS: Marcellin please check the numbers I gave are correct. Also please make the PDF figures the same size
+.}}
+\label{fig:per-baseline-noise}
+\end{figure*}
 
 
 
