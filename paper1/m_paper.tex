@@ -872,6 +872,7 @@ associated with imaging weights $W$ and BDWF $X$ as
 
 In the case of natural weighting ($W_\mu=\sigma_\mu^{-1}$) this reduces to:
 \begin{equation}
+\label{eq:noisepenalty:natural}
 \Xi_X^{\mathrm{nat}} = \frac{N}{ \sum_{\mu} \Xi_{X\mu}^{-1} }.
 \end{equation}
 
@@ -879,169 +880,64 @@ In the case of natural weighting ($W_\mu=\sigma_\mu^{-1}$) this reduces to:
 case, so it will be good to clean it up and include it in your thesis. If you clean it up sufficiently quickly for
 publication, we can also include it here.}
 
-% Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
-% a weighted sum. Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
-% on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
-% $W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv-bin is a set of four Stocks elements (XX, XY YX, YY) each 
-% with the same weight $W_{pq,(t_i,\nu_j)}$. Therefore, the sampled visibilities can be presented mathematically as a $4\times n_t\times 
-% n_{\nu}$ matrix of four polarization times and frequencies dependent matrices each of size $n_t\times n_{\nu}$.
-% \begin{eqnarray*}
-% \mathbf{V}_{pq,(t,\nu)}^{samp,i}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
-% ^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
-% \end{eqnarray*}
-% where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can re-write Eq.\ref{f4} 
-% in terms of a series of linear transformations or functional models as:
-% \begin{equation}
-% V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
-% \mathbf{V}_{pq,(t,\nu)}^{samp,i}.\label{eqbb:linear}
-% \end{equation}
-% Here, $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are  blocks diagonals matrices of size $(4n_t 
-% n_{\nu})\times(4n_t n_{\nu})$, the block elements are $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ and $\mathbf{C}_{pq,(t,\nu)}$ 
-% respectively, where $\mathbf{C}_{pq,(t,\nu)}$ is the centre time and frequency interval sampling matrix of size $n_t\times 
-% n_{\nu}$. This
-% is the result of one time and frequency integration.
-% For a synthesis, the baseline (p,q) made a complete  coverage in the $(u,v)$ plane. Therefore, we can  
-% package into a single matrix, $\mathbf{V}_{pq,(t',\nu')}^{corr}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
-% BDWF average visibilities of the  baseline (p,q) during the synthesis as follows: 
-% \begin{equation}
-% \mathbf{V}_{pq,(t',\nu')}^{corr}=\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-% \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}.\label{eq2:block}
-% \end{equation}
-% The size of 
-% $\mathbf{V}_{pq,(t',\nu')}^{corr}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the total
-% number of time and frequency visibilities (bins) for the baseline (p,q). The matrices
-% $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and $\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are diagonals blocks 
-% matrices of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ where each diagonal block is the block diagonal matrix  
-% $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ respectively. The number of block elements is $n_{block}$. The 
-% sampled  visibilities 
-% $\textbf{V}_{pq,(t,\nu)}^{samp,n_{block}}=\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ is a one 
-% row matrix of size 
-% $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp,i}$ on top of each other and the matrix 
-% $\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}$ is the sampling function for the visibilities $\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ of 
-% size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. Note that $i=1,\dots, N_v^{pq}$ and we can write:
-% \begin{equation}
-% \mathbf{V}_{pq,(t' \nu')}^{corr}= 
-% \mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-% \mathbf{S}_{pq,(t,\nu)}^{n_{block}}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky }+\epsilon_{pq},\label{eqv:linear}
-% \end{equation}
-% our data is always corrupted by a random error component or noise, $\epsilon_{pq}$ (the error component of the baseline (p,q)).
-% If the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
-% $\textbf{F}$ is a block diagonal Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
-
-% We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
-% measured over all baselines with $N_v=N_{bl}\times N_v^{pq}$ where $N_{bl}$ is the number of baseline. We then have:\\
-% \begin{equation}
-%  \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
-% \end{equation}
-%  Here, $\epsilon$ is the array error component. $\mathbf{A}$ is a \textit{design} matrix of size 
-% $(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-% \mathbf{S}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{F}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each order, with $n_a$ the 
-% number of antenna. The \textit{design} matrix is defined as:
-% \begin{equation*}
-% \mathbf{A}_{}=
-%   \begin{bmatrix}
-%     \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{01,(t,\nu)}^{n_{block}} 
-% \cdot\mathbf{F}\\
-%     \vdots\\
-%     \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{ik,(t,\nu)}^{n_{block}} 
-% \cdot\mathbf{F}\\
-%     \vdots \\
-%     \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} 
-% \cdot\mathbf{F}\\
-%   \end{bmatrix}
-% \end{equation*}
-% The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived as follow:
-% \begin{equation}
-% \mathcal{I}_{l,m}^{D}=\bigg(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}^{sky}\bigg)_{(l,m)} + \epsilon.
-% \end{equation}
-% Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
-% inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
-
-% The estimate of  $\epsilon$, for the map centre pixel is given by:
-% \begin{eqnarray}
-%  \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - 
-% \Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\             
-%           %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\    
-% &=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
-% \nu)}^{ samp } \bigg)\label{eq:noise1}.
-% \end{eqnarray}
-% Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
-% $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ 
-% on 
-% top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
-% respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model, 
-% $\mathbf{V}_{array,(t, \nu)}^{ samp } =\sigma_{}\mathbf{G}$, 
-% where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
-% n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
-% \begin{eqnarray}
-%  \widetilde{\epsilon}_{o,o}   
-% &=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
-% \bigg).\label{eq:noise}
-% \end{eqnarray}
-% The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
-
 \subsection{Noise penalty estimates: empirical}
+
 \label{subsec:noise}
- We show in this section that on shorter baselines, the sinc, the J$_0$ and the BW reduce to the Boxcar window. 
-Therefore, we effectively applying a hybrid window in the Fourier plane; a Boxcar on the shorter baselines 
-and the WF under consideration on the longer baselines (see Figure \ref{fig:longshortmid-sinc}, \ref{fig:longshortmid-bessel} and 
-\ref{fig:longshortmid-butter}). We furthermore evaluated the array
-theoretical noise ratio, $R_{\sigma}=\epsilon_{ar,oo}^{bd}/\epsilon_{ar,oo}^{bx}$ predicted in Eq.\ref{eq:noise} of a $2^\circ$ BDWF 
-averaging  by the one of boxcar averaging and compared the ratio to the simulation one. For the 
-analysis we used a JVLAC measurement set (MS) of 7min30s synthesis with a 1.5s
-integration time at 1.4Ghz, with 150 channels of width 125kHz. The MS is filled with 1Jy thermal noise. We then processed boxcar 
-averaging and BDWF averaging over 1min30s (width of the time integration) and 12500kHz (channel with). Two overlaps BDWF are presented, 
-the first overlap over 2min60s across time and 3125kHz across frequency; the second overlap over 3min45s across time and 6250kHz across 
-frequency.
+In this section we employ simulations to empirically verify noise estimates computed using the derivation 
+above. We generate a ``high-res''
+JVLA-C measurement set corresponding to a 7m30s synthesis with 1.5s integration, with 12.5 MHz of bandwidth
+centred on 1.4 GHz, divided into 150 channels of 125 kHz each. The MS is filled with simulated thermal noise 
+with $\sigma_\mathrm{s}=1$ Jy. We then generate a ``low-resolution'' MS using 150s integration, with 
+a single frequency channel of 6.25 MHz. This MS receives the resampled visibilities. 
+The size of the resampling bin is thus 150s by 6.25MHz, or $100\times50$ in terms of the number of hi-res samples.
+
+We then resample the hi-res visibilities using a number of BDWFs, and store the results in the lo-res MS:
 
 \begin{itemize}
- \item In Figure \ref{fig:per-baseline-noise-ratio-sinc}, \ref{fig:per-baseline-noise-ratio-bessel} 
-and \ref{fig:per-baseline-noise-ratio-BW} each \textit{dot mark} is the ratio 
-\footnote{$\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo}$, see 
-Eq.\ref{eqv:linear} for a recall of $\epsilon^{bd}_{pq,oo}$ and $\epsilon^{bx}_{pq,oo}$.} of per baseline centre pixel theoretical rms 
-noise ($\epsilon^{bd}_{pq,oo}$) of a $2^\circ$ BDWF 
-averaging  by the one of boxcar averaging ($\epsilon^{bx}_{pq,oo}$). The ratio is plotted as a function of 
-$\overline{\mathbf{d}}_t$ (the mean of the baseline $(u,v)$ distance). The figures show that, the noise increases with baseline 
-length.
-   \item On shorter baselines, the noise estimate of BDWF averaging is approximately the same with the one 
-of boxcar averaging. Also, on shorter baselines, the noise drops significantly with the number of  overlap time and frequency bins. As 
-mention above, this is because on 
-shorter  baselines, the BDWF are closer to the boxcar window, and when the number of overlap time  and 
-frequency  bins increases, the ratio:
- $\epsilon^{bd}_{pq,oo}/\epsilon^{bx}_{pq,oo} \approx \sqrt{n_t n_{\nu}/\big((n_t + 2n_{ovlpt})(n_{\nu} + 
-2n_{ovlp\nu})\big)}$.%\bigg)^{\frac{1}{2}}
+\item Standard averaging to 150s and 6.25MHz (using the middle 50 channels). This gives us the baseline noise
+estimate.
+\item Sinc, $J_0$ and Butterworth windows using the same bin, without an overlap, tuned to a FoV of $2^\circ$.
+\item The same windows with overlap factors of $3\times2$ and $4\times3$.
 \end{itemize}
 
-The table below summarized the array theoretical rms noise ratio and the simulation one. One do not need to worry about a perfect 
-agreement of the theoretical noise results with the simulation one. Unfortunately, the theoretical noise results are the rms noise of the 
-sky map centre pixel while the simulation results are an average of the sky map overall pixels rms noise.
+We then image the lo-res MS and take the r.m.s. pixel noise across the image as an estimator of $\sigma_\mathrm{pix}$,
+divide it by the baseline estimate produced with normal averaging, and compare the resulting noise penalty with that
+predicted by eq.~\ref{eq:noisepenalty:natural}. Note that this estimator is not perfect, since image noise is correlated
+across pixels. Nonetheless, we obtain results that are broadly consistent with analytical predictions 
+(Table~\ref{tab:noise-comparison}).
 
+Figure~\ref{fig:per-baseline-noise} shows the visibility noise penalty for the same BDWFs, as a function of $u$ (i.e. East-West baseline
+component). Note that the noise penalty rises sharply towards longer baselines. Note also that the penalty is well below
+1 on shorter baselines, when overlapping is in effect.
 
-\begin{tabular}{*3{c}}
- \multicolumn{3}{|c|}{}\\
-\hspace{0.15cm}\begin{tabular}{l*{6}{c}r}
-  \hline
-  {\bf BDWF} & {\bf Theoretical} & {\bf Simulation}\\
-  \hline\hline
-  Bl-sinc-0$\times$0 &$1.17$ &$1.23$\\
-  Bl-sinc-100$\times$25 &$1.02$ &$1.18$\\
-  Bl-sinc-150$\times$50 &$1.03$ &$1.27$\\
-  \hline
-  Bl-J$_0$-0$\times$0 & $1.11$& $1.14$\\
-  Bl-J$_0$-100$\times$25 & $0.91$& $1.08$\\
-  Bl-J$_0$-150$\times$50 & $0.92$& $1.13$\\
-  \hline
-  Bl-BW-0$\times$0 & $1.16$& $1.55$\\
-  Bl-BW-100$\times$25 & $1.44$& $1.49$\\
-  Bl-BW-150$\times$50 & $1.42$& $1.44$
+\begin{table}
+\begin{tabular}{lll}
+\hline
+{\bf BDWF} & {\bf $\Xi$ analytic } & {\bf $\Xi$ sim}\\
+\hline\hline
+Sinc &$1.17$ &$1.23$\\
+\WF{Sinc}{3}{2} &$1.02$ &$1.18$\\
+\WF{Sinc}{4}{3} &$1.03$ &$1.27$\\
+\hline
+$J_0$ & $1.11$& $1.14$\\
+\WF{$J_0$}{3}{2} & $0.91$& $1.08$\\
+\WF{$J_0$}{4}{3} & $0.92$& $1.13$\\
+\hline
+BW & $1.16$& $1.55$\\
+\WF{BW}{3}{2} & $1.44$& $1.49$\\
+\WF{BW}{4}{3} & $1.42$& $1.44$\\
+\hline
 \end{tabular}
-\end{tabular}
+\caption{A comparison of image noise penalties associated with different BDWFs, computed analytically
+vs. simulations. \OMS{I find the <1 numbers for $J_0$ strange. Is this for a snapshot, or for the full 7m30s?}}
+\label{tab:noise-comparison}
+\end{table}
 
 \begin{figure*}
 \includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}\hfill%
 \includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}\hfill%
 \includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}\\
-\caption{Noise penalty w.r.t. normal averaging as a function of baseline length for three different filters 
+\caption{Noise penalty w.r.t. normal averaging as a function of baseline length for three different BDWFs 
 (sinc, Bessel and Butterworth), with and without overlap. JVLA-C, 1.4 GHz, sampling intervals of 150s and 
 6.25 MHz. \OMS{Marcellin, please check the numbers I gave are correct. Also please make the PDF figures the same size
 .}}
