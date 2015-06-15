@@ -159,6 +159,7 @@ for smaller correlators.
 \newcommand{\FF}{\mathcal{F}}
 \newcommand{\HH}{\mathcal{H}}
 \newcommand{\TT}{\mathcal{T}}
+\newcommand{\NN}{\mathcal{N}}
 \newcommand{\uu}{\bmath{u}}
 \newcommand{\Btf}{\mathsf{B}^{[\Delta t\Delta\nu]}}
 \newcommand{\Babtf}{\mathsf{B}^{[\alpha\Delta t,\beta\Delta\nu]}}
@@ -167,7 +168,8 @@ for smaller correlators.
 \newcommand{\Bij}{\mathsf{B}}
 \newcommand{\Ptf}{\Pi^{[t\nu]}}
 \newcommand{\Puv}{\Pi^{[uv]}}
-
+\newcommand{\Vm}{V^\mathrm{(m)}}
+\newcommand{\Vs}{V^\mathrm{(s)}}
 
 The following formalism deals with visibilities both as functions (i.e. entire distributions on the $uv$-plane), 
 and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
@@ -232,19 +234,20 @@ can be treated as a function of frequency and time:
 This, in turn, allows us to express the visibility in eq.~(\ref{eq:visSky:2D}) as 
 a continuous function of $t,\nu$:
 \begin{equation}
-\VV_{pq}(t,\nu)=\iint\limits_{lm} \EE_p \II \EE_q^H\,\ee^{-2\pi\ii(u_{pq}(t)l+v_{pq}(t)m)}dldm. \label{eq:visSky:2Dtf}
+\VV_{pq}(t,\nu)=\iint\limits_{lm} \EE_p \II \EE_q^H\,\ee^{-2\pi\ii(u_{pq}(t)l+v_{pq}(t)m)}dldm. 
+\label{eq:visSky:2Dtf}
 \end{equation} 
 
 Synthesis imaging recovers a so-called ``dirty image'' as the inverse Fourier transform of some measured  
-visibility distribution $\VV^\mathrm{(m)}$. This is sampled by a number of baselines $pq$ and time/frequency points 
-$t_k,\nu_l$. Designating each such sample by the index $pqkl$, we can express the imaging process as
+visibility distribution $\VV^\mathrm{(m)}$. This is sampled by a number of baselines $pq$ at specific time/frequency points.
+We can express the imaging process as
 \begin{equation}
 \label{eq:imaging}
 \II = \FF^H\{ \WW\cdot \VV^\mathrm{(m)} \}  
 \end{equation}
 where $\WW$ is the (weighted) sampling function -- a ``bed-of-nails'' function that is non-zero at points where we 
-are sampling a visibility, and zero elsewhere. 
-Since the Fourier transform is linear, this can be represented by a sum of  ``single-nail'' functions $\WW_{pqkl}$:
+are sampling a visibility, and zero elsewhere. Designating each baseline as $pq$, and each time/frequency point
+as $t_k,\nu_l$, we can represent $\WW$ by a sum of  ``single-nail'' functions $\WW_{pqkl}$:
 \begin{equation}
 \WW = \sum_{pqkl} \WW_{pqkl} = \sum_{pqkl} W_{pqkl} \delta_{pqkl},
 \end{equation}
@@ -256,7 +259,7 @@ and $W_{pqkl}$ is the
 associated weight. The Fourier transform being linear, we can rewrite eq.~(\ref{eq:imaging}) as 
 \begin{equation}
 \label{eq:imaging2}
-\II = \sum_{pqkl} W_{pqkl} \mathcal{F}^{-1}[ \VV^\mathrm{(m)}_{pqkl} ],
+\II = \sum_{pqkl} W_{pqkl} \mathcal{F}^H\{ \VV^\mathrm{(m)}_{pqkl} \},
 \end{equation}
 where 
 \begin{equation}
@@ -352,26 +355,39 @@ is thus not a ``true'' convolution, since the convolution kernel changes at ever
 process a \emph{pseudo-convolution}, and the kernel being convolved with ($\Puv_{pqkl}$) an example of a 
 \emph{baseline-dependent windowing function} (BDWF). In subsequent sections we will explore alternative BDWFs.
 
-In actual fact, a correlator (or an averaging operation in post-processing) deals with averages of discrete 
-samples, rather than a continuous integration. To represent this properly, we need to replace the integral of 
-eqs.~(\ref{eq2:conti}) by a discrete sum:
+In actual fact, a correlator (or an averaging operation in post-processing) deals with averages of discrete and noisy
+samples, rather than a continuous integration. Ignoring the complexities of correlator implementation (where the sampled
+quantities are voltages rather than visibilities), let us cast this process in terms of a simple averaging operation.
+That is, assume we have a set of \emph{hi-res} or \emph{sampled visibilities} on a high-resolution time/frequency grid
+$t_i,\nu_j$:
+\begin{equation}
+\label{eq:sampling}
+\Vs_{pqij} = \VV_{pq}(t_i,\nu_j) + \NN[\sigma^\mathrm{(s)}_{pqij}],
+\end{equation}
+where $\VV_{pq}$ is given by eq.~(\ref{eq:visSky:2Dtf}), and $\NN$ represents the visibility noise term, which is
+a complex scalar or complex $2\times2$ matrix with the real and imaginary parts being independently drawn from a 
+zero-mean normal distribution with the indicated r.m.s. \citep[{\bf see noise chapter in}][]{TMS}.
+
+The \emph{lo-res} or \emph{averaged visibilities} are then a discrete sum:
 \begin{equation}
 \label{eq:discrete:tf0}
-V^\mathrm{(m)}_{pqkl} = \sum_{ij\in\Bij_{kl}}  \VV_{pq}(t_i,\nu_j),
+V^\mathrm{(m)}_{pqkl} = \frac{1}{n} \sum_{ij\in\Bij_{kl}}  \Vs_{pqij},
 \end{equation}
-where $\Bij_{kl}$ is the set of sample indices $ij$ corresponding to the sampling bin, i.e.
+where $\Bij_{kl}$ is the set of sample indices $ij$ corresponding to the \emph{resampling bin}, i.e.
 \begin{equation}
-\Bij_{kl} = \big \{ ij:~t_i\nu_j \in \Btf_{kl} \big \}.
+\Bij_{kl} = \big \{ ij:~t_i\nu_j \in \Btf_{kl} \big \},
 \end{equation}
-Using the BDWF definitions above, this becomes a conventional discrete convolution (assuming a regular $t\nu$ grid):
+and $n = n_t\times n_\nu$ is the number of samples in the bin. 
+Using the BDWF definitions above, this becomes a conventional discrete convolution (assuming a regular 
+$t\nu$ grid):
 \begin{equation}
 \label{eq:discrete:tf}
-V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(t_i,\nu_j) \Ptf(t_i-t_k,\nu_j-\nu_l).
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \Vs_{pqij} \Ptf(t_i-t_k,\nu_j-\nu_l).
 \end{equation}
 In $uv$-space, this becomes a discrete convolution on an irregular grid (the $\bmath{u}_{ij}$ grid being schematically illustrated by Fig.~\ref{fig:uvcov}):
 \begin{equation}
 \label{eq:discrete:uv}
-V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \VV_{pq}(\bmath{u}_{ij}) \Puv_{pqkl}(\bmath{u}_{ij}-\bmath{u}_{kl}),
+V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \Vs_{pqij} \Puv_{pqkl}(\bmath{u}_{ij}-\bmath{u}_{kl}),
 \end{equation}
 
 \begin{figure}
@@ -717,17 +733,18 @@ eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the taperi
 the scale of the WF, this results in more smearing (i.e. a narrower FoV) on longer baselines.
 
 By defining our alternative WFs in $uv$-space (in units of wavelength), we can attempt to ``even out'' the smearing 
-response across baselines. For example, adopting a Bessel windowing function $J_0(u,v)$, we have the following recipe 
-for computing the averaged visibility sample $kl$:
+response across baselines. For a given BDWF $X(u,v)$, we have the following recipe 
+for computing the lo-res visibility $kl$ (compare to eq.~\ref{eq:discrete:uv}):
 \begin{equation}
-\label{eq:avg:bessel}
-V^\mathrm{(m)}_{pqkl} = \frac{\displaystyle\sum\limits_{{i,j}\in B_{kl}} \VV_{pq}(\bmath{u}_{ij}) J_0(\bmath{u}_{ij}-\bmath{u}_{kl})}
-{\displaystyle\sum\limits_{{i,j}\in B_{kl}} J_0(\bmath{u}_{ij}-\bmath{u}_{kl})},
+\label{eq:avg:wf}
+V^\mathrm{(m)}_{pqkl} = \frac{\displaystyle\sum\limits_{{i,j}\in \Bij_{kl}} \Vs_{pqij} X(\bmath{u}_{pqij}-\bmath{u}_{pqkl})}
+{\displaystyle\sum\limits_{{i,j}\in \Bij_{kl}} X(\bmath{u}_{pqij}-\bmath{u}_{pqkl})},
 \end{equation}
-where $\bmath{u}_{kl}$ is the midpoint of the sampling bin in $uv$-space. The main lobe of the WF then has the same scale
-across the entire $uv$-plane, while the sampling bins have different sizes. Conversely, in $t\nu$-space the sampling
-bins are regular, while the main lobe of the effective WF scales inversely with the baseline fringe rate. Furthermore, 
-the WF is truncated at the edge of each sampling bin; on the shortest baselines this truncation is extreme to the 
+where $\bmath{u}_{pqkl}$ is the midpoint of the resampling bin $\Bij_{kl}$ in $uv$-space. The main lobe of the WF then 
+has the same scale across the entire $uv$-plane, while the resampling bins have different $uv$-sizes. Conversely, in 
+$t\nu$-space the bins
+are regular, while the main lobe of the effective WF scales inversely with the baseline fringe rate. Furthermore, 
+the WF is truncated at the edge of each bin; on the shortest baselines this truncation is extreme to the 
 point of approaching the boxcar-like $\Puv$ (Fig.~\ref{fig:WF:perbaseline}).
 
 \begin{figure*}%
@@ -749,7 +766,7 @@ the noise in comparison to normal averaging.
 \subsection{Overlapping BDWFs}
 \label{baseline2}
 
-A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the bins $B_{kl}$ 
+A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the resampling bins $B_{kl}$ 
 in eq.~(\ref{eq:avg:bessel}) don't overlap for adjacent $kl$, since they represent adjacent averaging intervals. 
 There is, however, no reason (apart from computational load) why we cannot take the sum in eq.~(\ref{eq:avg:bessel}) 
 over larger bins. Let us define the \emph{windowing bin} for \emph{overlap factors} of $\alpha,\beta$ as
@@ -758,17 +775,17 @@ over larger bins. Let us define the \emph{windowing bin} for \emph{overlap facto
 \end{equation}
 i.e. as the set of sample indices corresponding to a bin of size $\alpha\Delta t\times\beta\Delta \nu$ in $t\nu$-space.
 Let us then compute the sums in eq.~(\ref{eq:avg:bessel}) over the windowing bin. This becomes distinct from the
-sampling bin: while the latter represents the spacing of the samples in the output, the former represents the size 
+resampling bin: while the latter represents the spacing of the lo-res output samples, the former represents the size 
 of the convolution kernels. Only for $\alpha=\beta=1$ do the two bins become the same.
 
 BDWFs in the overlapping regime are schematically illustrated in Fig.~\ref{fig:overlap}. For normal averaging 
 overlapping offers no benefit, since it only broadens $\Puv$ and therefore increases smearing. But for a well-behaved 
 BDWF, enlarging the windowing bin (while maintaining the same WF scale) means less truncation -- thus lower 
-sidelobes -- and decreased noise, as more samples are taken into account.
+sidelobes -- and decreased noise, as more sampled visibilities are taken into account.
 
 \begin{figure} 
 \includegraphics[width=\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlapping 
-BDWFs representing adjacent sampling bins. This corresponds to overlap factor $\alpha=3$ in time.}\label{fig:overlap}
+BDWFs representing adjacent resampling bins. This corresponds to overlap factor $\alpha=3$ in time.}\label{fig:overlap}
 \end{figure}
 
 \newcommand{\WF}[3]{{#1}-$#2${}$\times${}$#3$}
@@ -780,106 +797,161 @@ If resampling is only done in one direction (only time or only frequency), we'll
 \subsection{Noise penalty estimates: analytic}
 \label{sec:imaging}
 
+{\bf OMS: Marcellin, I can't follow this, and neither will the referee. The notation is a bit of a mess. Need to straighten it out
+and express in terms of Sect.~2.2, i.e. lo-res (averaged) and hi-res (sampled) visibilities. 
+Suggest also working it out for the unpolarized case instead, you can then drop the 
+extra ``4'' in the dimensions and simplify the matrices. Also, you need to explain, what is $N_t$ and $n_t$? 
+
+Maybe it makes sense to leave the complicated derivations for your thesis, and go with something simple here.}
+
 Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
-a weighted sum. Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
-on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
-$W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv-bin is a set of four Stocks elements (XX, XY YX, YY) each 
-with the same weight $W_{pq,(t_i,\nu_j)}$. Therefore, the sampled visibilities can be presented mathematically as a $4\times n_t\times 
-n_{\nu}$ matrix of four polarization times and frequencies dependent matrices each of size $n_t\times n_{\nu}$.
-\begin{eqnarray*}
-\mathbf{V}_{pq,(t,\nu)}^{samp,i}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
-^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
-\end{eqnarray*}
-where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can re-write Eq.\ref{f4} 
-in terms of a series of linear transformations or functional models as:
+a weighted sum. For simplicity, let's assume that the noise term
+has constant r.m.s. $\sigma_\mathrm{s}$ across all baselines and samples. If the resampling bin 
+$\Bij_{kl}$ consists of $n = n_t\times n_\nu$ samples, then the averaged visibility in 
+eq.~(\ref{eq:discrete:tf0}) will contain a noise term with its variance given by
 \begin{equation}
-V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
-\mathbf{V}_{pq,(t,\nu)}^{samp,i}.\label{eqbb:linear}
+\sigma_\mathrm{m}^2 = \frac{1}{n^2} \sum_{i=1}^{n} \sigma_\mathrm{s}^2  = \frac{\sigma_\mathrm{s}^2}{n}
 \end{equation}
-Here, $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are  blocks diagonals matrices of size $(4n_t 
-n_{\nu})\times(4n_t n_{\nu})$, the block elements are $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ and $\mathbf{C}_{pq,(t,\nu)}$ 
-respectively, where $\mathbf{C}_{pq,(t,\nu)}$ is the centre time and frequency interval sampling matrix of size $n_t\times 
-n_{\nu}$. This
-is the result of one time and frequency integration.
-For a synthesis, the baseline (p,q) made a complete  coverage in the $(u,v)$ plane. Therefore, we can  
-package into a single matrix, $\mathbf{V}_{pq,(t',\nu')}^{corr}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
-BDWF average visibilities of the  baseline (p,q) during the synthesis as follows: 
+Applying this to the imaging equation (\ref{eq:imaging3}), we have the following expression for the variance
+of the noise term in each pixel of the dirty image:
 \begin{equation}
-\mathbf{V}_{pq,(t',\nu')}^{corr}=\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}.\label{eq2:block}
+\sigma_\mathrm{pix}^2 = \frac{ (\sum_{pqkl} W_{pqkl}^2 \sigma_\mathrm{m}^2) }{ (\sum_{pqkl} W_{pqkl})^2 },
 \end{equation}
-The size of 
-$\mathbf{V}_{pq,(t',\nu')}^{corr}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the total
-number of time and frequency visibilities (bins) for the baseline (p,q). The matrices
-$\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and $\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are diagonals blocks 
-matrices of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ where each diagonal block is the block diagonal matrix  
-$\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ respectively. The number of block elements is $n_{block}$. The 
-sampled  visibilities 
-$\textbf{V}_{pq,(t,\nu)}^{samp,n_{block}}=\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ is a one 
-row matrix of size 
-$(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp,i}$ on top of each other and the matrix 
-$\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}$ is the sampling function for the visibilities $\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ of 
-size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. Note that $i=1,\dots, N_v^{pq}$ and we can write:
+which for natural image weighting ($W\sim\sigma^{-1}_\mathrm{m}$, i.e. $W\equiv1$ in this case) is simply
 \begin{equation}
-\mathbf{V}_{pq,(t' \nu')}^{corr}= 
-\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky }+\epsilon_{pq},\label{eqv:linear}
+\sigma_\mathrm{pix}^2 = \frac{1}{N}\frac{\sigma_\mathrm{s}^2}{n},
 \end{equation}
-our data is always corrupted by a random error component or noise, $\epsilon_{pq}$ (the error component of the baseline (p,q)).
-If the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
-$\textbf{F}$ is a block diagonal Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+where $N$ is the total number of averaged visibilities.
 
-We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
-measured over all baselines with $N_v=N_{bl}\times N_v^{pq}$ where $N_{bl}$ is the number of baseline. We then have:\\
+To simplify notation, let's replace $pqkl$ by a single index $\mu$, enumerating all the lo-res visibilities $\Vm_\mu$, with 
+$\mu=1\dots N$. If we now employ eq.~(\ref{eq:avg:wf}) to compute the lo-res visibilities using some BDWF $X(u,v)$, the noise 
+term becomes different per each visibility $\mu$:
 \begin{equation}
- \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
+\sigma_{X\mu}^2 = \frac{\sum X^2(\bmath{u}_{pqij}-\bmath{u}_{pqkl})}
+{\big [ \sum X(\bmath{u}_{pqij}-\bmath{u}_{pqkl}) \big ]^2 } \, \sigma_\mathrm{s}^2
 \end{equation}
- Here, $\epsilon$ is the array error component. $\mathbf{A}$ is a \textit{design} matrix of size 
-$(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
-\mathbf{S}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{F}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each order, with $n_a$ the 
-number of antenna. The \textit{design} matrix is defined as:
-\begin{equation*}
-\mathbf{A}_{}=
-  \begin{bmatrix}
-    \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{01,(t,\nu)}^{n_{block}} 
-\cdot\mathbf{F}\\
-    \vdots\\
-    \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{ik,(t,\nu)}^{n_{block}} 
-\cdot\mathbf{F}\\
-    \vdots \\
-    \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} 
-\cdot\mathbf{F}\\
-  \end{bmatrix}
-\end{equation*}
-The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived as follow:
+where both sums are taken over ${i,j}\in \Bij_{kl}$. Let us define the \emph{visibility noise penalty} associated with BDWF $X$ 
+and visibility $\mu$ as the relative increase in noise over the unweighted average, i.e.
 \begin{equation}
-\mathcal{I}_{l,m}^{D}=\bigg(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}^{sky}\bigg)_{(l,m)} + \epsilon.
+\Xi_{X\mu} = \frac{\sigma_{X\mu}}{\sigma_\mathrm{m}} = 
+\frac{ \sqrt{ n \sum X^2(\bmath{u}_{pqij}-\bmath{u}_{pqkl}) }}
+{\sum X(\bmath{u}_{pqij}-\bmath{u}_{pqkl}) }. 
 \end{equation}
-Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
-inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+It is easy to see that $\Xi_{X\mu}\geq1$, and only reaches 1 when $X\equiv1$. 
 
-The estimate of  $\epsilon$, for the map centre pixel is given by:
-\begin{eqnarray}
- \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - 
-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\             
-          %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\    
-&=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
-\nu)}^{ samp } \bigg)\label{eq:noise1}.
-\end{eqnarray}
-Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
-$\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ 
-on 
-top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
-respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model, 
-$\mathbf{V}_{array,(t, \nu)}^{ samp } =\sigma_{}\mathbf{G}$, 
-where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
-n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
-\begin{eqnarray}
- \widetilde{\epsilon}_{o,o}   
-&=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
-\bigg).\label{eq:noise}
-\end{eqnarray}
-The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
+We can now compute the \emph{image noise penalty} associated with imaging weights $W$ and BDWF $X$ as
+\begin{equation}
+\Xi^X_W = 
+\frac{\sigma_{\mathrm{pix},X}^2}{\sigma_{\mathrm{pix}}} = \frac{n}{\sigma_\mathrm{s}}
+\frac{ (\sum_{\mu} W_{\mu}^2 \sigma_\mu^2) }{  (\sum_{\mu} W_{\mu})^2 } =
+\frac{ (\sum_{\mu} W_{\mu}^2 \Xi_{X\mu}^2) }{ (\sum_{\mu} W_{\mu})^2 } 
+\end{equation}
+
+In the case of natural weighting ($W_\mu=\sigma_\mu^{-1}$) this reduces to:
+\begin{equation}
+\Xi^X_{\mathrm{nat}} = \frac{N}{ \sum_{\mu} \Xi_{X\mu}^{-1} }.
+\end{equation}
+
+% Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
+% a weighted sum. Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
+% on $(u,v)$ distances. Now, consider that $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ is  $n_t \times n_{\nu}$ matrix of elements 
+% $W_{pq,(t_i,\nu_j)}\Big|_{i=1,n_t}^{j=1, n_{\nu}}$, the weights of uv-bins. A uv-bin is a set of four Stocks elements (XX, XY YX, YY) each 
+% with the same weight $W_{pq,(t_i,\nu_j)}$. Therefore, the sampled visibilities can be presented mathematically as a $4\times n_t\times 
+% n_{\nu}$ matrix of four polarization times and frequencies dependent matrices each of size $n_t\times n_{\nu}$.
+% \begin{eqnarray*}
+% \mathbf{V}_{pq,(t,\nu)}^{samp,i}&=&\Bigg(\mathbf{V}_{pq,(t,\nu)}^{0},\mathbf { V } 
+% ^1_{pq,(t,\nu)},\mathbf{V}^2_{pq,(t,\nu)},\mathbf{V}_{pq,(t,\nu)}^{3 } \Bigg)^{\dagger}, \label{eqx:conv}
+% \end{eqnarray*}
+% where the symbol $^{\dagger}$ stand for the transpose operation. The convolution operator is linear, therefore we can re-write Eq.\ref{f4} 
+% in terms of a series of linear transformations or functional models as:
+% \begin{equation}
+% V_{pq,(t_c,\nu_c)}^{corr}= \mathbf{C}_{pq,(t,\nu)}^{block}\cdot\mathbf{W}_{pq,(t,\nu)}^{block}\cdot 
+% \mathbf{V}_{pq,(t,\nu)}^{samp,i}.\label{eqbb:linear}
+% \end{equation}
+% Here, $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are  blocks diagonals matrices of size $(4n_t 
+% n_{\nu})\times(4n_t n_{\nu})$, the block elements are $\mathcal{\textbf{W}}_{pq,(t,\nu)}$ and $\mathbf{C}_{pq,(t,\nu)}$ 
+% respectively, where $\mathbf{C}_{pq,(t,\nu)}$ is the centre time and frequency interval sampling matrix of size $n_t\times 
+% n_{\nu}$. This
+% is the result of one time and frequency integration.
+% For a synthesis, the baseline (p,q) made a complete  coverage in the $(u,v)$ plane. Therefore, we can  
+% package into a single matrix, $\mathbf{V}_{pq,(t',\nu')}^{corr}$ of size $(4N_t N_{\nu})\times (4N_t N_{\nu})$ the 
+% BDWF average visibilities of the  baseline (p,q) during the synthesis as follows: 
+% \begin{equation}
+% \mathbf{V}_{pq,(t',\nu')}^{corr}=\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
+% \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}.\label{eq2:block}
+% \end{equation}
+% The size of 
+% $\mathbf{V}_{pq,(t',\nu')}^{corr}$ can also be written as $(4N_v^{pq})\times (4N_v^{pq})$, where $N_v^{pq}$ is the total
+% number of time and frequency visibilities (bins) for the baseline (p,q). The matrices
+% $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and $\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are diagonals blocks 
+% matrices of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$ where each diagonal block is the block diagonal matrix  
+% $\mathbf{C}_{pq,(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ respectively. The number of block elements is $n_{block}$. The 
+% sampled  visibilities 
+% $\textbf{V}_{pq,(t,\nu)}^{samp,n_{block}}=\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ is a one 
+% row matrix of size 
+% $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of $\textbf{V}_{pq,(t,\nu)}^{samp,i}$ on top of each other and the matrix 
+% $\mathcal{\textbf{S}}_{pq,(t,\nu)}^{n_{block}}$ is the sampling function for the visibilities $\mathbf{V}_{pq,(t,\nu)}^{n_{block}}$ of 
+% size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t n_{\nu})$. Note that $i=1,\dots, N_v^{pq}$ and we can write:
+% \begin{equation}
+% \mathbf{V}_{pq,(t' \nu')}^{corr}= 
+% \mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
+% \mathbf{S}_{pq,(t,\nu)}^{n_{block}}\mathbf{F}\cdot\mathcal{I}_{l,m}^{sky }+\epsilon_{pq},\label{eqv:linear}
+% \end{equation}
+% our data is always corrupted by a random error component or noise, $\epsilon_{pq}$ (the error component of the baseline (p,q)).
+% If the number of pixel in the sky model is $N_{pix}$, then the true sky image vector $\mathcal{I}_{l,m}^{sky}$ has a size of $4N_{pix}$ and 
+% $\textbf{F}$ is a block diagonal Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+
+% We are generally interested in using the total set of visibilities over baselines, time and frequencies, having $4\times N_v$ visibilities 
+% measured over all baselines with $N_v=N_{bl}\times N_v^{pq}$ where $N_{bl}$ is the number of baseline. We then have:\\
+% \begin{equation}
+%  \mathbf{V}_{array,(t',\nu')}^{corr}=\mathbf{A}\cdot\mathcal{I}_{l,m}^{sky} + \epsilon. \label{eq:vall}
+% \end{equation}
+%  Here, $\epsilon$ is the array error component. $\mathbf{A}$ is a \textit{design} matrix of size 
+% $(4N_v)\times (4N_{pix})$ designed from $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\cdot 
+% \mathbf{S}_{pq,(t,\nu)}^{n_{block}}\cdot\mathbf{F}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each order, with $n_a$ the 
+% number of antenna. The \textit{design} matrix is defined as:
+% \begin{equation*}
+% \mathbf{A}_{}=
+%   \begin{bmatrix}
+%     \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{01,(t,\nu)}^{n_{block}} 
+% \cdot\mathbf{F}\\
+%     \vdots\\
+%     \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{ik,(t,\nu)}^{n_{block}} 
+% \cdot\mathbf{F}\\
+%     \vdots \\
+%     \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{S}_{jl,(t,\nu)}^{n} 
+% \cdot\mathbf{F}\\
+%   \end{bmatrix}
+% \end{equation*}
+% The dirty image, $\mathcal{I}_{l,m}^{D}$ of size $4N_{pix}$ can then be derived as follow:
+% \begin{equation}
+% \mathcal{I}_{l,m}^{D}=\bigg(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\mathcal{I}^{sky}\bigg)_{(l,m)} + \epsilon.
+% \end{equation}
+% Here, $H$ represents the the conjugate transpose operation also known as a Hermitian transpose and $\mathbf{F}^{H}$ is a block diagonal
+% inverse Fourier transform operator of size $(4N_{pix})\times(4N_{pix})$.
+
+% The estimate of  $\epsilon$, for the map centre pixel is given by:
+% \begin{eqnarray}
+%  \widetilde{\epsilon}_{o,o}&=&\widetilde{\mathcal{I}}_{o,o} - 
+% \Big(\mathbf{F}^{H}\cdot\mathbf{A}\cdot\widetilde{\mathcal{I}}\Big)_{(o,o)}\\             
+%           %&=&\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\widetilde{\mathcal{I}}_{o,o}\\    
+% &=&\frac{1}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{V}_{array,(t,
+% \nu)}^{ samp } \bigg)\label{eq:noise1}.
+% \end{eqnarray}
+% Here, $\mathbf{B}$ and $\mathbf{V}_{array,(t,\nu)}^{samp}$ are  one row matrix of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ made of 
+% $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ 
+% on 
+% top of each other and $\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}\Big|_{p=0,\cdots,n_{a}-1}^{q=p+1,\cdots,n_{a}-1}$ on top of each other 
+% respectively (see appendix \ref{app:complexmatrices} for the derivation of these complex matrices). For a noisy sky model, 
+% $\mathbf{V}_{array,(t, \nu)}^{ samp } =\sigma_{}\mathbf{G}$, 
+% where $\sigma_{}$ is the expected rms noise per visibility before boxcar averaging or BDWF averaging and $\mathbf{G}$ is a $(N_v 4 n_t 
+% n_{\nu}) \times (4 n_t n_{\nu})$ unit matrix. Eq.\ref{eq:noise1} can therefore be rewritten as:
+% \begin{eqnarray}
+%  \widetilde{\epsilon}_{o,o}   
+% &=&\frac{\sigma_{}}{N_{v}}\bigg(1-\Big(\mathbf{F}^{H}\cdot\mathbf{A}\Big)_{(o,o)}\bigg)\bigg(\mathbf{B}^{\dagger}\cdot\mathbf{G}
+% \bigg).\label{eq:noise}
+% \end{eqnarray}
+% The formalism of Eq.\ref{eq:noise} will be used to derive the noise estimate in section \ref{subsec:noise}.
 
 \subsection{Noise penalty estimates: empirical}
 \label{subsec:noise}
@@ -1153,138 +1225,140 @@ two dimensional overlap sinc and the J$_0$ is the accurate performance in the th
 the possibility of using WF capable of providing higher dynamic range images. This advanced techniques 
 is required by the radio telescopes of the future.
 \section{Realistic field synthesis: 3C147}
- \begin{figure*}
-    \centering
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
-  direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-  synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV2}\end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
-  direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-  synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV4} 
-  \end{minipage}\\
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
-  direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-  integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV2}\end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
-  direction Bessel first kind filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-  integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV4}\end{minipage}\\
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
-  direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
-  150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}
-  \includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}
-   \caption{Time and frequency 
-   direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-  integration synthesis at 6.25MHz bandwidth, natural weighting.}
-  \label{fig:Bl-butter-FoV4}\end{minipage}
-  \caption{Time and frequency 
-  direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-  integration synthesis at 6.25MHz bandwidth, natural weighting.}
-  \end{figure*} 
-  \begin{figure*}
-    \centering
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of  bandwidth with $2^{\circ}$ frequency sinc filter.}
-    \label{fig:max-integ-freq-sinc-w1x1-fov2}
-  \end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
-        \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap sinc 
-filter.}
-        \label{fig:max-integ-freq-sinc-w1x50-fov2}
-        \end{minipage}\\
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
-        \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
-of 
-  order zero filter.}
-        \label{fig:max-integ-freq-bessel-w1x1-fov2}
-        \end{minipage}
-  \hspace{1cm}
-  \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
-        \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel 
-first kind filter of order zero filter.}
-        \label{fig:max-integ-freq-bessel-w1x50-fov2}
-        \end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
-      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Butterwordth filter.}
-      \label{fig:max-integ-freq-butter-w1x1-fov2}
-      \end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
-      \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Butterwordth 
-filter.}
-      \label{fig:max-integ-freq-butter-w1x50-fov2}
-      \end{minipage}
-\end{figure*}
-\begin{figure*}
-% *********************** Scripts that created these plots ***********************************
-%plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
-	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
-  \centering
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
-	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time sinc filter.}
-	\label{fig:max-integ-time-sinc-w1x1-fov2}
-	\end{minipage} \hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
-        \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap sinc 
-filter.}
-      \label{fig:max-integ-time-sinc-w100x1-fov2}
-      \end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Bessel first kind of 
-order zero
-filter.}
-    \label{fig:max-integ-time-bessel-w1x1-fov2}
-    \end{minipage} 
- \hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
-      Bessel first kind of order zero filter.}
-    \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Butterwordth 
-filter.}
-    \label{fig:max-integ-time-butter-w1x1-fov2}
-    \end{minipage} 
- \hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
-      Butterwordth filter.}
-    \label{fig:max-integ-time-butter-w100x1-fov2}\end{minipage}   
-\end{figure*}
-\begin{figure*}
-  \centering
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
-sinc filter.}
-    \label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
- \hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
-    \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
- overlap sinc filter.}
-    \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
-      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-Bessel first kind of order zero filter.}
-      \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
-      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-overlap Bessel first kind of order zero filter.}
-  \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
-      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-Butterwordth filter.}
-      \label{fig:max-integ-timefreq-butter-w1x1-fov2}\end{minipage}
-\hspace{1cm}
-\begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
-      \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-overlap Butterwordth filter.}
-  \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
-\end{figure*}
+
+{\bf OMS: commenting out the huge number of figures for now to save compilation time. Will uncomment them one by one as I absorb them into the main text.}
+%  \begin{figure*}
+%     \centering
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
+%   direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
+%   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV2}\end{minipage}
+%   \hspace{1cm}
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
+%   direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
+%   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV4} 
+%   \end{minipage}\\
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
+%   direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+%   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV2}\end{minipage}
+%   \hspace{1cm}
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
+%   direction Bessel first kind filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+%   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV4}\end{minipage}\\
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
+%   direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
+%   150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
+%   \hspace{1cm}
+%   \begin{minipage}{0.38\linewidth}
+%   \includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}
+%    \caption{Time and frequency 
+%    direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+%   integration synthesis at 6.25MHz bandwidth, natural weighting.}
+%   \label{fig:Bl-butter-FoV4}\end{minipage}
+%   \caption{Time and frequency 
+%   direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+%   integration synthesis at 6.25MHz bandwidth, natural weighting.}
+%   \end{figure*} 
+%   \begin{figure*}
+%     \centering
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
+%     \caption{Response to a 1Jy source at different positions, as a function of  bandwidth with $2^{\circ}$ frequency sinc filter.}
+%     \label{fig:max-integ-freq-sinc-w1x1-fov2}
+%   \end{minipage}
+%   \hspace{1cm}
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
+%         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap sinc 
+% filter.}
+%         \label{fig:max-integ-freq-sinc-w1x50-fov2}
+%         \end{minipage}\\
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
+%         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
+% of 
+%   order zero filter.}
+%         \label{fig:max-integ-freq-bessel-w1x1-fov2}
+%         \end{minipage}
+%   \hspace{1cm}
+%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
+%         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel 
+% first kind filter of order zero filter.}
+%         \label{fig:max-integ-freq-bessel-w1x50-fov2}
+%         \end{minipage}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
+%       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Butterwordth filter.}
+%       \label{fig:max-integ-freq-butter-w1x1-fov2}
+%       \end{minipage}
+% \hspace{1cm}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
+%       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Butterwordth 
+% filter.}
+%       \label{fig:max-integ-freq-butter-w1x50-fov2}
+%       \end{minipage}
+% \end{figure*}
+% \begin{figure*}
+% % *********************** Scripts that created these plots ***********************************
+% %plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
+% 	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
+%   \centering
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
+% 	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time sinc filter.}
+% 	\label{fig:max-integ-time-sinc-w1x1-fov2}
+% 	\end{minipage} \hspace{1cm}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
+%         \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap sinc 
+% filter.}
+%       \label{fig:max-integ-time-sinc-w100x1-fov2}
+%       \end{minipage}\\
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
+%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Bessel first kind of 
+% order zero
+% filter.}
+%     \label{fig:max-integ-time-bessel-w1x1-fov2}
+%     \end{minipage} 
+%  \hspace{1cm}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
+%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
+%       Bessel first kind of order zero filter.}
+%     \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}\\
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
+%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Butterwordth 
+% filter.}
+%     \label{fig:max-integ-time-butter-w1x1-fov2}
+%     \end{minipage} 
+%  \hspace{1cm}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
+%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
+%       Butterwordth filter.}
+%     \label{fig:max-integ-time-butter-w100x1-fov2}\end{minipage}   
+% \end{figure*}
+% \begin{figure*}
+%   \centering
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
+%     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
+% sinc filter.}
+%     \label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
+%  \hspace{1cm}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
+%     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
+%  overlap sinc filter.}
+%     \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
+%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% Bessel first kind of order zero filter.}
+%       \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
+% \hspace{1cm}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
+%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% overlap Bessel first kind of order zero filter.}
+%   \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
+%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% Butterwordth filter.}
+%       \label{fig:max-integ-timefreq-butter-w1x1-fov2}\end{minipage}
+% \hspace{1cm}
+% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
+%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% overlap Butterwordth filter.}
+%   \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
+% \end{figure*}
 \section{Conclusions}
 The goal of this paper was threefold. The original motivation behind the work presented in this
 
