@@ -802,7 +802,8 @@ and express in terms of Sect.~2.2, i.e. lo-res (averaged) and hi-res (sampled) v
 Suggest also working it out for the unpolarized case instead, you can then drop the 
 extra ``4'' in the dimensions and simplify the matrices. Also, you need to explain, what is $N_t$ and $n_t$? 
 
-Maybe it makes sense to leave the complicated derivations for your thesis, and go with something simple here.}
+Maybe it makes sense to leave the complicated derivations for your thesis, and go with something simple here. 
+For example:}
 
 Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
 a weighted sum. For simplicity, let's assume that the noise term
@@ -841,7 +842,7 @@ It is easy to see that $\Xi_{X\mu}\geq1$, and only reaches 1 when $X\equiv1$.
 
 We can now compute the \emph{image noise penalty} associated with imaging weights $W$ and BDWF $X$ as
 \begin{equation}
-\Xi^X_W = 
+\Xi^W_X = 
 \frac{\sigma_{\mathrm{pix},X}^2}{\sigma_{\mathrm{pix}}} = \frac{n}{\sigma_\mathrm{s}}
 \frac{ (\sum_{\mu} W_{\mu}^2 \sigma_\mu^2) }{  (\sum_{\mu} W_{\mu})^2 } =
 \frac{ (\sum_{\mu} W_{\mu}^2 \Xi_{X\mu}^2) }{ (\sum_{\mu} W_{\mu})^2 } 
@@ -849,7 +850,7 @@ We can now compute the \emph{image noise penalty} associated with imaging weight
 
 In the case of natural weighting ($W_\mu=\sigma_\mu^{-1}$) this reduces to:
 \begin{equation}
-\Xi^X_{\mathrm{nat}} = \frac{N}{ \sum_{\mu} \Xi_{X\mu}^{-1} }.
+\Xi_X^{\mathrm{nat}} = \frac{N}{ \sum_{\mu} \Xi_{X\mu}^{-1} }.
 \end{equation}
 
 % Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
@@ -1371,95 +1372,95 @@ The research  made use of  MeqTrees software system designed to implement numeri
  Python Extensions for Interferometry and Python. The research has been supported by the South Africa National Research Foundation.
 \bibliographystyle{mn2e}
 \bibliography{m_paper}
-\appendix
-\section[]{Derivation of complex matrices}
-\label{app:complexmatrices}
-The complex matrices used in section \ref{sec:imaging} are explicitly derived in this appendix. In Eq.\ref{eqbb:linear}, the matrices
-$\mathbf{C}_{(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are blocks diagonals  both of size $(4n_t n_{\nu})\times(4n_t 
-n_{\nu})$ explicitly expressed as follow:
-\begin{equation*}
-\mathbf{C}_{(t,\nu)}^{block}=
-  \begin{bmatrix}
-    \mathbf{c}_{(t,\nu)} & 0 & 0 & 0\\
-    0 &  \mathbf{c}_{(t,\nu)} &0 & 0 \\
-    0 & 0 & \mathbf{c}_{(t,\nu)} & 0\\
-      0 & 0 & 0 & \mathbf{c}_{(t,\nu)}\\
-  \end{bmatrix}
-\end{equation*}
-\begin{equation*}
-\mathbf{W}_{pq,(t,\nu)}^{block}=
-  \begin{bmatrix}
-    \mathbf{W}_{pq,(t,\nu)}& 0 & 0 & 0\\
-    0 &  \mathbf{W}_{pq,(t,\nu)} &0 & 0 \\
-    0 & 0 & \mathbf{W}_{pq,(t,\nu)} & 0\\
-      0 & 0 & 0 & \mathbf{W}_{pq,(t,\nu)}\\
-  \end{bmatrix}
-\end{equation*}
-In Eq.\ref{eq2:block}, the matrices $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and 
-$\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are blocks diagonals both of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$, and 
-the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp,nblock}$ is a one row matrix of size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t 
-n_{\nu})$ 
-made of $\textbf{V}_{pq,(t,\nu)}^{samp}$. These matrices are explicitly expressed as follow:
-\begin{equation*}
-\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}=
-  \begin{bmatrix}
-    \mathbf{C}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
-    \vdots & \vdots & \vdots & \vdots & \vdots\\
-    0 & \dots& \mathbf{C}_{pq,(t,\nu)}^{block} &\dots & 0\\
-    \vdots & \vdots & \vdots & \vdots & \vdots \\
-    0 & \dots& 0 &\dots & \mathbf{C}_{pq,(t,\nu)}^{block}\\
-  \end{bmatrix}
-\end{equation*}
-\begin{equation*}
-\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}=
-  \begin{bmatrix}
-    \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
-    \vdots & \vdots & \vdots & \vdots & \vdots\\
-    0 & \dots& \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0\\
-    \vdots & \vdots & \vdots & \vdots & \vdots \\
-    0 & \dots& 0 &\dots & \mathbf{W}_{pq,(t,\nu)}^{block}\\
-  \end{bmatrix}
-\end{equation*}
-\begin{eqnarray*}
-\mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}&=&\Big(\mathbf{V}_{pq,(t,\nu)}^{samp,1},\dots, \mathbf{V}_{pq,(t,\nu)}^{samp,k}, \dots,
-\mathbf{V}_{pq,(t,\nu)}^{samp,N^{pq}_v}\Big)^{\dagger}. 
-\end{eqnarray*}
-In Eq.\ref{eq:noise}, the matrix $\mathbf{B}$ of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ is defined as follow:
-\begin{equation*}
-\mathbf{B}_{}=
-  \begin{bmatrix}
-    \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\\
-    \vdots\\
-    \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\\
-    \vdots \\
-    \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}
-  \end{bmatrix}
-\end{equation*}
-% \section[]{Sky tapering function with averaging}
-% \label{label:similarimaging}
-% The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
-% measured at each baseline.
+% \appendix
+% \section[]{Derivation of complex matrices}
+% \label{app:complexmatrices}
+% The complex matrices used in section \ref{sec:imaging} are explicitly derived in this appendix. In Eq.\ref{eqbb:linear}, the matrices
+% $\mathbf{C}_{(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are blocks diagonals  both of size $(4n_t n_{\nu})\times(4n_t 
+% n_{\nu})$ explicitly expressed as follow:
+% \begin{equation*}
+% \mathbf{C}_{(t,\nu)}^{block}=
+%   \begin{bmatrix}
+%     \mathbf{c}_{(t,\nu)} & 0 & 0 & 0\\
+%     0 &  \mathbf{c}_{(t,\nu)} &0 & 0 \\
+%     0 & 0 & \mathbf{c}_{(t,\nu)} & 0\\
+%       0 & 0 & 0 & \mathbf{c}_{(t,\nu)}\\
+%   \end{bmatrix}
+% \end{equation*}
+% \begin{equation*}
+% \mathbf{W}_{pq,(t,\nu)}^{block}=
+%   \begin{bmatrix}
+%     \mathbf{W}_{pq,(t,\nu)}& 0 & 0 & 0\\
+%     0 &  \mathbf{W}_{pq,(t,\nu)} &0 & 0 \\
+%     0 & 0 & \mathbf{W}_{pq,(t,\nu)} & 0\\
+%       0 & 0 & 0 & \mathbf{W}_{pq,(t,\nu)}\\
+%   \end{bmatrix}
+% \end{equation*}
+% In Eq.\ref{eq2:block}, the matrices $\mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}$ and 
+% $\mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}$ are blocks diagonals both of size $(4N_v^{pq}n_t n_{\nu})\times (4N_v^{pq}n_t n_{\nu})$, and 
+% the sampled visibilities $\mathbf{V}_{pq,(t,\nu)}^{samp,nblock}$ is a one row matrix of size $(N_v^{pq}4 n_t n_{\nu})\times (4 n_t 
+% n_{\nu})$ 
+% made of $\textbf{V}_{pq,(t,\nu)}^{samp}$. These matrices are explicitly expressed as follow:
+% \begin{equation*}
+% \mathbf{C}_{pq,(t,\nu)}^{block,n_{block}}=
+%   \begin{bmatrix}
+%     \mathbf{C}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
+%     \vdots & \vdots & \vdots & \vdots & \vdots\\
+%     0 & \dots& \mathbf{C}_{pq,(t,\nu)}^{block} &\dots & 0\\
+%     \vdots & \vdots & \vdots & \vdots & \vdots \\
+%     0 & \dots& 0 &\dots & \mathbf{C}_{pq,(t,\nu)}^{block}\\
+%   \end{bmatrix}
+% \end{equation*}
+% \begin{equation*}
+% \mathbf{W}_{pq,(t,\nu)}^{block,n_{block}}=
+%   \begin{bmatrix}
+%     \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0 & \dots & 0\\
+%     \vdots & \vdots & \vdots & \vdots & \vdots\\
+%     0 & \dots& \mathbf{W}_{pq,(t,\nu)}^{block} &\dots & 0\\
+%     \vdots & \vdots & \vdots & \vdots & \vdots \\
+%     0 & \dots& 0 &\dots & \mathbf{W}_{pq,(t,\nu)}^{block}\\
+%   \end{bmatrix}
+% \end{equation*}
 % \begin{eqnarray*}
-%  \mathcal{I}^{D}_{l,m}&=& \mathcal{F}^{-1}\Bigg\{\sum_{pq} c_{pq,(t,\nu)}\cdot\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg\}\\
-% 		      &=&\sum_{pq} \mathcal{F}^{-1}\{c_{pq,(t,\nu)}\}\circ \Big(\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot 
-% \mathcal{F}^{-1}\{V_{pq,(t,\nu)}^{samp}\}\Big)
+% \mathbf{V}_{pq,(t,\nu)}^{samp,n_{block}}&=&\Big(\mathbf{V}_{pq,(t,\nu)}^{samp,1},\dots, \mathbf{V}_{pq,(t,\nu)}^{samp,k}, \dots,
+% \mathbf{V}_{pq,(t,\nu)}^{samp,N^{pq}_v}\Big)^{\dagger}. 
 % \end{eqnarray*}
-% \begin{eqnarray*}	     
-% \mathcal{I}^{D}_{l,m}&=&\sum_{pq}\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot\bigg(\mathcal{F}^{-1}\{S_{pq}\cdot V_{pq,(t,\nu)}\}
-% \bigg)
-% \end{eqnarray*}
-% recall from section \ref{sec:AvgCon} that $S_{pq}$ is the sampling function of the baseline $pq$ and $\Pi_{pq,(t,\nu)}$ is the 
-% boxcar window.  This can be re-written as
-% \begin{eqnarray*}	     
-% \mathcal{I}^{D}_{l,m}&=&\sum_{pq} \mathcal{R}_{pq} \cdot\bigg(\mathcal{B}_{pq}\circ \mathcal{I}^{sky}_{l,m}\bigg)
-% \end{eqnarray*}
-% If all baselines are seen the same sky, then we can write:
-% \begin{eqnarray*}	     
-% \mathcal{I}^{D}_{l,m}&=&\mathcal{R}_{}\cdot\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \mathcal{I}^{sky}_{l,m}\Bigg)
-% \end{eqnarray*}
-% Here, $\mathcal{B}_{pq}$ is the point spread function for the baseline $pq$ and $\mathcal{R}_{pq}= \mathcal{R}$ is the sky taper, where 
-% $\mathcal{R}_{}=sinc$.\\
-% \\
+% In Eq.\ref{eq:noise}, the matrix $\mathbf{B}$ of size $(N_v 4 n_t n_{\nu})\times (4 n_t n_{\nu})$ is defined as follow:
+% \begin{equation*}
+% \mathbf{B}_{}=
+%   \begin{bmatrix}
+%     \mathbf{C}_{01,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{01,(t,\nu)}^{block,n_{block}}\\
+%     \vdots\\
+%     \mathbf{C}_{ik,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{ik,(t,\nu)}^{block,n_{block}}\\
+%     \vdots \\
+%     \mathbf{C}_{jl,(t,\nu)}^{block,n_{block}}\cdot \mathbf{W}_{jl,(t,\nu)}^{block,n_{block}}
+%   \end{bmatrix}
+% \end{equation*}
+% % \section[]{Sky tapering function with averaging}
+% % \label{label:similarimaging}
+% % The measured sky intensity of the array is derived from the inverse Fourier transform of the sum of the sample visibilities 
+% % measured at each baseline.
+% % \begin{eqnarray*}
+% %  \mathcal{I}^{D}_{l,m}&=& \mathcal{F}^{-1}\Bigg\{\sum_{pq} c_{pq,(t,\nu)}\cdot\Big(\Pi_{pq}\circ V_{pq}^{samp}\Big)_{(t,\nu)}\Bigg\}\\
+% % 		      &=&\sum_{pq} \mathcal{F}^{-1}\{c_{pq,(t,\nu)}\}\circ \Big(\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot 
+% % \mathcal{F}^{-1}\{V_{pq,(t,\nu)}^{samp}\}\Big)
+% % \end{eqnarray*}
+% % \begin{eqnarray*}	     
+% % \mathcal{I}^{D}_{l,m}&=&\sum_{pq}\mathcal{F}^{-1}\{\Pi_{pq,(t,\nu)}\}\cdot\bigg(\mathcal{F}^{-1}\{S_{pq}\cdot V_{pq,(t,\nu)}\}
+% % \bigg)
+% % \end{eqnarray*}
+% % recall from section \ref{sec:AvgCon} that $S_{pq}$ is the sampling function of the baseline $pq$ and $\Pi_{pq,(t,\nu)}$ is the 
+% % boxcar window.  This can be re-written as
+% % \begin{eqnarray*}	     
+% % \mathcal{I}^{D}_{l,m}&=&\sum_{pq} \mathcal{R}_{pq} \cdot\bigg(\mathcal{B}_{pq}\circ \mathcal{I}^{sky}_{l,m}\bigg)
+% % \end{eqnarray*}
+% % If all baselines are seen the same sky, then we can write:
+% % \begin{eqnarray*}	     
+% % \mathcal{I}^{D}_{l,m}&=&\mathcal{R}_{}\cdot\Bigg(\bigg(\sum_{pq}\mathcal{B}_{pq}\bigg)\circ \mathcal{I}^{sky}_{l,m}\Bigg)
+% % \end{eqnarray*}
+% % Here, $\mathcal{B}_{pq}$ is the point spread function for the baseline $pq$ and $\mathcal{R}_{pq}= \mathcal{R}$ is the sky taper, where 
+% % $\mathcal{R}_{}=sinc$.\\
+% % \\
 \bsp
 \label{lastpage}
 \end{document}
