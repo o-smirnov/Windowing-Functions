@@ -34,6 +34,12 @@
 \newcommand{\ee}{\mathrm{e}}
 \newcommand{\ii}{\mathrm{i}}
 
+
+%%% for our internal comments
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\newcommand{\OMS}[1]{\textcolor{red}{{\bf OMS: #1}}}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithms For Cheaper Surveys: Using Windowing Functions. 
@@ -366,9 +372,10 @@ $t_i,\nu_j$:
 \end{equation}
 where $\VV_{pq}$ is given by eq.~(\ref{eq:visSky:2Dtf}), and $\NN$ represents the visibility noise term, which is
 a complex scalar or complex $2\times2$ matrix with the real and imaginary parts being independently drawn from a 
-zero-mean normal distribution with the indicated r.m.s. \citep[{\bf see noise chapter in}][]{TMS}.
+zero-mean normal distribution with the indicated r.m.s. \citep[{\bf see noise chapter in}][]{TMS}. The noise
+term is not correlated across samples.
 
-The \emph{lo-res} or \emph{averaged visibilities} are then a discrete sum:
+The \emph{lo-res} or \emph{averaged} or \emph{resampled} visibilities are then a discrete sum:
 \begin{equation}
 \label{eq:discrete:tf0}
 V^\mathrm{(m)}_{pqkl} = \frac{1}{n} \sum_{ij\in\Bij_{kl}}  \Vs_{pqij},
@@ -633,7 +640,7 @@ and Bessel-Blackman combinations.}\label{fig:wf:bessels}
 
 \subsection{$J_0$-Hamming, $J_0$-Hanning and $J_0$-Blackman windows}
 
-{\bf OMS: Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
+\OMS{Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
 two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
 product, not two convolutions. So which one is correct? Also, please provide citations for the Hanning, Hamming and 
 Blackman filters. Also, in the figures the WFs look absolutely identical. Is this an error, or are they really so similar?
@@ -645,7 +652,7 @@ increase the stop band (regime 3 or outside the FoV) attenuation. The process ca
 \begin{equation}
 J_0^\mathrm{X} = J_0(t) X(t) 
 \end{equation}
-where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs known in the litterature {\bf OMS: citation please}.
+where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs known in the litterature \OMS{citation please}.
 Fig. \ref{fig:wf:bessel-ham}, Fig. \ref{fig:wf:bessel-han} and Fig. \ref{fig:wf:bessel-black} 
 show the $J_0^\mathrm{Hm}, J_0^\mathrm{Hn}, J_0^\mathrm{B}$ WFs and their responses. Compared to the $J_0(t)$ WF, 
 they show lower PSL and higher SLR.
@@ -698,7 +705,7 @@ they show lower PSL and higher SLR.
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
 different windowing functions. 
-\bf{OMS: Marcellin, it is not clear what exact variation of the
+\OMS{Marcellin, it is not clear what exact variation of the
 WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
 of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
 by different WFs is different.}
@@ -716,9 +723,8 @@ J_0(u,v) &=& J_0(r), \nonumber\\
 BW(u,v) &=& BW(r),~~~r=\sqrt{u^2+v^2}.
 \end{eqnarray}
 
-{\bf OMS: Marcellin, why not $\mathrm{sinc}(r)$ as well? The referee is bound to ask? Also, why did you never consider a 
-prolate spheroidal WF? I remember bringing it up a few times.}\\
-{\bf Marcellin: $\mathrm{sinc}(r)$ dosn't works well in signal recovery. I studied the prolate spheroidal wave functions(PSWF)
+\OMS{Marcellin, why not $\mathrm{sinc}(r)$ as well? The referee is bound to ask? Also, why did you never consider a 
+prolate spheroidal WF? I remember bringing it up a few times. Marcellin: $\mathrm{sinc}(r)$ dosn't works well in signal recovery. I studied the prolate spheroidal wave functions(PSWF)
 and the oder 1 of PSWF was just slightly like the sinc but with low sidelobes. I can try and test this but for sure 
 the computational time is extremely huge. I was thinking to talk about 
 the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
@@ -734,7 +740,7 @@ the scale of the WF, this results in more smearing (i.e. a narrower FoV) on long
 
 By defining our alternative WFs in $uv$-space (in units of wavelength), we can attempt to ``even out'' the smearing 
 response across baselines. For a given BDWF $X(u,v)$, we have the following recipe 
-for computing the lo-res visibility $kl$ (compare to eq.~\ref{eq:discrete:uv}):
+for computing resampled visibilities (compare to eq.~\ref{eq:discrete:uv}):
 \begin{equation}
 \label{eq:avg:wf}
 V^\mathrm{(m)}_{pqkl} = \frac{\displaystyle\sum\limits_{{i,j}\in \Bij_{kl}} \Vs_{pqij} X(\bmath{u}_{pqij}-\bmath{u}_{pqkl})}
@@ -753,12 +759,13 @@ point of approaching the boxcar-like $\Puv$ (Fig.~\ref{fig:WF:perbaseline}).
 \includegraphics[width=.33\textwidth]{./Figures/longshortmid-butter.pdf}
 \caption{Cross-sections through three different BDWFs (left: sinc, centre: Bessel, right: Butterworth) defined in $uv$-space, 
 plotted along the time axis. This shows that the effective WF is a scaling and truncation of the underlying WF, with
-the shortest baselines reducing to a boxcar-like WF.{\bf OMS: Marcellin please make the PDF figures greyscale, and the same size.
+the shortest baselines reducing to a boxcar-like WF. \OMS{Marcellin please make the PDF figures greyscale, and the same size.
 Also please leave legend on only one of them, it's redundant.}}
 \label{fig:WF:perbaseline}
 \end{figure*}
 
-The downside of this simple approach is twofold. Firstly, while all of the WFs above boast far lower sidelobes than the boxcar
+The downside of this simple approach is twofold. Firstly, while all of the WFs above nominally exhibit far lower 
+sidelobes than the boxcar
 (i.e. more suppression for out-of-FoV sources), they no longer perform that well under truncation, with extremely truncated WFs 
 at the shorter baselines becoming boxcar-like. Secondly, taking a weighted sum in eq.~\ref{eq:avg:bessel} increases 
 the noise in comparison to normal averaging.
@@ -775,8 +782,8 @@ over larger bins. Let us define the \emph{windowing bin} for \emph{overlap facto
 \end{equation}
 i.e. as the set of sample indices corresponding to a bin of size $\alpha\Delta t\times\beta\Delta \nu$ in $t\nu$-space.
 Let us then compute the sums in eq.~(\ref{eq:avg:bessel}) over the windowing bin. This becomes distinct from the
-resampling bin: while the latter represents the spacing of the lo-res output samples, the former represents the size 
-of the convolution kernels. Only for $\alpha=\beta=1$ do the two bins become the same.
+resampling bin: while the latter represents the spacing of the resampled visibilities, the former represents the size 
+of the window over which the convolution is computed. Only for $\alpha=\beta=1$ do the two bins become the same.
 
 BDWFs in the overlapping regime are schematically illustrated in Fig.~\ref{fig:overlap}. For normal averaging 
 overlapping offers no benefit, since it only broadens $\Puv$ and therefore increases smearing. But for a well-behaved 
@@ -797,50 +804,65 @@ If resampling is only done in one direction (only time or only frequency), we'll
 \subsection{Noise penalty estimates: analytic}
 \label{sec:imaging}
 
-{\bf OMS: Marcellin, I can't follow this, and neither will the referee. The notation is a bit of a mess. Need to straighten it out
+\OMS{Marcellin, I can't follow the old derivations, and neither will the referee I fear. 
+The idea is solid, but your notation is a bit of a mess. Need to straighten it out
 and express in terms of Sect.~2.2, i.e. lo-res (averaged) and hi-res (sampled) visibilities. 
 Suggest also working it out for the unpolarized case instead, you can then drop the 
 extra ``4'' in the dimensions and simplify the matrices. Also, you need to explain, what is $N_t$ and $n_t$? 
-
 Maybe it makes sense to leave the complicated derivations for your thesis, and go with something simple here. 
 For example:}
 
 Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
 a weighted sum. For simplicity, let's assume that the noise term
 has constant r.m.s. $\sigma_\mathrm{s}$ across all baselines and samples. If the resampling bin 
-$\Bij_{kl}$ consists of $n = n_t\times n_\nu$ samples, then the averaged visibility in 
-eq.~(\ref{eq:discrete:tf0}) will contain a noise term with its variance given by
+consists of $n_\mathrm{avg} = n_t\times n_\nu$ samples, and since the noise is not correlated between samples, 
+the averaged visibilities in eq.~(\ref{eq:discrete:tf0}) will contain a noise term with its variance given by
 \begin{equation}
-\sigma_\mathrm{m}^2 = \frac{1}{n^2} \sum_{i=1}^{n} \sigma_\mathrm{s}^2  = \frac{\sigma_\mathrm{s}^2}{n}
+\sigma_\mathrm{m}^2 = \frac{1}{n_\mathrm{avg}^2} \sum_{i=1}^{n_\mathrm{avg}} \sigma_\mathrm{s}^2  = \frac{\sigma_\mathrm{s}^2}{n_\mathrm{avg}}
 \end{equation}
-Applying this to the imaging equation (\ref{eq:imaging3}), we have the following expression for the variance
-of the noise term in each pixel of the dirty image:
+Note that this noise term is completely uncorrelated between averaged visibilities. We can therefore use the
+the imaging equation (\ref{eq:imaging3}) to derive the following expression for the variance of the noise 
+term in each pixel of the dirty image:
 \begin{equation}
+\label{eq:noise:image}
 \sigma_\mathrm{pix}^2 = \frac{ (\sum_{pqkl} W_{pqkl}^2 \sigma_\mathrm{m}^2) }{ (\sum_{pqkl} W_{pqkl})^2 },
 \end{equation}
 which for natural image weighting ($W\sim\sigma^{-1}_\mathrm{m}$, i.e. $W\equiv1$ in this case) is simply
 \begin{equation}
-\sigma_\mathrm{pix}^2 = \frac{1}{N}\frac{\sigma_\mathrm{s}^2}{n},
+\sigma_\mathrm{pix}^2 = \frac{1}{N}\frac{\sigma_\mathrm{s}^2}{n_\mathrm{avg}},
 \end{equation}
-where $N$ is the total number of averaged visibilities.
+where $N$ is the total number of visibilities used for the synthesis.
 
 To simplify notation, let's replace $pqkl$ by a single index $\mu$, enumerating all the lo-res visibilities $\Vm_\mu$, with 
 $\mu=1\dots N$. If we now employ eq.~(\ref{eq:avg:wf}) to compute the lo-res visibilities using some BDWF $X(u,v)$, the noise 
 term becomes different per each visibility $\mu$:
 \begin{equation}
+\label{eq:noise:bdwf}
 \sigma_{X\mu}^2 = \frac{\sum X^2(\bmath{u}_{pqij}-\bmath{u}_{pqkl})}
 {\big [ \sum X(\bmath{u}_{pqij}-\bmath{u}_{pqkl}) \big ]^2 } \, \sigma_\mathrm{s}^2
 \end{equation}
-where both sums are taken over ${i,j}\in \Bij_{kl}$. Let us define the \emph{visibility noise penalty} associated with BDWF $X$ 
+where both sums are taken over the windowing bin, ${i,j}\in \Bij_{kl}$. Let us define 
+the \emph{visibility noise penalty} associated with BDWF $X$ 
 and visibility $\mu$ as the relative increase in noise over the unweighted average, i.e.
 \begin{equation}
 \Xi_{X\mu} = \frac{\sigma_{X\mu}}{\sigma_\mathrm{m}} = 
-\frac{ \sqrt{ n \sum X^2(\bmath{u}_{pqij}-\bmath{u}_{pqkl}) }}
+\frac{ \sqrt{ n_\mathrm{avg} \sum X^2(\bmath{u}_{pqij}-\bmath{u}_{pqkl}) }}
 {\sum X(\bmath{u}_{pqij}-\bmath{u}_{pqkl}) }. 
 \end{equation}
-It is easy to see that $\Xi_{X\mu}\geq1$, and only reaches 1 when $X\equiv1$. 
+Note that in the case of overlapping BDWFs, the windowing bin in eq.~\ref{eq:noise:bdwf} is larger than the 
+resampling bin, and contains $n_X$ samples, with $n_X=\alpha\beta n_\mathrm{avg}$, where $\alpha$ and $\beta$ are the 
+overlap factors.For $\alpha=\beta=1,$ it is easy to see that $\Xi_{X\mu}\geq1$, and only reaches 1 when $X\equiv1$. 
+In other words, non-overlapping BDWFs always result in a visibility noise penalty above 1, while overlapping BDWFs 
+can actually \emph{reduce} noise in the resampled visibilities. 
 
-We can now compute the \emph{image noise penalty} associated with imaging weights $W$ and BDWF $X$ as
+While paradoxical at first glance, this reduction in noise does {\bf not} result in a net gain in image 
+sensitivity. The reason for this is that with overlap in effect, the noise terms become correlated across 
+resampled visibilities $kl$ (within the same baseline $pq$), with each hi-res visibility sample contributing to 
+multiple resampled visibilities, and the image noise term no longer follows eq.~(\ref{eq:noise:image}).
+
+If the resampled visibilities correspond to a single-channel snapshot, or if the BDWFs are non-overlapping,
+then the noise across visibilities remains uncorrelated, and we can compute the \emph{image noise penalty} 
+associated with imaging weights $W$ and BDWF $X$ as
 \begin{equation}
 \Xi^W_X = 
 \frac{\sigma_{\mathrm{pix},X}^2}{\sigma_{\mathrm{pix}}} = \frac{n}{\sigma_\mathrm{s}}
@@ -852,6 +874,10 @@ In the case of natural weighting ($W_\mu=\sigma_\mu^{-1}$) this reduces to:
 \begin{equation}
 \Xi_X^{\mathrm{nat}} = \frac{N}{ \sum_{\mu} \Xi_{X\mu}^{-1} }.
 \end{equation}
+
+\OMS{the matrix-based formalism that I commented out for now can actually deal with the overlap (correlated noise) 
+case, so it will be good to clean it up and include it in your thesis. If you clean it up sufficiently quickly for
+publication, we can also include it here.}
 
 % Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
 % a weighted sum. Recall from the previous section that, the boxcar WF can be replaced by a BDWF, $W_{pq,(t,\nu)}$ that depends 
@@ -1017,7 +1043,7 @@ sky map centre pixel while the simulation results are an average of the sky map 
 \includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}\\
 \caption{Noise penalty w.r.t. normal averaging as a function of baseline length for three different filters 
 (sinc, Bessel and Butterworth), with and without overlap. JVLA-C, 1.4 GHz, sampling intervals of 150s and 
-6.25 MHz. {\bf OMS: Marcellin please check the numbers I gave are correct. Also please make the PDF figures the same size
+6.25 MHz. \OMS{Marcellin, please check the numbers I gave are correct. Also please make the PDF figures the same size
 .}}
 \label{fig:per-baseline-noise}
 \end{figure*}
@@ -1227,7 +1253,7 @@ the possibility of using WF capable of providing higher dynamic range images. Th
 is required by the radio telescopes of the future.
 \section{Realistic field synthesis: 3C147}
 
-{\bf OMS: commenting out the huge number of figures for now to save compilation time. Will uncomment them one by one as I absorb them into the main text.}
+\OMS{commenting out the huge number of figures for now to save compilation time. Will uncomment them one by one as I absorb them into the main text.}
 %  \begin{figure*}
 %     \centering
 %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
