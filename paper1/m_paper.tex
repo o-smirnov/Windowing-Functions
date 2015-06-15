@@ -767,14 +767,14 @@ Also please leave legend on only one of them, it's redundant.}}
 The downside of this simple approach is twofold. Firstly, while all of the WFs above nominally exhibit far lower 
 sidelobes than the boxcar
 (i.e. more suppression for out-of-FoV sources), they no longer perform that well under truncation, with extremely truncated WFs 
-at the shorter baselines becoming boxcar-like. Secondly, taking a weighted sum in eq.~\ref{eq:avg:bessel} increases 
+at the shorter baselines becoming boxcar-like. Secondly, taking a weighted sum in eq.~\ref{eq:avg:wf} increases 
 the noise in comparison to normal averaging.
 
 \subsection{Overlapping BDWFs}
 \label{baseline2}
 
 A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the resampling bins $B_{kl}$ 
-in eq.~(\ref{eq:avg:bessel}) don't overlap for adjacent $kl$, since they represent adjacent averaging intervals. 
+in eq.~(\ref{eq:avg:wf}) don't overlap for adjacent $kl$, since they represent adjacent averaging intervals. 
 There is, however, no reason (apart from computational load) why we cannot take the sum in eq.~(\ref{eq:avg:bessel}) 
 over larger bins. Let us define the \emph{windowing bin} for \emph{overlap factors} of $\alpha,\beta$ as
 \begin{equation}
@@ -906,9 +906,9 @@ predicted by eq.~\ref{eq:noisepenalty:natural}. Note that this estimator is not 
 across pixels. Nonetheless, we obtain results that are broadly consistent with analytical predictions 
 (Table~\ref{tab:noise-comparison}).
 
-Figure~\ref{fig:per-baseline-noise} shows the visibility noise penalty for the same BDWFs, as a function of $u$ (i.e. East-West baseline
-component). Note that the noise penalty rises sharply towards longer baselines. Note also that the penalty is well below
-1 on shorter baselines, when overlapping is in effect.
+Figure~\ref{fig:per-baseline-noise} shows the visibility noise penalty for the same BDWFs, as a function of East-West baseline
+component, which determines the baseline rotation speed. Note that the noise penalty rises sharply towards 
+longer E-W baselines. Note also that the penalty is well below 1 on shorter baselines, when overlapping is in effect.
 
 \begin{table}
 \begin{tabular}{lll}
