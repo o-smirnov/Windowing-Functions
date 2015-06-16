@@ -1,29 +1,11 @@
 \documentclass[useAMS,usenatbib]{mn2e}
 
 %%%%% AUTHORS - PLACE YOUR OWN MACROS HERE %%%%%
-\newcommand{\conj}[1]{\overline{#1}}
-\newcounter{NameOfTheNewCounter}
-\setcounter{NameOfTheNewCounter}{1}
-\newtheorem{theorem}{Theorem}[NameOfTheNewCounter]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}[theorem]{Definition}
 \usepackage{graphicx}
-%\usepackage[sc]{mathpazo}
 \usepackage{amsmath}
-\usepackage{multirow}
 \usepackage{graphicx}
-\usepackage{caption}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\def\lp{\frac 1 {l_{0}}}
-\def\kp{\frac 1 {m_{0}}}
-\newcommand{\Gcal}{\bmath{\mathcal{G}}}
-\newcommand{\Rcal}{\bmath{\mathcal{R}}}
-\newcommand{\Mcal}{\bmath{\mathcal{M}}}
-\newcommand{\Fcal}{\bmath{\mathcal{F}}}
-\newcommand{\GG}{\bmath{G}}
 
 \newcommand{\aaps}{A\&AS}
 \newcommand{\aap}{A\&A}
@@ -34,8 +16,7 @@
 \newcommand{\ee}{\mathrm{e}}
 \newcommand{\ii}{\mathrm{i}}
 
-
-%%% for our internal comments
+%%% for our internal comments, use color
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \newcommand{\OMS}[1]{\textcolor{red}{{\bf OMS: #1}}}
 
@@ -731,8 +712,8 @@ the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel
 
 \section{Application of WFs to visibilities}
 
-While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency the sampling
-positions go as $\sim\nu^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
+While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency, 
+the sampling positions go as $\sim\nu^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
 integrations (Fig.~\ref{fig:uvcov}). Applying a WF with a constant integration window in $t\nu$ space corresponds to 
 different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Puv$ of 
 eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
@@ -816,11 +797,11 @@ Let us now work out analytically the \emph{noise penalty} associated with replac
 a weighted sum. For simplicity, let's assume that the noise term
 has constant r.m.s. $\sigma_\mathrm{s}$ across all baselines and samples. If the resampling bin 
 consists of $n_\mathrm{avg} = n_t\times n_\nu$ samples, and since the noise is not correlated between samples, 
-the averaged visibilities in eq.~(\ref{eq:discrete:tf0}) will contain a noise term with its variance given by
+the noise on the averaged visibilities in eq.~(\ref{eq:discrete:tf0}) will be given by
 \begin{equation}
 \sigma_\mathrm{m}^2 = \frac{1}{n_\mathrm{avg}^2} \sum_{i=1}^{n_\mathrm{avg}} \sigma_\mathrm{s}^2  = \frac{\sigma_\mathrm{s}^2}{n_\mathrm{avg}}
 \end{equation}
-Note that this noise term is completely uncorrelated between averaged visibilities. We can therefore use the
+Note that the noise is uncorrelated across averaged visibilities. We can therefore use the
 the imaging equation (\ref{eq:imaging3}) to derive the following expression for the variance of the noise 
 term in each pixel of the dirty image:
 \begin{equation}
@@ -833,7 +814,7 @@ which for natural image weighting ($W\sim\sigma^{-1}_\mathrm{m}$, i.e. $W\equiv1
 \end{equation}
 where $N$ is the total number of visibilities used for the synthesis.
 
-To simplify notation, let's replace $pqkl$ by a single index $\mu$, enumerating all the lo-res visibilities $\Vm_\mu$, with 
+To simplify further notation, let's replace $pqkl$ by a single index $\mu$, enumerating all the lo-res visibilities $\Vm_\mu$, with 
 $\mu=1\dots N$. If we now employ eq.~(\ref{eq:avg:wf}) to compute the lo-res visibilities using some BDWF $X(u,v)$, the noise 
 term becomes different per each visibility $\mu$:
 \begin{equation}
@@ -851,7 +832,7 @@ and visibility $\mu$ as the relative increase in noise over the unweighted avera
 \end{equation}
 Note that in the case of overlapping BDWFs, the windowing bin in eq.~\ref{eq:noise:bdwf} is larger than the 
 resampling bin, and contains $n_X$ samples, with $n_X=\alpha\beta n_\mathrm{avg}$, where $\alpha$ and $\beta$ are the 
-overlap factors.For $\alpha=\beta=1,$ it is easy to see that $\Xi_{X\mu}\geq1$, and only reaches 1 when $X\equiv1$. 
+overlap factors. For $\alpha=\beta=1,$ it is easy to see that $\Xi_{X\mu}\geq1$, and only reaches 1 when $X\equiv1$. 
 In other words, non-overlapping BDWFs always result in a visibility noise penalty above 1, while overlapping BDWFs 
 can actually \emph{reduce} noise in the resampled visibilities. 
 
@@ -906,8 +887,8 @@ predicted by eq.~\ref{eq:noisepenalty:natural}. Note that this estimator is not 
 across pixels. Nonetheless, we obtain results that are broadly consistent with analytical predictions 
 (Table~\ref{tab:noise-comparison}).
 
-Figure~\ref{fig:per-baseline-noise} shows the visibility noise penalty for the same BDWFs, as a function of East-West baseline
-component, which determines the baseline rotation speed. Note that the noise penalty rises sharply towards 
+Figure~\ref{fig:per-baseline-noise} shows the predicted visibility noise penalty for the same BDWFs, as a function of 
+East-West baseline component, which determines the baseline rotation speed. Note that the noise penalty rises sharply towards 
 longer E-W baselines. Note also that the penalty is well below 1 on shorter baselines, when overlapping is in effect.
 
 \begin{table}
