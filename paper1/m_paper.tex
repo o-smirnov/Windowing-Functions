@@ -388,8 +388,8 @@ regularly spaced time-frequency samples.}\label{fig:uvcov}
 \label{sec:effectbw}
 
 \begin{figure*}
-\includegraphics[width=.5\textwidth]{./Figures/idealIPRgrey.png}%
-\includegraphics[width=.5\textwidth]{./Figures/idealsincgrey.png}\\
+\includegraphics[width=\columnwidth]{./Figures/idealIPRgrey.png}%
+\includegraphics[width=\columnwidth]{./Figures/idealsincgrey.png}\\
 \caption{Left: boxcar response. In the $uv$-plane, this represents the windowing function corresponding to normal
 averaging of visibilities. In the image plane, this represents the ideal image-plane tapering function. Right: 
 Sinc response. In the image plane, this represents the tapering function corresponding to a boxcar WF in 
@@ -420,8 +420,8 @@ of all these individual tapers. Shorter baselines correspond to smaller boxcars 
 boxcars and narrower tapers, and are thus more prone to smearing.
 
 \begin{figure*}
-\includegraphics[width=\columnwidth]{./Figures/effect_time_averaging.pdf}%
-\includegraphics[width=\columnwidth]{./Figures/effect_bandwid_averaging.pdf}
+\includegraphics[width=\columnwidth]{./Figures/effect_time_averaging.png}%
+\includegraphics[width=\columnwidth]{./Figures/effect_bandwidth_averaging.png}
 \caption{Effects of time and frequency averaging: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, 
 as a function of distance from phase centre. (Left) Frequency interval fixed at 125 kHz, time interval varies; 
 (right) time interval fixed at 1s, frequency interval varies.}\label{fig:smear}
@@ -625,18 +625,23 @@ and Bessel-Blackman combinations.}\label{fig:wf:bessels}
 two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
 product, not two convolutions. So which one is correct? Also, please provide citations for the Hanning, Hamming and 
 Blackman filters. Also, in the figures the WFs look absolutely identical. Is this an error, or are they really so similar?
-If the latter, then we really shouldn't waste space...}
-
-A $J_0(t)$ WF can be used to filter out the input signal, providing an intermediate signal. The intermediate signal 
-can then be passed through a Hamming, Hanning or Blackman filter to further increase the pass band (regime 1 or FoV) and 
-increase the stop band (regime 3 or outside the FoV) attenuation. The process can be resume as follow:
+If the latter, then we really shouldn't waste space... \\Marcellin: corrected. it is one convolution not two.
+Thank you for drawing my intention. Yes they are very similar, I prefer to present two cases, the Bessel-Hamming and sinc-hamming. See text}
+Depending on the science goals we want to achieve, the Hamming, Hanning or Blackman filter is sometime multiplied by 
+a $J_0(t)$ or $\mathrm{Sinc}(t)$ to increase the pass band (regime 1 or FoV) and 
+increase the stop band (regime 3 or outside the FoV) attenuation.
+% A $J_0(t)$ WF can be used to filter out the input signal as previously mentioned. . The intermediate signal 
+% can then be passed through a Hamming, Hanning or Blackman filter to further increase the pass band (regime 1 or FoV) and 
+% increase the stop band (regime 3 or outside the FoV) attenuation. 
+The process can be resume as follow:
 \begin{equation}
-J_0^\mathrm{X} = J_0(t) X(t) 
+Y^\mathrm{X} = Y(t) X(t) 
 \end{equation}
-where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs known in the litterature \OMS{citation please}.
-Fig. \ref{fig:wf:bessel-ham}, Fig. \ref{fig:wf:bessel-han} and Fig. \ref{fig:wf:bessel-black} 
-show the $J_0^\mathrm{Hm}, J_0^\mathrm{Hn}, J_0^\mathrm{B}$ WFs and their responses. Compared to the $J_0(t)$ WF, 
-they show lower PSL and higher SLR.
+where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs known in the litterature
+\citep{nuttall1982spectral,podder2014comparative} and $Y$ is a $J_0(t)$ or $\mathrm{Sinc}(t)$ WF.\OMS{citation please. Marcellin: correction done}.
+Fig. \ref{fig:wf:bessel-ham} and Fig. \ref{fig:wf:bessel-han}  
+show the $J_0^\mathrm{Hm}, \mathrm{Sinc}^\mathrm{Hm}$ WFs and their responses. Compared to the $J_0(t)$ and 
+$\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
 
 \subsection{Relative performance}
 % \subsection{Convolution theorem and WFs comparison}
@@ -735,13 +740,13 @@ the WF is truncated at the edge of each bin; on the shortest baselines this trun
 point of approaching the boxcar-like $\Puv$ (Fig.~\ref{fig:WF:perbaseline}).
 
 \begin{figure*}%
-\includegraphics[width=.33\textwidth]{./Figures/longshortmid-sinc.pdf}\hfill%
-\includegraphics[width=.33\textwidth]{./Figures/longshortmid-bessel.pdf}\hfill%
-\includegraphics[width=.33\textwidth]{./Figures/longshortmid-butter.pdf}
+\includegraphics[width=.33\textwidth]{./Figures/sinc-baseline_longMidShortshortgrey.png}\hfill%
+\includegraphics[width=.33\textwidth]{./Figures/bessel-baseline_longMidShortshortgrey.png}\hfill%
+\includegraphics[width=.33\textwidth]{./Figures/butterworth-baseline_longMidShortshortgrey.png}
 \caption{Cross-sections through three different BDWFs (left: sinc, centre: Bessel, right: Butterworth) defined in $uv$-space, 
 plotted along the time axis. This shows that the effective WF is a scaling and truncation of the underlying WF, with
 the shortest baselines reducing to a boxcar-like WF. \OMS{Marcellin please make the PDF figures greyscale, and the same size.
-Also please leave legend on only one of them, it's redundant.}}
+Also please leave legend on only one of them, it's redundant.Marcellin: correction done}}
 \label{fig:WF:perbaseline}
 \end{figure*}
 
@@ -772,7 +777,7 @@ BDWF, enlarging the windowing bin (while maintaining the same WF scale) means le
 sidelobes -- and decreased noise, as more sampled visibilities are taken into account.
 
 \begin{figure} 
-\includegraphics[width=\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.pdf}\caption{Overlapping 
+\includegraphics[width=\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlapping 
 BDWFs representing adjacent resampling bins. This corresponds to overlap factor $\alpha=3$ in time.}\label{fig:overlap}
 \end{figure}
 
