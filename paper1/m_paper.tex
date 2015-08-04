@@ -756,6 +756,11 @@ sidelobes than the boxcar
 at the shorter baselines becoming boxcar-like. Secondly, taking a weighted sum in eq.~\ref{eq:avg:wf} increases 
 the noise in comparison to normal averaging.
 
+\subsection{Bin sizes}
+
+\OMS{Note to self: Talk about time-frequency bins sizes here. Also about tunable FoVs.}
+
+
 \subsection{Overlapping BDWFs}
 \label{baseline2}
 
@@ -932,92 +937,130 @@ vs. simulations. \OMS{I find the <1 numbers for $J_0$ strange. Is this for a sna
 
 \section{Simulations and results}
 
-In order to test the approaches described in sections \ref{baseline1} and \ref{baseline2}, multiple tests are performed on JVLAC 
-simulated MS. This section summarized and discussed those results. Two MS are used in 
-the simulation, a high resolution MS (HR-MS) that contains the observed JVLAC data of short integration time and frequency and a low 
-resolution 
-MS (LR-MS) where the results of boxcar averaging or BDWF averaging are saved. In order to apply an overlap BDWF  the following 
-conditions have to be satisfied:
-\begin{enumerate}
- \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively and  $\Delta t^{hrms}$ the 
-HR-MS integration time, then 
-      %\begin{eqnarray*}
-	    $t^{lrms}_{start}\geq t^{hrms}_{start} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
-      %\end{eqnarray*}
-  \item If $t^{hrms}_{end}$ and $t^{lrms}_{end}$ are the ending time of the HR-MS and LR-MS respectively, then 
-      %\begin{eqnarray*}
-	    $t^{lrms}_{end}\leq t^{hrms}_{end} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
-      %\end{eqnarray*}
- \item If $\nu^{hrms}_{start}$ and $\nu^{lrms}_{start}$ are the starting frequency of the HR-MS and LR-MS respectively and  $\Delta 
-\nu^{hrms}$ the HR-MS channel width, then 
-      %\begin{eqnarray*}
-	    $\nu^{lrms}_{start} \geq \nu^{hrms}_{start} + 2n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
-      %\end{eqnarray*}
- \item If $\nu^{hrms}_{end}$ and $\nu^{lrms}_{end}$ are the ending frequency of the HR-MS and LR-MS respectively, then 
-      %\begin{eqnarray*}
-	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
-      %\end{eqnarray*}
-\end{enumerate}
+In this section we use BDWFs to resample simulated visibility data, and study the effect on smearing and source 
+suppression. Apart from a few examples documented separately, the basis interferometer configuration employed in 
+the simulations corresponds to JVLA-C observing at 1.4 GHz. Similarly to Sect.~\ref{subsec:noise}, we create a 
+``high-res'' measurement set corresponding to a 7m30s synthesis with 1.5s integration, with 12.5 MHz of bandwidth
+centred on 1.4 GHz, divided into 150 channels of 125 kHz each. \OMS{Marcellin, check that I'm quoting correct 
+numbers.} The MS is populated by noise-free simulated visibilities corresponding to a single point source at 
+a given distance from the phase centre. We then generate ``low-res'' MSs to receive the resampled visibilities,
+resample the latter using a range of BDWFs, convert the visibilities to dirty images, and measure the peak source 
+flux in each image. Since each dirty image corresponds to a single source, the peak flux gives us the degree of 
+smearing associated with a given BWDF and sampling interval.
 
-\subsection{Smearing elimination and out FoV suppression}
+\begin{figure*}
+\includegraphics[width=.49\textwidth]{./Figures/suppression-25-100-sincs.png}\hfill%
+\includegraphics[width=.49\textwidth]{./Figures/relsuppression-25-100-sincs.png}\\
+\caption{Left: smearing as a function of distance from phase centre, for 25s 2MHz and 100s 10MHz averaging, and for 
+various BDWFs. The noise penalty $\Ksi$ and the far-source suppression factor $F$ are given relative to 25s 2MHz 
+averaging. Right: same results normalized to the 25s 2MHz curve.}
+\label{fig:results-example}
+\end{figure*}
 
-The study considered $40$ different sky models each  containing a 1Jy source; the sky models differ from each other by the source 
-coordinates. 
-The reason for having  only one source in the sky model is to avoid standard imaging artefacts in the sky maps which 
-can affect the brightness of sources. Another obvious reason is the  CLEAN algorithm \citep{cornwell1999deconvolution}, which does not 
-create 
-perfect clean maps. Each  sky model is simulated 
-with a JVLAC HR-MS of 7min30s synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
-time at 1.4GHz,  with 150 channels width $\Delta \nu^{hrms}$=125kHz.  Each HR-MS is then processed with boxcar averaging and BDWF 
-averaging the results are saved into a JVLAC LR-MS of one timeslot of with  150s,  with 1 channel of width 6.25MHz. The study also 
-considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{150s,6250kHz\}$, 
-$\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHz\}$, 
-$n_{ovlpt}\in\{0,100,150\}$ 
-and $n_{ovlp\nu}\in\{0,25,50\}$. 
+A typical performance comparison for JVLA-C 1.4 GHz is given by Fig.~\ref{fig:results-example}. This figure illustrates 
+some of the principal achievements of the present work, so let us spend some time explaining it. The horizontal axis 
+represents distance from phase centre, while the vertical axis represents the degree of smearing. Unity corresponds to no smearing;
+this is the case at phase centre, thus all curves start at unity. The three thick grey curves correspond to normal
+averaging into 25s$\times$2MHz, 50s$\times$4MHz, and 100s$\times$10MHz. We can (rather arbitrarily) define an ``acceptable'' 
+level of smearing to be at most 5\% at the half-power point. The half-power beam radius of the JVLA at this frequency is 
+$\approx=0.25^\circ$, this is indicated by the vertical line in the figure. The thin horizontal line is the
+acceptable smearing threshold of $0.95$. We can readily see that averaging at 100s$\times$10MHz (the lower thick grey curve)
+leads to smearing levels just below this threshold. Were the JVLA equipped with dishes one-quarter of its present size,
+the primary FoV would be a factor of four larger, and averaging of 25s$\times$2MHz would be necessary.
 
-The source flux density as a function of the source distance from the phase centre is depicted in Figures \ref{fig:Bl-sinc-FoV2} to 
-\ref{fig:Bl-butter-FoV4}.
-The study in Figure \ref{fig:Bl-sinc-FoV2}, \ref{fig:Bl-bessel-FoV2} and \ref{fig:Bl-butter-FoV2} 
-compared boxcar averaging with $2^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
-Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively. A study with a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
-$0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to infinity.
-The study in Figure \ref{fig:Bl-sinc-FoV4}, \ref{fig:Bl-bessel-FoV4} and \ref{fig:Bl-butter-FoV4} 
-compared boxcar averaging with $4^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
-Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively.  A study with a $4^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
-$0^\circ$ 
-to $2^\circ$; "\textit{Regime 2}" from $2^\circ$ to $3^\circ$ and "\textit{Regime 3}" from $3^\circ$ to infinity. 
-% 
-% We considered three cases of the 
-% sinc ($Bl$-$sinc$-$W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
-% of the first kind of order zero ($Bl$-J$_0$-$W n_{t,ovlp} \times n_{\nu,ovlp}$) and the Butterwordth ($Bl$-$BW$-$W n_{t,ovlp} \times 
-% n_{\nu,ovlp}$),  with  $n_{t,ovlp}\in\{0,100,150\}$ and $n_{\nu,ovlp}\in\{0,25,50\}$). We evaluated the loss in signal 
-% amplitude with longer LR-MS integration time intervals $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency intervals $\Delta 
-% \nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
-% the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
-% % $r$: source position in degrees.}
-The results show that:
-\begin{itemize}
- \item "\textit{Regime 1}" (FoV recovery): The source flux density is recovered with the BDWF averaging compared to the boxcar averaging. 
-Also, as the overlap time and frequency bins increase, the source flux density becomes optimal with the overlap sinc and J$_0$ (see the 
-green and the red curve from Figures \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4}) which is not the case with the overlap BW as shown 
-in Figures \ref{fig:Bl-butter-FoV2} and \ref{fig:Bl-butter-FoV4} (the green and the red curve).
-\item "\textit{Regime 2}" (nearby sources suppression): The source flux density is suppressed using boxcar averaging compared to 
-BDWF averaging without overlap bins (see Bl-sinc-$0\times0$, Bl-J$_0$-$0\times0$ and Bl-BW-$0\times0$ shown  from Figure 
-\ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-butter-FoV4}). It is also seen from Figure \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4} 
-(the green and the red curve) that, the source flux density is suppressed within $\approx 25\%$ of the regime using boxcar 
-averaging than the sinc and J$_0$ overlap BDWF averaging while within $\approx 75\%$ of the regime the sinc and J$_0$ overlap BDWF 
-averaging suppressed the source compared to the boxcar averaging. The performance of the overlap BW BDWF averaging is not accurate in this 
-regime.
-\item "\textit{Regime 3}" (far away sources attenuation): It appears on Figures \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4}  that  
-the curves of boxcar averaging (see Bx-avg-$0\times0$) mid that of Bl-sinc-$0\times0$ and Bl-J$_0$-$0\times0$ which implied an equivalent 
-flux density 
-attenuation while the curve of 
-Bl-sinc-$100\times25$, Bl-sinc-$150\times50$, Bl-J$_0$-$100\times25$ and Bl-J$_0$-$150\times50$ are below the one of Bx-avg-$0\times0$ which 
-implied 
-that the overlap sinc and J$_0$ BDWF attenuated the source in the regime more than boxcar averaging. Also, as the overlap time and frequency 
-bins increase, the attenuation becomes significant. The similar results occurs $1^{\circ}$ away from the regime 
-starting interval with BW BDWF averaging.
-\end{itemize}
+
+
+
+
+
+
+
+% In order to test the approaches described in sections \ref{baseline1} and \ref{baseline2}, multiple tests are performed on JVLAC 
+% simulated MS. This section summarized and discussed those results. Two MS are used in 
+% the simulation, a high resolution MS (HR-MS) that contains the observed JVLAC data of short integration time and frequency and a low 
+% resolution 
+% MS (LR-MS) where the results of boxcar averaging or BDWF averaging are saved. In order to apply an overlap BDWF  the following 
+% conditions have to be satisfied:
+% \begin{enumerate}
+%  \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively and  $\Delta t^{hrms}$ the 
+% HR-MS integration time, then 
+%       %\begin{eqnarray*}
+% 	    $t^{lrms}_{start}\geq t^{hrms}_{start} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
+%       %\end{eqnarray*}
+%   \item If $t^{hrms}_{end}$ and $t^{lrms}_{end}$ are the ending time of the HR-MS and LR-MS respectively, then 
+%       %\begin{eqnarray*}
+% 	    $t^{lrms}_{end}\leq t^{hrms}_{end} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
+%       %\end{eqnarray*}
+%  \item If $\nu^{hrms}_{start}$ and $\nu^{lrms}_{start}$ are the starting frequency of the HR-MS and LR-MS respectively and  $\Delta 
+% \nu^{hrms}$ the HR-MS channel width, then 
+%       %\begin{eqnarray*}
+% 	    $\nu^{lrms}_{start} \geq \nu^{hrms}_{start} + 2n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
+%       %\end{eqnarray*}
+%  \item If $\nu^{hrms}_{end}$ and $\nu^{lrms}_{end}$ are the ending frequency of the HR-MS and LR-MS respectively, then 
+%       %\begin{eqnarray*}
+% 	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
+%       %\end{eqnarray*}
+% \end{enumerate}
+
+% \subsection{Smearing elimination and out FoV suppression}
+
+% The study considered $40$ different sky models each  containing a 1Jy source; the sky models differ from each other by the source 
+% coordinates. 
+% The reason for having  only one source in the sky model is to avoid standard imaging artefacts in the sky maps which 
+% can affect the brightness of sources. Another obvious reason is the  CLEAN algorithm \citep{cornwell1999deconvolution}, which does not 
+% create 
+% perfect clean maps. Each  sky model is simulated 
+% with a JVLAC HR-MS of 7min30s synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
+% time at 1.4GHz,  with 150 channels width $\Delta \nu^{hrms}$=125kHz.  Each HR-MS is then processed with boxcar averaging and BDWF 
+% averaging the results are saved into a JVLAC LR-MS of one timeslot of with  150s,  with 1 channel of width 6.25MHz. The study also 
+% considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{150s,6250kHz\}$, 
+% $\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHz\}$, 
+% $n_{ovlpt}\in\{0,100,150\}$ 
+% and $n_{ovlp\nu}\in\{0,25,50\}$. 
+
+% The source flux density as a function of the source distance from the phase centre is depicted in Figures \ref{fig:Bl-sinc-FoV2} to 
+% \ref{fig:Bl-butter-FoV4}.
+% The study in Figure \ref{fig:Bl-sinc-FoV2}, \ref{fig:Bl-bessel-FoV2} and \ref{fig:Bl-butter-FoV2} 
+% compared boxcar averaging with $2^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
+% Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively. A study with a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
+% $0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to infinity.
+% The study in Figure \ref{fig:Bl-sinc-FoV4}, \ref{fig:Bl-bessel-FoV4} and \ref{fig:Bl-butter-FoV4} 
+% compared boxcar averaging with $4^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
+% Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively.  A study with a $4^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
+% $0^\circ$ 
+% to $2^\circ$; "\textit{Regime 2}" from $2^\circ$ to $3^\circ$ and "\textit{Regime 3}" from $3^\circ$ to infinity. 
+% % 
+% % We considered three cases of the 
+% % sinc ($Bl$-$sinc$-$W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
+% % of the first kind of order zero ($Bl$-J$_0$-$W n_{t,ovlp} \times n_{\nu,ovlp}$) and the Butterwordth ($Bl$-$BW$-$W n_{t,ovlp} \times 
+% % n_{\nu,ovlp}$),  with  $n_{t,ovlp}\in\{0,100,150\}$ and $n_{\nu,ovlp}\in\{0,25,50\}$). We evaluated the loss in signal 
+% % amplitude with longer LR-MS integration time intervals $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency intervals $\Delta 
+% % \nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
+% % the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
+% % % $r$: source position in degrees.}
+% The results show that:
+% \begin{itemize}
+%  \item "\textit{Regime 1}" (FoV recovery): The source flux density is recovered with the BDWF averaging compared to the boxcar averaging. 
+% Also, as the overlap time and frequency bins increase, the source flux density becomes optimal with the overlap sinc and J$_0$ (see the 
+% green and the red curve from Figures \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4}) which is not the case with the overlap BW as shown 
+% in Figures \ref{fig:Bl-butter-FoV2} and \ref{fig:Bl-butter-FoV4} (the green and the red curve).
+% \item "\textit{Regime 2}" (nearby sources suppression): The source flux density is suppressed using boxcar averaging compared to 
+% BDWF averaging without overlap bins (see Bl-sinc-$0\times0$, Bl-J$_0$-$0\times0$ and Bl-BW-$0\times0$ shown  from Figure 
+% \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-butter-FoV4}). It is also seen from Figure \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4} 
+% (the green and the red curve) that, the source flux density is suppressed within $\approx 25\%$ of the regime using boxcar 
+% averaging than the sinc and J$_0$ overlap BDWF averaging while within $\approx 75\%$ of the regime the sinc and J$_0$ overlap BDWF 
+% averaging suppressed the source compared to the boxcar averaging. The performance of the overlap BW BDWF averaging is not accurate in this 
+% regime.
+% \item "\textit{Regime 3}" (far away sources attenuation): It appears on Figures \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4}  that  
+% the curves of boxcar averaging (see Bx-avg-$0\times0$) mid that of Bl-sinc-$0\times0$ and Bl-J$_0$-$0\times0$ which implied an equivalent 
+% flux density 
+% attenuation while the curve of 
+% Bl-sinc-$100\times25$, Bl-sinc-$150\times50$, Bl-J$_0$-$100\times25$ and Bl-J$_0$-$150\times50$ are below the one of Bx-avg-$0\times0$ which 
+% implied 
+% that the overlap sinc and J$_0$ BDWF attenuated the source in the regime more than boxcar averaging. Also, as the overlap time and frequency 
+% bins increase, the attenuation becomes significant. The similar results occurs $1^{\circ}$ away from the regime 
+% starting interval with BW BDWF averaging.
+% \end{itemize}
 % 
 % suppression
 % the overlaps filters are below the one of boxcar averaging when the source is out
@@ -1039,236 +1082,236 @@ starting interval with BW BDWF averaging.
 % boxcar averaging. Thus,
 % in all cases the SNR obtained using these methods is greater than obtained using boxcar averaging even as there is loss in 
 % sensitivity.
-\subsection{Maximum integration}
-In this section, the maximum frequency and time integration intervals  that can be 
-considered in the frequency and the time 
-directions without loss of signal amplitude is evaluated. The study considered $6$ sky 
-models each  containing 1Jy source; the sky models differ by the source 
-coordinates with radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$. The study compared the results of  boxcar 
-averaging to a $2^\circ$ BDWF averaging. As mention above, a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" 
-is defined from $0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to 
-infinity. Therefore, a sky model with a source radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ\}$ belongs to "\textit{Regime 1}", 
-$r= 1.5^\circ$ belongs to  "\textit{Regime 2}" and $r=2^\circ$ to "\textit{Regime 3}".
-\subsubsection{Frequency direction}
-Boxcar and BDWF averaging are processed across the frequency direction.
-Each of the sky models is simulated with a JVLAC HR-MS of 1 timeslot of width $\Delta t^{hrms}=0.1s$ at $1.4$GHz. The raison of a short 
-HR-MS 
-integration time is to avoid time direction smearing. The simulation considered 150 channels and varied the channels width $\Delta 
-\nu^{hrms}$ in the range $[125,1187.5]$kHz. The result of the process was saved into a LR-MS of 1 timeslot of width $\Delta 
-t^{lrms}=0.1s$ at $1.4$GHz with 1 
-channel of width $\Delta \nu^{hrms}\times50$kHz. We considered $\nu^{hrms}_{start}=\Delta \nu^{hrms}kHz$, 
-$\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
-$\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
+% \subsection{Maximum integration}
+% In this section, the maximum frequency and time integration intervals  that can be 
+% considered in the frequency and the time 
+% directions without loss of signal amplitude is evaluated. The study considered $6$ sky 
+% models each  containing 1Jy source; the sky models differ by the source 
+% coordinates with radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$. The study compared the results of  boxcar 
+% averaging to a $2^\circ$ BDWF averaging. As mention above, a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" 
+% is defined from $0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to 
+% infinity. Therefore, a sky model with a source radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ\}$ belongs to "\textit{Regime 1}", 
+% $r= 1.5^\circ$ belongs to  "\textit{Regime 2}" and $r=2^\circ$ to "\textit{Regime 3}".
+% \subsubsection{Frequency direction}
+% Boxcar and BDWF averaging are processed across the frequency direction.
+% Each of the sky models is simulated with a JVLAC HR-MS of 1 timeslot of width $\Delta t^{hrms}=0.1s$ at $1.4$GHz. The raison of a short 
+% HR-MS 
+% integration time is to avoid time direction smearing. The simulation considered 150 channels and varied the channels width $\Delta 
+% \nu^{hrms}$ in the range $[125,1187.5]$kHz. The result of the process was saved into a LR-MS of 1 timeslot of width $\Delta 
+% t^{lrms}=0.1s$ at $1.4$GHz with 1 
+% channel of width $\Delta \nu^{hrms}\times50$kHz. We considered $\nu^{hrms}_{start}=\Delta \nu^{hrms}kHz$, 
+% $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
+% $\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
 
-The source flux density as a function of the channel width is depicted in Figures \ref{fig:max-integ-freq-sinc-w1x1-fov2} to 
-\ref{fig:max-integ-freq-butter-w1x50-fov2}. The study compared the maximal channel width of the boxcar frequency  averaging 
-(Bx-avg-$-\times 0$) 
-with that of  $2^{\circ}$ FoV BDWF frequency averaging (Bl-sinc-$-\times 0$, Bl-sinc-$-\times 50$, Bl-J$_0$-$-\times 0$, Bl-J$_0$-$-\times 
-50$, Bl-BW-$-\times 0$ and Bl-BW-$-\times 50$). 
-The results show that:
-\begin{itemize}
- \item "\textit{Regime 1}":  The BDWF frequency averaging maintained the flux density of the source for wider frequency channels. However, 
-it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the channel width increases.
- \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar frequency averaging attenuated the sources in 
-these regime compare to BDWF frequency averaging without overlap while overlap sinc and J$_0$ frequency averaging attenuated the source for 
-channels widths between $[6.2,12.6]$ compare to the boxcar. 
-\end{itemize}
-\subsubsection{Time direction}
-Boxcar and BDWF averaging are processed across the time direction.
- Each of the sky models is simulated with a JVLAC HR-MS of $300$ timeslots of width $\Delta t^{hrms}s$ at 1.4GHz. The value of  
-$\Delta t^{hrms}$ is chosen within the range $[0.5,5.5]$. The simulation considered  1 channel of width $\Delta \nu^{hrms}=125kHz$ and the 
-results of the process was saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ 
-integration time at 1.4GHz, with 
-1 channel of width $125kHz$. We considered $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, 
-$t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200\times\Delta t^{hrms}s$.
+% The source flux density as a function of the channel width is depicted in Figures \ref{fig:max-integ-freq-sinc-w1x1-fov2} to 
+% \ref{fig:max-integ-freq-butter-w1x50-fov2}. The study compared the maximal channel width of the boxcar frequency  averaging 
+% (Bx-avg-$-\times 0$) 
+% with that of  $2^{\circ}$ FoV BDWF frequency averaging (Bl-sinc-$-\times 0$, Bl-sinc-$-\times 50$, Bl-J$_0$-$-\times 0$, Bl-J$_0$-$-\times 
+% 50$, Bl-BW-$-\times 0$ and Bl-BW-$-\times 50$). 
+% The results show that:
+% \begin{itemize}
+%  \item "\textit{Regime 1}":  The BDWF frequency averaging maintained the flux density of the source for wider frequency channels. However, 
+% it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the channel width increases.
+%  \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar frequency averaging attenuated the sources in 
+% these regime compare to BDWF frequency averaging without overlap while overlap sinc and J$_0$ frequency averaging attenuated the source for 
+% channels widths between $[6.2,12.6]$ compare to the boxcar. 
+% \end{itemize}
+% \subsubsection{Time direction}
+% Boxcar and BDWF averaging are processed across the time direction.
+%  Each of the sky models is simulated with a JVLAC HR-MS of $300$ timeslots of width $\Delta t^{hrms}s$ at 1.4GHz. The value of  
+% $\Delta t^{hrms}$ is chosen within the range $[0.5,5.5]$. The simulation considered  1 channel of width $\Delta \nu^{hrms}=125kHz$ and the 
+% results of the process was saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ 
+% integration time at 1.4GHz, with 
+% 1 channel of width $125kHz$. We considered $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, 
+% $t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200\times\Delta t^{hrms}s$.
 
-The source flux density as a function of the integration time width is depicted in Figures \ref{fig:max-integ-time-sinc-w1x1-fov2} to 
- \ref{fig:max-integ-time-butter-w100x1-fov2}. The study compared the maximal integration time width of the boxcar time  averaging 
-(Bx-avg-$0\times -$) 
-with that of  $2^{\circ}$ FoV BDWF time averaging (Bl-sinc-$100\times -$, Bl-sinc-$100\times -$, Bl-J$_0$-$0\times -$, 
-Bl-J$_0$-$100\times-$, Bl-BW-$0\times -$ and Bl-BW-$100\times -$). 
-The results show that:
-\begin{itemize}
- \item "\textit{Regime 1}":  The BDWF time averaging maintained the flux density of the source for large integration time. 
-However, 
-it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time increases.
- \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar time averaging attenuated the sources in 
-these regime compare to BDWF time averaging without overlap while overlap sinc and J$_0$ time averaging attenuated the source in a variable 
-integration time range compare to the boxcar (see black and red curve in Figure \ref{fig:max-integ-time-sinc-w100x1-fov2} and 
-\ref{fig:max-integ-time-bessel-w100x1-fov2}). The integration time range where the source is attenuated  depends on the 
-WF (sinc or J$_0$) and the overlap time bins which cause its to variate. 
-\end{itemize}
-\subsubsection{Time and frequency direction}
-Boxcar and BDWF averaging are processed across the time and the frequency direction.
-Each sky model is simulated with a JVLAC HR-MS of $300$ timeslots and  the integration time $\Delta 
-t^{hrms}$ is chosen within the range $[0.5,5.5]s$ at $1.4GHz$. The simulation considered $150$ channels of width $\Delta 
-\nu^{hrms}$  chosen within the range $[125.,750.]kHz$.  The result of the process was saved into a LR-MS of  $100\times\Delta t^{hrms}s$ 
-synthesis, with 
-$100\times\Delta t^{hrms}$ integration time and 1 channel of width $50\times\Delta \nu^{hrms}kHz$.  We considered, 
-$t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, $t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and 
-$t^{lrms}_{end}=200\times\Delta t^{hrms}s$, $\nu^{hrms}_{start}=\Delta 
-\nu^{hrms}kHz$, $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
-$\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
+% The source flux density as a function of the integration time width is depicted in Figures \ref{fig:max-integ-time-sinc-w1x1-fov2} to 
+%  \ref{fig:max-integ-time-butter-w100x1-fov2}. The study compared the maximal integration time width of the boxcar time  averaging 
+% (Bx-avg-$0\times -$) 
+% with that of  $2^{\circ}$ FoV BDWF time averaging (Bl-sinc-$100\times -$, Bl-sinc-$100\times -$, Bl-J$_0$-$0\times -$, 
+% Bl-J$_0$-$100\times-$, Bl-BW-$0\times -$ and Bl-BW-$100\times -$). 
+% The results show that:
+% \begin{itemize}
+%  \item "\textit{Regime 1}":  The BDWF time averaging maintained the flux density of the source for large integration time. 
+% However, 
+% it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time increases.
+%  \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar time averaging attenuated the sources in 
+% these regime compare to BDWF time averaging without overlap while overlap sinc and J$_0$ time averaging attenuated the source in a variable 
+% integration time range compare to the boxcar (see black and red curve in Figure \ref{fig:max-integ-time-sinc-w100x1-fov2} and 
+% \ref{fig:max-integ-time-bessel-w100x1-fov2}). The integration time range where the source is attenuated  depends on the 
+% WF (sinc or J$_0$) and the overlap time bins which cause its to variate. 
+% \end{itemize}
+% \subsubsection{Time and frequency direction}
+% Boxcar and BDWF averaging are processed across the time and the frequency direction.
+% Each sky model is simulated with a JVLAC HR-MS of $300$ timeslots and  the integration time $\Delta 
+% t^{hrms}$ is chosen within the range $[0.5,5.5]s$ at $1.4GHz$. The simulation considered $150$ channels of width $\Delta 
+% \nu^{hrms}$  chosen within the range $[125.,750.]kHz$.  The result of the process was saved into a LR-MS of  $100\times\Delta t^{hrms}s$ 
+% synthesis, with 
+% $100\times\Delta t^{hrms}$ integration time and 1 channel of width $50\times\Delta \nu^{hrms}kHz$.  We considered, 
+% $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, $t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and 
+% $t^{lrms}_{end}=200\times\Delta t^{hrms}s$, $\nu^{hrms}_{start}=\Delta 
+% \nu^{hrms}kHz$, $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
+% $\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
 
-The source flux density as a function of the integration time and channels width is depicted in Figures 
-\ref{fig:max-integ-timefreq-sinc-w1x1-fov2} to 
- \ref{fig:max-integ-timefreq-butter-w100x50-fov2}. The study compared the maximal integration time and channels width of two dimensional 
-boxcar  averaging (Bx-avg-$0\times 0$) 
-with that of  $2^{\circ}$ FoV of two BDWF averaging (Bl-sinc-$100\times 50$, Bl-sinc-$100\times 50$, Bl-J$_0$-$0\times 50$, 
-Bl-J$_0$-$100\times 50$, Bl-BW-$0\times 50$ and Bl-BW-$100\times 50$). 
-The results show that:
-\begin{itemize}
- \item "\textit{Regime 1}": BDWF averaging maintained the flux density of the source for large integration time and wide channels widths. 
-However, 
-it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time and 
-channels width increases.
- \item  "\textit{Regime 2}" and "\textit{Regime 3}":  It appear that the curves of the overlaps sinc and J$_0$ are below the one of boxcar 
-averaging for all integrations and channels widths. The 
-results suggest that one do not need to worry about sidelobes confusion for large integration time and wide channels widths. 
-\end{itemize}
+% The source flux density as a function of the integration time and channels width is depicted in Figures 
+% \ref{fig:max-integ-timefreq-sinc-w1x1-fov2} to 
+%  \ref{fig:max-integ-timefreq-butter-w100x50-fov2}. The study compared the maximal integration time and channels width of two dimensional 
+% boxcar  averaging (Bx-avg-$0\times 0$) 
+% with that of  $2^{\circ}$ FoV of two BDWF averaging (Bl-sinc-$100\times 50$, Bl-sinc-$100\times 50$, Bl-J$_0$-$0\times 50$, 
+% Bl-J$_0$-$100\times 50$, Bl-BW-$0\times 50$ and Bl-BW-$100\times 50$). 
+% The results show that:
+% \begin{itemize}
+%  \item "\textit{Regime 1}": BDWF averaging maintained the flux density of the source for large integration time and wide channels widths. 
+% However, 
+% it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time and 
+% channels width increases.
+%  \item  "\textit{Regime 2}" and "\textit{Regime 3}":  It appear that the curves of the overlaps sinc and J$_0$ are below the one of boxcar 
+% averaging for all integrations and channels widths. The 
+% results suggest that one do not need to worry about sidelobes confusion for large integration time and wide channels widths. 
+% \end{itemize}
 
-\hspace{-0.64cm}\textbf{Discussion:}
-The study describes the performances of the WF under consideration. As presented, the sinc performed well in \textit{Regime 1} compared 
-to the J$_0$ while the J$_0$ performed well in \textit{Regime 2} and \textit{Regime 3} compared to the sinc. The great potential  of the 
-two dimensional overlap sinc and the J$_0$ is the accurate performance in the three regimes. An interesting improvement of this study is 
-the possibility of using WF capable of providing higher dynamic range images. This advanced techniques 
-is required by the radio telescopes of the future.
-\section{Realistic field synthesis: 3C147}
+% \hspace{-0.64cm}\textbf{Discussion:}
+% The study describes the performances of the WF under consideration. As presented, the sinc performed well in \textit{Regime 1} compared 
+% to the J$_0$ while the J$_0$ performed well in \textit{Regime 2} and \textit{Regime 3} compared to the sinc. The great potential  of the 
+% two dimensional overlap sinc and the J$_0$ is the accurate performance in the three regimes. An interesting improvement of this study is 
+% the possibility of using WF capable of providing higher dynamic range images. This advanced techniques 
+% is required by the radio telescopes of the future.
+% \section{Realistic field synthesis: 3C147}
 
-\OMS{commenting out the huge number of figures for now to save compilation time. Will uncomment them one by one as I absorb them into the main text.}
-%  \begin{figure*}
-%     \centering
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
-%   direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-%   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV2}\end{minipage}
-%   \hspace{1cm}
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
-%   direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-%   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV4} 
-%   \end{minipage}\\
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
-%   direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-%   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV2}\end{minipage}
-%   \hspace{1cm}
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
-%   direction Bessel first kind filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-%   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV4}\end{minipage}\\
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
-%   direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
-%   150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
-%   \hspace{1cm}
-%   \begin{minipage}{0.38\linewidth}
-%   \includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}
-%    \caption{Time and frequency 
-%    direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-%   integration synthesis at 6.25MHz bandwidth, natural weighting.}
-%   \label{fig:Bl-butter-FoV4}\end{minipage}
-%   \caption{Time and frequency 
-%   direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-%   integration synthesis at 6.25MHz bandwidth, natural weighting.}
-%   \end{figure*} 
-%   \begin{figure*}
-%     \centering
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
-%     \caption{Response to a 1Jy source at different positions, as a function of  bandwidth with $2^{\circ}$ frequency sinc filter.}
-%     \label{fig:max-integ-freq-sinc-w1x1-fov2}
-%   \end{minipage}
-%   \hspace{1cm}
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
-%         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap sinc 
-% filter.}
-%         \label{fig:max-integ-freq-sinc-w1x50-fov2}
-%         \end{minipage}\\
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
-%         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
-% of 
-%   order zero filter.}
-%         \label{fig:max-integ-freq-bessel-w1x1-fov2}
-%         \end{minipage}
-%   \hspace{1cm}
-%   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
-%         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel 
-% first kind filter of order zero filter.}
-%         \label{fig:max-integ-freq-bessel-w1x50-fov2}
-%         \end{minipage}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
-%       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Butterwordth filter.}
-%       \label{fig:max-integ-freq-butter-w1x1-fov2}
-%       \end{minipage}
-% \hspace{1cm}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
-%       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Butterwordth 
-% filter.}
-%       \label{fig:max-integ-freq-butter-w1x50-fov2}
-%       \end{minipage}
-% \end{figure*}
-% \begin{figure*}
-% % *********************** Scripts that created these plots ***********************************
-% %plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
-% 	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
-%   \centering
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
-% 	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time sinc filter.}
-% 	\label{fig:max-integ-time-sinc-w1x1-fov2}
-% 	\end{minipage} \hspace{1cm}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
-%         \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap sinc 
-% filter.}
-%       \label{fig:max-integ-time-sinc-w100x1-fov2}
-%       \end{minipage}\\
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
-%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Bessel first kind of 
-% order zero
-% filter.}
-%     \label{fig:max-integ-time-bessel-w1x1-fov2}
-%     \end{minipage} 
-%  \hspace{1cm}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
-%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
-%       Bessel first kind of order zero filter.}
-%     \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}\\
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
-%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Butterwordth 
-% filter.}
-%     \label{fig:max-integ-time-butter-w1x1-fov2}
-%     \end{minipage} 
-%  \hspace{1cm}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
-%     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
-%       Butterwordth filter.}
-%     \label{fig:max-integ-time-butter-w100x1-fov2}\end{minipage}   
-% \end{figure*}
-% \begin{figure*}
-%   \centering
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
-%     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
-% sinc filter.}
-%     \label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
-%  \hspace{1cm}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
-%     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
-%  overlap sinc filter.}
-%     \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
-%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% Bessel first kind of order zero filter.}
-%       \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
-% \hspace{1cm}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
-%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% overlap Bessel first kind of order zero filter.}
-%   \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
-%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% Butterwordth filter.}
-%       \label{fig:max-integ-timefreq-butter-w1x1-fov2}\end{minipage}
-% \hspace{1cm}
-% \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
-%       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% overlap Butterwordth filter.}
-%   \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
-% \end{figure*}
-\section{Conclusions}
+% \OMS{commenting out the huge number of figures for now to save compilation time. Will uncomment them one by one as I absorb them into the main text.}
+% %  \begin{figure*}
+% %     \centering
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
+% %   direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
+% %   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV2}\end{minipage}
+% %   \hspace{1cm}
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
+% %   direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
+% %   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV4} 
+% %   \end{minipage}\\
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
+% %   direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV2}\end{minipage}
+% %   \hspace{1cm}
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
+% %   direction Bessel first kind filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV4}\end{minipage}\\
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
+% %   direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
+% %   150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
+% %   \hspace{1cm}
+% %   \begin{minipage}{0.38\linewidth}
+% %   \includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}
+% %    \caption{Time and frequency 
+% %    direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}
+% %   \label{fig:Bl-butter-FoV4}\end{minipage}
+% %   \caption{Time and frequency 
+% %   direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
+% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}
+% %   \end{figure*} 
+% %   \begin{figure*}
+% %     \centering
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
+% %     \caption{Response to a 1Jy source at different positions, as a function of  bandwidth with $2^{\circ}$ frequency sinc filter.}
+% %     \label{fig:max-integ-freq-sinc-w1x1-fov2}
+% %   \end{minipage}
+% %   \hspace{1cm}
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
+% %         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap sinc 
+% % filter.}
+% %         \label{fig:max-integ-freq-sinc-w1x50-fov2}
+% %         \end{minipage}\\
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
+% %         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
+% % of 
+% %   order zero filter.}
+% %         \label{fig:max-integ-freq-bessel-w1x1-fov2}
+% %         \end{minipage}
+% %   \hspace{1cm}
+% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
+% %         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel 
+% % first kind filter of order zero filter.}
+% %         \label{fig:max-integ-freq-bessel-w1x50-fov2}
+% %         \end{minipage}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
+% %       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Butterwordth filter.}
+% %       \label{fig:max-integ-freq-butter-w1x1-fov2}
+% %       \end{minipage}
+% % \hspace{1cm}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
+% %       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Butterwordth 
+% % filter.}
+% %       \label{fig:max-integ-freq-butter-w1x50-fov2}
+% %       \end{minipage}
+% % \end{figure*}
+% % \begin{figure*}
+% % % *********************** Scripts that created these plots ***********************************
+% % %plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
+% % 	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
+% %   \centering
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
+% % 	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time sinc filter.}
+% % 	\label{fig:max-integ-time-sinc-w1x1-fov2}
+% % 	\end{minipage} \hspace{1cm}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
+% %         \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap sinc 
+% % filter.}
+% %       \label{fig:max-integ-time-sinc-w100x1-fov2}
+% %       \end{minipage}\\
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
+% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Bessel first kind of 
+% % order zero
+% % filter.}
+% %     \label{fig:max-integ-time-bessel-w1x1-fov2}
+% %     \end{minipage} 
+% %  \hspace{1cm}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
+% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
+% %       Bessel first kind of order zero filter.}
+% %     \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}\\
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
+% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Butterwordth 
+% % filter.}
+% %     \label{fig:max-integ-time-butter-w1x1-fov2}
+% %     \end{minipage} 
+% %  \hspace{1cm}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
+% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
+% %       Butterwordth filter.}
+% %     \label{fig:max-integ-time-butter-w100x1-fov2}\end{minipage}   
+% % \end{figure*}
+% % \begin{figure*}
+% %   \centering
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
+% %     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
+% % sinc filter.}
+% %     \label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
+% %  \hspace{1cm}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
+% %     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
+% %  overlap sinc filter.}
+% %     \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
+% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% % Bessel first kind of order zero filter.}
+% %       \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
+% % \hspace{1cm}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
+% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% % overlap Bessel first kind of order zero filter.}
+% %   \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
+% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% % Butterwordth filter.}
+% %       \label{fig:max-integ-timefreq-butter-w1x1-fov2}\end{minipage}
+% % \hspace{1cm}
+% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
+% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
+% % overlap Butterwordth filter.}
+% %   \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
+% % \end{figure*}
+% \section{Conclusions}
 The goal of this paper was threefold. The original motivation behind the work presented in this
 
 paper was to **** windowing functions***\\
