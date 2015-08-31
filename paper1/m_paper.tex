@@ -937,6 +937,8 @@ vs. simulations. \OMS{I find the <1 numbers for $J_0$ strange. Is this for a sna
 
 \section{Simulations and results}
 
+\newcommand{\BIN}[2]{#1s$\times$#2MHz}
+
 In this section we use BDWFs to resample simulated visibility data, and study the effect on smearing and source 
 suppression. Apart from a few examples documented separately, the basis interferometer configuration employed in 
 the simulations corresponds to JVLA-C observing at 1.4 GHz. Similarly to Sect.~\ref{subsec:noise}, we create a 
@@ -944,29 +946,148 @@ the simulations corresponds to JVLA-C observing at 1.4 GHz. Similarly to Sect.~\
 centred on 1.4 GHz, divided into 150 channels of 125 kHz each. \OMS{Marcellin, check that I'm quoting correct 
 numbers.} The MS is populated by noise-free simulated visibilities corresponding to a single point source at 
 a given distance from the phase centre. We then generate ``low-res'' MSs to receive the resampled visibilities,
-resample the latter using a range of BDWFs, convert the visibilities to dirty images, and measure the peak source 
+resample the latter using a range of BDWFs, convert the visibilities to dirty images (using natural weighting
+unless otherwise stated), and measure the peak source 
 flux in each image. Since each dirty image corresponds to a single source, the peak flux gives us the degree of 
 smearing associated with a given BWDF and sampling interval.
 
 \begin{figure*}
-\includegraphics[width=.49\textwidth]{./Figures/suppression-25-100-sincs.png}\hfill%
-\includegraphics[width=.49\textwidth]{./Figures/relsuppression-25-100-sincs.png}\\
-\caption{Left: smearing as a function of distance from phase centre, for 25s 2MHz and 100s 10MHz averaging, and for 
-various BDWFs. The noise penalty $\Ksi$ and the far-source suppression factor $F$ are given relative to 25s 2MHz 
-averaging. Right: same results normalized to the 25s 2MHz curve.}
+\includegraphics[width=\textwidth]{./Figures/suppression-10x100-3wfs.png}
+\caption{Smearing as a function of distance from phase centre, for conventional averaging with 
+\BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} bins, and for several BDWFs with \BIN{100}{10} bins.
+The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{25}{2.5}
+averaging.}
 \label{fig:results-example}
 \end{figure*}
 
-A typical performance comparison for JVLA-C 1.4 GHz is given by Fig.~\ref{fig:results-example}. This figure illustrates 
-some of the principal achievements of the present work, so let us spend some time explaining it. The horizontal axis 
-represents distance from phase centre, while the vertical axis represents the degree of smearing. Unity corresponds to no smearing;
-this is the case at phase centre, thus all curves start at unity. The three thick grey curves correspond to normal
-averaging into 25s$\times$2MHz, 50s$\times$4MHz, and 100s$\times$10MHz. We can (rather arbitrarily) define an ``acceptable'' 
-level of smearing to be at most 5\% at the half-power point. The half-power beam radius of the JVLA at this frequency is 
-$\approx=0.25^\circ$, this is indicated by the vertical line in the figure. The thin horizontal line is the
-acceptable smearing threshold of $0.95$. We can readily see that averaging at 100s$\times$10MHz (the lower thick grey curve)
-leads to smearing levels just below this threshold. Were the JVLA equipped with dishes one-quarter of its present size,
-the primary FoV would be a factor of four larger, and averaging of 25s$\times$2MHz would be necessary.
+\begin{figure*}
+\includegraphics[width=\textwidth]{./Figures/relsuppression-10x100-3wfs.png}\\
+\caption{Results of Fig.~\ref{fig:results-example} normalized to the \BIN{25}{2.5} averaging curve.}
+\label{fig:results-example2}
+\end{figure*}
+
+A typical performance comparison for the JVLA-C configuration at 1.4 GHz is given by Fig.~\ref{fig:results-example}.
+This figure illustrates some of the principal achievements of the present work, so let us spend some time explaining it.
+The horizontal axis represents distance from phase centre, while the vertical axis of the leff-hand plot represents  the
+degree of smearing (left plot). Unity corresponds to no smearing; this is the case at phase centre, thus all curves
+start at unity. The three thick grey curves correspond to normal averaging into \BIN{25}{2.5}, \BIN{50}{5} and
+\BIN{100}{10}. We can (rather arbitrarily) define a series of ``acceptable'' smearing levels by specifying a  FoV
+radius, and the maximum extent of smearing over that FoV. For the FoV radius, we may pick e.g. the half-power point  of
+the PB, the main lobe of the PB, or extent of the first sidelobe of the PB. For JVLA's 25m dishes at this frequency,
+these radii correspond to $\sim0.25^\circ$, $0.5^\circ$, and $1^\circ$, respectively; they are indicated by thin
+vertical lines in the figure. The thin horizontal line indicates our chosen smearing threshold of $0.95$. In the right
+plot,  all the curves are normalized with respect to the \BIN{25}{2.5} averaging curve.
+
+For regular averaging, the three chosen bin sizes happen to roughly correspond to acceptable levels of smearing over the
+three chosen FoV values. The other curves show the performance of a few different BDWFs, all at 100s$\times$10MHz
+sampling. There are three types of BDWFs shown, indicated by line style (and colour, in the colour version of the plot):
+\begin{description}
+\item[\WF{sinc}{1}{1}] i.e. a non-overlapping sinc window (solid line, red)
+\item[\WF{sinc}{4}{3}] i.e. an overlapping sinc window (dashed line, blue)
+\item[\WF{bessel}{4}{3}] i.e. an overlapping Bessel window (dotted line, green)
+\end{description}
+These are tuned to three different FoV settings, as indicated by the plot symbol: $1^\circ$ (star), $2^\circ$ (circle),
+$4^\circ$ (square). 
+
+The plot is meant to show performance of BDWFs at \BIN{100}{10} versus a ``baseline case'' of \BIN{25}{2.5} averaging, 
+the latter being an acceptable averaging setting for this particular frequency and telescope geometry. The legend 
+next to the plot therefore indicates $\Xi$, the noise penalty associated with that particular BDWF, and $F$, the 
+far source suppression factor. Both values are calculated w.r.t. the baseline case. Note the following salient features:
+
+\begin{itemize}
+
+\item All overlapping BDWFs provide outstanding far source suppression in this regime, with $F$ in the $60\sim80$ range. 
+The non-overlapping sinc (solid red lines) only achieves $F~6$, which is similar to regular averaging
+at the same rate. 
+
+\item Noise performance is excellent for the $1^\circ$ BDWFs. There is a small noise penalty at $2^\circ$, and a larger 
+(over a factor of 2) noise penalty at $4^\circ$. This can be easily understood by considering the shape of BDFWs as
+a function of FoV: smaller FoVs correspond to broader windows that become more ``boxcar-like'' over the sampling
+interval, and vice versa. This means that, in this particular configuration, BDWFs cannot achieve a FoV of $4^\circ$
+at \BIN{10}{100} without a substantial sacrifice in sensitivity. We shall return to this issue below.
+
+\item Values of $\Xi<1$ may be surprising at first, since one can't theoretically exceed the noise performance of the
+unweighted average. This is an artefact of out simulation. Note that overlapping BDWFs are essentially averaging in 
+extra ``borrowed'' noise from the regions of overlap, which can make the per-visibility noise lower than that 
+achieved by regular averaging. However, the noise across individual visibilities then becomes correlated, so for a 
+full synthesis, in terms of image-plane sensitivity this gain is ephemeral. In our case, at \BIN{100}{10} sampling, we
+are simulating a single-channel snapshot; a BDWF with $4\times3$ overlap is pulling in some ``bonus signal'' from the
+regions of overlap outside the snapshot (150s and 10MHz wide on each side), which allows it to exceed the sensitivity of
+regular averaging over that snapshot. For a longer synthesis and wider band, the size of the overlap regions 
+becomes negligible compared to the overall area being sampled in time/frequency space, so the bonus signal no longer has
+an effect on sensitivity. We shall see an example of this below.
+
+\item If the desired FoV size is $r\sim0.5-1^\circ$, overlapping BDWFs (sinc-4x3-2deg and bessel-
+4x3-2deg) provide excellent performance at \BIN{100}{10}. Compared to averaging at \BIN{25}{2.5}, they achieve a factor
+of 16 data compression with minimal loss of sensitivity, with equivalent (or better) smearing peformance across the FoV,
+and almost two orders of magnitude better out-of-FoV source suppression.
+
+\end{itemize}
+
+Figure~\ref{fig:results-example2} presents the same results in an alternative way. Here, the recovered flux is shown 
+relative to the baseline case of \BIN{25}{2.5} averaging. This clearly illustrates the excellent peformance of overlapping
+BDWFs tuned to $2^\circ$.
+
+\subsection{FoVs and sampling rates}
+
+For BDWFs, a given FoV represents a characteristic scale in the $uv$-plane, which is inversely proportional to the FoV. 
+On the other hand, the $uv$-bin sampled by any given visibility is proportional to the integration time,
+fractional bandwidth, and baseline length. Since the WF is truncated at edge of the averaging bin (which can be
+larger by the sampling bin by a factor of several, if overlapping BDWFs are employed), there is, for any given baseline,
+some kind of optimal range of $uv$-bin sizes over which BDWFs tuned to a particular FoV setting are ``efficient''. For 
+smaller bins, BDWFs become equivalent to a boxcar i.e. regular averaging, for larger bins, BDWFs penalize too much
+sensitivity as they downweigh more samples. Since this optimal bin size is proportional to baseline length, the overall
+optimum is dependent on the distribution of baselines in the array. 
+
+Furthermore, the optimal sampling rate has to be ``balanced'' in time and frequency. If the $uv$-bins are elongated, 
+the WF becomes truncated (more boxcar-like) across the bin, which reduces its ability to shape a 
+particular FoV (since the orientation of the bins changes as the baseline rotates, the cumulative effect is just an
+average ``degradation'', i.e. the smearing response of BDWFs becomes more boxcar-like). The optimal $uv$-bin is square-like.
+A simple calculation shows that this is achieved when
+\begin{equation}
+\Delta \nu/\nu = 2 \pi (B_x/B)(\Delta t/24\mathrm{h}),
+\end{equation}
+where $B$ is the baseline length, and $B_x$ is it's East-West component. Rewriting this in terms of more convenient units,
+we end up with 
+\begin{equation}
+\frac{\Delta \nu_\mathrm{s}}{\Delta t_\mathrm{MHz}} \approx 0.07 \cdot \nu_\mathrm{GHz} \cdot \frac{B_x}{B} , 
+\end{equation}
+leading to a very simple rule-of-thumb: at 1.4 GHz, an East-West baseline sweeps out a square-like bin when the 
+integration time in seconds is 10 times the channel width in MHz (hence the use of \BIN{100}{10} etc. above.) 
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{./Figures/suppression-25-100-sincs.png}
+\caption{Smearing as a function of distance from phase centre, for conventional averaging with 
+\BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} bins, and for several BDWFs with \BIN{100}{10} bins.
+The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{25}{2.5}
+averaging.}
+\label{fig:results-3sincs}
+\end{figure*}
+
+
+
+
+
+\subsection{Noise penalties and full synthesis}
+
+
+
+\subsection{Larger arrays}
+
+
+
+
+On the other hand, when tuned to FoV $r>1^\circ$, the noise performance of BDWFs begins to suffer (see the ``4deg'' 
+curves). This can be understood in terms of Fig.~\ref{fig:WF:perbaseline}: larger FoVs correspond to a smaller BDWF 
+main lobe, corresponding to higher noise values in the weighted average.
+
+The non-overlapping sinc-1x1 BDWF has improved smearing performance compared to \BIN{100}{10} averaging. When tuned
+to smaller FoVs ($r~0.25^\circ$), its performance begins to approach that of averaging. Fiven that the BDWF is truncated 
+at the edge of the sampling interval, it asymptotically approaches a boxcar as the FoV gets smaller. Out-of-FoV source
+suppression does not exceed that achieved by \BIN{100}{10} averaging. We may therefore conclude that overlapping BDWFs
+are required to achieve better out-of-FoV source suppression.
+
+
 
 
 
