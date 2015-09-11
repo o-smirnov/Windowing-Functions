@@ -128,11 +128,10 @@ unweighted averaging. We show that this effect can be partially mitigated throug
 In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
 the main challenges, use of CWFs potentially offers additional leverage in optimizing radio observations. 
 Decreased smearing across the FoV allows for more agressive data averaging, thus reducing storage and compute costs. 
-The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, sinc
-
- N and A-team signal 
-could, conceivably, make up for the loss in nominal sensitivity. In the VLBI regime, use of CWFs potentially offers an increase in 
-effective FoV at a given correlator dump rate, or equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
+The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, the decrease in smearing
+and noise from A-team sources could, conceivably, make up for some of the nominal sensitivity loss. 
+In the VLBI regime, use of CWFs potentially offers an increase in effective FoV at a given correlator dump rate, or 
+equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
 for smaller correlators.
 
 \section{Overview and problem statement}
@@ -942,27 +941,29 @@ vs. simulations. \OMS{I find the <1 numbers for $J_0$ strange. Is this for a sna
 In this section we use BDWFs to resample simulated visibility data, and study the effect on smearing and source 
 suppression. Apart from a few examples documented separately, the basis interferometer configuration employed in 
 the simulations corresponds to JVLA-C observing at 1.4 GHz. Similarly to Sect.~\ref{subsec:noise}, we create a 
-``high-res'' measurement set corresponding to a 7m30s synthesis with 1.5s integration, with 12.5 MHz of bandwidth
-centred on 1.4 GHz, divided into 150 channels of 125 kHz each. \OMS{Marcellin, check that I'm quoting correct 
+``high-res'' measurement set corresponding to a 400s synthesis at 1s integration, with 30 MHz total bandwidth
+centred on 1.4 GHz, divided into 30 channels. \OMS{Marcellin, check that I'm quoting correct 
 numbers.} The MS is populated by noise-free simulated visibilities corresponding to a single point source at 
 a given distance from the phase centre. We then generate ``low-res'' MSs to receive the resampled visibilities,
 resample the latter using a range of BDWFs, convert the visibilities to dirty images (using natural weighting
-unless otherwise stated), and measure the peak source 
-flux in each image. Since each dirty image corresponds to a single source, the peak flux gives us the degree of 
-smearing associated with a given BWDF and sampling interval.
+unless otherwise stated), and measure the peak source flux in each image. Since each dirty image corresponds to 
+a single source, the peak flux gives us the degree of smearing associated with a given BWDF and sampling interval.
+
+For the first set of simulations, the ``low-res'' MSs correspond to a 100s and 10MHz synthesis. We employ three 
+sampling rates, \BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} (thus 4 timeslots and 4 channels, 2 timeslots
+and 2 channels, and single-channel snapshot).
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{./Figures/suppression-10x100-3wfs.png}
-\caption{Smearing as a function of distance from phase centre, for conventional averaging with 
+\includegraphics[width=.9\textwidth]{./Figures/suppression-10x100-3wfs.png}
+\caption{JVLA-C 1.4 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 
 \BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} bins, and for several BDWFs with \BIN{100}{10} bins.
 The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{25}{2.5}
 averaging.}
 \label{fig:results-example}
 \end{figure*}
-
 \begin{figure*}
-\includegraphics[width=\textwidth]{./Figures/relsuppression-10x100-3wfs.png}\\
-\caption{Results of Fig.~\ref{fig:results-example} normalized to the \BIN{25}{2.5} averaging curve.}
+\includegraphics[width=.9\textwidth]{./Figures/relsuppression-10x100-3wfs.png}\\
+\caption{JVLA-C 1.4 GHz. Results of Fig.~\ref{fig:results-example} normalized to the \BIN{25}{2.5} averaging curve.}
 \label{fig:results-example2}
 \end{figure*}
 
@@ -1006,21 +1007,11 @@ a function of FoV: smaller FoVs correspond to broader windows that become more `
 interval, and vice versa. This means that, in this particular configuration, BDWFs cannot achieve a FoV of $4^\circ$
 at \BIN{10}{100} without a substantial sacrifice in sensitivity. We shall return to this issue below.
 
-\item Values of $\Xi<1$ may be surprising at first, since one can't theoretically exceed the noise performance of the
-unweighted average. This is an artefact of out simulation. Note that overlapping BDWFs are essentially averaging in 
-extra ``borrowed'' noise from the regions of overlap, which can make the per-visibility noise lower than that 
-achieved by regular averaging. However, the noise across individual visibilities then becomes correlated, so for a 
-full synthesis, in terms of image-plane sensitivity this gain is ephemeral. In our case, at \BIN{100}{10} sampling, we
-are simulating a single-channel snapshot; a BDWF with $4\times3$ overlap is pulling in some ``bonus signal'' from the
-regions of overlap outside the snapshot (150s and 10MHz wide on each side), which allows it to exceed the sensitivity of
-regular averaging over that snapshot. For a longer synthesis and wider band, the size of the overlap regions 
-becomes negligible compared to the overall area being sampled in time/frequency space, so the bonus signal no longer has
-an effect on sensitivity. We shall see an example of this below.
-
 \item If the desired FoV size is $r\sim0.5-1^\circ$, overlapping BDWFs (sinc-4x3-2deg and bessel-
 4x3-2deg) provide excellent performance at \BIN{100}{10}. Compared to averaging at \BIN{25}{2.5}, they achieve a factor
-of 16 data compression with minimal loss of sensitivity, with equivalent (or better) smearing peformance across the FoV,
-and almost two orders of magnitude better out-of-FoV source suppression.
+of 16 data compression with minimal loss of sensitivity, with excellent tapering behaviour: the smearing peformance 
+across the FoV is equivalent to (or better) than that of normal averaging, and out-of-FoV source suppression is almost
+two orders of magnitude higher.
 
 \end{itemize}
 
@@ -1028,422 +1019,185 @@ Figure~\ref{fig:results-example2} presents the same results in an alternative wa
 relative to the baseline case of \BIN{25}{2.5} averaging. This clearly illustrates the excellent peformance of overlapping
 BDWFs tuned to $2^\circ$.
 
+\subsection{Noise penalties and overlapping BDWFs}
+
+Values of $\Xi<1$ above may be paradoxical at first, since one can't theoretically exceed the noise performance of the
+unweighted average. This, however, is an artefact of our short simulation. Overlapping BDWFs are essentially
+averaging in ``bonus signal'' from regions of overlap extending outside the nominal time and frequency 
+coverage. In our case, at \BIN{100}{10} sampling, a BDWF with $4\times3$ overlap is actually adding up signal over a
+\BIN{400}{30} bin, i.e. a bin that is a factor of 12 larger (though of course the bonus sensitivity thus gained is much
+less than the theoretically available $\sqrt{12}$, since the weights over the overlap regions correspond
+to the ``wings'' of the WF, and are thus small). This can easily result in lower per-visibility noise than that 
+achieved by regular averaging over \BIN{100}{10}, and correspondingly higher snapshot sensitivity.
+
+In the more realistic case of a long, multiple-channel synthesis (what we'll call a \emph{full synthesis}), the
+effects of bonus sensitivity disappear. While the noise on individual visibilities remains nominally lower in a full 
+synthesis thanks to the overlap, it becomes correlated across neighbouring $uv$-bins, so there is no net gain 
+in image-plane sensitivity. Strictly speaking, at the ``edge'' of the synthesis, overlapping BDWFs are still pulling 
+in some bonus signal from overlap regions extending beyond the synthesis coverage, but since the area of this 
+overlap is negligible compared to the coverage of the full synthesis, so is the effect of the bonus signal.
+
+\begin{figure*}
+\includegraphics[width=.9\textwidth]{./Figures/suppression-longsynth.png}\\
+\caption{JVLA-C 1.4 GHz, long wideband synthesis. Smearing as a function of distance from phase centre, 
+for conventional averaging with \BIN{100}{10} bins, and for overlapping BDWFs with \BIN{100}{10} bins.
+The noise penalty $\Xi$ is given relative to \BIN{100}{10} averaging.}
+\label{fig:results-longsynth}
+\end{figure*}
+
+In other words, simulating a snapshot observation results in underestimated noise penalties, compared to the
+real-life case of a full syntesis. We should expect the noise penalties to go up (and eventually exceed unity) as 
+we increase the synthesis time and number of channels. Figure~\ref{fig:results-longsynth} presents the results of such 
+a simulation. This shows a a \BIN{1800}{200} synthesis, sampled at the same rates as above. The results should be 
+compared to and contrasted with those of Fig.~\ref{fig:results-example}. Note that the tapering response of BDWFs is 
+nearly identical, while the noise penalties are indeed higher. With $4\times3$ overlap and \BIN{100}{10} sampling, 
+the total signal accessed by overlapping BDWFs corresponds to \BIN{2100}{220}, which gives a theoretical maximum of 
+a factor of $\sim1.13$ in bonus sensitivity. In other words, the values of $\Xi$ in Fig.~\ref{fig:results-longsynth}
+are still underestimated, but by 13\% at most (which explains $\Xi<1$ for the $1^\circ$ case). From this we may safely
+extrapolate that the noise penalty of BDWFs matched to $1-2^\circ$ FoVs will remain reasonable even for a much longer 
+and wider band synthesis.
+
 \subsection{FoVs and sampling rates}
 
-For BDWFs, a given FoV represents a characteristic scale in the $uv$-plane, which is inversely proportional to the FoV. 
-On the other hand, the $uv$-bin sampled by any given visibility is proportional to the integration time,
+For BDWFs, a given FoV tuning represents a characteristic scale in the $uv$-plane, which is inversely proportional to the 
+FoV parameter. On the other hand, the $uv$-bin sampled by any given visibility is proportional to the integration time,
 fractional bandwidth, and baseline length. Since the WF is truncated at edge of the averaging bin (which can be
 larger by the sampling bin by a factor of several, if overlapping BDWFs are employed), there is, for any given baseline,
-some kind of optimal range of $uv$-bin sizes over which BDWFs tuned to a particular FoV setting are ``efficient''. For 
-smaller bins, BDWFs become equivalent to a boxcar i.e. regular averaging, for larger bins, BDWFs penalize too much
+some kind of optimal range of $uv$-bin sizes over which BDWFs tuned to a particular FoV setting are ``efficient''. Over 
+smaller bins, BDWFs become equivalent to a boxcar averaging, over larger bins, BDWFs penalize too much
 sensitivity as they downweigh more samples. Since this optimal bin size is proportional to baseline length, the overall
 optimum is dependent on the distribution of baselines in the array. 
 
-Furthermore, the optimal sampling rate has to be ``balanced'' in time and frequency. If the $uv$-bins are elongated, 
-the WF becomes truncated (more boxcar-like) across the bin, which reduces its ability to shape a 
-particular FoV (since the orientation of the bins changes as the baseline rotates, the cumulative effect is just an
-average ``degradation'', i.e. the smearing response of BDWFs becomes more boxcar-like). The optimal $uv$-bin is square-like.
-A simple calculation shows that this is achieved when
+Furthermore, the optimal sampling rate needs to be ``balanced'' in time and frequency for BDWFs to achieve optimal tapering
+response. If the $uv$-bins are elongated, the WF becomes truncated (more boxcar-like) across the bin, which reduces its ability 
+to induce the desired taper. Since the orientation of the bins changes as the baseline rotates, the 
+cumulative effect is an average degradation of the tapering response, which becomes closer to that of boxcar averaging. In this sense,
+the optimal $uv$-bin shape is square-like. This occurs when the fractional bandwidth is equal to the arc section swept
+out by the baseline over one bin. For a polar observation (circular $uv$-tracks), we can express this as
 \begin{equation}
 \Delta \nu/\nu = 2 \pi (B_x/B)(\Delta t/24\mathrm{h}),
 \end{equation}
-where $B$ is the baseline length, and $B_x$ is it's East-West component. Rewriting this in terms of more convenient units,
+where $B$ is the baseline length, and $B_x$ is its East-West component. Rewriting this in terms of more convenient units,
 we end up with 
 \begin{equation}
-\frac{\Delta \nu_\mathrm{s}}{\Delta t_\mathrm{MHz}} \approx 0.07 \cdot \nu_\mathrm{GHz} \cdot \frac{B_x}{B} , 
+\frac{\Delta \nu_\mathrm{MHz}}{\Delta t_\mathrm{s}} \approx \frac{\nu_\mathrm{MHz}}{14000} \cdot \frac{B_x}{B},
+\label{eq:optimal-binsize} 
 \end{equation}
-leading to a very simple rule-of-thumb: at 1.4 GHz, an East-West baseline sweeps out a square-like bin when the 
-integration time in seconds is 10 times the channel width in MHz (hence the use of \BIN{100}{10} etc. above.) 
+leading to a simple rule-of-thumb: at 1.4 GHz, an East-West baseline sweeps out a square-like bin when the 
+integration time in seconds is 10 times the channel width in MHz (hence the use of bin sizes such as \BIN{100}{10} 
+in the analysis here). 
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{./Figures/suppression-25-100-sincs.png}
-\caption{Smearing as a function of distance from phase centre, for conventional averaging with 
+\includegraphics[width=.9\textwidth]{./Figures/suppression-25-100-sincs.png}
+\caption{JVLA-C 1.4 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 
 \BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} bins, and for several BDWFs with \BIN{100}{10} bins.
 The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{25}{2.5}
 averaging.}
 \label{fig:results-3sincs}
 \end{figure*}
+\begin{figure*}
+\includegraphics[width=.9\textwidth]{./Figures/suppression-14GHz.png}
+\caption{JVLA-C 14 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 
+\BIN{2.5}{2.5}, \BIN{5}{5} and \BIN{10}{10} bins, and for several BDWFs with \BIN{10}{10} bins.
+The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{2.5}{2.5}
+averaging.}
+\label{fig:results-14ghz}
+\end{figure*}
+
+The interaction between $uv$-bin size and tapering response is illustarted by Fig.~\ref{fig:results-3sincs}. Here we
+compare the performance of two BDWFs tuned to a $4^\circ$ FoV -- a non-overlapping \WF{sinc}{1}{1} filter 
+(solid red lines) and an overlapping \WF{sinc}{4}{3} filter (dashed blue lines) -- over three sampling bin sizes: 
+\BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10}. For reference, the performance of boxcar averaging over the same bin sizes
+is indicated by the thick grey lines. Note how at the smaller bin size, the non-overlapping sinc is practically 
+equivalent to a boxcar in terms of tapering response; at the larger bin size, it begins to shape the FoV. Introducing an 
+overlap improves the response considerably. An overlapping filter at \BIN{25}{2.5} achieves almost the same tapering
+response as a non-overlapping one at \BIN{100}{10} (which is not surprising, if one considers that the effective 
+averaging bin size in the former case is \BIN{100}{7.5}). However, for all filters, at \BIN{100}{10} the noise penalty 
+goes up quite sharply. 
+
+This illustrates that \BIN{50}{5} is an appropriate BDWF sampling rate for achieving a $4^\circ$ FoV (for JVLA-C configuration at 
+1.4 Ghz), providing a reasonable trade-off between tapering response and noise penalty. At higher sampling rates, 
+the tapering response is degraded, while at lower sampling rates, the noise penalty increases. In comparison (as we 
+saw in the previous section), for FoVs of $1-2^\circ$, BDWFs achieve a good trade-off at \BIN{100}{10} sampling.
+
+It is interesting to consider how optimal BDWF sampling changes as a function of array size. Figure~\ref{fig:results-14ghz}
+shows a simulation for JVLA-C at 14 GHz. (Since our results are completely determined by $uv$-plane geometry in 
+wavelengths, this is equivalent to JVLA-C scaled up by a factor of 10 at an observing frequency of 1.4 GHz.) 
+From Eq.~\ref{eq:optimal-binsize}, we can see that square-like $uv$-bins correspond to 
+sampling rate combinations such as \BIN{10}{10}. The simulation presented here is for a \BIN{1800}{200} synthesis,
+i.e. is closer to the full synthesis rather than a snapshot case. Comparing Figs.~\ref{fig:results-14ghz} and 
+\ref{fig:results-longsynth}, we find nearly identical BDWF performance (in terms of tapering response and
+noise penalty) at 14 GHz and 1.4 GHz, with only the optimal sampling rate being different. 
+
+\subsection{BDWFs for wide-field VLBI}
+
+\begin{figure*}
+\includegraphics[width=.9\textwidth]{./Figures/suppression-vlbi.png}
+\caption{VLBi simulation (10161km maximum baseline) at 1.6 GHz. Smearing as a function of distance from 
+phase centre, for conventional averaging at 0.1s$\times$12.5kHz averaging, and for two BDWFs. The horizontal line
+corresponds to 10\% smearing losses, the vertical lines are at $15'$ and $3'45''.$
+}
+\label{fig:results-vlbi}
+\end{figure*}
+
+In Fig.~\ref{fig:results-vlbi}, we investigate the performance of BDWFs in the regime of Very Long 
+Baseline Interferometry (VLBI). Here, we simulate a 1.6 GHz VLBI observation employing eight stations 
+(Effelsberg, Hartebeesthoek, Jodrell Bank, Noto, Onsala, Torun, JVLA, Westerbork, Shanghai), with a maximum baseline
+of 10161km. With normal averaging in effect, the achievable FoV in VLBI is typically limited by smearing rather than the 
+primary beam of any particular station. This has led to the development of techniques such as multiple-phase centre
+VLBI, where a VLBI correlator produces multiple datasets per observation, corresponding to multiple phase centres 
+within the same primary beam. 
+
+As we can see from Fig.~\ref{fig:results-vlbi}, at a sampling rate of 0.1s$\times$12.5kHz, normal averaging
+restricts the FoV to $\sim7.5'$. By contrast, both the sinc and Bessel BDWFs achieve a FoV of $~30'$ at the same 
+sampling rate, with a relatively modest sensitivity penalty of 2.28 and 1.55, respectively. Effectively, this allows
+the entire primary beam FoV to be mapped with a single VLBI dataset\footnote{Leaving aside the technical 
+difficulties of actually imaging such a large FoV at VLBI resolutions.}. 
+
+\section{Conclusions and future work}
+
+The goal of this work was to demonstrate the application of baseline-dependent windowing functions to radio 
+interferometry. We have demonstrated that BDWFs offer a number of interesting advantages over conventional averaging.
+The first of these is data compression -- i.e. visibilities can be sampled at a lower rate, while retaining the primary 
+beam FoV. Compression by a factor of 16 with relatively little loss of sensitivity has been demonstrated. The huge data 
+rates from upcoming instruments such as ASKAP, MeerKAT and the future SKA1 mean that raw visibilities may need to be
+discarded after calibration (unlike older instruments, where raw visibilities have typically been archived). This 
+represents something of a risk to the science, as it precludes future improvements in calibration techniques from 
+being later applied to the data. With BDWFs, at least a highly-compressed version of the visibilities may be retained.
+
+The second potential benefit of BDWFs is the increased suppression of unwanted signal from out-of-FoV sources. This
+reduces both the overall level of far sidelobe confusion noise, and lessens the impact of A-team sources in sidelobes.
+
+Thirdly, BDWFs can have an interesting impact in the VLBI regime, as they allow the full primary beam FoV to be 
+imaged using a single VLBI dataset. This opens the door to wide-field VLBI, which has herefore been impractical.
+
+BDWFs have a number of potential downsides. The first one is a potential loss in sensitivity. Our simulations show 
+that this can be kept within reasonable limits, especially if overlapping BDWFs are employed, and can be traded off with
+compression rate. The second downside is an increase in computational complexity. Whether implemented in a correlator
+or in post-processing, BDWFs (and especially overlapping BDWFs) require substantially more operations than simple averaging.
+There may be other limits to the practical applicability of BDWFs. They are far less efficient if high spectral  
+resolution is required, so their use may be limited to continuum observations. Furthermore, averaging over longer 
+intervals requires accurate phase calibration, so high compression rates may only be achievable post-calibration.
+
+An interesting avenue of future research is combining BDWFs with baseline-dependent averaging. As we saw above, the ability
+of BDWFs to shape a FoV is somewhat limited by the fact that shorter baselines sweep out smaller bins in $uv$-space, with 
+WFs over them becoming boxcar-like. If baseline-dependent averaging is employed, shorter baselines are averaged over
+larger $uv$-bins, thus increasing the effect of BDWFs. 
+
+Finally, we should note that the use of BDWFs results in a different position-dependent PSF than regular averaging (or
+to put it another way, the smearing response of BDWFs results in a different smeared PSF shape). Future work will focus
+on methods of deriving this PSF shape, with a view to incorporating this into current imaging algorithms.
 
 
-
-
-
-\subsection{Noise penalties and full synthesis}
-
-
-
-\subsection{Larger arrays}
-
-
-
-
-On the other hand, when tuned to FoV $r>1^\circ$, the noise performance of BDWFs begins to suffer (see the ``4deg'' 
-curves). This can be understood in terms of Fig.~\ref{fig:WF:perbaseline}: larger FoVs correspond to a smaller BDWF 
-main lobe, corresponding to higher noise values in the weighted average.
-
-The non-overlapping sinc-1x1 BDWF has improved smearing performance compared to \BIN{100}{10} averaging. When tuned
-to smaller FoVs ($r~0.25^\circ$), its performance begins to approach that of averaging. Fiven that the BDWF is truncated 
-at the edge of the sampling interval, it asymptotically approaches a boxcar as the FoV gets smaller. Out-of-FoV source
-suppression does not exceed that achieved by \BIN{100}{10} averaging. We may therefore conclude that overlapping BDWFs
-are required to achieve better out-of-FoV source suppression.
-
-
-
-
-
-
-
-
-
-
-% In order to test the approaches described in sections \ref{baseline1} and \ref{baseline2}, multiple tests are performed on JVLAC 
-% simulated MS. This section summarized and discussed those results. Two MS are used in 
-% the simulation, a high resolution MS (HR-MS) that contains the observed JVLAC data of short integration time and frequency and a low 
-% resolution 
-% MS (LR-MS) where the results of boxcar averaging or BDWF averaging are saved. In order to apply an overlap BDWF  the following 
-% conditions have to be satisfied:
-% \begin{enumerate}
-%  \item If $t^{hrms}_{start}$ and $t^{lrms}_{start}$ are the starting time of the HR-MS and LR-MS respectively and  $\Delta t^{hrms}$ the 
-% HR-MS integration time, then 
-%       %\begin{eqnarray*}
-% 	    $t^{lrms}_{start}\geq t^{hrms}_{start} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
-%       %\end{eqnarray*}
-%   \item If $t^{hrms}_{end}$ and $t^{lrms}_{end}$ are the ending time of the HR-MS and LR-MS respectively, then 
-%       %\begin{eqnarray*}
-% 	    $t^{lrms}_{end}\leq t^{hrms}_{end} + 2n_{ovlpt}\times \Delta t^{hrms}$. 
-%       %\end{eqnarray*}
-%  \item If $\nu^{hrms}_{start}$ and $\nu^{lrms}_{start}$ are the starting frequency of the HR-MS and LR-MS respectively and  $\Delta 
-% \nu^{hrms}$ the HR-MS channel width, then 
-%       %\begin{eqnarray*}
-% 	    $\nu^{lrms}_{start} \geq \nu^{hrms}_{start} + 2n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
-%       %\end{eqnarray*}
-%  \item If $\nu^{hrms}_{end}$ and $\nu^{lrms}_{end}$ are the ending frequency of the HR-MS and LR-MS respectively, then 
-%       %\begin{eqnarray*}
-% 	    $\nu^{lrms}_{end} \leq \nu^{hrms}_{end} + n_{ovlp\nu}\times \Delta \nu^{hrms}$. 
-%       %\end{eqnarray*}
-% \end{enumerate}
-
-% \subsection{Smearing elimination and out FoV suppression}
-
-% The study considered $40$ different sky models each  containing a 1Jy source; the sky models differ from each other by the source 
-% coordinates. 
-% The reason for having  only one source in the sky model is to avoid standard imaging artefacts in the sky maps which 
-% can affect the brightness of sources. Another obvious reason is the  CLEAN algorithm \citep{cornwell1999deconvolution}, which does not 
-% create 
-% perfect clean maps. Each  sky model is simulated 
-% with a JVLAC HR-MS of 7min30s synthesis, with a $\Delta t^{hrms}=1.5s$ integration 
-% time at 1.4GHz,  with 150 channels width $\Delta \nu^{hrms}$=125kHz.  Each HR-MS is then processed with boxcar averaging and BDWF 
-% averaging the results are saved into a JVLAC LR-MS of one timeslot of with  150s,  with 1 channel of width 6.25MHz. The study also 
-% considered, $\{t^{hrms}_{start},\nu^{hrms}_{start}\}=\{0s,125kHz\}$, $\{t^{lrms}_{start},\nu^{lrms}_{start}\}=\{150s,6250kHz\}$, 
-% $\{t^{hrms}_{end},\nu^{hrms}_{end}\}=\{7min30s,18750kHz\}$, $\{t^{lrms}_{end},\nu^{lrms}_{end}\}=\{6min,12500kHz\}$, 
-% $n_{ovlpt}\in\{0,100,150\}$ 
-% and $n_{ovlp\nu}\in\{0,25,50\}$. 
-
-% The source flux density as a function of the source distance from the phase centre is depicted in Figures \ref{fig:Bl-sinc-FoV2} to 
-% \ref{fig:Bl-butter-FoV4}.
-% The study in Figure \ref{fig:Bl-sinc-FoV2}, \ref{fig:Bl-bessel-FoV2} and \ref{fig:Bl-butter-FoV2} 
-% compared boxcar averaging with $2^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
-% Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively. A study with a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
-% $0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to infinity.
-% The study in Figure \ref{fig:Bl-sinc-FoV4}, \ref{fig:Bl-bessel-FoV4} and \ref{fig:Bl-butter-FoV4} 
-% compared boxcar averaging with $4^{\circ}$ FoV of Bl-sinc-$n_{ovlpt}\times n_{ovlp\nu}$, Bl-J$_0$-$n_{ovlpt}\times n_{ovlp\nu}$ and  
-% Bl-BW-$n_{ovlpt}\times n_{ovlp\nu}$ respectively.  A study with a $4^{\circ}$ FoV suggest that: "\textit{Regime 1}" is defined from 
-% $0^\circ$ 
-% to $2^\circ$; "\textit{Regime 2}" from $2^\circ$ to $3^\circ$ and "\textit{Regime 3}" from $3^\circ$ to infinity. 
-% % 
-% % We considered three cases of the 
-% % sinc ($Bl$-$sinc$-$W n_{t,ovlp} \times n_{\nu,ovlp}$), the Bessel 
-% % of the first kind of order zero ($Bl$-J$_0$-$W n_{t,ovlp} \times n_{\nu,ovlp}$) and the Butterwordth ($Bl$-$BW$-$W n_{t,ovlp} \times 
-% % n_{\nu,ovlp}$),  with  $n_{t,ovlp}\in\{0,100,150\}$ and $n_{\nu,ovlp}\in\{0,25,50\}$). We evaluated the loss in signal 
-% % amplitude with longer LR-MS integration time intervals $\Delta t^{lrms}=150s$ and wider LR-MS integration frequency intervals $\Delta 
-% % \nu^{lrms}=6250kHz$. We furthermore evaluated the  noise ratio, $\mathcal{R}_{\sigma}=\frac{\sigma_{w}}{\sigma_{Avg}}$ (with $\sigma_{w}$  
-% % the resulting noise of the filter under consideration and $\sigma_{Avg}$ the noise of simple averaging).\\
-% % % $r$: source position in degrees.}
-% The results show that:
-% \begin{itemize}
-%  \item "\textit{Regime 1}" (FoV recovery): The source flux density is recovered with the BDWF averaging compared to the boxcar averaging. 
-% Also, as the overlap time and frequency bins increase, the source flux density becomes optimal with the overlap sinc and J$_0$ (see the 
-% green and the red curve from Figures \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4}) which is not the case with the overlap BW as shown 
-% in Figures \ref{fig:Bl-butter-FoV2} and \ref{fig:Bl-butter-FoV4} (the green and the red curve).
-% \item "\textit{Regime 2}" (nearby sources suppression): The source flux density is suppressed using boxcar averaging compared to 
-% BDWF averaging without overlap bins (see Bl-sinc-$0\times0$, Bl-J$_0$-$0\times0$ and Bl-BW-$0\times0$ shown  from Figure 
-% \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-butter-FoV4}). It is also seen from Figure \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4} 
-% (the green and the red curve) that, the source flux density is suppressed within $\approx 25\%$ of the regime using boxcar 
-% averaging than the sinc and J$_0$ overlap BDWF averaging while within $\approx 75\%$ of the regime the sinc and J$_0$ overlap BDWF 
-% averaging suppressed the source compared to the boxcar averaging. The performance of the overlap BW BDWF averaging is not accurate in this 
-% regime.
-% \item "\textit{Regime 3}" (far away sources attenuation): It appears on Figures \ref{fig:Bl-sinc-FoV2} to \ref{fig:Bl-bessel-FoV4}  that  
-% the curves of boxcar averaging (see Bx-avg-$0\times0$) mid that of Bl-sinc-$0\times0$ and Bl-J$_0$-$0\times0$ which implied an equivalent 
-% flux density 
-% attenuation while the curve of 
-% Bl-sinc-$100\times25$, Bl-sinc-$150\times50$, Bl-J$_0$-$100\times25$ and Bl-J$_0$-$150\times50$ are below the one of Bx-avg-$0\times0$ which 
-% implied 
-% that the overlap sinc and J$_0$ BDWF attenuated the source in the regime more than boxcar averaging. Also, as the overlap time and frequency 
-% bins increase, the attenuation becomes significant. The similar results occurs $1^{\circ}$ away from the regime 
-% starting interval with BW BDWF averaging.
-% \end{itemize}
-% 
-% suppression
-% the overlaps filters are below the one of boxcar averaging when the source is out
-% 
-% (Far away sources suppression): Also note that for the overlap filters, out FoV source suppression is 
-% significantly improved.  When
-% looking at these figures, it appears that the curves of the overlaps filters are below the one of boxcar averaging when the source is out 
-% FoV ("\textit{regime 3}"). 
-%    When
-% looking at these figures, it appears that the baseline dependent sinc conserved the signal in \textit{regime 1} compared to the 
-% baseline dependent J$_0$, while the baseline dependent J$_0$ suppressed the 
-% signal in \textit{regime 3} compared to the baseline dependent sinc. However, the reason for 
-% this is that
-% the MLW of the sinc is narrower than that of J$_0$ and the SLR of J$_0$ drops faster compared to the SLR of the sinc.
-% 
-% When performing the baseline dependent filters, smearing was eliminated within the FoV while we compressed 
-% the data by integrating over a large time interval and wider frequency interval of a LR-MS. However,
-% the overlap baseline dependent filters significantly suppressed the source  when the source is out of the FoV  to a greater extent than 
-% boxcar averaging. Thus,
-% in all cases the SNR obtained using these methods is greater than obtained using boxcar averaging even as there is loss in 
-% sensitivity.
-% \subsection{Maximum integration}
-% In this section, the maximum frequency and time integration intervals  that can be 
-% considered in the frequency and the time 
-% directions without loss of signal amplitude is evaluated. The study considered $6$ sky 
-% models each  containing 1Jy source; the sky models differ by the source 
-% coordinates with radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ,1.5^\circ, 2^\circ\}$. The study compared the results of  boxcar 
-% averaging to a $2^\circ$ BDWF averaging. As mention above, a $2^{\circ}$ FoV suggest that: "\textit{Regime 1}" 
-% is defined from $0^\circ$ to $1^\circ$; "\textit{Regime 2}" from $1^\circ$ to $1.5^\circ$ and "\textit{Regime 3}" from $1.5^\circ$ to 
-% infinity. Therefore, a sky model with a source radius $r\in\{0.09^\circ,0.25^\circ,0.5^\circ,1^\circ\}$ belongs to "\textit{Regime 1}", 
-% $r= 1.5^\circ$ belongs to  "\textit{Regime 2}" and $r=2^\circ$ to "\textit{Regime 3}".
-% \subsubsection{Frequency direction}
-% Boxcar and BDWF averaging are processed across the frequency direction.
-% Each of the sky models is simulated with a JVLAC HR-MS of 1 timeslot of width $\Delta t^{hrms}=0.1s$ at $1.4$GHz. The raison of a short 
-% HR-MS 
-% integration time is to avoid time direction smearing. The simulation considered 150 channels and varied the channels width $\Delta 
-% \nu^{hrms}$ in the range $[125,1187.5]$kHz. The result of the process was saved into a LR-MS of 1 timeslot of width $\Delta 
-% t^{lrms}=0.1s$ at $1.4$GHz with 1 
-% channel of width $\Delta \nu^{hrms}\times50$kHz. We considered $\nu^{hrms}_{start}=\Delta \nu^{hrms}kHz$, 
-% $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
-% $\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
-
-% The source flux density as a function of the channel width is depicted in Figures \ref{fig:max-integ-freq-sinc-w1x1-fov2} to 
-% \ref{fig:max-integ-freq-butter-w1x50-fov2}. The study compared the maximal channel width of the boxcar frequency  averaging 
-% (Bx-avg-$-\times 0$) 
-% with that of  $2^{\circ}$ FoV BDWF frequency averaging (Bl-sinc-$-\times 0$, Bl-sinc-$-\times 50$, Bl-J$_0$-$-\times 0$, Bl-J$_0$-$-\times 
-% 50$, Bl-BW-$-\times 0$ and Bl-BW-$-\times 50$). 
-% The results show that:
-% \begin{itemize}
-%  \item "\textit{Regime 1}":  The BDWF frequency averaging maintained the flux density of the source for wider frequency channels. However, 
-% it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the channel width increases.
-%  \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar frequency averaging attenuated the sources in 
-% these regime compare to BDWF frequency averaging without overlap while overlap sinc and J$_0$ frequency averaging attenuated the source for 
-% channels widths between $[6.2,12.6]$ compare to the boxcar. 
-% \end{itemize}
-% \subsubsection{Time direction}
-% Boxcar and BDWF averaging are processed across the time direction.
-%  Each of the sky models is simulated with a JVLAC HR-MS of $300$ timeslots of width $\Delta t^{hrms}s$ at 1.4GHz. The value of  
-% $\Delta t^{hrms}$ is chosen within the range $[0.5,5.5]$. The simulation considered  1 channel of width $\Delta \nu^{hrms}=125kHz$ and the 
-% results of the process was saved into a LR-MS of $100\times\Delta t^{hrms}s$ synthesis, with a $100\times\Delta t^{hrms}s$ 
-% integration time at 1.4GHz, with 
-% 1 channel of width $125kHz$. We considered $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, 
-% $t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and $t^{lrms}_{end}=200\times\Delta t^{hrms}s$.
-
-% The source flux density as a function of the integration time width is depicted in Figures \ref{fig:max-integ-time-sinc-w1x1-fov2} to 
-%  \ref{fig:max-integ-time-butter-w100x1-fov2}. The study compared the maximal integration time width of the boxcar time  averaging 
-% (Bx-avg-$0\times -$) 
-% with that of  $2^{\circ}$ FoV BDWF time averaging (Bl-sinc-$100\times -$, Bl-sinc-$100\times -$, Bl-J$_0$-$0\times -$, 
-% Bl-J$_0$-$100\times-$, Bl-BW-$0\times -$ and Bl-BW-$100\times -$). 
-% The results show that:
-% \begin{itemize}
-%  \item "\textit{Regime 1}":  The BDWF time averaging maintained the flux density of the source for large integration time. 
-% However, 
-% it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time increases.
-%  \item  "\textit{Regime 2}" and "\textit{Regime 3}": It appears on the Figures that Boxcar time averaging attenuated the sources in 
-% these regime compare to BDWF time averaging without overlap while overlap sinc and J$_0$ time averaging attenuated the source in a variable 
-% integration time range compare to the boxcar (see black and red curve in Figure \ref{fig:max-integ-time-sinc-w100x1-fov2} and 
-% \ref{fig:max-integ-time-bessel-w100x1-fov2}). The integration time range where the source is attenuated  depends on the 
-% WF (sinc or J$_0$) and the overlap time bins which cause its to variate. 
-% \end{itemize}
-% \subsubsection{Time and frequency direction}
-% Boxcar and BDWF averaging are processed across the time and the frequency direction.
-% Each sky model is simulated with a JVLAC HR-MS of $300$ timeslots and  the integration time $\Delta 
-% t^{hrms}$ is chosen within the range $[0.5,5.5]s$ at $1.4GHz$. The simulation considered $150$ channels of width $\Delta 
-% \nu^{hrms}$  chosen within the range $[125.,750.]kHz$.  The result of the process was saved into a LR-MS of  $100\times\Delta t^{hrms}s$ 
-% synthesis, with 
-% $100\times\Delta t^{hrms}$ integration time and 1 channel of width $50\times\Delta \nu^{hrms}kHz$.  We considered, 
-% $t^{hrms}_{start}=0s$, $t^{lrms}_{start}=100\times\Delta t^{hrms} s$, $t^{hrms}_{end}=300\times\Delta t^{hrms}s$ and 
-% $t^{lrms}_{end}=200\times\Delta t^{hrms}s$, $\nu^{hrms}_{start}=\Delta 
-% \nu^{hrms}kHz$, $\nu^{lrms}_{start}=\nu^{hrms}_{start}\times50 kHz$, $\nu^{hrms}_{end}=\nu^{hrms}_{start}\times150 kHz$ and 
-% $\nu^{lrms}_{end}=\nu^{hrms}_{start}\times100 kHz$.
-
-% The source flux density as a function of the integration time and channels width is depicted in Figures 
-% \ref{fig:max-integ-timefreq-sinc-w1x1-fov2} to 
-%  \ref{fig:max-integ-timefreq-butter-w100x50-fov2}. The study compared the maximal integration time and channels width of two dimensional 
-% boxcar  averaging (Bx-avg-$0\times 0$) 
-% with that of  $2^{\circ}$ FoV of two BDWF averaging (Bl-sinc-$100\times 50$, Bl-sinc-$100\times 50$, Bl-J$_0$-$0\times 50$, 
-% Bl-J$_0$-$100\times 50$, Bl-BW-$0\times 50$ and Bl-BW-$100\times 50$). 
-% The results show that:
-% \begin{itemize}
-%  \item "\textit{Regime 1}": BDWF averaging maintained the flux density of the source for large integration time and wide channels widths. 
-% However, 
-% it is seen on the Figures that the curve of sources in the regime are closer to the affine line y=1 when the integration time and 
-% channels width increases.
-%  \item  "\textit{Regime 2}" and "\textit{Regime 3}":  It appear that the curves of the overlaps sinc and J$_0$ are below the one of boxcar 
-% averaging for all integrations and channels widths. The 
-% results suggest that one do not need to worry about sidelobes confusion for large integration time and wide channels widths. 
-% \end{itemize}
-
-% \hspace{-0.64cm}\textbf{Discussion:}
-% The study describes the performances of the WF under consideration. As presented, the sinc performed well in \textit{Regime 1} compared 
-% to the J$_0$ while the J$_0$ performed well in \textit{Regime 2} and \textit{Regime 3} compared to the sinc. The great potential  of the 
-% two dimensional overlap sinc and the J$_0$ is the accurate performance in the three regimes. An interesting improvement of this study is 
-% the possibility of using WF capable of providing higher dynamic range images. This advanced techniques 
-% is required by the radio telescopes of the future.
-% \section{Realistic field synthesis: 3C147}
-
-% \OMS{commenting out the huge number of figures for now to save compilation time. Will uncomment them one by one as I absorb them into the main text.}
-% %  \begin{figure*}
-% %     \centering
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV2-vla.pdf}\caption{Time and frequency 
-% %   direction sinc filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-% %   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV2}\end{minipage}
-% %   \hspace{1cm}
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-sinc-FoV4-vla.pdf}\caption{Time and frequency 
-% %   direction sinc filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s integration 
-% %   synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-sinc-FoV4} 
-% %   \end{minipage}\\
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV2-vla.pdf}\caption{Time and frequency 
-% %   direction Bessel first kind filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV2}\end{minipage}
-% %   \hspace{1cm}
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-bessel-FoV4-vla.pdf}\caption{Time and frequency 
-% %   direction Bessel first kind filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-bessel-FoV4}\end{minipage}\\
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV2-vla.pdf}\caption{Time and frequency 
-% %   direction Butterwordth filter applied on a $2^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 
-% %   150s integration synthesis at 6.25MHz bandwidth, natural weighting.}\label{fig:Bl-butter-FoV2}\end{minipage}
-% %   \hspace{1cm}
-% %   \begin{minipage}{0.38\linewidth}
-% %   \includegraphics[width=1\textwidth]{./Figures/Bl-butter-FoV4-vla.pdf}
-% %    \caption{Time and frequency 
-% %    direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}
-% %   \label{fig:Bl-butter-FoV4}\end{minipage}
-% %   \caption{Time and frequency 
-% %   direction Butterwordth filter applied on a $4^{\circ}$ FoV JVLA surveys observing a 1Jy source move from the phase centre for 150s 
-% %   integration synthesis at 6.25MHz bandwidth, natural weighting.}
-% %   \end{figure*} 
-% %   \begin{figure*}
-% %     \centering
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x1-fov2.pdf}
-% %     \caption{Response to a 1Jy source at different positions, as a function of  bandwidth with $2^{\circ}$ frequency sinc filter.}
-% %     \label{fig:max-integ-freq-sinc-w1x1-fov2}
-% %   \end{minipage}
-% %   \hspace{1cm}
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-sinc-w1x50-fov2.pdf}
-% %         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap sinc 
-% % filter.}
-% %         \label{fig:max-integ-freq-sinc-w1x50-fov2}
-% %         \end{minipage}\\
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x1-fov2.pdf}
-% %         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Bessel first kind 
-% % of 
-% %   order zero filter.}
-% %         \label{fig:max-integ-freq-bessel-w1x1-fov2}
-% %         \end{minipage}
-% %   \hspace{1cm}
-% %   \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-bessel-w1x50-fov2.pdf}
-% %         \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Bessel 
-% % first kind filter of order zero filter.}
-% %         \label{fig:max-integ-freq-bessel-w1x50-fov2}
-% %         \end{minipage}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x1-fov2.pdf}
-% %       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency Butterwordth filter.}
-% %       \label{fig:max-integ-freq-butter-w1x1-fov2}
-% %       \end{minipage}
-% % \hspace{1cm}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-freq-butter-w1x50-fov2.pdf}
-% %       \caption{Response to a 1Jy source at different positions, as a function of bandwidth with $2^{\circ}$ frequency overlap Butterwordth 
-% % filter.}
-% %       \label{fig:max-integ-freq-butter-w1x50-fov2}
-% %       \end{minipage}
-% % \end{figure*}
-% % \begin{figure*}
-% % % *********************** Scripts that created these plots ***********************************
-% % %plot.plot(wind1='/home/atemkeng/TempleFull/DATA/Maxtime-bessel-fov2-window/',title1=r'Avg[circle mark] vs. Bl-J$_0$-W$1\times 1$ [triangle 
-% % 	    %mark], FoV=2$^\circ$',xlabel=r'$\Delta t$[s]')
-% %   \centering
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w1x1-fov2.pdf}
-% % 	\caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time sinc filter.}
-% % 	\label{fig:max-integ-time-sinc-w1x1-fov2}
-% % 	\end{minipage} \hspace{1cm}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1.\textwidth]{./Figures/max-integ-time-sinc-w100x1-fov2.pdf}
-% %         \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap sinc 
-% % filter.}
-% %       \label{fig:max-integ-time-sinc-w100x1-fov2}
-% %       \end{minipage}\\
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w1x1-fov2.pdf}
-% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Bessel first kind of 
-% % order zero
-% % filter.}
-% %     \label{fig:max-integ-time-bessel-w1x1-fov2}
-% %     \end{minipage} 
-% %  \hspace{1cm}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-bessel-w100x1-fov2.pdf}
-% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
-% %       Bessel first kind of order zero filter.}
-% %     \label{fig:max-integ-time-bessel-w100x1-fov2}\end{minipage}\\
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w1x1-fov2.pdf}
-% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time Butterwordth 
-% % filter.}
-% %     \label{fig:max-integ-time-butter-w1x1-fov2}
-% %     \end{minipage} 
-% %  \hspace{1cm}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-time-butter-w100x1-fov2.pdf}
-% %     \caption{Response to a 1Jy source at different positions, as a function of integration time with $2^{\circ}$ time overlap 
-% %       Butterwordth filter.}
-% %     \label{fig:max-integ-time-butter-w100x1-fov2}\end{minipage}   
-% % \end{figure*}
-% % \begin{figure*}
-% %   \centering
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w1x1-fov2.pdf}
-% %     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
-% % sinc filter.}
-% %     \label{fig:max-integ-timefreq-sinc-w1x1-fov2}\end{minipage}
-% %  \hspace{1cm}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-sinc-w100x50-fov2.pdf}
-% %     \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth; with $2^{\circ}$ frequency 
-% %  overlap sinc filter.}
-% %     \label{fig:max-integ-timefreq-sinc-w100x50-fov2}\end{minipage}\\
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w1x1-fov2.pdf}
-% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% % Bessel first kind of order zero filter.}
-% %       \label{fig:max-integ-timefreq-bessel-w1x1-fov2}\end{minipage}
-% % \hspace{1cm}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-bessel-w100x50-fov2.pdf}
-% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% % overlap Bessel first kind of order zero filter.}
-% %   \label{fig:max-integ-timefreq-bessel-w100x50-fov2}\end{minipage}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w1x1-fov2.pdf}
-% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% % Butterwordth filter.}
-% %       \label{fig:max-integ-timefreq-butter-w1x1-fov2}\end{minipage}
-% % \hspace{1cm}
-% % \begin{minipage}{0.38\linewidth}\includegraphics[width=1\textwidth]{./Figures/max-integ-timefreq-butter-w100x50-fov2.pdf}
-% %       \caption{Response to a 1Jy source at different positions, as a function of integration time and bandwidth, with $2^{\circ}$ frequency 
-% % overlap Butterwordth filter.}
-% %   \label{fig:max-integ-timefreq-butter-w100x50-fov2}\end{minipage}
-% % \end{figure*}
-% \section{Conclusions}
-The goal of this paper was threefold. The original motivation behind the work presented in this
-
-paper was to **** windowing functions***\\
-The second objective  was to study ****first algorithm data compression***\\
-The final objective was to ****second algorithm data compression and out field suppression*** \\
-Drawback and futures works*** drawback and futures works*****
 \section*{Acknowledgements}
-The research  made use of  MeqTrees software system designed to implement numerical models for third-generation calibration (3GC) 
- Python Extensions for Interferometry and Python. The research has been supported by the South Africa National Research Foundation.
+
+This work is based upon research supported by the South African Research Chairs Initiative of the Department of 
+Science and Technology and National Research Foundation.
+
+
 \bibliographystyle{mn2e}
 \bibliography{m_paper}
+
 % \appendix
 % \section[]{Derivation of complex matrices}
 % \label{app:complexmatrices}
