@@ -19,13 +19,13 @@
 %%% for our internal comments, use color
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \newcommand{\OMS}[1]{\textcolor{red}{{\bf OMS: #1}}}
-
+\newcommand{\ATM}[1]{\textcolor{red}{{\bf Marcellin: #1}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithms For Cheaper Surveys: Using Windowing Functions. 
 }
-\author[M. T. Atemkeng , O. M. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. T. Atemkeng$^{1}$, O. M. Smirnov$^{12}$\thanks{E-mail: m.atemkeng@gmail.com}, 
+\author[M. Atemkeng , O. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. T. Atemkeng$^{1}$, O. M. Smirnov$^{12}$\thanks{E-mail: m.atemkeng@gmail.com}, 
  C. Tasse$^{123}$, G. Foster$^{12}$, J. Jonas$^{12}$ \\
 $^1$Department of Physics and Electronics, Rhodes University, PO Box 94, Grahamstown, 6140, South Africa\\
 $^2$SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Africa\\
@@ -57,9 +57,9 @@ Instrumentation: interferometers, Methods: data analysis, Methods: numerical, Te
 \section[]{Introduction}
 
 A radio interferometer measures complex quantities called \emph{visibilities}, which, following the van Cittert-Zernike 
-relation \citep{tms}, correspond to Fourier modes of the sky brightness distribution, corrupted by various instrumental 
+relation \citep{thompson1999fundamentals,thompson2001fundamentals}, correspond to Fourier modes of the sky brightness distribution, corrupted by various instrumental 
 and atmospheric effects. One particular effect, known as \emph{time} and \emph{bandwidth smearing} (or averaging) occurs 
-when the visibilities are averaged over a time and frequency bin of non-zero extent. This unavoidably happens in the correlator 
+when the visibilities are averaged over a time and frequency bin of non-zero extent \citep{bridle1989wide,bridle1999bandwidth}. This unavoidably happens in the correlator 
 (since the correlator output is, by definition, an average measurement over some interval), but also if data is further 
 averaged post-correlation (both for purposes of compression, and to reduce computational cost).
 
@@ -95,15 +95,15 @@ but the brightest sources: the scientifically usable FoV is that given by the ma
 sum total signal from all the sources in the PB sidelobes, modulated by their PSF sidelobes, contributes an unwanted global 
 background called the \emph{far sidelobe confusion noise} (FSCN). This imposes a fundamental sensitivity limit; in older 
 telescopes and surveys this was well below the achievable thermal noise and therefore not a worry, but modern and future 
-observatories are capable of reaching this limit \citep{Smirnov-FSCN}. Even in observations well above the FSCN, 
-individual extremely bright radio sources such as Cyg A or Cas A can contribute confusing signal from even the most distant 
-sidelobe: the LOFAR telescope \citep{LOFAR} has to deal with the so-called ``A-team'' sources on a routine basis. Since 
+observatories are capable of reaching this limit \ATM{Please I could not find this reference or paper}\citep{Smirnov-FSCN}.
+Even in observations well above the FSCN, individual extremely bright radio sources such as Cyg A or Cas A can contribute confusing signal from even the most distant 
+sidelobe: the LOFAR telescope  \ATM{I am not so sure of this reference}\citep{LOFAR,tasse2013applying} has to deal with the so-called ``A-team'' sources on a routine basis. Since 
 smearing suppresses distant sources, this somewhat alleviates both the FSCN and A-team problems.
 
 When considering a short sequence of visibilities measured by one baseline, we can think of averaging as a convolution of the 
 true visibility by a boxcar function corresponding to the $uv$-extent of the averaging bin, followed by sampling at the 
 centre of each bin. Convolution in the visibility plane corresponds to multiplication of the image by a \emph{tapering function} 
-that is the Fourier transform (FT) of the convolution kernel; the FT of a boxcar is a Jinc-type taper. If
+that is the Fourier transform (FT) of the convolution kernel; the FT of a boxcar is a Sinc-type taper. If
 we consider the entire $uv$-plane, averaging is only a pseudo-convolution, since the different $uv$-bins (and thus
 their boxcars) will have different sizes and shapes as determined by baseline length and orientation. Still, we can 
 qualitatively view smearing  as some kind of cumulative effect of an ensemble of image-plane tapers corresponding to all the 
@@ -123,7 +123,7 @@ we apply filter theory to derive a set of correlator WFs (CWFs) that approximate
 behaviour. The trade-off is an increase in thermal noise, since minimum noise can only be achieved with 
 unweighted averaging. We show that this effect can be partially mitigated through the use of \emph{extended WFs}. 
 
-{\bf Cite Offringa and LOFAR.}
+{\bf Cite Offringa and LOFAR.}\ATM{I did not understand this paragraph}
 
 In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
 the main challenges, use of CWFs potentially offers additional leverage in optimizing radio observations. 
@@ -170,7 +170,7 @@ measurement equation (RIME) formalism \citep{smirnov2011revisiting}. Likewise, $
 are valid in either case.
 
 We shall use the symbols $\mathbf{u}=(u,v)$ or $\mathbf{u}=(u,v,w)$ to represent baseline coordinates in units of wavelength, and 
-$\mathbf{u}^\mathrm{m}$ for units of metres, with $\mathbf{u} = \mathbf{u}^\mathrm{m}/\lambda = \mathbf{u}^\mathrm{m}\nu/c$
+$\mathbf{u}^\mathrm{m}$ for units of metres, with $\mathbf{u} = \mathbf{u}^\mathrm{m}/\lambda = \mathbf{u}^\mathrm{m}\nu/c$.
 
 \subsection{Visibility and relation with the sky}
 \label{sec:visSky}
@@ -179,7 +179,7 @@ Here, the coordinates $u,v$ and $w$ are vector components in units of wavelength
 two antennas $p$ and $q$, called the \emph{baseline}. The $w$ axis is oriented towards the \emph{phase centre} of the observation,
 while $u$ points East and $v$ North. Given a sky distribution $\II(l,m)$, where $l,m$ are the direction cosines,
 the nominal observed visibility is given by the van 
-Cittert-Zernike theorem \citep{thompson1999fundamentals} as
+Cittert-Zernike theorem \citep{thompson1999fundamentals,thompson2001fundamentals} as
 \begin{equation}
 \VV^\mathrm{nom}(u,v) =\iint\limits_{lm} \frac{\II(l,m)}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm, \label{eq:visSky:nom}
 \end{equation} 
@@ -229,7 +229,7 @@ visibility distribution $\VV^\mathrm{(m)}$. This is sampled by a number of basel
 We can express the imaging process as
 \begin{equation}
 \label{eq:imaging}
-\II = \FF^H\{ \WW\cdot \VV^\mathrm{(m)} \}  
+\II = \FF^H\{ \WW\cdot \VV^\mathrm{(m)} \} ,
 \end{equation}
 where $\WW$ is the (weighted) sampling function -- a ``bed-of-nails'' function that is non-zero at points where we 
 are sampling a visibility, and zero elsewhere. Designating each baseline as $pq$, and each time/frequency point
@@ -387,8 +387,8 @@ regularly spaced time-frequency samples.}\label{fig:uvcov}
 \label{sec:effectbw}
 
 \begin{figure*}
-\includegraphics[width=\columnwidth]{./Figures/idealIPRgrey.png}%
-\includegraphics[width=\columnwidth]{./Figures/idealsincgrey.png}\\
+\includegraphics[width=.4\textwidth]{./Figures/idealIPRgrey.png}%
+\includegraphics[width=.4\textwidth]{./Figures/idealsincgrey.png}\\
 \caption{Left: boxcar response. In the $uv$-plane, this represents the windowing function corresponding to normal
 averaging of visibilities. In the image plane, this represents the ideal image-plane tapering function. Right: 
 Sinc response. In the image plane, this represents the tapering function corresponding to a boxcar WF in 
@@ -464,7 +464,7 @@ trade-off is sensible, and under which conditions.
 \section{Overview of windowing functions}
 \label{subsec:Windowing functions}
 
-In signal processing, a WF is a mathematical function with limited support (i.e. zero outside some interval). Conventionally,
+In signal processing (SP), a WF is a mathematical function with limited support (i.e. zero outside some interval). Conventionally,
 a time series is convolved with a WF to produce some desired response in the frequency domain. Applying this to our problem
 can lead to quite some confusion in terminology. Table~\ref{tab:terms} provides a mapping between the terms commonly used in SP, 
 and their conceptual equivalent in BDWFs.
@@ -527,7 +527,7 @@ The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
 0 & \mbox{otherwise}
 \end{array}\right.
 \end{equation}
-Fig. \ref{fig:wf:box} shows a plot of $\Pi(t)$ and its response. The blue and red curves 
+Fig. \ref{fig:wf:box} shows a plot of $\Pi(t)$ and its response. The thick grey and thin curves 
 correspond to cut-off time intervals of $[-t_a, t_a]$ and 
 $[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is larger, the MLW is 
 narrower, and the sidelobes are lower.
@@ -547,7 +547,9 @@ where $b=(2\sigma_1^2)^{-1}$. The FT of the Gaussian term is given by
 $\mathcal{F}\big\{\mathrm{G}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$, i.e.
 is also a Gaussian with standard deviation of $\sigma_2= (2\pi\sigma_1)^{-1}$.
 
-Fig. \ref{fig:wf:gauss} shows a plot of $\mathrm{G}(t)$ and its response. The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the blue curve and $b=5$ for the red curve. Its response is characterized by extremely low sidelobes, but a narrow main lobe.
+Fig. \ref{fig:wf:gauss} shows a plot of $\mathrm{G}(t)$ and its response. 
+The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the thin curve and $b=5$ for the thick grey curve. 
+Its response is characterized by extremely low sidelobes, but a narrow main lobe.
 
 \subsection{Butterworth window}
 
@@ -572,7 +574,7 @@ spheroidal wave (of oder zeros) windowing function and its tapering response.}{f
 
 This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
 by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
-\citep{landau1978prolate,delsarte1985discrete}. 
+\citep{delsarte1985discrete, walter2006prolate}. 
 The two parameters control the  FoV and sidelobes attenuation.
 The prolate spheroidal wave function $\mathrm{PS}_0$ is the eigenfunction and solution of the integral:
 \begin{equation}
@@ -596,36 +598,34 @@ by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$. Note that the response to a sinc WF is alm
 
 \subsection{Bessel $J_0$ window}
 \label{Bessel}
+\FilterFigure{./Figures/besselgrey.png}{./Figures/freq_resp_besselgrey.png}{$J_0$ 
+windowing function and its tapering response.}{fig:wf:bessel}
 
-This WF is given by a Bessel function of the first kind of order zero. Using a power series expansion, we have:
+This WF is given by a Bessel function of the first kind of order zero \citep{watson1995treatise}. Using a power series expansion, we have:
 \begin{equation}
-J_0(t) = \Pi(t) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}
+J_0(t) = \Pi(t) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}.
 \end{equation}
 Fig. \ref{fig:wf:bessel} shows $J_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
 $[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
 the sidelobes.
 
 \begin{figure*}
-\includegraphics[width=.25\textwidth]{./Figures/besselgrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/freq_resp_besselgrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/sinc-hamminggrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_sinc-hamminggrey.png}%
 \includegraphics[width=.25\textwidth]{./Figures/bessel-hamminggrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-hamminggrey.png}\\
-\includegraphics[width=.25\textwidth]{./Figures/bessel-hanninggrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-hanninggrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/bessel-blackmangrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-blackmangrey.png}
-\caption{Bessel $J_0$ windowing and it tapering response, as well as the Bessel-Hamming, Bessel-Hanning
-and Bessel-Blackman combinations.}\label{fig:wf:bessels}
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-hamminggrey.png}%
+\caption{Sinc-Hamming and it tapering response (the two left plots) as well as the Bessel-Hamming (the two right plots).}\label{fig:wf:JhSh}
 \end{figure*}
 
 \subsection{$J_0$-Hamming, $J_0$-Hanning and $J_0$-Blackman windows}
 
-\OMS{Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
-two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
-product, not two convolutions. So which one is correct? Also, please provide citations for the Hanning, Hamming and 
-Blackman filters. Also, in the figures the WFs look absolutely identical. Is this an error, or are they really so similar?
-If the latter, then we really shouldn't waste space... \\Marcellin: corrected. it is one convolution not two.
-Thank you for drawing my intention. Yes they are very similar, I prefer to present two cases, the Bessel-Hamming and sinc-hamming. See text}
+% \OMS{Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
+% two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
+% product, not two convolutions. So which one is correct? Also, please provide citations for the Hanning, Hamming and 
+% Blackman filters. Also, in the figures the WFs look absolutely identical. Is this an error, or are they really so similar?
+% If the latter, then we really shouldn't waste space... \\Marcellin: corrected. it is one convolution not two.
+% Thank you for drawing my intention. Yes they are very similar, I prefer to present two cases,
+% the Bessel-Hamming and sinc-hamming. See text}
 Depending on the science goals we want to achieve, the Hamming, Hanning or Blackman filter is sometime multiplied by 
 a $J_0(t)$ or $\mathrm{Sinc}(t)$ to increase the pass band (regime 1 or FoV) and 
 increase the stop band (regime 3 or outside the FoV) attenuation.
@@ -636,10 +636,10 @@ The process can be resume as follow:
 \begin{equation}
 Y^\mathrm{X} = Y(t) X(t) 
 \end{equation}
-where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs known in the litterature
-\citep{nuttall1982spectral,podder2014comparative} and $Y$ is a $J_0(t)$ or $\mathrm{Sinc}(t)$ WF.\OMS{citation please. Marcellin: correction done}.
-Fig. \ref{fig:wf:bessel-ham} and Fig. \ref{fig:wf:bessel-han}  
-show the $J_0^\mathrm{Hm}, \mathrm{Sinc}^\mathrm{Hm}$ WFs and their responses. Compared to the $J_0(t)$ and 
+where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs well known in SP litterature
+\citep{nuttall1982spectral,podder2014comparative} and $Y$ is a $J_0(t)$ or $\mathrm{Sinc}(t)$ WF.
+% \OMS{citation please. Marcellin: correction done}.
+Fig. \ref{fig:wf:JhSh} shows the $J_0^\mathrm{Hm}, \mathrm{Sinc}^\mathrm{Hm}$ WFs and their responses. Compared to the $J_0(t)$ and 
 $\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
 
 \subsection{Relative performance}
@@ -682,37 +682,32 @@ $\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
 {$J_0^\mathrm{Hm}(t)$} & $t\in|t_a|$ &$\sim 9.140$&$-35.724$ & $-11.948$\\ 
  & $t\in|t_a/2|$ &$\sim 9.140$&$-22.670$&$-19.527$\\ 
 \hline
-{$J_0^\mathrm{Hn}(t)$}  & $t\in|t_a|$ &$\sim 9.140$&$-35.954$ &$-41.684$ \\ 
- &$t\in|t_a/2|$ &$\sim 9.140 $&$-27.765$&$-46.233$\\ 
-\hline
-{$J_0^\mathrm{B}(t)$} & $t\in|t_a/2|$ &$\sim 9.140$&$-48.660$&$-37.274$\\ 
- & $t\in|t_a/2|$ &$\sim 9.140$&$-24.723$&$-7.972$
+{$Sinc^\mathrm{Hm}(t)$}  & $t\in|t_a|$ &$\sim 12.656 $&$-27.581$ &$-13.817$ \\ 
+ &$t\in|t_a/2|$ &$\sim12.656$&$-13.469$&$-14.324$
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
-different windowing functions. 
-\OMS{Marcellin, it is not clear what exact variation of the
-WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
-of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
-by different WFs is different.}
-\emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
-I want to change the scaling of the windows so that we can easily see what you are asking.}}
+different windowing functions.}
+% \OMS{Marcellin, it is not clear what exact variation of the
+% WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
+% of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
+% by different WFs is different.}
+% \emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
+% I want to change the scaling of the windows so that we can easily see what you are asking.}
 \end{table}
 Table~\ref{tab:WF:performance} summarizes the performance of the different WFs. From this it is clear that
-the sinc, the Butterworth (BW) and the Bessel ($J_0$) WFs provide the more optimal tapering response. It is these WFs that
+the sinc and the Bessel ($J_0$) WFs provide the more optimal tapering response. It is these WFs that
 will serve as the basis of BDWFs developed in the rest of this work. 
 
 To construct two-dimensional BDWFs from one-dimensional WFs, we will use the following definitions:
 \begin{eqnarray}
 S(u,v) &=& S(u)S(v), \nonumber\\
-J_0(u,v) &=& J_0(r), \nonumber\\
-BW(u,v) &=& BW(r),~~~r=\sqrt{u^2+v^2}.
+J_0(u,v) &=& J_0(r), ~~~r=\sqrt{u^2+v^2}.\nonumber
 \end{eqnarray}
-
-\OMS{Marcellin, why not $\mathrm{sinc}(r)$ as well? The referee is bound to ask? Also, why did you never consider a 
-prolate spheroidal WF? I remember bringing it up a few times. Marcellin: $\mathrm{sinc}(r)$ dosn't works well in signal recovery. I studied the prolate spheroidal wave functions(PSWF)
-and the oder 1 of PSWF was just slightly like the sinc but with low sidelobes. I can try and test this but for sure 
-the computational time is extremely huge. I was thinking to talk about 
-the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
+% \OMS{Marcellin, why not $\mathrm{sinc}(r)$ as well? The referee is bound to ask? Also, why did you never consider a 
+% prolate spheroidal WF? I remember bringing it up a few times. Marcellin: $\mathrm{sinc}(r)$ dosn't works well in signal recovery. I studied the prolate spheroidal wave functions(PSWF)
+% and the oder 1 of PSWF was just slightly like the sinc but with low sidelobes. I can try and test this but for sure 
+% the computational time is extremely huge. I was thinking to talk about 
+% the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
 
 \section{Application of WFs to visibilities}
 
@@ -739,13 +734,15 @@ the WF is truncated at the edge of each bin; on the shortest baselines this trun
 point of approaching the boxcar-like $\Puv$ (Fig.~\ref{fig:WF:perbaseline}).
 
 \begin{figure*}%
-\includegraphics[width=.33\textwidth]{./Figures/sinc-baseline_longMidShortshortgrey.png}\hfill%
-\includegraphics[width=.33\textwidth]{./Figures/bessel-baseline_longMidShortshortgrey.png}\hfill%
-\includegraphics[width=.33\textwidth]{./Figures/butterworth-baseline_longMidShortshortgrey.png}
-\caption{Cross-sections through three different BDWFs (left: sinc, centre: Bessel, right: Butterworth) defined in $uv$-space, 
+\includegraphics[width=.4\textwidth]{./Figures/sinc-baseline_longMidShortshortgrey.png}%
+\includegraphics[width=.4\textwidth]{./Figures/bessel-baseline_longMidShortshortgrey.png}
+%\includegraphics[width=.33\textwidth]{./Figures/butterworth-baseline_longMidShortshortgrey.png}
+\caption{Cross-sections through two different BDWFs (left: sinc, right: Bessel) defined in $uv$-space, 
 plotted along the time axis. This shows that the effective WF is a scaling and truncation of the underlying WF, with
-the shortest baselines reducing to a boxcar-like WF. \OMS{Marcellin please make the PDF figures greyscale, and the same size.
-Also please leave legend on only one of them, it's redundant.Marcellin: correction done}}
+the shortest baselines reducing to a boxcar-like WF.
+% \OMS{Marcellin please make the PDF figures greyscale, and the same size.
+% Also please leave legend on only one of them, it's redundant.Marcellin: correction done}
+}
 \label{fig:WF:perbaseline}
 \end{figure*}
 
@@ -762,16 +759,21 @@ the noise in comparison to normal averaging.
 
 \subsection{Overlapping BDWFs}
 \label{baseline2}
+\newcommand{\WF}[3]{{#1}-$#2${}$\times${}$#3$}
+\begin{figure} 
+\includegraphics[width=\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlapping 
+BDWFs representing adjacent resampling bins. This corresponds to overlap factor $\alpha=3$ in time.}\label{fig:overlap}
+\end{figure}
 
 A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the resampling bins $B_{kl}$ 
 in eq.~(\ref{eq:avg:wf}) don't overlap for adjacent $kl$, since they represent adjacent averaging intervals. 
-There is, however, no reason (apart from computational load) why we cannot take the sum in eq.~(\ref{eq:avg:bessel}) 
+There is, however, no reason (apart from computational load) why we cannot take the sum in eq.~(\ref{eq:avg:wf}) 
 over larger bins. Let us define the \emph{windowing bin} for \emph{overlap factors} of $\alpha,\beta$ as
 \begin{equation}
 \Bab_{kl} = \big \{ ij:~t_i\nu_j \in \Babtf_{kl} \big \},
 \end{equation}
 i.e. as the set of sample indices corresponding to a bin of size $\alpha\Delta t\times\beta\Delta \nu$ in $t\nu$-space.
-Let us then compute the sums in eq.~(\ref{eq:avg:bessel}) over the windowing bin. This becomes distinct from the
+Let us then compute the sums in eq.~(\ref{eq:avg:wf}) over the windowing bin. This becomes distinct from the
 resampling bin: while the latter represents the spacing of the resampled visibilities, the former represents the size 
 of the window over which the convolution is computed. Only for $\alpha=\beta=1$ do the two bins become the same.
 
@@ -780,27 +782,19 @@ overlapping offers no benefit, since it only broadens $\Puv$ and therefore incre
 BDWF, enlarging the windowing bin (while maintaining the same WF scale) means less truncation -- thus lower 
 sidelobes -- and decreased noise, as more sampled visibilities are taken into account.
 
-\begin{figure} 
-\includegraphics[width=\columnwidth]{./Figures/corrSigVLAMxBl_overlapGdelta.png}\caption{Overlapping 
-BDWFs representing adjacent resampling bins. This corresponds to overlap factor $\alpha=3$ in time.}\label{fig:overlap}
-\end{figure}
-
-\newcommand{\WF}[3]{{#1}-$#2${}$\times${}$#3$}
-
 To distinguish overlapping BDWFs from non-overlapping ones, in the rest of the paper we will designate the 
 WFs employed as \WF{\em WF}{\alpha}{\beta}. For example, \WF{sinc}{3}{2}, \WF{$J_0$}{1}{1} (i.e. no overlap), etc.
 If resampling is only done in one direction (only time or only frequency), we'll indicate this as e.g. \WF{$J_0$}{3}{-}.
 
 \subsection{Noise penalty estimates: analytic}
 \label{sec:imaging}
-
-\OMS{Marcellin, I can't follow the old derivations, and neither will the referee I fear. 
-The idea is solid, but your notation is a bit of a mess. Need to straighten it out
-and express in terms of Sect.~2.2, i.e. lo-res (averaged) and hi-res (sampled) visibilities. 
-Suggest also working it out for the unpolarized case instead, you can then drop the 
-extra ``4'' in the dimensions and simplify the matrices. Also, you need to explain, what is $N_t$ and $n_t$? 
-Maybe it makes sense to leave the complicated derivations for your thesis, and go with something simple here. 
-For example:}
+% \OMS{Marcellin, I can't follow the old derivations, and neither will the referee I fear. 
+% The idea is solid, but your notation is a bit of a mess. Need to straighten it out
+% and express in terms of Sect.~2.2, i.e. lo-res (averaged) and hi-res (sampled) visibilities. 
+% Suggest also working it out for the unpolarized case instead, you can then drop the 
+% extra ``4'' in the dimensions and simplify the matrices. Also, you need to explain, what is $N_t$ and $n_t$? 
+% Maybe it makes sense to leave the complicated derivations for your thesis, and go with something simple here. 
+% For example:}
 
 Let us now work out analytically the \emph{noise penalty} associated with replacing an unweighted average by 
 a weighted sum. For simplicity, let's assume that the noise term
@@ -866,28 +860,28 @@ In the case of natural weighting ($W_\mu=\sigma_\mu^{-1}$) this reduces to:
 \Xi_X^{\mathrm{nat}} = \frac{N}{ \sum_{\mu} \Xi_{X\mu}^{-1} }.
 \end{equation}
 
-\OMS{the matrix-based formalism that I commented out for now can actually deal with the overlap (correlated noise) 
-case, so it will be good to clean it up and include it in your thesis. If you clean it up sufficiently quickly for
-publication, we can also include it here.}
+% \OMS{the matrix-based formalism that I commented out for now can actually deal with the overlap (correlated noise) 
+% case, so it will be good to clean it up and include it in your thesis. If you clean it up sufficiently quickly for
+% publication, we can also include it here.}
 
 \subsection{Noise penalty estimates: empirical}
 
 \label{subsec:noise}
 In this section we employ simulations to empirically verify noise estimates computed using the derivation 
 above. We generate a ``high-res''
-JVLA-C measurement set corresponding to a 7m30s synthesis with 1.5s integration, with 12.5 MHz of bandwidth
-centred on 1.4 GHz, divided into 150 channels of 125 kHz each. The MS is filled with simulated thermal noise 
-with $\sigma_\mathrm{s}=1$ Jy. We then generate a ``low-resolution'' MS using 150s integration, with 
-a single frequency channel of 6.25 MHz. This MS receives the resampled visibilities. 
-The size of the resampling bin is thus 150s by 6.25MHz, or $100\times50$ in terms of the number of hi-res samples.
+JVLA-C measurement set corresponding to a 400s synthesis with 1s integration, with 30 MHz of bandwidth
+centred on 1.4 GHz, divided into 360 channels of 83.4 kHz each. The MS is filled with simulated thermal noise 
+with $\sigma_\mathrm{s}=1$ Jy. We then generate a ``low-resolution'' MS using 100s integration, with 
+a single frequency channel of 10 MHz. This MS receives the resampled visibilities. 
+The size of the resampling bin is thus 100s by 10MHz, or $100\times120$ in terms of the number of hi-res samples.
 
 We then resample the hi-res visibilities using a number of BDWFs, and store the results in the lo-res MS:
 
 \begin{itemize}
-\item Standard averaging to 150s and 6.25MHz (using the middle 50 channels). This gives us the baseline noise
+\item Standard averaging to 100s and 10MHz (using the middle 120 channels). This gives us the baseline noise
 estimate.
-\item Sinc, $J_0$ and Butterworth windows using the same bin, without an overlap, tuned to a FoV of $2^\circ$.
-\item The same windows with overlap factors of $3\times2$ and $4\times3$.
+\item Sinc and Bessel windows using the same bin, without an overlap, tuned to a FoV of $2^\circ$.
+\item The same windows with overlap factors of $4\times3$.
 \end{itemize}
 
 We then image the lo-res MS and take the r.m.s. pixel noise across the image as an estimator of $\sigma_\mathrm{pix}$,
@@ -905,32 +899,31 @@ longer E-W baselines. Note also that the penalty is well below 1 on shorter base
 \hline
 {\bf BDWF} & {\bf $\Xi$ analytic } & {\bf $\Xi$ sim}\\
 \hline\hline
-Sinc &$1.17$ &$1.23$\\
-\WF{Sinc}{3}{2} &$1.02$ &$1.18$\\
-\WF{Sinc}{4}{3} &$1.03$ &$1.27$\\
+\WF{sinc}{1}{1} &$1.247$ &$1.22$\\
+%\WF{Sinc}{3}{2} &$1.02$ &$1.18$\\
+\WF{sinc}{4}{3} &$1.242$ &$1.20$\\
 \hline
-$J_0$ & $1.11$& $1.14$\\
-\WF{$J_0$}{3}{2} & $0.91$& $1.08$\\
-\WF{$J_0$}{4}{3} & $0.92$& $1.13$\\
-\hline
-BW & $1.16$& $1.55$\\
-\WF{BW}{3}{2} & $1.44$& $1.49$\\
-\WF{BW}{4}{3} & $1.42$& $1.44$\\
+\WF{besse}{1}{1} & $1.178$& $1.16$\\
+%\WF{$J_0$}{3}{2} & $0.91$& $1.08$\\
+\WF{bessel}{4}{3} & $1.109$& $1.12$\\
 \hline
 \end{tabular}
 \caption{A comparison of image noise penalties associated with different BDWFs, computed analytically
-vs. simulations. \OMS{I find the <1 numbers for $J_0$ strange. Is this for a snapshot, or for the full 7m30s?}}
+vs. simulations. 
+%\OMS{I find the <1 numbers for $J_0$ strange. Is this for a snapshot, or for the full 7m30s?}
+}
 \label{tab:noise-comparison}
 \end{table}
 
 \begin{figure*}
-\includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}\hfill%
-\includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}\hfill%
-\includegraphics[width=.33\textwidth]{./Figures/per-baseline-noise-ratio-BW.pdf}\\
-\caption{Noise penalty w.r.t. normal averaging as a function of baseline length for three different BDWFs 
-(sinc, Bessel and Butterworth), with and without overlap. JVLA-C, 1.4 GHz, sampling intervals of 150s and 
-6.25 MHz. \OMS{Marcellin, please check the numbers I gave are correct. Also please make the PDF figures the same size
-.}}
+\includegraphics[width=.4\textwidth]{./Figures/per-baseline-noise-ratio-sinc.png}%
+\includegraphics[width=.4\textwidth]{./Figures/per-baseline-noise-ratio-bessel.png}
+\caption{Noise penalty w.r.t. normal averaging as a function of baseline length for two different BDWFs 
+(sinc and Bessel), with and without overlap. JVLA-C, 1.4 GHz, sampling intervals of 100s and 
+10 MHz. 
+%\OMS{Marcellin, please check the numbers I gave are correct. Also please make the PDF figures the same size
+%.}
+}
 \label{fig:per-baseline-noise}
 \end{figure*}
 
@@ -942,8 +935,9 @@ In this section we use BDWFs to resample simulated visibility data, and study th
 suppression. Apart from a few examples documented separately, the basis interferometer configuration employed in 
 the simulations corresponds to JVLA-C observing at 1.4 GHz. Similarly to Sect.~\ref{subsec:noise}, we create a 
 ``high-res'' measurement set corresponding to a 400s synthesis at 1s integration, with 30 MHz total bandwidth
-centred on 1.4 GHz, divided into 30 channels. \OMS{Marcellin, check that I'm quoting correct 
-numbers.} The MS is populated by noise-free simulated visibilities corresponding to a single point source at 
+centred on 1.4 GHz, divided into 360 channels of 83.4 kHz each.
+%\OMS{Marcellin, check that I'm quoting correct numbers.}
+The MS is populated by noise-free simulated visibilities corresponding to a single point source at 
 a given distance from the phase centre. We then generate ``low-res'' MSs to receive the resampled visibilities,
 resample the latter using a range of BDWFs, convert the visibilities to dirty images (using natural weighting
 unless otherwise stated), and measure the peak source flux in each image. Since each dirty image corresponds to 
@@ -975,7 +969,7 @@ start at unity. The three thick grey curves correspond to normal averaging into 
 \BIN{100}{10}. We can (rather arbitrarily) define a series of ``acceptable'' smearing levels by specifying a  FoV
 radius, and the maximum extent of smearing over that FoV. For the FoV radius, we may pick e.g. the half-power point  of
 the PB, the main lobe of the PB, or extent of the first sidelobe of the PB. For JVLA's 25m dishes at this frequency,
-these radii correspond to $\sim0.25^\circ$, $0.5^\circ$, and $1^\circ$, respectively; they are indicated by thin
+these radius correspond to $\sim0.25^\circ$, $0.5^\circ$, and $1^\circ$, respectively; they are indicated by thin
 vertical lines in the figure. The thin horizontal line indicates our chosen smearing threshold of $0.95$. In the right
 plot,  all the curves are normalized with respect to the \BIN{25}{2.5} averaging curve.
 
@@ -1122,7 +1116,7 @@ saw in the previous section), for FoVs of $1-2^\circ$, BDWFs achieve a good trad
 
 It is interesting to consider how optimal BDWF sampling changes as a function of array size. Figure~\ref{fig:results-14ghz}
 shows a simulation for JVLA-C at 14 GHz. (Since our results are completely determined by $uv$-plane geometry in 
-wavelengths, this is equivalent to JVLA-C scaled up by a factor of 10 at an observing frequency of 1.4 GHz.) 
+wavelengths, this is equivalent to JVLA-C scaled up by a factor of 10 at an observing frequency of 1.4 GHz). 
 From Eq.~\ref{eq:optimal-binsize}, we can see that square-like $uv$-bins correspond to 
 sampling rate combinations such as \BIN{10}{10}. The simulation presented here is for a \BIN{1800}{200} synthesis,
 i.e. is closer to the full synthesis rather than a snapshot case. Comparing Figs.~\ref{fig:results-14ghz} and 
