@@ -352,9 +352,9 @@ $t_i,\nu_j$:
 \end{equation}
 where $\VV_{pq}$ is given by eq.~(\ref{eq:visSky:2Dtf}), and $\NN$ represents the visibility noise term, which is
 a complex scalar or complex $2\times2$ matrix with the real and imaginary parts being independently drawn from a 
-zero-mean normal distribution with the indicated r.m.s. \citep[{\bf see noise chapter in}][]{TMS}. The noise
+zero-mean normal distribution with the indicated r.m.s. \citep{wrobel1999sensitivity}. The noise
 term is not correlated across samples.
-
+%\citep[{\bf see noise chapter in}][]{wrobel1999sensitivity}.
 The \emph{lo-res} or \emph{averaged} or \emph{resampled} visibilities are then a discrete sum:
 \begin{equation}
 \label{eq:discrete:tf0}
@@ -617,7 +617,7 @@ the sidelobes.
 \caption{Sinc-Hamming and it tapering response (the two left plots) as well as the Bessel-Hamming (the two right plots).}\label{fig:wf:JhSh}
 \end{figure*}
 
-\subsection{$J_0$-Hamming, $J_0$-Hanning and $J_0$-Blackman windows}
+\subsection{Sinc-Hamming and $J_0$-Hamming windows}
 
 % \OMS{Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
 % two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
