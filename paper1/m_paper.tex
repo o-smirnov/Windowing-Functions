@@ -25,7 +25,7 @@
 
 \title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithms For Cheaper Surveys: Using Windowing Functions. 
 }
-\author[M. Atemkeng , O. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. T. Atemkeng$^{1}$, O. M. Smirnov$^{12}$\thanks{E-mail: m.atemkeng@gmail.com}, 
+\author[M. Atemkeng , O. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. Atemkeng$^{1}$, O. Smirnov$^{12}$\thanks{E-mail: m.atemkeng@gmail.com}, 
  C. Tasse$^{123}$, G. Foster$^{12}$, J. Jonas$^{12}$ \\
 $^1$Department of Physics and Electronics, Rhodes University, PO Box 94, Grahamstown, 6140, South Africa\\
 $^2$SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Africa\\
@@ -82,8 +82,8 @@ in principle desirable to average the data down as much as possible, without com
 \item In a compact interferometer, the maximum usable field of view (FoV) corresponds to the primary beam (PB) of the antennas; in
 most cases (but surveys especially) we want the effective FoV to reach this limit. This imposes an upper limit on the size of a 
 time/frequency bin: it must be small enough to keep amplitude loss acceptably low across the entire PB FoV. 
-\item In VLBI, smearing is a lot more severe, so the effective FoV is determined by the smallest time/frequency bin size that a
-correlator can support, and is normally much smaller than the PB. Modern VLBI correlators overcome this by employing a technique 
+\item In Very Long Baseline Interferometry (VLBI), smearing is a lot more severe, so the effective FoV is determined by the smallest time/frequency bin size that a
+correlator can support, and is normally much smaller than the PB \citep[{\bf for an extensive discussion see}][]{keimpema2015sfxc}. Modern VLBI correlators overcome this by employing a technique 
 called multiple phase centre correlation, where the signal is correlated relative to multiple phase centres simultaneously, thus
 effectively ``tiling'' the PB by multiple FoVs. This has a computational cost that scales linearly with the number of phase centres.
 \end{itemize}
@@ -432,7 +432,7 @@ from phase centre, for a set of different time and frequency intervals. The simu
 in the C configuration, with an observing frequency of 1.4 GHz. At this frequency, the first null of the PB is at 
 $r\approx36'$, and the half-power point is at $\sim16'$, thus we can consider the ``conventional'' FoV (i.e. the half-power 
 beam width, or HPBW) to be about $0.5^\circ$ across. Note that the sensitivity of the upgraded JVLA, as well as
-improvements in calibration techniques \cite{Perley2013}, allow imaging to be done in the first PB sidelobe as well
+improvements in calibration techniques \ATM{could not find this reference}\cite{Perley2013}, allow imaging to be done in the first PB sidelobe as well
 (and in fact it may be necessary for deep pointings, if only to deconvolve and subtract sidelobe sources), so we could also
 consider an ``extended'' FoV extending out to the second null of the PB at $r\approx1.25^\circ$. Whatever definition
 of the FoV we adopt, Fig.~\ref{fig:smear} shows that to keep amplitude losses across
@@ -516,8 +516,7 @@ Below we provide an overview some common (one-dimensional) WFs employed in signa
 
 \subsection{Boxcar window}
 
-\FilterFigure{Figures/boxcargrey.png}{Figures/freq_resp_boxgrey.png}{Boxcar windowing 
-function and its tapering response.}{fig:wf:box}
+\FilterFigure{Figures/boxcargrey.png}{Figures/freq_resp_boxgrey.png}{Boxcar and its tapering response.}{fig:wf:box}
 
 The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
 \begin{equation}
@@ -536,8 +535,7 @@ The other WFs given below are all multiplied with a boxcar to ensure a cut-off i
 
 \subsection{Gaussian window}
 
-\FilterFigure{./Figures/gaussiangrey.png}{./Figures/freq_resp_gaussiangrey.png}{Gaussian 
-windowing function and its tapering response.}{fig:wf:gauss}
+\FilterFigure{./Figures/gaussiangrey.png}{./Figures/freq_resp_gaussiangrey.png}{Gaussian  and its tapering response.}{fig:wf:gauss}
 
 A Gaussian WF centred at zero with a standard deviation of $\sigma_1$ is given by: 
 \begin{equation}
@@ -553,8 +551,7 @@ Its response is characterized by extremely low sidelobes, but a narrow main lobe
 
 \subsection{Butterworth window}
 
-\FilterFigure{./Figures/butterworthgrey.png}{./Figures/freq_resp_butterworthgrey.png}{Butterworth 
-windowing function and its tapering response.}{fig:wf:bw}
+\FilterFigure{./Figures/butterworthgrey.png}{./Figures/freq_resp_butterworthgrey.png}{Butterworth  and its tapering response.}{fig:wf:bw}
 
 A Butterworth WF is flat in the time pass band, and rolls off towards zero in the time stop band and it is 
 characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. 
@@ -570,7 +567,7 @@ the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at t
 \subsection{Prolate spheroidal window}
 
 \FilterFigure{./Figures/prolategrey.png}{./Figures/freq_resp_prolategrey.png}{Prolate 
-spheroidal wave (of oder zeros) windowing function and its tapering response.}{fig:wf:prolate}
+spheroidal wave (of oder zeros) and its tapering response.}{fig:wf:prolate}
 
 This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
 by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
@@ -586,8 +583,7 @@ Note that increasing the order $\alpha$ increases the MLW, and dramatically lowe
 
 \subsection{Sinc window}
 
-\FilterFigure{./Figures/sincgrey.png}{./Figures/freq_resp_sincgrey.png}{Sinc 
-windowing function and its tapering response.}{fig:wf:sinc}
+\FilterFigure{./Figures/sincgrey.png}{./Figures/freq_resp_sincgrey.png}{Sinc and its tapering response.}{fig:wf:sinc}
 
 The sinc WF is defined as 
 \begin{equation}
@@ -598,8 +594,7 @@ by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$. Note that the response to a sinc WF is alm
 
 \subsection{Bessel $J_0$ window}
 \label{Bessel}
-\FilterFigure{./Figures/besselgrey.png}{./Figures/freq_resp_besselgrey.png}{$J_0$ 
-windowing function and its tapering response.}{fig:wf:bessel}
+\FilterFigure{./Figures/besselgrey.png}{./Figures/freq_resp_besselgrey.png}{$J_0$ and its tapering response.}{fig:wf:bessel}
 
 This WF is given by a Bessel function of the first kind of order zero \citep{watson1995treatise}. Using a power series expansion, we have:
 \begin{equation}
@@ -1127,15 +1122,14 @@ noise penalty) at 14 GHz and 1.4 GHz, with only the optimal sampling rate being 
 
 \begin{figure*}
 \includegraphics[width=.9\textwidth]{./Figures/suppression-vlbi.png}
-\caption{VLBi simulation (10161km maximum baseline) at 1.6 GHz. Smearing as a function of distance from 
+\caption{VLBI simulation (10161km maximum baseline) at 1.6 GHz. Smearing as a function of distance from 
 phase centre, for conventional averaging at 0.1s$\times$12.5kHz averaging, and for two BDWFs. The horizontal line
 corresponds to 10\% smearing losses, the vertical lines are at $15'$ and $3'45''.$
 }
 \label{fig:results-vlbi}
 \end{figure*}
 
-In Fig.~\ref{fig:results-vlbi}, we investigate the performance of BDWFs in the regime of Very Long 
-Baseline Interferometry (VLBI). Here, we simulate a 1.6 GHz VLBI observation employing eight stations 
+In Fig.~\ref{fig:results-vlbi}, we investigate the performance of BDWFs in the regime of VLBI. Here, we simulate a 1.6 GHz VLBI observation employing eight stations 
 (Effelsberg, Hartebeesthoek, Jodrell Bank, Noto, Onsala, Torun, JVLA, Westerbork, Shanghai), with a maximum baseline
 of 10161km. With normal averaging in effect, the achievable FoV in VLBI is typically limited by smearing rather than the 
 primary beam of any particular station. This has led to the development of techniques such as multiple-phase centre
