@@ -23,16 +23,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+<<<<<<< HEAD
 \title[Correlator Windowing Functions For Cheaper Surveys]{Signals Correlation Algorithms For Cheaper Surveys: Using Windowing Functions. 
 }
 \author[M. Atemkeng , O. Smirnov, C. Tasse, G. Foster and J. Jonas]{M. Atemkeng$^{1}$, O. Smirnov$^{12}$\thanks{E-mail: m.atemkeng@gmail.com}, 
  C. Tasse$^{123}$, G. Foster$^{12}$, J. Jonas$^{12}$ \\
+=======
+\title[BDWFs for data compression and FoV shaping]{Using baseline-dependent windowing functions 
+for data compression and field-of-view shaping in radio interferometry}
+\author[M.T. Atemkeng , O.M. Smirnov, C. Tasse, G. Foster and J. Jonas]{M.T. 
+Atemkeng$^{1}$\thanks{E-mail: m.atemkeng@gmail.com}, O.M. Smirnov$^{12}$, C. Tasse$^{31}$, G. Foster$^{12}$, J. Jonas$^{12}$ \\
+>>>>>>> cacce7cc6b2cb474c05287a4eab60064759d41bb
 $^1$Department of Physics and Electronics, Rhodes University, PO Box 94, Grahamstown, 6140, South Africa\\
 $^2$SKA South Africa, 3rd Floor, The Park, Park Road, Pinelands, 7405, South Africa\\
 $^3$GEPI, Observatoire de Paris, CNRS, Universite Paris Diderot, 5 place Jules Janssen, 92190 Meudon, France}
 \begin{document}
 
-\date{in original form 2014 Mai 11}
+\date{in original form 2015 Sep 14}
 
 \pagerange{\pageref{firstpage}--\pageref{lastpage}} \pubyear{2013}
 
@@ -41,8 +48,13 @@ $^3$GEPI, Observatoire de Paris, CNRS, Universite Paris Diderot, 5 place Jules J
 \label{firstpage}
 
 \begin{abstract}
-This paper investigates the use of baseline dependent windowing functions in interferometry data to minimize the loss of 
-signal amplitude (smearing) when the correlated data is averaged over wide bandwidth and long time. In radio interferometry smearing is 
+This paper investigates the use of baseline-dependent windowing functions in radio interferometry. 
+
+in order to reduce
+the loss of amplitude (also known as smearing) when the correlated data is averaged over wide bandwidth and long 
+integration times. 
+
+In radio interferometry smearing is 
 reduced when a cross-correlator averages the correlated data over narrower bandwidth and shorter integration times. Unfortunately, this 
 leads to a huge amount of data to manage and it is becoming a bottleneck for further data processing such as calibration and 
 imaging.  With future generation surveys, it is important to investigate the reduction of the output data rate. Therefore, the focus of 
@@ -119,18 +131,18 @@ This would correspond to a  pseudo-convolution of the $uv$-plane by some ensembl
 different from boxcars, which would obviously yield different image-plane tapers, and thus result in different 
 smearing response. Filter theory suggests that a WF can be tuned to achieve some desired tapering response. 
 An optimal taper would be one that was maximal across the desired FoV, and minimal outside it. In this work, 
-we apply filter theory to derive a set of correlator WFs (CWFs) that approximate this more optimal smearing 
+we apply filter theory to derive a set of baseline-dependent WFs (BDWFs) that approximate this more optimal smearing 
 behaviour. The trade-off is an increase in thermal noise, since minimum noise can only be achieved with 
-unweighted averaging. We show that this effect can be partially mitigated through the use of \emph{extended WFs}. 
+unweighted averaging. We show that this effect can be partially mitigated through the use of \emph{overlapping WFs}. 
 
 {\bf Cite Offringa and LOFAR.}\ATM{I did not understand the title of this paragraph}
 
 In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
-the main challenges, use of CWFs potentially offers additional leverage in optimizing radio observations. 
+the main challenges, use of BDWFs potentially offers additional leverage in optimizing radio observations. 
 Decreased smearing across the FoV allows for more agressive data averaging, thus reducing storage and compute costs. 
 The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, the decrease in smearing
 and noise from A-team sources could, conceivably, make up for some of the nominal sensitivity loss. 
-In the VLBI regime, use of CWFs potentially offers an increase in effective FoV at a given correlator dump rate, or 
+In the VLBI regime, use of BDWFs potentially offers an increase in effective FoV at a given correlator dump rate, or 
 equivalently, the ability to tile the PB FoV with fewer phase centres, allowing
 for smaller correlators.
 
