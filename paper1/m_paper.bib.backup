@@ -164,23 +164,3 @@ archivePrefix = "arXiv",
   year={2014},
   publisher={Foundation of Computer Science}
 }
-@article{lenc2008deep,
-  title={A deep, high-resolution survey of the low-frequency radio sky},
-  author={Lenc, Emil and Garrett, Michael A and Wucknitz, Olaf and Anderson, James M and Tingay, Steven J},
-  journal={The Astrophysical Journal},
-  volume={673},
-  number={1},
-  pages={78},
-  year={2008},
-  publisher={IOP Publishing}
-}
-
-@article{chi2013deep,
-  title={Deep, wide-field, global VLBI observations of the Hubble deep field north (HDF-N) and flanking fields (HFF)},
-  author={Chi, S and Barthel, PD and Garrett, MA},
-  journal={Astronomy \& Astrophysics},
-  volume={550},
-  pages={A68},
-  year={2013},
-  publisher={EDP Sciences}
-}

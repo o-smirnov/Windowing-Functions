@@ -1144,9 +1144,13 @@ corresponds to 10\% smearing losses, the vertical lines are at $15'$ and $3'45''
 In Fig.~\ref{fig:results-vlbi}, we investigate the performance of BDWFs in the regime of VLBI. Here, we simulate a 1.6 GHz VLBI observation employing eight stations 
 (Effelsberg, Hartebeesthoek, Jodrell Bank, Noto, Onsala, Torun, JVLA, Westerbork, Shanghai), with a maximum baseline
 of 10161km. With normal averaging in effect, the achievable FoV in VLBI is typically limited by smearing rather than the 
-primary beam of any particular station. In the past, it was shown possible to achieve a FoV corresponding to the entire
-VLBI primary beam by providing sufficient spectral and time resolution. Unfortunately, this was directly 
-forgotten because of the wide amount of data to be recorded \citep{lenc2008deep,chi2013deep}
+primary beam of any particular station. In the past, it was shown possible to achieve a FoV of the entire VLBI primary beam
+. Provided that sufficient spectral and
+temporal resolution is available to keep smearing effects at an acceptable level, it
+is possible to image the entire primary antenna beam. However, this has been done
+only for a small number of experiments in the past, because of the very large data
+volumes (see e.g. Lenc et al, 2008; Chi et al, 2013).
+
 
 This has led to the development of techniques such as multiple-phase centre
 VLBI, where a VLBI correlator produces multiple datasets per observation, corresponding to multiple phase centres 
