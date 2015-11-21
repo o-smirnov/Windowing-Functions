@@ -149,6 +149,8 @@ for smaller correlators.
 \section{Overview and problem statement}
 
 \newcommand{\VV}{\mathcal{V}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\VVM}{\mathcal{V}^\mathrm{M}}
 \newcommand{\WW}{\mathcal{W}}
 \newcommand{\II}{\mathcal{I}}
 \newcommand{\IID}{\mathcal{I}^\mathrm{D}}
@@ -166,8 +168,8 @@ for smaller correlators.
 \newcommand{\Bij}{\mathsf{B}}
 \newcommand{\Ptf}{\Pi^{[t\nu]}}
 \newcommand{\Puv}{\Pi^{[uv]}}
-\newcommand{\Vm}{V^\mathrm{(m)}}
-\newcommand{\Vs}{V^\mathrm{(s)}}
+\newcommand{\Vm}{V^\mathrm{M}}
+\newcommand{\Vs}{V^\mathrm{S}}
 
 The following formalism deals with visibilities both as functions (i.e. entire distributions on the $uv$-plane), 
 and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
@@ -189,11 +191,11 @@ $\mathbf{u}^\mathrm{m}$ for units of metres, with $\mathbf{u} = \mathbf{u}^\math
 An interferometer array measures the quantity $\VV(u,v,w)$, known as the visibility function.
 Here, the coordinates $u,v$ and $w$ are vector components in units of wavelength, describing the distance between 
 two antennas $p$ and $q$, called the \emph{baseline}. The $w$ axis is oriented towards the \emph{phase centre} of the observation,
-while $u$ points East and $v$ North. Given a sky distribution $\II(l,m)$, where $l,m$ are the direction cosines,
+while $u$ points East and $v$ North. Given a sky distribution $\II_0(l,m)$, where $l,m$ are the direction cosines,
 the nominal observed visibility is given by the van 
 Cittert-Zernike theorem \citep{thompson1999fundamentals,thompson2001fundamentals} as
 \begin{equation}
-\VV^\mathrm{nom}(u,v) =\iint\limits_{lm} \frac{\II(l,m)}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm, \label{eq:visSky:nom}
+\VV^\mathrm{nom}(u,v) =\iint\limits_{lm} \frac{\II_0(l,m)}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm, \label{eq:visSky:nom}
 \end{equation} 
 where $\phi(u,v,w)=ul+vm+w(n-1)$, and $n=\sqrt{1-l^2 - m^2}$ (the $n-1$ term comes about when fringe 
 stopping is in effect, i.e. when 
@@ -203,21 +205,28 @@ Given a pair of antennas $p$ and $q$ forming a baseline $\bmath{u}_{pq}=(u_{pq},
 and taking into account the \emph{primary beam} patterns $\EE_p(l,m)$ and $\EE_q(l,m)$ that define the directional sensitivity of 
 the antennas, this becomes 
 \begin{equation}
-\VV_{pq}(u,v)=\iint\limits_{lm} \frac{\EE_p \II \EE_q^H}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm. \label{eq:visSky}
-\end{equation} 
-Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), this becomes a 2D Fourier transform (FT):
+\VV_{pq}(u,v)=\iint\limits_{lm} \frac{\EE_p \II_0 \EE_q^H}{\sqrt{1-l^2 - m^2}}\,\ee^{-2\pi\ii\phi (u,v,w)}dldm. \label{eq:visSky}
+\end{equation}
+The first term being integrated is the \emph{apparent sky seen by baseline} $pq$,
 \begin{equation}
-\VV_{pq}(u,v)=\iint\limits_{lm} \EE_p \II \EE_q^H\,\ee^{-2\pi\ii(ul+vm)}dldm. \label{eq:visSky:2D}
+\II_{pq} = \frac{\EE_p \II_0 \EE_q^H}{\sqrt{1-l^2 - m^2}},
 \end{equation} 
+which in general can be variable in time and frequency. For simplicity, let us assume that both the sky and the primary beam are constant, and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2D Fourier transform (FT):
+\begin{equation}
+\VV(u,v)=\iint\limits_{lm} \II\,\ee^{-2\pi\ii(ul+vm)}dldm, \label{eq:visSky:2D}
+\end{equation} 
+or in functional form,
+\begin{equation}
+\VV=\FF\{\II\},~~\II=\FF^H\{\VV\}.
+\end{equation}
+We'll refer to $\VV$ as the \emph{ideal} visibility distribution (as opposed
+to the \emph{measured} distribution, which is corrupted by averaging in the correlator, as we'll explore below).
 
-
-The effect of the primary beam can alternatively be expressed in terms of a convolution with its FT, the \emph{aperture 
+Note that the effect of the primary beam can alternatively be expressed in terms of a convolution with its FT, the \emph{aperture 
 illumination function} (AIF) $\mathcal{A}_p(u,v)$. In functional form:
 \begin{equation}
 \VV_{pq} = \mathcal{A}_p \circ \VV^\mathrm{nom}_{pq} \circ \mathcal{A}_q^H.\label{eq:visSky:conv}
 \end{equation} 
-
-
 
 \subsection{Imaging, averaging and convolution}
 
@@ -229,23 +238,26 @@ can be treated as a function of frequency and time:
 \label{eq:uvtf}
 \bmath{u}_{pq}(t,\nu) = \bmath{u}^\mathrm{m}_{pq}(t)\nu/c.
 \end{equation} 
-This, in turn, allows us to express the visibility in eq.~(\ref{eq:visSky:2D}) as 
-a continuous function of $t,\nu$:
+This, in turn, allows us to rewrite the visibility in eq.~(\ref{eq:visSky:2D}) as a per-baseline function of $t,\nu$:
 \begin{equation}
-\VV_{pq}(t,\nu)=\iint\limits_{lm} \EE_p \II \EE_q^H\,\ee^{-2\pi\ii(u_{pq}(t)l+v_{pq}(t)m)}dldm. 
+V_{pq}(t,\nu)=\iint\limits_{lm} \II\,\ee^{-2\pi\ii(u_{pq}(t,\nu)l+v_{pq}(t,\nu)m)}dldm. 
 \label{eq:visSky:2Dtf}
 \end{equation} 
 
-Synthesis imaging recovers a so-called ``dirty image'' as the inverse Fourier transform of some measured  
-visibility distribution $\VV^\mathrm{(m)}$. This is sampled by a number of baselines $pq$ at specific time/frequency points.
-We can express the imaging process as
+Synthesis imaging recovers the so-called ``dirty image'': the inverse Fourier transform of the measured visibility distribution $\VVM$ sampled by a number of baselines $pq$ at discrete time/frequency points. Inverting the Fourier transform produces the dirty image:
 \begin{equation}
 \label{eq:imaging}
-\II = \FF^H\{ \WW\cdot \VV^\mathrm{(m)} \} ,
+\IID = \FF^H\{ \WW\cdot\VVM \} ,
 \end{equation}
 where $\WW$ is the (weighted) sampling function -- a ``bed-of-nails'' function that is non-zero at points where we 
-are sampling a visibility, and zero elsewhere. Designating each baseline as $pq$, and each time/frequency point
-as $t_k,\nu_l$, we can represent $\WW$ by a sum of  ``single-nail'' functions $\WW_{pqkl}$:
+are sampling a visibility, and zero elsewhere. If $\VVM=\VV$, then this can also be expressed as a convolution of the apparent sky by the \emph{point spread function}
+$\PP$:
+\begin{equation}
+\IID = \PP\circ\II,~~\PP=\FF^H\{\WW\}.
+\end{equation}
+Designating each baseline as $pq$, and each time/frequency point
+as $t_k,\nu_l$, we can represent $\WW$ by a sum of  ``single-nail'' functions 
+$\WW_{pqkl}$:
 \begin{equation}
 \WW = \sum_{pqkl} \WW_{pqkl} = \sum_{pqkl} W_{pqkl} \delta_{pqkl},
 \end{equation}
@@ -257,54 +269,57 @@ and $W_{pqkl}$ is the
 associated weight. The Fourier transform being linear, we can rewrite eq.~(\ref{eq:imaging}) as 
 \begin{equation}
 \label{eq:imaging2}
-\II = \sum_{pqkl} W_{pqkl} \mathcal{F}^H\{ \VV^\mathrm{(m)}_{pqkl} \},
+\IID = \sum_{pqkl} W_{pqkl} \mathcal{F}^H\{ \VVM_{pqkl} \},
 \end{equation}
 where 
 \begin{equation}
 \label{eq:imaging2a}
-\VV^\mathrm{(m)}_{pqkl} = \delta_{pqkl} V^\mathrm{(m)}_{pqkl}
+\VVM_{pqkl} = \delta_{pqkl} \Vm_{pq}(t_k,\nu_l)
 \end{equation}
-i.e. is a visibility distribution corresponding to the single visibility sample $pqkl$. We can rewrite eq.~(\ref{eq:imaging})
+i.e. the visibility distribution corresponding to the single visibility sample $pqkl$. We can further rewrite eq.~(\ref{eq:imaging})
 again as
 \begin{equation}
 \label{eq:imaging3}
-\IID =  \sum_{pqkl} W_{pqkl} \IID_{pqkl},~~
-\IID_{pqkl} =  \FF^H\{ \VV^\mathrm{(m)}_{pqkl} \},
+\IID =  \sum_{pqkl} W_{pqkl} \FF^H\{ \VVM_{pqkl} \},
 \end{equation}
-which shows that the dirty image $\IID$ is a weighted sum of dirty images corresponding to the individual visibility 
-samples $pqkl$ (each of which is essentially a single fringe pattern).
+which shows that the dirty image $\IID$ can be seen as a weighted sum of images corresponding to the individual visibility samples $pqkl$ (each such image essentially being a single fringe pattern).
 
-Were we to measure instantaneous visibility samples, we would have the simple relation of
+In the ideal case, we would be measuring instantaneous visibility samples, and (assuming no other instrumental corruptions), we would have $\VVM\equiv\VV$, with 
 \begin{equation}
-V^\mathrm{(m)}_{pqkl}  = \VV_{pq}(t_k,\nu_l),
+\Vm_{pq}(t_k,\nu_l)  = \VV(\bmath{u}_{pq}(t_k,\nu_l)),
 \end{equation}
-where the right-hand side is given by eq.~(\ref{eq:visSky:2Dtf}). This results in what we'll call the \emph{ideal} dirty image 
-$\II^{DI}$:
+and consequently,
+\begin{equation}
+\label{eq:inst-sampled-visibility}
+\VVM_{pqkl} = \delta_{pqkl} \VV,
+\end{equation}
+resulting in what we'll call the \emph{ideal} dirty image 
+$\IIDI$:
 \begin{equation}
 \label{eq:imaging:DI}
-\IIDI =  \sum_{pqkl} W_{pqkl} \IIDI_{pqkl},~~
-\IIDI_{pqkl} =  \FF^H\{ \delta_{pqkl}\VV_{pq} \},
+\IIDI =  \sum_{pqkl} W_{pqkl} \PP_{pqkl} \circ \II,~~\PP_{pqkl}=\FF^H\{ \delta_{pqkl} \}
 \end{equation}
-However, an interferometer necessarily measures the average visibility over a rectangular time-frequency bin given by
-the \emph{time} and \emph{frequency sampling intervals} $\Delta t,\Delta \nu$, which
-we'll call the \emph{sampling bin}
+That is, in the ideal case, each term in the weighted sum is equal to the apparent sky $\II$ convolved with a PSF representing a single visibility sample, $\PP_{pqkl}$.
+
+However, an actual interferometer is necessarily non-ideal, in that it can only measure the average visibility over a some time-frequency bin given by
+the \emph{time} and \emph{frequency sampling intervals} $\Delta t,\Delta \nu$, which we'll call the \emph{sampling bin}
 \begin{equation}
 \Btf_{kl} = \bigg [ t_k-\frac{\Delta t}{2},t_k+\frac{\Delta t}{2} \bigg ]
 \times
 \bigg [ \nu_l-\frac{\Delta\nu}{2},\nu_l+\frac{\Delta\nu}{2} \bigg ],  
 \end{equation}
-This, ideally, can be represented by an integration:
+This measurement can be represented by an integration:
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
+\Vm_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
 \iint\limits_{\Btf_{kl}}
-\VV_{pq}(t,\nu)d\nu dt.
+\VV(\bmath{u}_{pq}(t,\nu))d\nu dt.
 \label{eq2:conti}
 \end{equation}
 
 Inverting the relation of eq.~(\ref{eq:uvtf}), we can change variables to express this as an integration over the 
 corresponding bin $\Buv_{pqkl}$ in $uv$-space:
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
+\Vm_{pqkl} = \frac{1}{\Delta t \Delta \nu} 
 \iint\limits_{\Buv_{pqkl}}
 \VV_{pq}(u,v)\bigg| \frac{\partial(t,\nu)}{\partial(u,v)}\bigg| dudv,
 \label{eq2:conti:uv}
@@ -314,8 +329,8 @@ perfectly rectangular and do not depend on baseline (assuming baseline-independe
 sampling bins in $uv$-space are slightly curved, and do depend on baseline (hence the extra $pq$ index). 
 Assuming a bin small enough that the fringe rate $\partial\bmath{u}/\partial t$ is approximately constant over 
 the bin, we then have \begin{equation}
-V^\mathrm{(m)}_{pqkl} \sim \iint\limits_{\Buv_{pqkl}}
-\VV_{pq}(\bmath{u}) d\bmath{u},
+\Vm_{pqkl} \sim \iint\limits_{\Buv_{pqkl}}
+\VV (\bmath{u}) d\bmath{u},
 \label{eq2:conti:uv1}
 \end{equation}
 
@@ -328,18 +343,18 @@ Now, let us introduce a \emph{normalized boxcar windowing function}, $\Ptf$
 \end{equation}
 using which we may re-write eq.~(\ref{eq2:conti}) as
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} =  
+\Vm_{pqkl} =  
 \iint\limits_{\infty}
 \VV_{pq}(t,\nu) \Ptf(t-t_k,\nu-\nu_l) dtd\nu,
 \end{equation}
 which can also be expressed as a convolution:
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Ptf ](t_k,\nu_l),
+\Vm_{pqkl} = [ \VV_{pq} \circ \Ptf ](t_k,\nu_l),
 \end{equation}
 
 Likewise, eq.~(\ref{eq2:conti:uv}) can also be rewritten as a convolution in $uv$-space:
 \begin{equation}
-V^\mathrm{(m)}_{pqkl} = [ \VV_{pq} \circ \Puv_{pqkl} ](\bmath{u}_{pq}(t_k,\nu_l)),
+\Vm_{pqkl} = [ \VV_{pq} \circ \Puv_{pqkl} ](\bmath{u}_{pq}(t_k,\nu_l)),
 \label{eq:avscon}
 \end{equation}
 where $\Puv_{pqkl}$ is a boxcar-like WF that corresponds to bin $\Buv_{pqkl}$ in $uv$-space 
@@ -370,7 +385,7 @@ term is not correlated across samples.
 The \emph{lo-res} or \emph{averaged} or \emph{resampled} visibilities are then a discrete sum:
 \begin{equation}
 \label{eq:discrete:tf0}
-V^\mathrm{(m)}_{pqkl} = \frac{1}{n} \sum_{ij\in\Bij_{kl}}  \Vs_{pqij},
+\Vm_{pqkl} = \frac{1}{n} \sum_{ij\in\Bij_{kl}}  \Vs_{pqij},
 \end{equation}
 where $\Bij_{kl}$ is the set of sample indices $ij$ corresponding to the \emph{resampling bin}, i.e.
 \begin{equation}
@@ -381,7 +396,7 @@ Using the BDWF definitions above, this becomes a conventional discrete convoluti
 $t\nu$ grid):
 \begin{equation}
 \label{eq:discrete:tf}
-V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \Vs_{pqij} \Ptf(t_i-t_k,\nu_j-\nu_l).
+\Vm_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \Vs_{pqij} \Ptf(t_i-t_k,\nu_j-\nu_l).
 \end{equation}
 In $uv$-space, this becomes a discrete convolution on an irregular grid (the $\bmath{u}_{ij}$ grid being schematically illustrated by Fig.~\ref{fig:uvcov}):
 \begin{equation}
@@ -415,18 +430,21 @@ for sources far from the phase centre. The average of a complex quantity with a 
 amplitude, the effect being especially severe for wide FoVs \citep[for an extensive discussion, see][]{bregman2012system}. This
 effect is often referred to as \emph{time} and \emph{bandwidth smearing}.
 
-The discussion above provides an alternative way to look at smearing. Combining eqs.~(\ref{eq:imaging}--\ref{eq:imaging:DI}) with 
-(\ref{eq:avscon}), and using the Fourier convolution theorem, we can see that the dirty image is formed up as
+The discussion above provides an alternative way to look at smearing. With averaging in effect, the relationship between the measured and the ideal visibility changes to (contrast this to eq.~\ref{eq:inst-sampled-visibility}): 
 \begin{equation}
-\IID =  \sum_{pqkl} W_{pqkl}  \TT_{pqkl} \IIDI_{pqkl},
+\VVM_{pqkl} = \delta_{pqkl} ( \VV\circ\Puv_{pqkl} ),
+\end{equation} 
+Combining this with eq.~\ref{eq:imaging3}, and using the Fourier convolution theorem, we can see that the dirty image is formed up as
+\begin{equation}
+\IID =  \sum_{pqkl} W_{pqkl} \PP_{pqkl} \circ (\II\cdot\TT_{pqkl}),
 \end{equation}
-where the baseline-dependent \emph{tapering function} $\TT_{pqkl}$ is the inverse FT of the BDWF:
+with the apparent sky $\II$ now tapered by the baseline-dependent \emph{tapering function} $\TT_{pqkl}$, the latter being the inverse FT of the BDWF:
 \begin{equation}
 \TT_{pqkl} = \FF^H\{ \Puv_{pqkl} \}.
 \end{equation}
-In other words, the dirty image made from averaged visibilities is a weighted average of the per-visibility ideal dirty images, 
-each one multiplies by its own taper. The FT of a boxcar-like function is a sinc-like function, schematically illustrated in one
-dimension by Fig.~\ref{fig:idealWF}. Time and bandwidth smearing represents the average effect 
+In other words, the dirty image yielded by averaged visibilities 
+(compare this to the ideal dirty image given by eq.~\ref{eq:imaging:DI})
+is a weighted average of per-visibility dirty images corresponding to a per-visibility tapered sky. The FT of a boxcar-like function is a sinc-like function, schematically illustrated in one dimension by Fig.~\ref{fig:idealWF}. Time and bandwidth smearing represents the average effect 
 of all these individual tapers. Shorter baselines correspond to smaller boxcars and wider tapers, longer baselines to larger 
 boxcars and narrower tapers, and are thus more prone to smearing.
 
@@ -759,9 +777,9 @@ sidelobes than the boxcar
 at the shorter baselines becoming boxcar-like. Secondly, taking a weighted sum in eq.~\ref{eq:avg:wf} increases 
 the noise in comparison to normal averaging.
 
-\subsection{Bin sizes}
+% \subsection{Bin sizes}
 
-\OMS{Note to self: Talk about time-frequency bins sizes here. Also about tunable FoVs.}
+% \OMS{Note to self: Talk about time-frequency bins sizes here. Also about tunable FoVs.}
 
 
 \subsection{Overlapping BDWFs}
@@ -1069,10 +1087,11 @@ smaller bins, BDWFs become equivalent to a boxcar averaging, over larger bins, B
 sensitivity as they downweigh more samples. Since this optimal bin size is proportional to baseline length, the overall
 optimum is dependent on the distribution of baselines in the array. 
 
-Furthermore, the optimal sampling rate needs to be ``balanced'' in time and frequency for BDWFs to achieve optimal tapering
-response. If the $uv$-bins are elongated, the WF becomes truncated (more boxcar-like) across the bin, which reduces its ability 
+Furthermore, the sampling rate needs to be ``balanced'' in time and frequency for BDWFs to achieve efficient tapering
+response. If the $uv$-bins are elongated, the WF becomes truncated (i.e. more boxcar-like) across the bin, which reduces its ability 
 to induce the desired taper. Since the orientation of the bins changes as the baseline rotates, the 
-cumulative effect is an average degradation of the tapering response, which becomes closer to that of boxcar averaging. In this sense,
+cumulative effect is an average degradation of the tapering response, in the
+sense that it becomes closer to that of boxcar averaging. In this sense,
 the optimal $uv$-bin shape is square-like. This occurs when the fractional bandwidth is equal to the arc section swept
 out by the baseline over one bin. For a polar observation (circular $uv$-tracks), we can express this as
 \begin{equation}
@@ -1131,6 +1150,15 @@ i.e. is closer to the full synthesis rather than a snapshot case. Comparing Figs
 noise penalty) at 14 GHz and 1.4 GHz, with only the optimal sampling rate being different. 
 
 \subsection{BDWFs for wide-field VLBI}
+
+In the VLBI regime, it is usually a combination of smearing and data rates,
+rather than the primary beam, that effectively limits the FoV. For example, the current European VLBI Network (EVN) correlator operated by the Joint Institute for VLBI in Europe (JIVE) is capable of producing data at a 
+10ms dump rate with 16 MHz of total bandwidth split into 8192 channels. The maximum available FoV is restricted by the smallest primary beam, which is usually that of the 100m Effelsberg telescope -- about $10'$ at L-band. At the full time and frequency resolution of the correlator, smearing is acceptably low at $r=5'$, however, it is usually prohibitively expensive to store and process data as such high resolution. Techniques such as multiple-phase centre correlation \citet{Deller} have been used instead. More typically, the data is averaged into more modest sampling rates of 2s and 32 channels, which 
+causes smearing to restrict the FoV to about ... (Paragi priv. comm.) This limits the scientific usefullness of the EVN archive.
+
+In this section we investigate whether the use of BDWFs can enable true wide-field VLBI. We simulate a 1.6 GHz EVN observation employing eight stations 
+(Effelsberg, Hartebeesthoek, Jodrell Bank, Noto, Onsala, Torun, JVLA, Westerbork, Shanghai), with a maximum baseline of 10161km. Figure~\ref{fig:results-vlbi} compares the smearing response of normal averaging to that of an
+overlapping Bessel BDWF at 0.5s and 26.5. This represents a compression ratio of about 500 compared to full resolution data; the sensitivity loss is a factor of 2. 
 
 \begin{figure*}
 \includegraphics[width=.9\textwidth]{./Figures/suppression-vlbi.png}
