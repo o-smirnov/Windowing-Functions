@@ -6,7 +6,10 @@
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-
+\usepackage{mathtools}  
+\usepackage{amssymb}
+\usepackage{tabulary}
+\usepackage{booktabs}
 \newcommand{\aaps}{A\&AS}
 \newcommand{\aap}{A\&A}
 \newcommand{\mnras}{MNRAS}
@@ -84,10 +87,10 @@ V = S \exp \big \{  \frac{2\pi i}{\lambda} \bmath{u}\cdot(\bmath{\sigma}-\bmath{
 where $\bmath{u}$ is the baseline vector, and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
 The complex phase term above rotates as a function of frequency (due to the inverse scaling with $\lambda$) and time (due to
 the fact that $\bmath{u}$ changes with time, at least in an Earth- or orbit-based interferometer). 
-Taking a vector average over a time/frequency bin then results  in a net loss of amplitude. The effect increases 
+Taking a rotating complex vector average over a time/frequency bin then results  in a net loss of amplitude. The effect increases 
 with baseline length and distance from phase centre. Besides reducing apparent source flux, smearing also distorts the PSF, since different baselines (and thus different Fourier modes) are attenuated differently.
 
-In the era of big interferometers, where computation (and thus data size) becomes one of the main cost drivers, it is 
+In the era of large interferometers, where computation (and thus data size) becomes one of the main cost drivers, it is 
 in principle desirable to average the data down as much as possible, without compromising the science goals. There are natural limits to this: firstly, we still need to critically sample the $uv$-plane, secondly, we need to retain sufficient spectral resolution, thirdly, we don't want to average (at least pre-calibration) beyond the natural variation of the calibration parameters, and fourthly, we want to keep smearing at acceptable levels in order not to lose too much signal. In this work, we concentrate specifically on the smearing problem. Here, we can identify two regimes:
 
 \begin{itemize}
@@ -169,7 +172,27 @@ for smaller correlators.
 \newcommand{\Puv}{\Pi^{[uv]}}
 \newcommand{\Vm}{V^\mathrm{M}}
 \newcommand{\Vs}{V^\mathrm{S}}
-
+% \begin{table*}\caption{Notation and symbols used throughout the present work}
+% %\begin{center}% used the environment to augment the vertical space
+% % between the caption and the table
+% \begin{tabular}{r c p{10cm} }
+% \toprule
+% $\VV$ & $\triangleq$ & Visibility functions\\
+% $V$& $\triangleq$ & Single visibility point\\
+%  $\II$& $\triangleq$ & A function of the image brightness\\
+% $\mathbf{u}$ & $\triangleq$ &Baseline coordinates in unit of wavelengths\\
+% $\mathbf{u}^\mathrm{m}$ & $\triangleq$ & Baseline coordinates in metres\\ 
+% 
+% $\VV$ & $\triangleq$ & Visibility functions\\
+% $V$& $\triangleq$ & Single visibility point\\
+%  $\II$& $\triangleq$ & A function of the image brightness\\
+% $\mathbf{u}$ & $\triangleq$ &Baseline coordinates in unit of wavelengths\\
+% $\mathbf{u}^\mathrm{m}$ & $\triangleq$ & Baseline coordinates in metres\\ 
+% \bottomrule
+% \end{tabular}
+% %\end{center}
+% \label{tab:TableOfNotationForMyResearch}
+% \end{table*}
 The following formalism deals with visibilities both as functions (i.e. entire distributions on the $uv$-plane), 
 and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
 functional notation and their values, we will use $\VV$ or 
@@ -216,7 +239,7 @@ which in general can be variable in time and frequency. For simplicity, let us a
 \end{equation} 
 or in functional form,
 \begin{equation}
-\VV=\FF\{\II\},~~\II=\FF^H\{\VV\}.
+\VV=\FF\{\II\},~~\II=\FF^{-1}\{\VV\}.
 \end{equation}
 We'll refer to $\VV$ as the \emph{ideal} visibility distribution (as opposed
 to the \emph{measured} distribution, which is corrupted by averaging in the correlator, as we'll explore below).
@@ -247,13 +270,13 @@ V_{pq}(t,\nu)=\iint\limits_{lm} \II\,\ee^{-2\pi\ii(u_{pq}(t,\nu)l+v_{pq}(t,\nu)m
 Synthesis imaging recovers the so-called ``dirty image'': the inverse Fourier transform of the measured visibility distribution $\VVM$ sampled by a number of baselines $pq$ at discrete time/frequency points. Inverting the Fourier transform produces the dirty image:
 \begin{equation}
 \label{eq:imaging}
-\IID = \FF^H\{ \WW\cdot\VVM \} ,
+\IID = \FF^{-1}\{ \WW\cdot\VVM \} ,
 \end{equation}
 where $\WW$ is the (weighted) sampling function -- a ``bed-of-nails'' function that is non-zero at points where we 
 are sampling a visibility, and zero elsewhere. If $\VVM=\VV$, then this can also be expressed as a convolution of the apparent sky by the \emph{point spread function}
 $\PP$:
 \begin{equation}
-\IID = \PP\circ\II,~~\PP=\FF^H\{\WW\}.
+\IID = \PP\circ\II,~~\PP=\FF^{-1}\{\WW\}.
 \end{equation}
 Designating each baseline as $pq$, and each time/frequency point
 as $t_k,\nu_l$, we can represent $\WW$ by a sum of  ``single-nail'' functions 
@@ -280,7 +303,7 @@ i.e. the visibility distribution corresponding to the single visibility sample $
 again as
 \begin{equation}
 \label{eq:imaging3}
-\IID =  \sum_{pqkl} W_{pqkl} \FF^H\{ \VVM_{pqkl} \},
+\IID =  \sum_{pqkl} W_{pqkl} \FF^{-1}\{ \VVM_{pqkl} \},
 \end{equation}
 which shows that the dirty image $\IID$ can be seen as a weighted sum of images corresponding to the individual visibility samples $pqkl$ (each such image essentially being a single fringe pattern).
 
@@ -297,7 +320,7 @@ resulting in what we'll call the \emph{ideal} dirty image
 $\IIDI$:
 \begin{equation}
 \label{eq:imaging:DI}
-\IIDI =  \sum_{pqkl} W_{pqkl} \PP_{pqkl} \circ \II,~~\PP_{pqkl}=\FF^H\{ \delta_{pqkl} \}
+\IIDI =  \sum_{pqkl} W_{pqkl} \PP_{pqkl} \circ \II,~~\PP_{pqkl}=\FF^{-1}\{ \delta_{pqkl} \}
 \end{equation}
 That is, in the ideal case, each term in the weighted sum is equal to the apparent sky $\II$ convolved with a PSF representing a single visibility sample, $\PP_{pqkl}$.
 
@@ -440,7 +463,7 @@ Combining this with eq.~\ref{eq:imaging3}, and using the Fourier convolution the
 \end{equation}
 with the apparent sky $\II$ now tapered by the baseline-dependent \emph{tapering function} $\TT_{pqkl}$, the latter being the inverse FT of the BDWF:
 \begin{equation}
-\TT_{pqkl} = \FF^H\{ \Puv_{pqkl} \}.
+\TT_{pqkl} = \FF^{-1}\{ \Puv_{pqkl} \}.
 \end{equation}
 In other words, the dirty image yielded by averaged visibilities 
 (compare this to the ideal dirty image given by eq.~\ref{eq:imaging:DI})
@@ -456,7 +479,7 @@ as a function of distance from phase centre. (Left) Frequency interval fixed at 
 (right) time interval fixed at 1s, frequency interval varies.}\label{fig:smear}
 \end{figure*}
 
-Figure \ref{fig:smear} (produced by simulating a series of high time-frequency resolution observation using MeqTrees, and 
+Figure \ref{fig:smear} (produced by simulating a series of high time-frequency resolution observation using MeqTrees\citep{noordam2010meqtrees}, and 
 applying averaging) shows the attenuation of a 1 Jy source as a function of distance
 from phase centre, for a set of different time and frequency intervals. The simulations correspond to JVLA 
 in the C configuration, with an observing frequency of 1.4 GHz. At this frequency, the first null of the PB is at 
@@ -499,10 +522,35 @@ a time series is convolved with a WF to produce some desired response in the fre
 can lead to quite some confusion in terminology. Table~\ref{tab:terms} provides a mapping between the terms commonly used in SP, 
 and their conceptual equivalent in BDWFs.
 
+% \begin{table}
+% \begin{tabular}{l|l}
+% \hline
+%  \bf Signal processing & \bf BDWFs\\
+% \hline\hline
+% Frequency (freq) domain & Image plane \\
+% Time domain & Fourier plane or $uv$ plane \\
+% Spectral response\\
+% ~~or freq response & Image plane response (IPR)\\
+% Time response & Fourier plane response\\
+% Cut-off time interval  \\
+% ~~or time pass band & $uv$ averaging bin\\
+% Cut-off freq interval \\
+% ~~or freq pass band, or main lobe & FoV\\
+% Time stop band & Outside of the $uv$-bin\\
+% Freq stop band & Outside of the FoV\\
+% Octave & Doubling in size\\
+% Normalized freq & Distance from phase centre \\
+% Band-limited \\
+% ~~(applied to visibilities) & restricted FoV \\
+% \end{tabular}
+% \caption{Mapping of terminology between signal processing and BDWFs.}
+% \label{tab:terms}
+% \end{table}
 \begin{table}
+\centering
 \begin{tabular}{l|l}
 \hline
- \bf Signal processing & \bf BDWFs\\
+ \bf Signal processing & \bf aperture synthesis\\
 \hline\hline
 Frequency (freq) domain & Image plane \\
 Time domain & Fourier plane or $uv$ plane \\
@@ -519,8 +567,9 @@ Octave & Doubling in size\\
 Normalized freq & Distance from phase centre \\
 Band-limited \\
 ~~(applied to visibilities) & restricted FoV \\
+\hline \hline
 \end{tabular}
-\caption{Mapping of terminology between signal processing and BDWFs.}
+\caption{Mapping of terminology between signal processing and aperture synthesis.}
 \label{tab:terms}
 \end{table}
 
@@ -679,39 +728,80 @@ $\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
 % \end{equation}
 % One can replaced the convolution window, $W_{t}$ by its Fourier transform. A summary of the MLW, the PSL and 
 % the SLR of the windows study is showed in table below.
+% % % % % \begin{table}
+% % % % % \begin{tabular}{|l||l|l|l|l|}
+% % % % % \hline
+% % % % %  \bf WFs& &\bf{Windows} & \bf response\\
+% % % % %  &&{ MLW} & { PSL}  & { SLR}   \\
+% % % % %   &&\hspace{-0.8cm}(deg and at -3db) & (db) & (db/oct)  \\
+% % % % % \hline\hline
+% % % % % {$\Pi(t)$}  & $t\in|t_a|$& $\sim 1.406$ &$-6.663$ &$-12.089$\\
+% % % % % 	    & $t\in|t_a/2|$&$\sim 2.812$ &$-6.671$ &$-11.065$\\
+% % % % % \hline
+% % % % % {$\mathrm{Sinc}(t)$} & $t\in|t_a|$ &$\sim 12.304$& $-10.889$&  $-12.661$ \\
+% % % % % 	 & $t\in|t_a/2|$ &$\sim 12.304$& $-13.241$&  $-11.447$ \\
+% % % % % \hline
+% % % % % {$J_0(t)$}& $t\in|t_a|$ &$\sim 9.140$ &$ -14.553$ & $ -12.011$\\
+% % % % % 	  & $t\in|t_a/2|$ &$\sim 9.140$ &$ -13.614$ & $ -11.794$\\
+% % % % % \hline
+% % % % % {$\mathrm{G}(t)$} & b=3 &$\sim 2.109$& $-21.535$& $-9.589$\\ 
+% % % % % 	 & b=5 &$\sim 2.812$& $-30.211$& $-9.091$\\ 
+% % % % % \hline
+% % % % % {$\mathrm{BW}(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
+% % % % % 	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$\\
+% % % % % \hline
+% % % % % {$\mathrm{PS}_0(t)$} & $\alpha=2\pi^3$ &$\sim 3.515$& $-45.302$& $-7.424$\\ 
+% % % % % 	 & $\alpha=5\pi^3$ &$\sim 4.218$& $-73.597$& $-6.375$\\ 
+% % % % % \hline
+% % % % % {$J_0^\mathrm{Hm}(t)$} & $t\in|t_a|$ &$\sim 9.140$&$-35.724$ & $-11.948$\\ 
+% % % % %  & $t\in|t_a/2|$ &$\sim 9.140$&$-22.670$&$-19.527$\\ 
+% % % % % \hline
+% % % % % {$Sinc^\mathrm{Hm}(t)$}  & $t\in|t_a|$ &$\sim 12.656 $&$-27.581$ &$-13.817$ \\ 
+% % % % %  &$t\in|t_a/2|$ &$\sim12.656$&$-13.469$&$-14.324$
+% % % % % \end{tabular}
+% % % % % \caption{\label{tab:WF:performance}Comparative performance of 
+% % % % % different windowing functions.}
+% % % % % % \OMS{Marcellin, it is not clear what exact variation of the
+% % % % % % WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
+% % % % % % of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
+% % % % % % by different WFs is different.}
+% % % % % % \emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
+% % % % % % I want to change the scaling of the windows so that we can easily see what you are asking.}
+% % % % % \end{table}
 \begin{table}
-\begin{tabular}{|l||l|l|l|l|}
+\centering
+\begin{tabular}{||l||ll|l|l||}
 \hline
- \bf WFs& &\bf{Windows} & \bf response\\
- &&{ MLW} & { PSL}  & { SLR}   \\
+  \bf WFs&&{ $\sim$MLW} & { PSL}  & { SLR}   \\
   &&\hspace{-0.8cm}(deg and at -3db) & (db) & (db/oct)  \\
 \hline\hline
-{$\Pi(t)$}  & $t\in|t_a|$& $\sim 1.406$ &$-6.663$ &$-12.089$\\
-	    & $t\in|t_a/2|$&$\sim 2.812$ &$-6.671$ &$-11.065$\\
+{$\Pi(t)$}  & $t\in|t_a|$& $ 1.406$ &$-6.663$ &$-12.089$\\
+	    & $t\in|t_a/2|$&$ 2.812$ &$-6.671$ &$-11.065$\\
 \hline
-{$\mathrm{Sinc}(t)$} & $t\in|t_a|$ &$\sim 12.304$& $-10.889$&  $-12.661$ \\
-	 & $t\in|t_a/2|$ &$\sim 12.304$& $-13.241$&  $-11.447$ \\
+{$\mathrm{Sinc}(t)$} & $t\in|t_a|$ &$ 12.304$& $-10.889$&  $-12.661$ \\
+	 & $t\in|t_a/2|$ &$ 12.304$& $-13.241$&  $-11.447$ \\
 \hline
-{$J_0(t)$}& $t\in|t_a|$ &$\sim 9.140$ &$ -14.553$ & $ -12.011$\\
-	  & $t\in|t_a/2|$ &$\sim 9.140$ &$ -13.614$ & $ -11.794$\\
+{$J_0(t)$}& $t\in|t_a|$ &$ 9.140$ &$ -14.553$ & $ -12.011$\\
+	  & $t\in|t_a/2|$ &$ 9.140$ &$ -13.614$ & $ -11.794$\\
 \hline
-{$\mathrm{G}(t)$} & b=3 &$\sim 2.109$& $-21.535$& $-9.589$\\ 
-	 & b=5 &$\sim 2.812$& $-30.211$& $-9.091$\\ 
+{$\mathrm{G}(t)$} & b=3 &$ 2.109$& $-21.535$& $-9.589$\\ 
+	 & b=5 &$ 2.812$& $-30.211$& $-9.091$\\ 
 \hline
-{$\mathrm{BW}(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
-	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$\\
+{$\mathrm{BW}(t)$} & p=1 &$ 2.109$ &$-13.718$ & $-12.581$\\
+	  & p=3 &$ 4.218$ &$-10.145$ & $-27.330$\\
 \hline
-{$\mathrm{PS}_0(t)$} & $\alpha=2\pi^3$ &$\sim 3.515$& $-45.302$& $-7.424$\\ 
-	 & $\alpha=5\pi^3$ &$\sim 4.218$& $-73.597$& $-6.375$\\ 
+{$\mathrm{PS}_0(t)$} & $\alpha=2\pi^3$ &$ 3.515$& $-45.302$& $-7.424$\\ 
+	 & $\alpha=5\pi^3$ &$ 4.218$& $-73.597$& $-6.375$\\ 
 \hline
-{$J_0^\mathrm{Hm}(t)$} & $t\in|t_a|$ &$\sim 9.140$&$-35.724$ & $-11.948$\\ 
- & $t\in|t_a/2|$ &$\sim 9.140$&$-22.670$&$-19.527$\\ 
+{$J_0^\mathrm{Hm}(t)$} & $t\in|t_a|$ &$ 9.140$&$-35.724$ & $-11.948$\\ 
+ & $t\in|t_a/2|$ &$ 9.140$&$-22.670$&$-19.527$\\ 
 \hline
-{$Sinc^\mathrm{Hm}(t)$}  & $t\in|t_a|$ &$\sim 12.656 $&$-27.581$ &$-13.817$ \\ 
- &$t\in|t_a/2|$ &$\sim12.656$&$-13.469$&$-14.324$
+{$Sinc^\mathrm{Hm}(t)$}  & $t\in|t_a|$ &$ 12.656 $&$-27.581$ &$-13.817$ \\ 
+ &$t\in|t_a/2|$ &$12.656$&$-13.469$&$-14.324$\\
+ \hline
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
-different windowing functions.}
+different windowing functions. WFs: windowing functions, MLW: main lobe width,  PSL: peak sidelobe level, SLR: sidelobes roll-off.}
 % \OMS{Marcellin, it is not clear what exact variation of the
 % WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
 % of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
@@ -737,7 +827,7 @@ J_0(u,v) &=& J_0(r), ~~~r=\sqrt{u^2+v^2}.\nonumber
 \section{Application of WFs to visibilities}
 
 While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency, 
-the sampling positions go as $\sim\nu^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
+the sampling positions go as $\sim\lambda^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
 integrations (Fig.~\ref{fig:uvcov}). Applying a WF with a constant integration window in $t\nu$ space corresponds to 
 different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Puv$ of 
 eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
@@ -791,7 +881,8 @@ BDWFs representing adjacent resampling bins. This corresponds to overlap factor 
 \end{figure}
 
 A more sophisticated approach involves overlapping BDWFs. Normal averaging implicitly assumes that the resampling bins $B_{kl}$ 
-in eq.~(\ref{eq:avg:wf}) don't overlap for adjacent $kl$, since they represent adjacent averaging intervals. 
+in eq.~(\ref{eq:avg:wf}) don't overlap for adjacent $kl$, since they represent adjacent averaging intervals.
+% knowing that each averaged visibility are not independent anymore, ie. the $cov(\VV_i, \VV)$
 There is, however, no reason (apart from computational load) why we cannot take the sum in eq.~(\ref{eq:avg:wf}) 
 over larger bins. Let us define the \emph{windowing bin} for \emph{overlap factors} of $\alpha,\beta$ as
 \begin{equation}
@@ -966,7 +1057,7 @@ The MS is populated by noise-free simulated visibilities corresponding to a sing
 a given distance from the phase centre. We then generate ``low-res'' MSs to receive the resampled visibilities,
 resample the latter using a range of BDWFs, convert the visibilities to dirty images (using natural weighting
 unless otherwise stated), and measure the peak source flux in each image. Since each dirty image corresponds to 
-a single source, the peak flux gives us the degree of smearing associated with a given BWDF and sampling interval.
+a single source, the peak flux gives us the degree of smearing associated with a given BDWF and sampling interval.
 
 For the first set of simulations, the ``low-res'' MSs correspond to a 100s and 10MHz synthesis. We employ three 
 sampling rates, \BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} (thus 4 timeslots and 4 channels, 2 timeslots
