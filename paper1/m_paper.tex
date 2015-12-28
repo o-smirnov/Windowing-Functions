@@ -47,7 +47,8 @@ $^3$GEPI, Observatoire de Paris, CNRS, Universite Paris Diderot, 5 place Jules J
 
 
 In radio interferometric observations, the observed visibilities are intrinsically averaged over some sampling interval
-in time and frequency. This produces an effect known as time/bandwidth smearing, which manifests itself as an attenuation 
+in time and frequency. 
+This makes the resulting visibility to ``decorrelate'', and does so differently depending on the baseline length, sampling interval in  time and frequency domains. This effect produces a non trivial signature in the image domain known as ``smearing'', which manifests itself as an attenuation 
 in amplitude towards off-centre sources. With wide fields of view and/or long baselines, this effect is especially severe,
 and leads to either an increase in data size (if the averaging intervals are kept sufficiently small to control smearing), or 
 loss of field-of-view. We show that averaging of the $uv$-data can be treated as a form of convolution by a boxcar-like 
@@ -56,7 +57,6 @@ smearing response may be induced. In particular, we show improved amplitude resp
 better attenuation of sources outside the field-of-view. The main cost of this technique is a reduction in nominal 
 sensitivity; we investigate the smearing vs. sensitivity trade-off, and show that in certain regimes a favourable 
 compromise can be achieved. We show the application of this technique to simulated data from the JVLA and EVN.
-
 \end{abstract}
 \begin{keywords}
 Instrumentation: interferometers, Methods: data analysis, Methods: numerical, Techniques: interferometric
@@ -66,7 +66,8 @@ Instrumentation: interferometers, Methods: data analysis, Methods: numerical, Te
 
 A radio interferometer measures complex quantities called \emph{visibilities}, which, following the van Cittert-Zernike 
 relation \citep{thompson1999fundamentals,thompson2001fundamentals}, correspond to Fourier modes of the sky brightness distribution, corrupted by various instrumental 
-and atmospheric effects. One particular effect, known as \emph{time} and \emph{bandwidth smearing} (or averaging) occurs 
+and atmospheric effects. 
+One particular effect, known as \emph{time} and \emph{bandwidth decorrelation} (or its equivalent in the image plane referred as smearing ) occurs 
 when the visibilities are averaged over a time and frequency bin of non-zero extent \citep{bridle1989wide,bridle1999bandwidth}. This unavoidably happens in the correlator 
 (since the correlator output is, by definition, an average measurement over some interval), but also if data is further 
 averaged post-correlation (both for purposes of compression, and to reduce computational cost).
@@ -84,13 +85,14 @@ Taking a rotating complex vector average over a time/frequency bin then results 
 with baseline length and distance from phase centre. Besides reducing apparent source flux, smearing also distorts the PSF, since different baselines (and thus different Fourier modes) are attenuated differently.
 
 In the era of large interferometers, where computation (and thus data size) becomes one of the main cost drivers, it is 
-in principle desirable to average the data down as much as possible, without compromising the science goals. There are natural limits to this: firstly, we still need to critically sample the $uv$-plane, secondly, we need to retain sufficient spectral resolution, thirdly, we don't want to average (at least pre-calibration) beyond the natural variation of the calibration parameters, and fourthly, we want to keep smearing at acceptable levels in order not to lose too much signal. In this work, we concentrate specifically on the smearing problem. Here, we can identify two regimes:
+in principle desirable to average the data down as much as possible, without compromising the science goals. There are natural limits to this: firstly, we still need to critically sample the $uv$-plane, secondly, we need to retain sufficient spectral resolution, thirdly, we don't want to average (at least pre-calibration) beyond the natural variation of the calibration parameters, and fourthly, we want to keep smearing at acceptable levels in order not to lose too much signal. In this work, we concentrate specifically on the decorrelation/
+smearing problem. Here, we can identify two regimes:
 
 \begin{itemize}
-\item In a compact interferometer, the maximum usable field of view (FoV) corresponds to the primary beam (PB) of the antennas; in
+\item In a compact interferometer, the maximum usable field of view (FoV) corresponds to the primary beam (PB) of the antennas at the half-power beam width or at the first null or whatever the adopted definition; in
 most cases (but surveys especially) we want the effective FoV to reach this limit. This imposes an upper limit on the size of a 
 time/frequency bin: it must be small enough to keep amplitude loss acceptably low across the entire PB FoV. 
-\item In Very Long Baseline Interferometry (VLBI), smearing is a lot more severe, so the effective FoV is determined by the smallest time/frequency bin size that a
+\item In Very Long Baseline Interferometry (VLBI), decorrelation is a lot more severe, so the effective FoV is determined by the smallest time/frequency bin size that a
 correlator can support, and is normally much smaller than the PB \citep[for an extensive discussion see][]{keipema2015sfxc}. Modern VLBI correlators overcome this by employing a technique 
 called multiple phase centre correlation, where the signal is correlated relative to multiple phase centres simultaneously, thus
 effectively ``tiling'' the PB by multiple FoVs. This has a computational cost that scales linearly with the number of phase centres.
@@ -105,7 +107,7 @@ background called the \emph{far sidelobe confusion noise} (FSCN), in very deep o
 bottleneck \citep{icea-fscn}. In other regimes, individual extremely bright radio sources such as Cyg A or 
 Cas A can contribute confusing signal from even the most distant  sidelobe: the LOFAR telescope \citep{LOFAR} has to deal 
 with these so-called ``A-team'' sources 
-on a routine basis. By suppresses distant off-axis sources, smearing somewhat alleviates both the FSCN and A-team problems.
+on a routine basis. By suppressing distant off-axis sources, smearing somewhat alleviates both the FSCN and A-team problems.
 
 When considering a short sequence of visibilities measured by one baseline, we can think of averaging as a convolution of the 
 true visibility by a boxcar function corresponding to the $uv$-extent of the averaging bin, followed by sampling at the 
@@ -127,14 +129,14 @@ different from boxcars, which would obviously yield different image-plane tapers
 smearing response. Filter theory suggests that a WF can be tuned to achieve some desired tapering response. 
 An optimal taper would be one that was maximal across the desired FoV, and minimal outside it. In this work, 
 we apply filter theory to derive a set of baseline-dependent WFs (BDWFs) that approximate this more optimal smearing 
-behaviour. The trade-off is an increase in thermal noise, since minimum noise can only be achieved with 
+behavior. The trade-off is an increase in thermal noise, since minimum noise can only be achieved with 
 unweighted averaging. We show that this effect can be partially mitigated through the use of \emph{overlapping WFs}. 
 \citet{offringa-filtering} have investigated a similar approach in the context of suppressing signals towards specific off-axis
 sources. 
 
 In the era of the Square Kilometre Array (SKA) and its pathfinders, where dealing with the huge data volumes is one of
 the main challenges, use of BDWFs potentially offers additional leverage in optimizing radio observations. 
-Decreased smearing across the FoV allows for more agressive data averaging, thus reducing storage and compute costs. 
+Decreased smearing across the FoV allows for more aggressive data averaging, thus reducing storage and compute costs. 
 The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, the decrease in smearing
 and noise from A-team sources could, conceivably, make up for some of the nominal sensitivity loss. 
 In the VLBI regime, use of BDWFs potentially offers an increase in effective FoV at a given correlator dump rate, or 
@@ -421,7 +423,7 @@ V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \Vs_{pqij} \Puv_{pqkl}(\bma
 \end{equation}
 
 \begin{figure}
-\includegraphics[width=1\columnwidth]{./Figures/uvcov.png}\caption{Schematic of $uv$-coverage for 
+\includegraphics[width=1\columnwidth]{./Figures/uvcovmodify.pdf}\caption{Schematic of $uv$-coverage for 
 regularly spaced time-frequency samples.}\label{fig:uvcov}
 \end{figure}
 
@@ -443,10 +445,11 @@ In the limit of $\Delta t,\Delta \nu \rightarrow 0$, averaging becomes equivalen
 An interferometer must, intrinsically, employ a finitely small averaging interval. The Fourier phase 
 component $2\pi\phi(u,v,w)$ is a function of frequency and time, with increasing variation over the averaging interval 
 for sources far from the phase centre. The average of a complex quantity with a varying phase then effectively ``washes out'' 
-amplitude, the effect being especially severe for wide FoVs \citep[for an extensive discussion, see][]{bregman2012system}. This
-effect is often referred to as \emph{time} and \emph{bandwidth smearing}.
+amplitude, the effect being especially severe for wide FoVs \citep[for an extensive discussion, see][]{bregman2012system}. In the
+$uv$-plane, this
+effect is often referred to as \emph{time} and \emph{bandwidth decorrelation}, and \emph{smearing} in the image plane.
 
-The discussion above provides an alternative way to look at smearing. With averaging in effect, the relationship between the measured and the ideal visibility changes to (contrast this to eq.~\ref{eq:inst-sampled-visibility}): 
+The discussion above provides an alternative way to look at decorrelation/smearing. With averaging in effect, the relationship between the measured and the ideal visibility changes to (contrast this to eq.~\ref{eq:inst-sampled-visibility}): 
 \begin{equation}
 \VVM_{pqkl} = \delta_{pqkl} ( \VV\circ\Puv_{pqkl} ),
 \end{equation} 
@@ -510,9 +513,9 @@ trade-off is sensible, and under which conditions.
 \section{Overview of windowing functions}
 \label{subsec:Windowing functions}
 
-In signal processing (SP), a WF is a mathematical function with limited support (i.e. zero outside some interval). Conventionally,
+In signal processing, a WF is a mathematical function with limited support (i.e. zero outside some interval). Conventionally,
 a time series is convolved with a WF to produce some desired response in the frequency domain. Applying this to our problem
-can lead to quite some confusion in terminology. Table~\ref{tab:terms} provides a mapping between the terms commonly used in SP, 
+can lead to quite some confusion in terminology. Table~\ref{tab:terms} provides a mapping between the terms commonly used in signal processing, 
 and their conceptual equivalent in BDWFs.
 
 % \begin{table}
@@ -802,11 +805,14 @@ different windowing functions. WFs: windowing functions, MLW: main lobe width,  
 % \emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
 % I want to change the scaling of the windows so that we can easily see what you are asking.}
 \end{table}
-Table~\ref{tab:WF:performance} summarizes the performance of the different WFs. From this it is clear that
-the sinc and the Bessel ($J_0$) WFs provide the more optimal tapering response. It is these WFs that
-will serve as the basis of BDWFs developed in the rest of this work. 
+Table~\ref{tab:WF:performance} summarizes the performance of the different windowing functions. 
+This table shows that the sinc, the Bessel and all their derivative with Hamming, Hanning and Blackman windowing functions 
+have large main lobe,  low peak sidelobe level and high sidelobes roll-off and therefore provide the more optimal tapering response.
+Note that, the sinc and the Bessel are windowing functions that will serve as the basis of BDWFs developed in the rest of this work. 
 
-To construct two-dimensional BDWFs from one-dimensional WFs, we will use the following definitions:
+To construct two-dimensional  windowing functions from one-dimensional windowing functions, we will use the following definitions:
+
+
 \begin{eqnarray}
 S(u,v) &=& S(u)S(v), \nonumber\\
 J_0(u,v) &=& J_0(r), ~~~r=\sqrt{u^2+v^2}.\nonumber
@@ -824,9 +830,9 @@ the sampling positions go as $\sim\lambda^{-1}$, while in time, baselines with a
 integrations (Fig.~\ref{fig:uvcov}). Applying a WF with a constant integration window in $t\nu$ space corresponds to 
 different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Puv$ of 
 eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
-the scale of the WF, this results in more smearing (i.e. a narrower FoV) on longer baselines.
+the scale of the WF, this results in more decorrelation (i.e. a narrower FoV) on longer baselines.
 
-By defining our alternative WFs in $uv$-space (in units of wavelength), we can attempt to ``even out'' the smearing 
+By defining our alternative WFs in $uv$-space (in units of wavelength), we can attempt to ``even out'' the decorrelation 
 response across baselines. For a given BDWF $X(u,v)$, we have the following recipe 
 for computing resampled visibilities (compare to eq.~\ref{eq:discrete:uv}):
 \begin{equation}
@@ -1072,9 +1078,9 @@ averaging.}
 
 A typical performance comparison for the JVLA-C configuration at 1.4 GHz is given by Fig.~\ref{fig:results-example}.
 This figure illustrates some of the principal achievements of the present work, so let us spend some time explaining it.
-The horizontal axis represents distance from phase centre, while the vertical axis of the leff-hand plot represents  the
+The horizontal axis represents distance from phase centre, while the vertical axis of the left-hand plot represents  the
 degree of smearing (left plot). Unity corresponds to no smearing; this is the case at phase centre, thus all curves
-start at unity. The three thick grey curves correspond to normal averaging into \BIN{25}{2.5}, \BIN{50}{5} and
+start at unity. The three thick gray curves correspond to normal averaging into \BIN{25}{2.5}, \BIN{50}{5} and
 \BIN{100}{10}. We can (rather arbitrarily) define a series of ``acceptable'' smearing levels by specifying a  FoV
 radius, and the maximum extent of smearing over that FoV. For the FoV radius, we may pick e.g. the half-power point  of
 the PB, the main lobe of the PB, or extent of the first sidelobe of the PB. For JVLA's 25m dishes at this frequency,
@@ -1112,14 +1118,14 @@ at \BIN{10}{100} without a substantial sacrifice in sensitivity. We shall return
 
 \item If the desired FoV size is $r\sim0.5-1^\circ$, overlapping BDWFs (sinc-4x3-2deg and bessel-
 4x3-2deg) provide excellent performance at \BIN{100}{10}. Compared to averaging at \BIN{25}{2.5}, they achieve a factor
-of 16 data compression with minimal loss of sensitivity, with excellent tapering behaviour: the smearing peformance 
+of 16 data compression with minimal loss of sensitivity, with excellent tapering behaviour: the smearing performance 
 across the FoV is equivalent to (or better) than that of normal averaging, and out-of-FoV source suppression is almost
 two orders of magnitude higher.
 
 \end{itemize}
 
 Figure~\ref{fig:results-example2} presents the same results in an alternative way. Here, the recovered flux is shown 
-relative to the baseline case of \BIN{25}{2.5} averaging. This clearly illustrates the excellent peformance of overlapping
+relative to the baseline case of \BIN{25}{2.5} averaging. This clearly illustrates the excellent performance of overlapping
 BDWFs tuned to $2^\circ$.
 
 \subsection{Noise penalties and overlapping BDWFs}
@@ -1135,7 +1141,7 @@ achieved by regular averaging over \BIN{100}{10}, and correspondingly higher sna
 
 In the more realistic case of a long, multiple-channel synthesis (what we'll call a \emph{full synthesis}), the
 effects of bonus sensitivity disappear. While the noise on individual visibilities remains nominally lower in a full 
-synthesis thanks to the overlap, it becomes correlated across neighbouring $uv$-bins, so there is no net gain 
+synthesis thanks to the overlap, it becomes correlated across neighboring $uv$-bins, so there is no net gain 
 in image-plane sensitivity. Strictly speaking, at the ``edge'' of the synthesis, overlapping BDWFs are still pulling 
 in some bonus signal from overlap regions extending beyond the synthesis coverage, but since the area of this 
 overlap is negligible compared to the coverage of the full synthesis, so is the effect of the bonus signal.
@@ -1149,7 +1155,7 @@ The noise penalty $\Xi$ is given relative to \BIN{100}{10} averaging.}
 \end{figure*}
 
 In other words, simulating a snapshot observation results in underestimated noise penalties, compared to the
-real-life case of a full syntesis. We should expect the noise penalties to go up (and eventually exceed unity) as 
+real-life case of a full synthesis. We should expect the noise penalties to go up (and eventually exceed unity) as 
 we increase the synthesis time and number of channels. Figure~\ref{fig:results-longsynth} presents the results of such 
 a simulation. This shows a a \BIN{1800}{200} synthesis, sampled at the same rates as above. The results should be 
 compared to and contrasted with those of Fig.~\ref{fig:results-example}. Note that the tapering response of BDWFs is 
