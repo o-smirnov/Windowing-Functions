@@ -69,8 +69,8 @@ relation \citep{thompson1999fundamentals,thompson2001fundamentals}, correspond t
 and atmospheric effects. 
 One particular effect, known as \emph{time} and \emph{bandwidth decorrelation} (or its equivalent in the image plane referred as smearing ) occurs 
 when the visibilities are averaged over a time and frequency bin of non-zero extent \citep{bridle1989wide,bridle1999bandwidth}. This unavoidably happens in the correlator 
-(since the correlator output is, by definition, an average measurement over some interval), but also if data is further 
-averaged post-correlation (both for purposes of compression, and to reduce computational cost).
+(since the correlator output is, by definition, an average measurement over some interval), and also if data is further 
+averaged in post-correlation for the purposes of compression and to reduce computational cost.
 
 The effect of smearing is mainly a decrease in the amplitude of off-axis sources. This is easy to understand: the visibility contribution of a point source of flux $S$ located in the direction given by the unit vector $\bmath{\sigma}$ is given by
 
@@ -109,7 +109,7 @@ Cas A can contribute confusing signal from even the most distant  sidelobe: the 
 with these so-called ``A-team'' sources 
 on a routine basis. By suppressing distant off-axis sources, smearing somewhat alleviates both the FSCN and A-team problems.
 
-When considering a short sequence of visibilities measured by one baseline, we can think of averaging as a convolution of the 
+When considering a short sequence of visibilities measured on one baseline, we can consider averaging as a convolution of the 
 true visibility by a boxcar function corresponding to the $uv$-extent of the averaging bin, followed by sampling at the 
 centre of each bin. Convolution in the visibility plane corresponds to multiplication of the image by a \emph{tapering function} 
 that is the Fourier transform (FT) of the convolution kernel; the FT of a boxcar is a Sinc-type taper. If
@@ -192,7 +192,7 @@ The following formalism deals with visibilities both as functions (i.e. entire d
 and single visibilities (i.e. values of those functions at a specific point). To avoid confusion between functions in
 functional notation and their values, we will use $\VV$ or 
 $\VV(u,v)$ to denote functions, and $V$ to denote individual visibilities. Likewise, $\II(l,m)$ denotes a function 
-on the $lm$-plane i.e. an image. The symbol $\delta$ always denotes a function, that is a delta-function.
+on the $lm$-plane i.e. an image. The symbol $\delta$ always denotes the Kronecker delta-function.
 
 Depending on whether we want to consider polarization or not, $\VV$ can be taken to represent either 
 scalar (complex) visibilities, or $2\times2$ complex visibility matrices  as per the radio interferometer 
@@ -207,8 +207,8 @@ $\mathbf{u}^\mathrm{m}$ for units of metres, with $\mathbf{u} = \mathbf{u}^\math
 \label{sec:visSky}
 An interferometer array measures the quantity $\VV(u,v,w)$, known as the visibility function.
 Here, the coordinates $u,v$ and $w$ are vector components in units of wavelength, describing the distance between 
-two antennas $p$ and $q$, called the \emph{baseline}. The $w$ axis is oriented towards the \emph{phase centre} of the observation,
-while $u$ points East and $v$ North. Given a sky distribution $\II_0(l,m)$, where $l,m$ are the direction cosines,
+antennas $p$ and $q$, called the \emph{baseline}. The $w$ axis is oriented towards the \emph{phase centre} of the observed field,
+while $u$ points east and $v$ north. Given a sky distribution $\II_0(l,m)$, where $l,m$ are the direction cosines,
 the nominal observed visibility is given by the van 
 Cittert-Zernike theorem \citep{thompson1999fundamentals,thompson2001fundamentals} as
 \begin{equation}
@@ -228,7 +228,8 @@ The first term being integrated is the \emph{apparent sky seen by baseline} $pq$
 \begin{equation}
 \II_{pq} = \frac{\EE_p \II_0 \EE_q^H}{\sqrt{1-l^2 - m^2}},
 \end{equation} 
-which in general can be variable in time and frequency. For simplicity, let us assume that both the sky and the primary beam are constant, and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2D Fourier transform (FT):
+which in general can be variable in time and frequency. 
+For simplicity, let us assume that both the sky and the primary beam are constant (invariant in time and frequency), and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2D Fourier transform (FT):
 \begin{equation}
 \VV(u,v)=\iint\limits_{lm} \II\,\ee^{-2\pi\ii(ul+vm)}dldm, \label{eq:visSky:2D}
 \end{equation} 
@@ -344,7 +345,7 @@ corresponding bin $\Buv_{pqkl}$ in $uv$-space:
 \end{equation}
 where $\Buv_{pqkl}$ is the corresponding bin in $uv$-space. Note that the sampling bins in $t\nu$-space are
 perfectly rectangular and do not depend on baseline (assuming baseline-independent averaging), while the 
-sampling bins in $uv$-space are slightly curved, and do depend on baseline (hence the extra $pq$ index). 
+sampling bins in $uv$-space are elliptical arcs, and do depend on baseline (hence the extra $pq$ index). 
 Assuming a bin small enough that the fringe rate $\partial\bmath{u}/\partial t$ is approximately constant over 
 the bin, we then have \begin{equation}
 \Vm_{pqkl} \sim \iint\limits_{\Buv_{pqkl}}
@@ -510,7 +511,7 @@ constant across visibilities). Thus, any deviation from a boxcar WF must necessa
 visibilities. Below we will study this effect both theoretically and via simulations, to establish whether this 
 trade-off is sensible, and under which conditions.
 
-\section{Overview of windowing functions}
+\section{Windowing functions and thier relative performance}
 \label{subsec:Windowing functions}
 
 In signal processing, a WF is a mathematical function with limited support (i.e. zero outside some interval). Conventionally,
@@ -579,191 +580,7 @@ IPR (Fig.~\ref{fig:idealWF}, left), these correspond to the following desirable 
 \item Attenuate sources outside the FoV (``regime 3''): this corresponds to a lower PSL and higher SLR.
 \end{itemize}
 
-Below we provide an overview some common (one-dimensional) WFs employed in signal processing.
-
-\newcommand{\FilterFigure}[4]{
-\begin{figure}
-\includegraphics[width=.5\columnwidth]{#1}%
-\includegraphics[width=.5\columnwidth]{#2}
-\caption{#3}\label{#4}
-\end{figure}
-}
-
-\subsection{Boxcar window}
-
-\FilterFigure{Figures/boxcargrey.png}{Figures/freq_resp_boxgrey.png}{Boxcar and its tapering response.}{fig:wf:box}
-
-The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
-\begin{equation}
-\Pi(t)=\left\{
-\begin{array}{rl}
-1 & \mbox{$-t_a \leq t \leq t_a$} \\
-0 & \mbox{otherwise}
-\end{array}\right.
-\end{equation}
-Fig. \ref{fig:wf:box} shows a plot of $\Pi(t)$ and its response. The thick grey and thin curves 
-correspond to cut-off time intervals of $[-t_a, t_a]$ and 
-$[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is larger, the MLW is 
-narrower, and the sidelobes are lower.
-
-The other WFs given below are all multiplied with a boxcar to ensure a cut-off interval of $[-t_a,t_a]$.
-
-\subsection{Gaussian window}
-
-\FilterFigure{./Figures/gaussiangrey.png}{./Figures/freq_resp_gaussiangrey.png}{Gaussian  and its tapering response.}{fig:wf:gauss}
-
-A Gaussian WF centred at zero with a standard deviation of $\sigma_1$ is given by: 
-\begin{equation}
-\mathrm{G}(t)= \Pi(t) e^{-bt^{2}}, \label{eq:gauss}
-\end{equation}
-where $b=(2\sigma_1^2)^{-1}$. The FT of the Gaussian term is given by 
-$\mathcal{F}\big\{\mathrm{G}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$, i.e.
-is also a Gaussian with standard deviation of $\sigma_2= (2\pi\sigma_1)^{-1}$.
-
-Fig. \ref{fig:wf:gauss} shows a plot of $\mathrm{G}(t)$ and its response. 
-The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the thin curve and $b=5$ for the thick grey curve. 
-Its response is characterized by extremely low sidelobes, but a narrow main lobe.
-
-\subsection{Butterworth window}
-
-\FilterFigure{./Figures/butterworthgrey.png}{./Figures/freq_resp_butterworthgrey.png}{Butterworth  and its tapering response.}{fig:wf:bw}
-
-A Butterworth WF is flat in the time pass band, and rolls off towards zero in the time stop band and it is 
-characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. 
-The two parameters control the 
-FoV and sidelobes attenuation. The Butterworth WF is given by:
-\begin{equation}
-\mathrm{BW}(t)= \Pi(t) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
-\end{equation}
-
-Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3$. Note that increasing 
-the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at the cost of pushing up the near-in sidelobes
-
-\subsection{Prolate spheroidal window}
-
-\FilterFigure{./Figures/prolategrey.png}{./Figures/freq_resp_prolategrey.png}{Prolate 
-spheroidal wave (of oder zeros) and its tapering response.}{fig:wf:prolate}
-
-This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
-by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
-\citep{delsarte1985discrete, walter2006prolate}. 
-The two parameters control the  FoV and sidelobes attenuation.
-The prolate spheroidal wave function $\mathrm{PS}_0$ is the eigenfunction and solution of the integral:
-\begin{equation}
-\int\limits_{-t_a}^{t_a} \mathrm{PS}_{0}(\xi) \frac{sin(\frac{\alpha}{\pi}(t-\xi))}{\frac{\alpha}{\pi}(t-\xi)}d\xi=\lambda_{n=0,\alpha,t_a}\mathrm{PS}_{0}(t), 
-\end{equation}
-where $\lambda_{n=0,\alpha,t_a}$ is the coresponding eigenvalue. Fig. \ref{fig:wf:prolate} shows prolate 
-spheroidal WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $\alpha=2\pi^3, 5\pi^3$. 
-Note that increasing the order $\alpha$ increases the MLW, and dramatically lowers sidelobes.
-
-\subsection{Sinc window}
-
-\FilterFigure{./Figures/sincgrey.png}{./Figures/freq_resp_sincgrey.png}{Sinc and its tapering response.}{fig:wf:sinc}
-
-The sinc WF is defined as 
-\begin{equation}
-\mathrm{Sinc}(t)= \Pi(t) \frac{\sin(\pi b t)}{\pi b t} .
-\end{equation}
-Fig. \ref{fig:wf:sinc} shows $\mathrm{Sinc}(t)$ for a fixed value of $b$, and cut-off intervals given 
-by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$. Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
-
-\subsection{Bessel $J_0$ window}
-\label{Bessel}
-\FilterFigure{./Figures/besselgrey.png}{./Figures/freq_resp_besselgrey.png}{$J_0$ and its tapering response.}{fig:wf:bessel}
-
-This WF is given by a Bessel function of the first kind of order zero \citep{watson1995treatise}. Using a power series expansion, we have:
-\begin{equation}
-J_0(t) = \Pi(t) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}.
-\end{equation}
-Fig. \ref{fig:wf:bessel} shows $J_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
-$[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
-the sidelobes.
-
-\begin{figure*}
-\includegraphics[width=.25\textwidth]{./Figures/sinc-hamminggrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/freq_resp_sinc-hamminggrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/bessel-hamminggrey.png}%
-\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-hamminggrey.png}%
-\caption{Sinc-Hamming and it tapering response (the two left plots) as well as the Bessel-Hamming (the two right plots).}\label{fig:wf:JhSh}
-\end{figure*}
-
-\subsection{Sinc-Hamming and $J_0$-Hamming windows}
-
-% \OMS{Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
-% two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
-% product, not two convolutions. So which one is correct? Also, please provide citations for the Hanning, Hamming and 
-% Blackman filters. Also, in the figures the WFs look absolutely identical. Is this an error, or are they really so similar?
-% If the latter, then we really shouldn't waste space... \\Marcellin: corrected. it is one convolution not two.
-% Thank you for drawing my intention. Yes they are very similar, I prefer to present two cases,
-% the Bessel-Hamming and sinc-hamming. See text}
-Depending on the science goals we want to achieve, the Hamming, Hanning or Blackman filter is sometime multiplied by 
-a $J_0(t)$ or $\mathrm{Sinc}(t)$ to increase the pass band (regime 1 or FoV) and 
-increase the stop band (regime 3 or outside the FoV) attenuation.
-% A $J_0(t)$ WF can be used to filter out the input signal as previously mentioned. . The intermediate signal 
-% can then be passed through a Hamming, Hanning or Blackman filter to further increase the pass band (regime 1 or FoV) and 
-% increase the stop band (regime 3 or outside the FoV) attenuation. 
-The process can be resume as follow:
-\begin{equation}
-Y^\mathrm{X} = Y(t) X(t) 
-\end{equation}
-where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs well known in SP litterature
-\citep{nuttall1982spectral,podder2014comparative} and $Y$ is a $J_0(t)$ or $\mathrm{Sinc}(t)$ WF.
-% \OMS{citation please. Marcellin: correction done}.
-Fig. \ref{fig:wf:JhSh} shows the $J_0^\mathrm{Hm}, \mathrm{Sinc}^\mathrm{Hm}$ WFs and their responses. Compared to the $J_0(t)$ and 
-$\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
-
-\subsection{Relative performance}
-% \subsection{Convolution theorem and WFs comparison}
-% We begin with a continuous signal $V_{t}$ (supposed the data is only time dependent) and sample it in order to obtain the set of 
-% measurement (see section \ref{sec:AvgCon}). When the signal is limited in the time interval $[-t_a,t_a]$ and convolved with a window 
-% $W_{t}$, it 
-% follows from the convolution theorem that the process was equivalent to "\textit{tapering the  Fourier transform of the signal}" by 
-% effectively looking at the true Fourier transform of the signal through the convolution window. This is presented mathematically as:
-% \begin{equation}
-% \mathcal{F}\Big\{V_{t}\circ W_{t}\Big\} = \mathcal{F}\Big\{V_{t}\Big\}\cdot \mathcal{F}\Big\{W_{t}\Big\}
-% \end{equation}
-% One can replaced the convolution window, $W_{t}$ by its Fourier transform. A summary of the MLW, the PSL and 
-% the SLR of the windows study is showed in table below.
-% % % % % \begin{table}
-% % % % % \begin{tabular}{|l||l|l|l|l|}
-% % % % % \hline
-% % % % %  \bf WFs& &\bf{Windows} & \bf response\\
-% % % % %  &&{ MLW} & { PSL}  & { SLR}   \\
-% % % % %   &&\hspace{-0.8cm}(deg and at -3db) & (db) & (db/oct)  \\
-% % % % % \hline\hline
-% % % % % {$\Pi(t)$}  & $t\in|t_a|$& $\sim 1.406$ &$-6.663$ &$-12.089$\\
-% % % % % 	    & $t\in|t_a/2|$&$\sim 2.812$ &$-6.671$ &$-11.065$\\
-% % % % % \hline
-% % % % % {$\mathrm{Sinc}(t)$} & $t\in|t_a|$ &$\sim 12.304$& $-10.889$&  $-12.661$ \\
-% % % % % 	 & $t\in|t_a/2|$ &$\sim 12.304$& $-13.241$&  $-11.447$ \\
-% % % % % \hline
-% % % % % {$J_0(t)$}& $t\in|t_a|$ &$\sim 9.140$ &$ -14.553$ & $ -12.011$\\
-% % % % % 	  & $t\in|t_a/2|$ &$\sim 9.140$ &$ -13.614$ & $ -11.794$\\
-% % % % % \hline
-% % % % % {$\mathrm{G}(t)$} & b=3 &$\sim 2.109$& $-21.535$& $-9.589$\\ 
-% % % % % 	 & b=5 &$\sim 2.812$& $-30.211$& $-9.091$\\ 
-% % % % % \hline
-% % % % % {$\mathrm{BW}(t)$} & p=1 &$\sim 2.109$ &$-13.718$ & $-12.581$\\
-% % % % % 	  & p=3 &$\sim 4.218$ &$-10.145$ & $-27.330$\\
-% % % % % \hline
-% % % % % {$\mathrm{PS}_0(t)$} & $\alpha=2\pi^3$ &$\sim 3.515$& $-45.302$& $-7.424$\\ 
-% % % % % 	 & $\alpha=5\pi^3$ &$\sim 4.218$& $-73.597$& $-6.375$\\ 
-% % % % % \hline
-% % % % % {$J_0^\mathrm{Hm}(t)$} & $t\in|t_a|$ &$\sim 9.140$&$-35.724$ & $-11.948$\\ 
-% % % % %  & $t\in|t_a/2|$ &$\sim 9.140$&$-22.670$&$-19.527$\\ 
-% % % % % \hline
-% % % % % {$Sinc^\mathrm{Hm}(t)$}  & $t\in|t_a|$ &$\sim 12.656 $&$-27.581$ &$-13.817$ \\ 
-% % % % %  &$t\in|t_a/2|$ &$\sim12.656$&$-13.469$&$-14.324$
-% % % % % \end{tabular}
-% % % % % \caption{\label{tab:WF:performance}Comparative performance of 
-% % % % % different windowing functions.}
-% % % % % % \OMS{Marcellin, it is not clear what exact variation of the
-% % % % % % WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
-% % % % % % of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
-% % % % % % by different WFs is different.}
-% % % % % % \emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
-% % % % % % I want to change the scaling of the windows so that we can easily see what you are asking.}
-% % % % % \end{table}
+In appendix~\ref{appendixA} we provide an overview of some common (one-dimensional) WFs employed in signal processing.
 \begin{table}
 \centering
 \begin{tabular}{||l||ll|l|l||}
@@ -771,7 +588,7 @@ $\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
   \bf WFs&&{ $\sim$MLW} & { PSL}  & { SLR}   \\
   &&\hspace{-0.8cm}(deg and at -3db) & (db) & (db/oct)  \\
 \hline\hline
-{$\Pi(t)$}  & $t\in|t_a|$& $ 1.406$ &$-6.663$ &$-12.089$\\
+{$\Pi(t/t_a)$}  & $t\in|t_a|$& $ 1.406$ &$-6.663$ &$-12.089$\\
 	    & $t\in|t_a/2|$&$ 2.812$ &$-6.671$ &$-11.065$\\
 \hline
 {$\mathrm{Sinc}(t)$} & $t\in|t_a|$ &$ 12.304$& $-10.889$&  $-12.661$ \\
@@ -797,7 +614,7 @@ $\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
  \hline
 \end{tabular}
 \caption{\label{tab:WF:performance}Comparative performance of 
-different windowing functions. WFs: windowing functions, MLW: main lobe width,  PSL: peak sidelobe level, SLR: sidelobes roll-off.}
+different WFs. MLW: main lobe width,  PSL: peak sidelobe level, SLR: sidelobes roll-off.}
 % \OMS{Marcellin, it is not clear what exact variation of the
 % WF these numbers correspond to. Maybe add a few rows for different variations (i.e. different values
 % of $p$, $b$)? In fact, it's not even clear if the comparison is systematic. For example, the FoV realized 
@@ -805,18 +622,19 @@ different windowing functions. WFs: windowing functions, MLW: main lobe width,  
 % \emph{ Marcellin anwser, thank you I noticed that when I was doing the new plots, I'll do it explicitly and 
 % I want to change the scaling of the windows so that we can easily see what you are asking.}
 \end{table}
-Table~\ref{tab:WF:performance} summarizes the performance of the different windowing functions. 
-This table shows that the sinc, the Bessel and all their derivative with Hamming, Hanning and Blackman windowing functions 
+Table~\ref{tab:WF:performance} summarizes the performance of the different WFs. 
+This table shows that the sinc, the Bessel and all their derivative with Hamming, Hanning and Blackman WFs 
 have large main lobe,  low peak sidelobe level and high sidelobes roll-off and therefore provide the more optimal tapering response.
-For convenience, the sinc and the Bessel are windowing functions that will serve as the basis of BDWFs developed in the rest of this work. 
+For convenience, the sinc and the Bessel are WFs that will serve as the basis of BDWFs developed in the rest of this work. 
 
-To construct two-dimensional  windowing functions from one-dimensional windowing functions, we will use the following definitions:
+To construct two-dimensional  WF from one-dimensional WF, we will use the following definitions:
 
 
 \begin{eqnarray}
 S(u,v) &=& S(u)S(v), \nonumber\\
 J_0(u,v) &=& J_0(r), ~~~r=\sqrt{u^2+v^2}.\nonumber
 \end{eqnarray}
+
 % \OMS{Marcellin, why not $\mathrm{sinc}(r)$ as well? The referee is bound to ask? Also, why did you never consider a 
 % prolate spheroidal WF? I remember bringing it up a few times. Marcellin: $\mathrm{sinc}(r)$ dosn't works well in signal recovery. I studied the prolate spheroidal wave functions(PSWF)
 % and the oder 1 of PSWF was just slightly like the sinc but with low sidelobes. I can try and test this but for sure 
@@ -1318,9 +1136,145 @@ Science and Technology and National Research Foundation.
 \bibliographystyle{mn2e}
 \bibliography{m_paper}
 
-% \appendix
-% \section[]{Derivation of complex matrices}
-% \label{app:complexmatrices}
+\appendix
+\section{Overview of windowing functions}
+\label{appendixA}
+\newcommand{\FilterFigure}[4]{
+\begin{figure}
+\includegraphics[width=.5\columnwidth]{#1}%
+\includegraphics[width=.5\columnwidth]{#2}
+\caption{#3}\label{#4}
+\end{figure}
+}
+
+\subsection{Boxcar window}
+
+\FilterFigure{Figures/boxcargrey.png}{Figures/freq_resp_boxgrey.png}{Boxcar and its tapering response.}{fig:wf:box}
+
+The boxcar window for a cut-off time interval of $[-t_a,t_a]$ is defined as:
+\begin{equation}
+\Pi(t/t_a)=\left\{
+\begin{array}{rl}
+1 & \mbox{$-t_a \leq t \leq t_a$} \\
+0 & \mbox{otherwise}
+\end{array}\right.
+\end{equation}
+Fig. \ref{fig:wf:box} shows a plot of $\Pi(t/t_a)$ and its response. The thick grey and thin curves 
+correspond to cut-off time intervals of $[-t_a, t_a]$ and 
+$[-t_a/2,t_a/2]$ respectively. Note that when the cut-off time interval is larger, the MLW is 
+narrower, and the sidelobes are lower.
+
+The other WFs given below are all multiplied with a boxcar to ensure a cut-off interval of $[-t_a,t_a]$.
+
+\subsection{Gaussian window}
+
+\FilterFigure{./Figures/gaussiangrey.png}{./Figures/freq_resp_gaussiangrey.png}{Gaussian  and its tapering response.}{fig:wf:gauss}
+
+A Gaussian WF centred at zero with a standard deviation of $\sigma_1$ is given by: 
+\begin{equation}
+\mathrm{G}(t)= \Pi(t/t_a) e^{-bt^{2}}, \label{eq:gauss}
+\end{equation}
+where $b=(2\sigma_1^2)^{-1}$. The FT of the Gaussian term is given by 
+$\mathcal{F}\big\{\mathrm{G}\big\}=\sqrt{\frac{b}{\pi}}e^{-cl^2}$, where $c=\pi^2/b$, i.e.
+is also a Gaussian with standard deviation of $\sigma_2= (2\pi\sigma_1)^{-1}$.
+
+Fig. \ref{fig:wf:gauss} shows a plot of $\mathrm{G}(t)$ and its response. 
+The WF is truncated at $[-t_a,t_a]$, with $b = 3$ for the thin curve and $b=5$ for the thick grey curve. 
+Its response is characterized by extremely low sidelobes, but a narrow main lobe.
+
+\subsection{Butterworth window}
+
+\FilterFigure{./Figures/butterworthgrey.png}{./Figures/freq_resp_butterworthgrey.png}{Butterworth  and its tapering response.}{fig:wf:bw}
+
+A Butterworth WF is flat in the time pass band, and rolls off towards zero in the time stop band and it is 
+characterized by two independent parameters, the cut-off time time $[-t_a,t_a]$ and the order $p$. 
+The two parameters control the 
+FoV and sidelobes attenuation. The Butterworth WF is given by:
+\begin{equation}
+\mathrm{BW}(t)= \Pi(t/t_a) \Big(1 + (t/t_a)^{2p}\Big)^{-1}.
+\end{equation}
+
+Figure \ref{fig:wf:bw} shows Butterworth WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $p=1,3$. Note that increasing 
+the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at the cost of pushing up the near-in sidelobes
+
+\subsection{Prolate spheroidal window}
+
+\FilterFigure{./Figures/prolategrey.png}{./Figures/freq_resp_prolategrey.png}{Prolate 
+spheroidal wave (of oder zeros) and its tapering response.}{fig:wf:prolate}
+
+This WF is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
+by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
+\citep{delsarte1985discrete, walter2006prolate}. 
+The two parameters control the  FoV and sidelobes attenuation.
+The prolate spheroidal wave function $\mathrm{PS}_0$ is the eigenfunction and solution of the integral:
+\begin{equation}
+\int\limits_{-t_a}^{t_a} \mathrm{PS}_{0}(\xi) \frac{sin(\frac{\alpha}{\pi}(t-\xi))}{\frac{\alpha}{\pi}(t-\xi)}d\xi=\lambda_{n=0,\alpha,t_a}\mathrm{PS}_{0}(t), 
+\end{equation}
+where $\lambda_{n=0,\alpha,t_a}$ is the coresponding eigenvalue. Fig. \ref{fig:wf:prolate} shows prolate 
+spheroidal WFs for the same cut-off interval $[-t_a,t_a]$, with orders of $\alpha=2\pi^3, 5\pi^3$. 
+Note that increasing the order $\alpha$ increases the MLW, and dramatically lowers sidelobes.
+
+\subsection{Sinc window}
+
+\FilterFigure{./Figures/sincgrey.png}{./Figures/freq_resp_sincgrey.png}{Sinc and its tapering response.}{fig:wf:sinc}
+
+The sinc WF is defined as 
+\begin{equation}
+\mathrm{Sinc}(t)= \Pi(t/t_a) \frac{\sin(\pi b t)}{\pi b t} .
+\end{equation}
+Fig. \ref{fig:wf:sinc} shows $\mathrm{Sinc}(t)$ for a fixed value of $b$, and cut-off intervals given 
+by $[-t_a,t_a]$ and $[-t_a/2,t_a/2]$. Note that the response to a sinc WF is almost perfectly flat in the main lobe (more so for larger intervals). The sidelobe response is relatively poor, but better for larger intervals.
+
+\subsection{Bessel $J_0$ window}
+\label{Bessel}
+\FilterFigure{./Figures/besselgrey.png}{./Figures/freq_resp_besselgrey.png}{$J_0$ and its tapering response.}{fig:wf:bessel}
+
+This WF is given by a Bessel function of the first kind of order zero \citep{watson1995treatise}. Using a power series expansion, we have:
+\begin{equation}
+J_0(t) = \Pi(t/t_a) \sum_{k=0}^{\infty}\frac{(-1)^k (t/2)^{2k}}{(k!)^2}.
+\end{equation}
+Fig. \ref{fig:wf:bessel} shows $J_0(t)$ and its response, with $J_0(t)$ truncated at time intervals $[-t_a,t_a]$ and 
+$[-t_a/2,t_a/2]$. The performance of $J_0$ is somewhat worse than the sinc within the main lobe, and somewhat better in
+the sidelobes.
+
+\begin{figure*}
+\includegraphics[width=.25\textwidth]{./Figures/sinc-hamminggrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_sinc-hamminggrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/bessel-hamminggrey.png}%
+\includegraphics[width=.25\textwidth]{./Figures/freq_resp_bessel-hamminggrey.png}%
+\caption{Sinc-Hamming and it tapering response (the two left plots) as well as the Bessel-Hamming (the two right plots).}\label{fig:wf:JhSh}
+\end{figure*}
+
+\subsection{Sinc-Hamming and $J_0$-Hamming windows}
+
+% \OMS{Marcellin, this is contradictory. If you're passing the signal through two filters as you say, that means 
+% two convolutions. But here you write the WF as a product of $J_0$ with another function. That's convolution with a 
+% product, not two convolutions. So which one is correct? Also, please provide citations for the Hanning, Hamming and 
+% Blackman filters. Also, in the figures the WFs look absolutely identical. Is this an error, or are they really so similar?
+% If the latter, then we really shouldn't waste space... \\Marcellin: corrected. it is one convolution not two.
+% Thank you for drawing my intention. Yes they are very similar, I prefer to present two cases,
+% the Bessel-Hamming and sinc-hamming. See text}
+Depending on the science goals we want to achieve, the Hamming, Hanning or Blackman filter is sometime multiplied by 
+a $J_0(t)$ or $\mathrm{Sinc}(t)$ to increase the pass band (regime 1 or FoV) and 
+increase the stop band (regime 3 or outside the FoV) attenuation.
+% A $J_0(t)$ WF can be used to filter out the input signal as previously mentioned. . The intermediate signal 
+% can then be passed through a Hamming, Hanning or Blackman filter to further increase the pass band (regime 1 or FoV) and 
+% increase the stop band (regime 3 or outside the FoV) attenuation. 
+The process can be resume as follow:
+\begin{equation}
+Y^\mathrm{X} = Y(t) X(t) 
+\end{equation}
+where $X(t)$ is either the Hamming (Hm), Hanning (Hn) or Blackman (B) WFs well known in SP litterature
+\citep{nuttall1982spectral,podder2014comparative} and $Y$ is a $J_0(t)$ or $\mathrm{Sinc}(t)$ WF.
+% \OMS{citation please. Marcellin: correction done}.
+Fig. \ref{fig:wf:JhSh} shows the $J_0^\mathrm{Hm}, \mathrm{Sinc}^\mathrm{Hm}$ WFs and their responses. Compared to the $J_0(t)$ and 
+$\mathrm{Sinc}(t)$, they show lower PSL and higher SLR.
+
+
+
+
+
+
 % The complex matrices used in section \ref{sec:imaging} are explicitly derived in this appendix. In Eq.\ref{eqbb:linear}, the matrices
 % $\mathbf{C}_{(t,\nu)}^{block}$ and $\mathbf{W}_{pq,(t,\nu)}^{block}$ are blocks diagonals  both of size $(4n_t n_{\nu})\times(4n_t 
 % n_{\nu})$ explicitly expressed as follow:
