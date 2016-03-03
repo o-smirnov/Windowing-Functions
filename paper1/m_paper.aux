@@ -1,0 +1,143 @@
+\relax 
+\citation{thompson1999fundamentals,thompson2001fundamentals}
+\citation{bridle1989wide,bridle1999bandwidth}
+\newlabel{firstpage}{{}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}}{1}}
+\citation{keipema2015sfxc}
+\citation{icea-fscn}
+\citation{LOFAR}
+\citation{offringa-filtering}
+\citation{smirnov2011revisiting}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Overview and problem statement}{2}}
+\citation{thompson1999fundamentals,thompson2001fundamentals}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Visibility and relation with the sky}{3}}
+\newlabel{sec:visSky}{{2.1}{3}}
+\newlabel{eq:visSky:nom}{{2}{3}}
+\newlabel{eq:visSky}{{3}{3}}
+\newlabel{eq:visSky:2D}{{5}{3}}
+\newlabel{eq:visSky:conv}{{7}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Imaging, averaging and convolution}{3}}
+\newlabel{sec:AvgCon}{{2.2}{3}}
+\newlabel{eq:uvtf}{{8}{3}}
+\newlabel{eq:visSky:2Dtf}{{9}{3}}
+\newlabel{eq:imaging}{{10}{3}}
+\newlabel{eq:imaging2}{{14}{3}}
+\newlabel{eq:imaging2a}{{15}{3}}
+\newlabel{eq:imaging3}{{16}{3}}
+\newlabel{eq:inst-sampled-visibility}{{18}{3}}
+\citation{wrobel1999sensitivity}
+\citation{bregman2012system}
+\newlabel{eq:imaging:DI}{{19}{4}}
+\newlabel{eq2:conti}{{21}{4}}
+\newlabel{eq2:conti:uv}{{22}{4}}
+\newlabel{eq2:conti:uv1}{{23}{4}}
+\newlabel{eq:avscon}{{27}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Schematic of $uv$-coverage for regularly spaced time-frequency samples.}}{4}}
+\newlabel{fig:uvcov}{{1}{4}}
+\newlabel{eq:sampling}{{28}{4}}
+\newlabel{eq:discrete:tf0}{{29}{4}}
+\newlabel{eq:discrete:tf}{{31}{4}}
+\newlabel{eq:discrete:uv}{{32}{4}}
+\citation{noordam2010meqtrees}
+\citation{Perley-3C147}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Left: boxcar response. In the $uv$-plane, this represents the window function corresponding to normal averaging of visibilities. In the image plane, this represents the ideal image-plane response function. Right: Sinc response. In the image plane, this represents the window response function corresponding to a boxcar window function in the $uv$-plane. In the $uv$-plane, this represents the ideal window function.}}{5}}
+\newlabel{fig:idealwindowfunction}{{2}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Effect of averaging on the image}{5}}
+\newlabel{sec:effectbw}{{2.3}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}The case for alternative BDWFs}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Effects of time and frequency averaging: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, as a function of distance from phase centre. (Left) Frequency interval fixed at 125 kHz, time interval varies; (right) time interval fixed at 1s, frequency interval varies. }}{6}}
+\newlabel{fig:smear}{{3}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}BDWF Relationship to Digital Signal Processing}{6}}
+\newlabel{sec:bdwf_dsp}{{3}{6}}
+\citation{watson1995treatise}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Application of applying Window Functions to visibilities}{7}}
+\newlabel{eq:avg:wf}{{36}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Overlapping BDWFs representing adjacent resampling bins. This corresponds to overlap factor $\alpha =3$ in time. }}{7}}
+\newlabel{fig:overlap}{{5}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Overlapping BDWFs}{7}}
+\newlabel{baseline2}{{4.1}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Cross-sections through two different BDWFs (left: sinc, right: Bessel) defined in $uv$-space, plotted along the time axis. This shows that the effective window function is a scaling and truncation of the underlying window function, with the shortest baselines reducing to a boxcar-like window function. }}{8}}
+\newlabel{fig:WF:perbaseline}{{4}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Noise penalty estimates: analytic}{8}}
+\newlabel{sec:imaging}{{4.2}{8}}
+\newlabel{eq:noise:image}{{39}{8}}
+\newlabel{eq:noise:bdwf}{{41}{8}}
+\newlabel{eq:noisepenalty:natural}{{44}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Noise penalty estimates: empirical}{8}}
+\newlabel{subsec:noise}{{4.3}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces A comparison of image noise penalties associated with different BDWFs, computed analytically vs. simulations. }}{9}}
+\newlabel{tab:noise-comparison}{{1}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Simulations and results}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Noise penalty w.r.t. normal averaging as a function of baseline length for two different BDWFs (sinc and Bessel), with and without overlap. JVLA-C, 1.4 GHz, sampling intervals of 100s and 10 MHz. }}{10}}
+\newlabel{fig:per-baseline-noise}{{6}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces JVLA-C 1.4 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 25s$\times $2.5MHz, 50s$\times $5MHz and 100s$\times $10MHz bins, and for several BDWFs with 100s$\times $10MHz bins. The noise penalty $\Xi $ and the far-source suppression factor $F$ are given relative to 25s$\times $2.5MHz averaging.}}{10}}
+\newlabel{fig:results-example}{{7}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Noise penalties and overlapping BDWFs}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces JVLA-C 1.4 GHz. Results of Fig.\nobreakspace  {}7\hbox {} normalized to the 25s$\times $2.5MHz averaging curve.}}{11}}
+\newlabel{fig:results-example2}{{8}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}FoIs and sampling rates}{11}}
+\citation{keipema2015sfxc}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces JVLA-C 1.4 GHz, long wideband synthesis. Smearing as a function of distance from phase centre, for conventional averaging with 100s$\times $10MHz bins, and for overlapping BDWFs with 100s$\times $10MHz bins. The noise penalty $\Xi $ is given relative to 100s$\times $10MHz averaging.}}{12}}
+\newlabel{fig:results-longsynth}{{9}{12}}
+\newlabel{eq:optimal-binsize}{{46}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces JVLA-C 1.4 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 25s$\times $2.5MHz, 50s$\times $5MHz and 100s$\times $10MHz bins, and for several BDWFs with 100s$\times $10MHz bins. The noise penalty $\Xi $ and the far-source suppression factor $F$ are given relative to 25s$\times $2.5MHz averaging.}}{13}}
+\newlabel{fig:results-3sincs}{{10}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces JVLA-C 14 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 2.5s$\times $2.5MHz, 5s$\times $5MHz and 10s$\times $10MHz bins, and for several BDWFs with 10s$\times $10MHz bins. The noise penalty $\Xi $ and the far-source suppression factor $F$ are given relative to 2.5s$\times $2.5MHz averaging.}}{13}}
+\newlabel{fig:results-14ghz}{{11}{13}}
+\bibstyle{mn2e}
+\bibdata{m_paper}
+\bibcite{bregman2012system}{{1}{2012}{{Bregman}}{{Bregman}}}
+\bibcite{bridle1999bandwidth}{{2}{1999}{{Bridle \& Schwab}}{{Bridle \& Schwab}}}
+\bibcite{bridle1989wide}{{3}{1989}{{Bridle \& Schwab}}{{Bridle \& Schwab}}}
+\bibcite{delsarte1985discrete}{{4}{1985}{{Delsarte et~al.}}{{Delsarte, Janssen \& Vries}}}
+\bibcite{keipema2015sfxc}{{5}{2015}{{Keimpema et~al.}}{{Keimpema, Kettenis, Pogrebenko, Campbell, Cim{\'o}, Duev, Eldering, Kruithof, van Langevelde, Marchal et~al.,}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}BDWFs for wide-field VLBI}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusions and future work}{14}}
+\bibcite{nuttall1982spectral}{{6}{1982}{{Nuttall \& Carter}}{{Nuttall \& Carter}}}
+\bibcite{offringa-filtering}{{7}{2012}{{{Offringa} et~al.}}{{{Offringa}, {de Bruyn} \& {Zaroubi}}}}
+\bibcite{Perley-3C147}{{8}{2013}{{{Perley}}}{{{Perley}}}}
+\bibcite{podder2014comparative}{{9}{2014}{{Podder et~al.}}{{Podder, Khan, Khan \& Rahman}}}
+\bibcite{smirnov2011revisiting}{{10}{2011}{{Smirnov}}{{Smirnov}}}
+\bibcite{icea-fscn}{{11}{2012}{{Smirnov et~al.}}{{Smirnov, Frank, Theron \& Heywood}}}
+\bibcite{thompson1999fundamentals}{{12}{1999}{{Thompson}}{{Thompson}}}
+\bibcite{thompson2001fundamentals}{{13}{2001}{{{Thompson} et~al.}}{{{Thompson}, {Moran} \& {Swenson, Jr.}}}}
+\bibcite{LOFAR}{{14}{2013}{{Van~Haarlem et~al.}}{{Van~Haarlem, Wise, Gunst, Heald, McKean, Hessels, De~Bruyn, Nijboer, Swinbank, Fallows et~al.,}}}
+\bibcite{walter2006prolate}{{15}{2006}{{Walter \& Soleski}}{{Walter \& Soleski}}}
+\bibcite{watson1995treatise}{{16}{1995}{{Watson}}{{Watson}}}
+\bibcite{wrobel1999sensitivity}{{17}{1999}{{Wrobel \& Walker}}{{Wrobel \& Walker}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces VLBI simulation (10161km maximum baseline) at 1.6 GHz. Smearing as a function of distance from phase centre, for conventional averaging at 0.5s$\times $25kHz, 10ms$\times $120kHz and 10ms$\times $250kHz averaging, and overlapping Bessel BDWFs. The horizontal line corresponds to 10\% smearing losses. The ratio $Q$ shows the increase in data volume over conventional 2s$\times $0.5MHz averaging. }}{15}}
+\newlabel{fig:results-vlbi}{{12}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A1}{\ignorespaces Boxcar and its IPR.}}{15}}
+\newlabel{fig:wf:box}{{A1}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Overview of window functions}{15}}
+\newlabel{appendixA}{{A}{15}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A1}Boxcar window}{15}}
+\citation{delsarte1985discrete,walter2006prolate}
+\citation{watson1995treatise}
+\@writefile{lof}{\contentsline {figure}{\numberline {A2}{\ignorespaces Gaussian and its tapering response.}}{16}}
+\newlabel{fig:wf:gauss}{{A2}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A3}{\ignorespaces Butterworth and its IPR.}}{16}}
+\newlabel{fig:wf:bw}{{A3}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A2}Gaussian window}{16}}
+\newlabel{eq:gauss}{{A2}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A3}Butterworth window}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A4}{\ignorespaces Prolate spheroidal wave (of oder zeros) and its IPR.}}{16}}
+\newlabel{fig:wf:prolate}{{A4}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A5}{\ignorespaces Sinc and its IPR.}}{16}}
+\newlabel{fig:wf:sinc}{{A5}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A4}Prolate spheroidal window}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A5}Sinc window}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A6}Bessel $J_0$ window}{16}}
+\newlabel{Bessel}{{A6}{16}}
+\citation{nuttall1982spectral,podder2014comparative}
+\@writefile{lof}{\contentsline {figure}{\numberline {A6}{\ignorespaces $J_0$ and its IRP.}}{17}}
+\newlabel{fig:wf:bessel}{{A6}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A7}{\ignorespaces Sinc-Hamming and it IPR.}}{17}}
+\newlabel{fig:wf:Sh}{{A7}{17}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A7}Sinc-Hamming and $J_0$-Hamming windows}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A8}{\ignorespaces Bessel-Hamming and it IPR.}}{17}}
+\newlabel{fig:wf:bh}{{A8}{17}}
+\@writefile{lot}{\contentsline {table}{\numberline {A1}{\ignorespaces Comparative performance of different window functions. MLW: main lobe width, PSL: peak sidelobe level, SLR: sidelobes roll-off.}}{17}}
+\newlabel{tab:WF:performance}{{A1}{17}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A8}Relative Performance of Window Functions}{17}}
+\newlabel{lastpage}{{A8}{17}}
