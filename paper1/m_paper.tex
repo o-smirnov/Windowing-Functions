@@ -28,7 +28,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title[BDWFs for data compression and FoI shaping]{Using baseline-dependent window functions 
-for data compression and field-of-view shaping in radio interferometry}
+for data compression and field-of-interest shaping in radio interferometry}
 \author[M.T. Atemkeng, O.M. Smirnov, C. Tasse, G. Foster and J. Jonas]{M.T. 
 Atemkeng$^{1}$\thanks{E-mail: m.atemkeng@gmail.com}, O.M. Smirnov$^{12}$, C. Tasse$^{31}$, G. Foster$^{12}$, J. Jonas$^{12}$ \\
 $^1$Department of Physics and Electronics, Rhodes University, PO Box 94, Grahamstown, 6140, South Africa\\
@@ -47,16 +47,20 @@ $^3$GEPI, Observatoire de Paris, CNRS, Universite Paris Diderot, 5 place Jules J
 \begin{abstract}
 
 
-In radio interferometric observations, the observed visibilities are intrinsically averaged over some sampling interval
-in time and frequency. 
-This makes the resulting visibility to ``decorrelate'', and does so differently depending on the baseline length, sampling interval in  time and frequency domains. This effect produces a non trivial signature in the image domain known as ``smearing'', which manifests itself as an attenuation 
-in amplitude towards off-centre sources. With wide fields of view and/or long baselines, this effect is especially severe,
-and leads to either an increase in data size (if the averaging intervals are kept sufficiently small to control smearing), or 
-loss of field-of-view. We show that averaging of the $uv$-data can be treated as a form of convolution by a boxcar-like 
-window function, and that by employing alternative baseline-dependent window functions a more optimal interferometer 
-smearing response may be induced. In particular, we show improved amplitude response over a chosen field-of-view, and 
-better attenuation of sources outside the field-of-view. The main cost of this technique is a reduction in nominal 
-sensitivity; we investigate the smearing vs. sensitivity trade-off, and show that in certain regimes a favorable 
+In radio interferometry, observed visibilities are intrinsically sampled at some interval in time and frequency. 
+Modern interferometers are capable of producing data at very high time and frequency resolution; practical 
+limits on storage and computation costs require that some form of data compression be imposed. The 
+traditional form of compression is a simple averaging of the visibilities over coarser time and frequency bins. This
+has an undesired side effect: the resulting averaged visibilities ``decorrelate'', and do so differently depending 
+on the baseline length and averaging interval. This translates into a non-trivial signature in the image domain 
+known as ``smearing'', which manifests itself as an attenuation in amplitude towards off-centre sources. 
+With the increasing fields of view and/or longer baselines employed in modern and future instruments, the trade-off between
+data rate and smearing becomes increasingly unfavourable. In this work we investigate alternative approaches to low-loss data
+compression. We show that averaging of the visibility data 
+can be treated as a form of convolution by a boxcar-like window function, and that by employing alternative 
+baseline-dependent window functions a more optimal interferometer smearing response may be induced. In particular, 
+we show improved amplitude response over a chosen field of interest, and better attenuation of sources outside the field of interest. The main cost of this technique is a reduction in nominal sensitivity; we investigate the smearing vs. 
+sensitivity trade-off, and show that in certain regimes a favorable 
 compromise can be achieved. We show the application of this technique to simulated data from the JVLA and EVN.
 \end{abstract}
 \begin{keywords}
@@ -86,7 +90,7 @@ The effect of smearing is mainly a decrease in the amplitude of off-axis sources
 V = S \exp \big \{  \frac{2\pi i}{\lambda} \bmath{u}\cdot(\bmath{\sigma}-\bmath{\sigma}_0) \big \},
 \end{equation}
 
-where $\bmath{u}$ is the baseline vector, and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
+where $\bmath{u}$ is the baseline vector (in a coordinate system fixed to the sky), and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
 The complex phase term above rotates as a function of frequency (due to the inverse scaling with $\lambda$) and time (due to
 the fact that $\bmath{u}$ changes with time, at least in an Earth- or orbit-based interferometer). 
 Taking a rotating complex vector average over a time/frequency bin then results  in a net loss of amplitude. The effect increases 
@@ -251,7 +255,7 @@ The first term being integrated is the \emph{apparent sky seen by baseline} $pq$
 \II_{pq} = \frac{\EE_p \II_0 \EE_q^H}{\sqrt{1-l^2 - m^2}},
 \end{equation} 
 which in general can be variable in time and frequency. 
-For simplicity, let us assume that both the sky and the primary beam are constant (invariant in time and frequency), and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2D Fourier transform :
+For simplicity, let us assume that both the sky and the primary beam are constant (invariant in time and frequency), and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small FoI ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2D Fourier transform :
 \begin{equation}
 \VV(u,v)=\iint\limits_{lm} \II\,\ee^{-2\pi\ii(ul+vm)}dldm, \label{eq:visSky:2D}
 \end{equation} 
@@ -576,8 +580,8 @@ combined individual baseline filters.
 %match filters optimize SNR
 A matched filter maximizes the signal-to-noise of a desired signal in the
 presence of noise. In the case of synthesis imaging the desired signal is within
-a defined field of view on the sky. This is the passband region of the IPR and 
-sky signal outside of this field of view is in the stop band which we would like
+a defined FoI on the sky. This is the passband region of the IPR and 
+sky signal outside of this FoI is in the stop band which we would like
 to suppress. The choice of BDWF can depend on the requirement to limit the
 transition width between the pass and stop band or limit the pass band ripple,
 or minimize the sidelobe level or some other filter optimization metric. An
@@ -710,14 +714,14 @@ work, but this is a clear path for further study.
 %% the computational time is extremely huge. I was thinking to talk about 
 %% the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
 
-\section{Application of applying Window Functions to visibilities}
+\section{Applying window functions to visibilities}
 
 While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency, 
 the sampling positions go as $\sim\lambda^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
 integrations (Fig.~\ref{fig:uvcov}). Applying a window function with a constant integration window in $t\nu$ space corresponds to 
 different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Puv$ of 
 eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
-the scale of the window function, this results in more decorrelation (i.e. a narrower FoI) on longer baselines.
+the scale of the window function, this results in more decorrelation (i.e. a narrower ahievable FoI) on longer baselines.
 
 By defining our alternative window functions in $uv$-space (in units of wavelength), we can attempt to ``even out'' the decorrelation 
 response across baselines. For a given BDWF $X(u,v)$, we have the following recipe 
@@ -1194,7 +1198,11 @@ imaged using a single VLBI dataset. This opens the door to wide-field VLBI, whic
 
 BDWFs have a number of potential downsides. The first one is a potential loss in sensitivity. Our simulations show 
 that this can be kept within reasonable limits, especially if overlapping BDWFs are employed, and can be traded off with
-compression rate. The second downside is an increase in computational complexity. Whether implemented in a correlator
+compression rate. Note that from DSP theory, we know that a properly matched filter can actually increase the SNR: the equivalent
+result with BDWFs is that off-axis sources are attenuated less, so the effective SNR off-axis can increase despite the 
+loss in absolute sensitivity.
+
+The second downside of BDWFs is an increase in computational complexity. Whether implemented in a correlator
 or in post-processing, BDWFs (and especially overlapping BDWFs) require substantially more operations than simple averaging.
 There may be other limits to the practical applicability of BDWFs. They are far less efficient if high spectral  
 resolution is required, so their use may be limited to continuum observations. Furthermore, averaging over longer 
@@ -1375,7 +1383,7 @@ Compared to the $\mathrm{Sinc}(t)$ and $J_0(t)$, they show lower PSL and higher 
 % 
 % \ATM{It is possible, but we have to do this theoretically using the JVLA}
 
-window function -- or rather their corresponding image-plane response (IPR) -- can be characterized in terms of various metrics. Some common 
+Window functions -- or rather their corresponding image-plane response (IPR) -- can be characterized in terms of various metrics. Some common 
 ones are the peak sidelobe level (PSL), the main lobe width (MLW) and the sidelobes roll-off (SLR) rate. In terms of the ``ideal'' 
 IPR (Fig.~\ref{fig:idealwindowfunction}, left), these correspond to the following desirable traits:
 
