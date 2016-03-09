@@ -60,8 +60,7 @@ compression. We show that averaging of the visibility data
 can be treated as a form of convolution by a boxcar-like window function, and that by employing alternative 
 baseline-dependent window functions a more optimal interferometer smearing response may be induced. In particular, 
 we show improved amplitude response over a chosen field of interest, and better attenuation of sources outside the field of interest. The main cost of this technique is a reduction in nominal sensitivity; we investigate the smearing vs. 
-sensitivity trade-off, and show that in certain observation case a favorable 
-compromise can be achieved. We show the application of this technique to simulated data from the JVLA and EVN.
+sensitivity trade-off, and show that in certain regimes a favorable compromise can be achieved. We show the application of this technique to simulated data from the JVLA and EVN.
 \end{abstract}
 \begin{keywords}
 Instrumentation: interferometers, Methods: data analysis, Methods: numerical, Techniques: interferometric
@@ -90,7 +89,8 @@ The effect of smearing is mainly a decrease in the amplitude of off-axis sources
 V = S \exp \big \{  \frac{2\pi i}{\lambda} \bmath{u}\cdot(\bmath{\sigma}-\bmath{\sigma}_0) \big \},
 \end{equation}
 
-\noindent where $\bmath{u}$ is the baseline vector (in a coordinate system fixed to the sky), and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
+where $\bmath{u}$ is the baseline vector (in a coordinate system fixed to the sky), 
+and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
 The complex phase term above rotates as a function of frequency (due to the inverse scaling with $\lambda$) and time (due to
 the fact that $\bmath{u}$ changes with time, at least in an Earth- or orbit-based interferometer). 
 Taking a rotating complex vector average over a time/frequency bin then results  in a net loss of amplitude. The effect increases 
@@ -99,7 +99,7 @@ with baseline length and distance from phase centre. Besides reducing apparent s
 Throughout this work we use the term Field of Interest (FoI) which we
 differentiate from the Field of View (FoV). For this work the FoV is related to
 angular scale of the primary beam where as the FoI is a parameter of the 
-scientific observation case, which may be related to the size fo the primary
+scientific observation case, which may be related to the size of the primary
 beam but is not a necessary requirement. Thus, the FoI can be an adjustable
 parameter in the window functions we present.
 
@@ -293,7 +293,8 @@ The first term being integrated is the \emph{apparent sky seen by baseline} $pq$
 \II_{pq} = \frac{\EE_p \II_0 \EE_q^H}{\sqrt{1-l^2 - m^2}},
 \end{equation} 
 which in general can be variable in time and frequency. 
-For simplicity, let us assume that both the sky and the primary beam are constant (invariant in time and frequency), and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small FoI ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2-D Fourier transform :
+For simplicity, let us assume that both the sky and the primary beam are constant (invariant in time and frequency), and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small FoI ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2D Fourier transform :
+
 \begin{equation}
 \VV(u,v)=\iint\limits_{lm} \II\,\ee^{-2\pi\ii(ul+vm)}dldm, \label{eq:visSky:2D}
 \end{equation} 
@@ -772,8 +773,7 @@ the sampling positions go as $\sim\lambda^{-1}$, while in time, baselines with a
 integrations (Fig.~\ref{fig:uvcov}). Applying a window function with a constant integration window in $t\nu$ space corresponds to 
 different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Puv$ of 
 eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
-the scale of the window function, this results in more decorrelation (i.e. a
-narrower achievable FoI) on longer baselines.
+the scale of the window function, this results in more decorrelation (i.e. a narrower ahievable FoI) on longer baselines.
 
 By defining our alternative window functions in $uv$-space (in units of wavelength), we can attempt to ``even out'' the decorrelation 
 response across baselines. For a given BDWF $X(u,v)$, we have the following recipe 
