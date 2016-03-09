@@ -28,7 +28,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title[BDWFs for data compression and FoI shaping]{Using baseline-dependent window functions 
-for data compression and field-of-view shaping in radio interferometry}
+for data compression and field-of-interest shaping in radio interferometry}
 \author[M.T. Atemkeng, O.M. Smirnov, C. Tasse, G. Foster and J. Jonas]{M.T. 
 Atemkeng$^{1}$\thanks{E-mail: m.atemkeng@gmail.com}, O.M. Smirnov$^{12}$, C. Tasse$^{31}$, G. Foster$^{12}$, J. Jonas$^{12}$ \\
 $^1$Department of Physics and Electronics, Rhodes University, PO Box 94, Grahamstown, 6140, South Africa\\
@@ -47,16 +47,20 @@ $^3$GEPI, Observatoire de Paris, CNRS, Universite Paris Diderot, 5 place Jules J
 \begin{abstract}
 
 
-In radio interferometric observations, the observed visibilities are intrinsically averaged over some sampling interval
-in time and frequency. 
-This makes the resulting visibility to ``decorrelate'', and does so differently depending on the baseline length, sampling interval in  time and frequency domains. This effect produces a non trivial signature in the image domain known as ``smearing'', which manifests itself as an attenuation 
-in amplitude towards off-centre sources. With wide fields of view and/or long baselines, this effect is especially severe,
-and leads to either an increase in data size (if the averaging intervals are kept sufficiently small to control smearing), or 
-loss of field-of-view. We show that averaging of the $uv$-data can be treated as a form of convolution by a boxcar-like 
-window function, and that by employing alternative baseline-dependent window functions a more optimal interferometer 
-smearing response may be induced. In particular, we show improved amplitude response over a chosen field-of-view, and 
-better attenuation of sources outside the field-of-view. The main cost of this technique is a reduction in nominal 
-sensitivity; we investigate the smearing vs. sensitivity trade-off, and show that in certain regimes a favorable 
+In radio interferometry, observed visibilities are intrinsically sampled at some interval in time and frequency. 
+Modern interferometers are capable of producing data at very high time and frequency resolution; practical 
+limits on storage and computation costs require that some form of data compression be imposed. The 
+traditional form of compression is a simple averaging of the visibilities over coarser time and frequency bins. This
+has an undesired side effect: the resulting averaged visibilities ``decorrelate'', and do so differently depending 
+on the baseline length and averaging interval. This translates into a non-trivial signature in the image domain 
+known as ``smearing'', which manifests itself as an attenuation in amplitude towards off-centre sources. 
+With the increasing fields of view and/or longer baselines employed in modern and future instruments, the trade-off between
+data rate and smearing becomes increasingly unfavourable. In this work we investigate alternative approaches to low-loss data
+compression. We show that averaging of the visibility data 
+can be treated as a form of convolution by a boxcar-like window function, and that by employing alternative 
+baseline-dependent window functions a more optimal interferometer smearing response may be induced. In particular, 
+we show improved amplitude response over a chosen field of interest, and better attenuation of sources outside the field of interest. The main cost of this technique is a reduction in nominal sensitivity; we investigate the smearing vs. 
+sensitivity trade-off, and show that in certain observation case a favorable 
 compromise can be achieved. We show the application of this technique to simulated data from the JVLA and EVN.
 \end{abstract}
 \begin{keywords}
@@ -86,34 +90,72 @@ The effect of smearing is mainly a decrease in the amplitude of off-axis sources
 V = S \exp \big \{  \frac{2\pi i}{\lambda} \bmath{u}\cdot(\bmath{\sigma}-\bmath{\sigma}_0) \big \},
 \end{equation}
 
-where $\bmath{u}$ is the baseline vector, and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
+\noindent where $\bmath{u}$ is the baseline vector (in a coordinate system fixed to the sky), and $\bmath{\sigma}_0$ is the phase centre (or fringe stopping centre) of the observation.
 The complex phase term above rotates as a function of frequency (due to the inverse scaling with $\lambda$) and time (due to
 the fact that $\bmath{u}$ changes with time, at least in an Earth- or orbit-based interferometer). 
 Taking a rotating complex vector average over a time/frequency bin then results  in a net loss of amplitude. The effect increases 
 with baseline length and distance from phase centre. Besides reducing apparent source flux, smearing also distorts the PSF, since different baselines (and thus different Fourier modes) are attenuated differently.
 
-In the era of large interferometers, where computation (and thus data size) becomes one of the main cost drivers, it is 
-in principle desirable to average the data down as much as possible, without compromising the science goals. There are natural limits to this: firstly, we still need to critically sample the $uv$-plane, secondly, we need to retain sufficient spectral resolution, thirdly, we don't want to average (at least pre-calibration) beyond the natural variation of the calibration parameters, and fourthly, we want to keep smearing at acceptable levels in order not to lose too much signal. In this work, we concentrate specifically on the decorrelation/
-smearing problem. Here, we can identify two regimes:
+Throughout this work we use the term Field of Interest (FoI) which we
+differentiate from the Field of View (FoV). For this work the FoV is related to
+angular scale of the primary beam where as the FoI is a parameter of the 
+scientific observation case, which may be related to the size fo the primary
+beam but is not a necessary requirement. Thus, the FoI can be an adjustable
+parameter in the window functions we present.
 
+In the era of large interferometers, where computation (and thus data size)
+becomes one of the main cost drivers, it is in principle desirable to average
+the data down as much as possible, without compromising the science goals.
+There are natural limits to this: firstly, we still need to critically sample
+the $uv$-plane, secondly, we need to retain sufficient spectral resolution,
+thirdly, we do not want to average (at least pre-calibration) beyond the
+natural variation of the calibration parameters, and fourthly, we want to keep
+smearing at acceptable levels in order not to lose too much signal. In this
+work, we concentrate specifically on the decorrelation/smearing problem. Typical
+observation cases are:
+
+%surveys, deep imaging, vlbi
 \begin{itemize}
-\item In a compact interferometer, the maximum usable field of interest (FoI) corresponds to the primary beam  of the antennas at the half-power beam width or at the first null or whatever the adopted definition; in
-most cases (but surveys especially) we want the effective FoI to reach this limit. This imposes an upper limit on the size of a 
-time/frequency bin: it must be small enough to keep amplitude loss acceptably low across the entire primary beam FoI. 
-\item In Very Long Baseline Interferometry (VLBI), decorrelation is more severe, so the effective FoI is determined by the smallest time/frequency bin size that a
-correlator can support, and is normally much smaller than the primary beam \citep[for an extensive discussion see][]{keipema2015sfxc}. Modern VLBI correlators overcome this by employing a technique 
-where the signal is correlated relative to multiple phase centres simultaneously, thus
-effectively ``tiling'' the primary beam by multiple FoIs. This has a computational cost that scales linearly with the number of phase centres.
+\item Surveys where it is desirable to have a flat response across the largest
+possible FoI. This can be achieved by facet imaging but at a computatinal cost.
+By increasing the size of the facets a better balance between computional cost
+and image response can be acheived.
+\item Deep imaging where the it is useful to supress bright sources in the
+primary beam sidelobes outside of the FoI. Even with smearing of sources far
+from the phase centre bright sources can contribute significant flux and PSF
+sidelobe artefacts to the image..
+\item Very Long Baseline Interferometry (VLBI), decorrelation is more severe, so
+the effective FoI is determined by the smallest time/frequency bin size that a
+correlator can support, and is normally much smaller than the primary beam
+\citep{keipema2015sfxc}. Modern VLBI correlators overcome this by employing a
+technique where the signal is correlated relative to multiple phase centres
+simultaneously, thus effectively ``tiling'' the primary beam by multiple FoIs.
+This has a computational cost that scales linearly with the number of phase
+centres.
 \end{itemize}
+%Here, we can identify two regimes:
+%
+%\begin{itemize}
+%\item In a compact interferometer, the maximum usable field of interest (FoI) corresponds to the primary beam  of the antennas at the half-power beam width or at the first null or whatever the adopted definition; in
+%most cases (but surveys especially) we want the effective FoI to reach this limit. This imposes an upper limit on the size of a 
+%time/frequency bin: it must be small enough to keep amplitude loss acceptably low across the entire primary beam FoI. 
+%\item In Very Long Baseline Interferometry (VLBI), decorrelation is more severe, so the effective FoI is determined by the smallest time/frequency bin size that a
+%correlator can support, and is normally much smaller than the primary beam \citep[for an extensive discussion see][]{keipema2015sfxc}. Modern VLBI correlators overcome this by employing a technique 
+%where the signal is correlated relative to multiple phase centres simultaneously, thus
+%effectively ``tiling'' the primary beam by multiple FoIs. This has a computational cost that scales linearly with the number of phase centres.
+%\end{itemize}
 
-On the other hand, smearing also has a useful side effect. In interferometry, anything outside the desired FoI is unwanted 
-signal. However, the primary beam pattern of any real-life antenna features sidelobes and backlobes 
+Smearing can be seen to be a useful side effect, anything outside the desired
+FoI (by definition) is unwanted signal.
+%On the other hand, smearing also has a useful side effect. In interferometry, anything outside the desired FoI is unwanted signal.
+The primary beam pattern of any real antenna features sidelobes and backlobes 
 that extend across the entire sky, albeit at a relatively faint level. The faintness makes sidelobes useless for imaging any 
-but the brightest sources: the scientifically usable FoI is that given by the main lobe. However, the 
+but the brightest sources. However, the 
 sum total signal from all the sources in the primary beam sidelobes, modulated by their PSF sidelobes, contributes an unwanted global 
 background called the \emph{far sidelobe confusion noise} (FSCN), in very deep observations this may in pricniple become a
-bottleneck \citep{icea-fscn}. In other regimes, individual extremely bright radio sources such as Cyg A or 
-Cas A can contribute confusing signal from even the most distant  sidelobe: the LOFAR telescope \citep{LOFAR} has to deal 
+bottleneck \citep{icea-fscn}. In other cases, individual extremely bright
+radio sources such as Cygnus A or 
+Cassiopeia A can contribute confusing signal from even the most distant  sidelobe: the LOFAR telescope \citep{LOFAR} has to deal 
 with these so-called ``A-team'' sources 
 on a routine basis. By suppressing distant off-axis sources, smearing somewhat alleviates both the FSCN and A-team problems.
 % \GSF{This section has different and unclear definitions of FoV. Do we even need
@@ -161,8 +203,8 @@ the main challenges, use of BDWFs potentially offers additional leverage in opti
 Decreased smearing across the FoI allows for more aggressive data averaging, thus reducing storage and compute costs. 
 The trade-off is a loss of sensitivity, which pushes up observational time requirements. However, the decrease in smearing
 and noise from A-team sources could, conceivably, make up for some of the nominal sensitivity loss. 
-In the VLBI regime, use of BDWFs potentially offers an increase in effective FoI at a given correlator dump rate, or 
-equivalently, the ability to tile the primary beam FoI with fewer phase centres, allowing
+In the VLBI case, use of BDWFs potentially offers an increase in effective FoI at a given correlator dump rate, or 
+equivalently, the ability to tile the primary beam with fewer phase centres, allowing
 for smaller correlators.
 
 \section{Overview and problem statement}
@@ -251,7 +293,7 @@ The first term being integrated is the \emph{apparent sky seen by baseline} $pq$
 \II_{pq} = \frac{\EE_p \II_0 \EE_q^H}{\sqrt{1-l^2 - m^2}},
 \end{equation} 
 which in general can be variable in time and frequency. 
-For simplicity, let us assume that both the sky and the primary beam are constant (invariant in time and frequency), and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small field of view ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2D Fourier transform :
+For simplicity, let us assume that both the sky and the primary beam are constant (invariant in time and frequency), and that the primary beam is the same for all stations. All baselines will then see the same apparent sky throughout the measurement process. Let us designate this by $\II$. Assuming a small FoI ($n\to 1$) and/or a coplanar array ($w=0$), the above equation becomes a simple 2-D Fourier transform :
 \begin{equation}
 \VV(u,v)=\iint\limits_{lm} \II\,\ee^{-2\pi\ii(ul+vm)}dldm, \label{eq:visSky:2D}
 \end{equation} 
@@ -447,7 +489,8 @@ V^\mathrm{(m)}_{pqkl} = \sum_{i,j=-\infty}^{\infty}  \Vs_{pqij} \Puv_{pqkl}(\bma
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{./Figures/uvcovmodify.pdf}\caption{Schematic of $uv$-coverage for 
-regularly spaced time-frequency samples.}\label{fig:uvcov}
+regularly spaced time-frequency samples. Baselines with a longer East-West component sweep out longer tracks between successive 
+integrations.}\label{fig:uvcov}
 \end{figure}
 
 
@@ -558,7 +601,7 @@ terminology.
 %noise equivalent bandwidth
 %image plane response
 Ideally, all spatial modes, up to the resolution of the longest baseline, are
-sampled in a the 2-d continuous sky image $\II$. That requires Nyquist sampling
+sampled in a the 2-D continuous sky image $\II$. That requires Nyquist sampling
 the visibility domain out to the longest baseline spatial modes.
 This is rarely possible due to the unfilled holes in the
 $uv$ coverage during an observation, the lower spatial frequency cut-off due to
@@ -576,8 +619,8 @@ combined individual baseline filters.
 %match filters optimize SNR
 A matched filter maximizes the signal-to-noise of a desired signal in the
 presence of noise. In the case of synthesis imaging the desired signal is within
-a defined field of view on the sky. This is the passband region of the IPR and 
-sky signal outside of this field of view is in the stop band which we would like
+a defined FoI on the sky. This is the passband region of the IPR and 
+sky signal outside of this FoI is in the stop band which we would like
 to suppress. The choice of BDWF can depend on the requirement to limit the
 transition width between the pass and stop band or limit the pass band ripple,
 or minimize the sidelobe level or some other filter optimization metric. An
@@ -602,9 +645,9 @@ and baselines length and directions.
 %domains
 Confusion in terminology can arise due to the number of different signal domains
 used in this work. The visibility of a baseline is sampled constantly in the 
-correlator time domain, but is irregularly sampled in the 2-d visibility domain
+correlator time domain, but is irregularly sampled in the 2-D visibility domain
 (for simplicity we are only analyzing the $uv$-plane of the 3-d $uvw$-space). The
-imaging domain is the 2-d Fourier pair of the visibility space.
+imaging domain is the 2-D Fourier pair of the visibility space.
 %time varying physical process
 In synthesis imaging we are making the assumption that the sky is a constant
 signal but a time vary signal is measured due to the array rotation (usually
@@ -615,8 +658,20 @@ linear but are dependent on baseline length which varies with time. It is not
 sufficient to just analyze the filter impulse response. Instead, for our
 analysis we will use the aggregate image plane response.
 
+\begin{figure} 
+\includegraphics[width=\columnwidth]{./Figures/sinc_response_labelled.pdf}
+\caption{Response of a Sinc filter window. A filter response is segmented into
+three regions: passband, stopband, and transition region. Filter design can
+optimize for various metrics such as the peak sidelobe level (PSL), sidelobe
+rolloff rate (SLR), passband ripple, etc.}
+\label{fig:sinc_response}
+\end{figure}
+
 %choice of window functions
 For this work we have chosen to use Sinc and Bessel window functions.
+Figure \ref{fig:sinc_response} is the generic response of a Sinc function, we
+use the standard DSP filter terminology to describe the IPR of visibility domain
+window functions.
 To construct a 2-D  Sinc and Bessel from 1-D, we will use the following definitions:
 \begin{eqnarray}
 S(u,v) &=& S(u)S(v), \nonumber\\
@@ -626,7 +681,7 @@ J_0(u,v) &=& J_0(r), ~~~r=\sqrt{u^2+v^2}.\nonumber
 where $S$ and $J_0$ are the sinc window and Bessel function of the
 first kind of order zero \citep{watson1995treatise} respectively.
 Appendix~\ref{appendixA} provides a review of these window functions along with
-common 1-d window functions which were also considered. This work does not 
+common 1-D window functions which were also considered. This work does not 
 attempt to find the optimal matched filter, we leave this to future work.
 %FIR
 All the BDWF presented are finite impulse response (FIR) filters followed by
@@ -710,14 +765,15 @@ work, but this is a clear path for further study.
 %% the computational time is extremely huge. I was thinking to talk about 
 %% the Hamming*[sinc or bessel], Hinning*[sinc or bessel], blackman*[sinc or bessel] there are also performing well.}
 
-\section{Application of applying Window Functions to visibilities}
+\section{Applying window functions to visibilities}
 
 While visibilities are (usually) regularly sampled in $t\nu$-space, in $uv^\mathrm{m}$-space this is not so. In frequency, 
 the sampling positions go as $\sim\lambda^{-1}$, while in time, baselines with a longer East-West component sweep out longer tracks between successive 
 integrations (Fig.~\ref{fig:uvcov}). Applying a window function with a constant integration window in $t\nu$ space corresponds to 
 different-sized windows in $uv$-space. In the case of normal averaging, this results in the boxcar-like window $\Puv$ of 
 eq.~(\ref{eq:avscon}) having a baseline-dependent scale. The scale of the tapering response being inversely proportional to 
-the scale of the window function, this results in more decorrelation (i.e. a narrower FoI) on longer baselines.
+the scale of the window function, this results in more decorrelation (i.e. a
+narrower achievable FoI) on longer baselines.
 
 By defining our alternative window functions in $uv$-space (in units of wavelength), we can attempt to ``even out'' the decorrelation 
 response across baselines. For a given BDWF $X(u,v)$, we have the following recipe 
@@ -793,7 +849,7 @@ Let us then compute the sums in eq.~(\ref{eq:avg:wf}) over the window bin. This 
 resampling bin: while the latter represents the spacing of the resampled visibilities, the former represents the size 
 of the window over which the convolution is computed. Only for $\alpha=\beta=1$ do the two bins become the same.
 
-BDWFs in the overlapping regime are schematically illustrated in Fig.~\ref{fig:overlap}. For normal averaging 
+Overlapping BDWFs are schematically illustrated in Fig.~\ref{fig:overlap}. For normal averaging 
 overlapping offers no benefit, since it only broadens $\Puv$ and therefore increases smearing. But for a well-behaved 
 BDWF, enlarging the window bin (while maintaining the same window function scale) means less truncation -- thus lower 
 sidelobes -- and decreased noise, as more sampled visibilities are taken into account.
@@ -932,8 +988,8 @@ vs. simulations.
 \end{table}
 
 \begin{figure*}
-\includegraphics[width=.4\textwidth]{./Figures/per-baseline-noise-ratio-sinc.png}%
-\includegraphics[width=.4\textwidth]{./Figures/per-baseline-noise-ratio-bessel.png}
+\includegraphics[width=.4\textwidth]{./Figures/per-baseline-noise-ratio-sinc.pdf}%
+\includegraphics[width=.4\textwidth]{./Figures/per-baseline-noise-ratio-bessel.pdf}
 \caption{Noise penalty w.r.t. normal averaging as a function of baseline length for two different BDWFs 
 (sinc and Bessel), with and without overlap. JVLA-C, 1.4 GHz, sampling intervals of 100s and 
 10 MHz. 
@@ -964,7 +1020,7 @@ sampling rates, \BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} (thus 4 timeslots a
 and 2 channels, and single-channel snapshot).
 
 \begin{figure*}
-\includegraphics[width=.9\textwidth]{./Figures/suppression-10x100-3wfs.png}
+\includegraphics[width=.9\textwidth]{./Figures/suppression-10x100-3wfs.pdf}
 \caption{JVLA-C 1.4 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 
 \BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} bins, and for several BDWFs with \BIN{100}{10} bins.
 The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{25}{2.5}
@@ -972,7 +1028,7 @@ averaging.}
 \label{fig:results-example}
 \end{figure*}
 \begin{figure*}
-\includegraphics[width=.9\textwidth]{./Figures/relsuppression-10x100-3wfs.png}\\
+\includegraphics[width=.9\textwidth]{./Figures/relsuppression-10x100-3wfs.pdf}\\
 \caption{JVLA-C 1.4 GHz. Results of Fig.~\ref{fig:results-example} normalized to the \BIN{25}{2.5} averaging curve.}
 \label{fig:results-example2}
 \end{figure*}
@@ -1048,7 +1104,7 @@ in some bonus signal from overlap regions extending beyond the synthesis coverag
 overlap is negligible compared to the coverage of the full synthesis, so is the effect of the bonus signal.
 
 \begin{figure*}
-\includegraphics[width=.9\textwidth]{./Figures/suppression-longsynth.png}\\
+\includegraphics[width=.9\textwidth]{./Figures/suppression-longsynth.pdf}\\
 \caption{JVLA-C 1.4 GHz, long wideband synthesis. Smearing as a function of distance from phase centre, 
 for conventional averaging with \BIN{100}{10} bins, and for overlapping BDWFs with \BIN{100}{10} bins.
 The noise penalty $\Xi$ is given relative to \BIN{100}{10} averaging.}
@@ -1099,7 +1155,7 @@ integration time in seconds is 10 times the channel width in MHz (hence the use 
 in the analysis here). 
 
 \begin{figure*}
-\includegraphics[width=.9\textwidth]{./Figures/suppression-25-100-sincs.png}
+\includegraphics[width=.9\textwidth]{./Figures/suppression-25-100-sincs.pdf}
 \caption{JVLA-C 1.4 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 
 \BIN{25}{2.5}, \BIN{50}{5} and \BIN{100}{10} bins, and for several BDWFs with \BIN{100}{10} bins.
 The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{25}{2.5}
@@ -1107,7 +1163,7 @@ averaging.}
 \label{fig:results-3sincs}
 \end{figure*}
 \begin{figure*}
-\includegraphics[width=.9\textwidth]{./Figures/suppression-14GHz.png}
+\includegraphics[width=.9\textwidth]{./Figures/suppression-14GHz.pdf}
 \caption{JVLA-C 14 GHz. Smearing as a function of distance from phase centre, for conventional averaging with 
 \BIN{2.5}{2.5}, \BIN{5}{5} and \BIN{10}{10} bins, and for several BDWFs with \BIN{10}{10} bins.
 The noise penalty $\Xi$ and the far-source suppression factor $F$ are given relative to \BIN{2.5}{2.5}
@@ -1142,7 +1198,7 @@ noise penalty) at 14 GHz and 1.4 GHz, with only the optimal sampling rate being 
 
 \subsection{BDWFs for wide-field VLBI}
 
-In the VLBI regime, it is usually a combination of smearing and data rates, rather than the primary beam, 
+In the VLBI case, it is usually a combination of smearing and data rates, rather than the primary beam, 
 that effectively limits the FoI. For example, the current European VLBI Network (EVN) correlator 
 \citep{keipema2015sfxc} operated by the Joint Institute for VLBI in Europe (JIVE) is capable of
 producing data at dump rates down to 10ms, with 16 MHz of total bandwidth split into up to 8192 channels. 
@@ -1161,7 +1217,7 @@ response of normal averaging to that of two overlapping Bessel BDWFs, employing 
 At these data rates, it becomes almost practical to have a full-FoI EVN archive. 
 
 \begin{figure*}
-\includegraphics[width=.9\textwidth]{./Figures/suppression-vlbi2.png}
+\includegraphics[width=.9\textwidth]{./Figures/suppression-vlbi2.pdf}
 \caption{VLBI simulation (10161km maximum baseline) at 1.6 GHz. Smearing as a function of distance from 
 phase centre, for conventional averaging at 0.5s$\times$25kHz, 10ms$\times$120kHz and 10ms$\times$250kHz averaging, 
 and overlapping Bessel BDWFs. The horizontal line corresponds to 10\% smearing losses. The ratio $Q$ shows the 
@@ -1179,8 +1235,8 @@ $uv$-bins are elongated. Fig.~\ref{fig:results-vlbi} shows that this translates 
 
 The goal of this work was to demonstrate the application of baseline-dependent window functions to radio 
 interferometry. We have demonstrated that BDWFs offer a number of interesting advantages over conventional averaging.
-The first of these is data compression -- i.e. visibilities can be sampled at a lower rate, while retaining the primary 
-beam FoI. Compression by a factor of 16 with relatively little loss of sensitivity has been demonstrated. The huge data 
+The first of these is data compression -- i.e. visibilities can be sampled at a
+lower rate, while retaining a large FoI. Compression by a factor of 16 with relatively little loss of sensitivity has been demonstrated. The huge data 
 rates from upcoming instruments such as ASKAP, MeerKAT and the future SKA1 mean that raw visibilities may need to be
 discarded after calibration (unlike older instruments, where raw visibilities have typically been archived). This 
 represents something of a risk to the science, as it precludes future improvements in calibration techniques from 
@@ -1189,12 +1245,16 @@ being later applied to the data. With BDWFs, at least a highly-compressed versio
 The second potential benefit of BDWFs is the increased suppression of unwanted signal from out-of-FoI sources. This
 reduces both the overall level of far sidelobe confusion noise, and lessens the impact of A-team sources in sidelobes.
 
-Thirdly, BDWFs can have an interesting impact in the VLBI regime, as they allow the full primary beam FoI to be 
+Thirdly, BDWFs can have an interesting impact in the VLBI case, as they allow the full primary beam FoI to be 
 imaged using a single VLBI dataset. This opens the door to wide-field VLBI, which has herefore been impractical.
 
 BDWFs have a number of potential downsides. The first one is a potential loss in sensitivity. Our simulations show 
 that this can be kept within reasonable limits, especially if overlapping BDWFs are employed, and can be traded off with
-compression rate. The second downside is an increase in computational complexity. Whether implemented in a correlator
+compression rate. Note that from DSP theory, we know that a properly matched filter can actually increase the SNR: the equivalent
+result with BDWFs is that off-axis sources are attenuated less, so the effective SNR off-axis can increase despite the 
+loss in absolute sensitivity.
+
+The second downside of BDWFs is an increase in computational complexity. Whether implemented in a correlator
 or in post-processing, BDWFs (and especially overlapping BDWFs) require substantially more operations than simple averaging.
 There may be other limits to the practical applicability of BDWFs. They are far less efficient if high spectral  
 resolution is required, so their use may be limited to continuum observations. Furthermore, averaging over longer 
@@ -1257,7 +1317,7 @@ The other window functions given below are all multiplied with a boxcar to ensur
 
 \subsection{Gaussian window}
 
-\FilterFigure{./Figures/gaussiangrey.pdf}{./Figures/freq_resp_gaussiangrey.pdf}{Gaussian  and its tapering response.}{fig:wf:gauss}
+\FilterFigure{./Figures/gaussiangrey.pdf}{./Figures/freq_resp_gaussiangrey.pdf}{Gaussian  and its IPR.}{fig:wf:gauss}
 
 A Gaussian window function centred at zero with a standard deviation of $\sigma_1$ is given by: 
 \begin{equation}
@@ -1289,8 +1349,7 @@ the order $p$ conserves the MLW, and dramatically lowers distant sidelobes, at t
 
 \subsection{Prolate spheroidal window}
 
-\FilterFigure{./Figures/prolategrey.pdf}{./Figures/freq_resp_prolategrey.pdf}{Prolate 
-spheroidal wave (of oder zeros) and its IPR.}{fig:wf:prolate}
+\FilterFigure{./Figures/prolategrey.pdf}{./Figures/freq_resp_prolategrey.pdf}{Prolate window (of oder zeros) and its IPR.}{fig:wf:prolate}
 
 This window function is given by a prolate spheroidal wave function of sequence zero ($n=0$) characterized
 by two independent parameters, the cut-off time $[-t_a,t_a]$ and the order $\alpha$ 
@@ -1353,8 +1412,8 @@ the sidelobes.
 % Anyway  surely I need to rephrase?}
 
 The Hamming, Han or Blackman filter is sometime multiplied by 
-a $J_0(t)$ or $\mathrm{Sinc}(t)$ to increase the pass band (regime 1 or FoI) and 
-increase the stop band (regime 3 or outside the FoI) attenuation.
+a $J_0(t)$ or $\mathrm{Sinc}(t)$ to increase the pass band (FoI) and 
+increase the stop band (outside the FoI) attenuation.
 % A $J_0(t)$ window function can be used to filter out the input signal as previously mentioned. . The intermediate signal 
 % can then be passed through a Hamming, Han or Blackman filter to further increase the pass band (regime 1 or FoI) and 
 % increase the stop band (regime 3 or outside the FoI) attenuation. 
@@ -1375,13 +1434,14 @@ Compared to the $\mathrm{Sinc}(t)$ and $J_0(t)$, they show lower PSL and higher 
 % 
 % \ATM{It is possible, but we have to do this theoretically using the JVLA}
 
-window function -- or rather their corresponding image-plane response (IPR) -- can be characterized in terms of various metrics. Some common 
+Window functions -- or rather their corresponding image-plane response (IPR) -- can be characterized in terms of various metrics. Some common 
 ones are the peak sidelobe level (PSL), the main lobe width (MLW) and the sidelobes roll-off (SLR) rate. In terms of the ``ideal'' 
 IPR (Fig.~\ref{fig:idealwindowfunction}, left), these correspond to the following desirable traits:
 
 \begin{itemize}
-\item Maximally conserve the signal within the FoI (``regime 1'' in the figure), and make the transition in ``regime 2'' as sharp as possible. Both of these correspond to larger MLW.
-\item Attenuate sources outside the FoI (``regime 3''): this corresponds to a lower PSL and higher SLR.
+\item Maximally conserve the signal within the FoI (``passband'' in the figure),
+and make the transition region as sharp as possible. Both of these correspond to larger MLW.
+\item Attenuate sources outside the FoI (``stopband''): this corresponds to a lower PSL and higher SLR.
 \end{itemize}
 
 \begin{table}

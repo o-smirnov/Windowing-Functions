@@ -1,48 +1,57 @@
 \relax 
 \newlabel{firstpage}{{}{1}}
 \@writefile{toc}{\contentsline {section}{\numberline {1}}{1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Problem statement and background}{1}}
-\newlabel{eq:phase}{{1}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Data structure and dimensions}{1}}
+\citation{krichbaum1999ska,wright2002model,patel2006antenna}
+\citation{cloudsim2015pervasive}
 \citation{cotton1989special,cotton1999special}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, as a function of distance from phase centre. (Left) time and frequency integrations fixed at 100s and 125 kHz respectively; (Right) time and frequency integrations fixed at 1 s and 10 MHz respectively.}}{2}}
-\newlabel{fig:amplitude}{{1}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces MeerKAT $uv$-coverage at 1.4 GHz, 1 hour observation showing clearly that the data is most condensed at the centre core. The data at the inner core are from the shorter baselines, while the data at the outer core are from the longer baselines.}}{2}}
-\newlabel{fig:meerkat}{{3}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Baseline Dependent Averaging}{2}}
-\newlabel{sec:bda}{{2.1}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, as a function of Est-West baseline components. (Top) time and frequency integrations fixed at 100s and 125 kHz respectively; (Right) time and frequency integrations fixed at 1 s and 10 MHz respectively.}}{3}}
-\newlabel{fig:srcat30arcmin_avg}{{2}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Applying baseline dependent averaging or normal averaging is equivalent to convolving the resampling bin by a boxcar windowing function. An Est-West interferometer array, the baseline dependent averaging (left panel) corresponds to an equal convolution kernel and resampling bin across all baselines.}}{3}}
-\newlabel{fig:tipical-normalav_bda}{{4}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Two equal lengths baselines A and B with different orientation. The baselne A is a typical East-West baseline (the South-North component is zero) and B has a non zero South-North and East-West components. The distances sweep by these baselines are different during the same time integration.}}{3}}
-\newlabel{fig:east_west}{{5}{3}}
-\newlabel{eq:bda1}{{6}{4}}
-\newlabel{eq:discrete:bdaavg}{{9}{4}}
-\newlabel{eq:avscon}{{10}{4}}
-\newlabel{eq4:imagetaaper}{{11}{4}}
-\newlabel{eq:bda2}{{13}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Compression factor}{4}}
-\newlabel{eq:memorychap4hires}{{14}{4}}
-\newlabel{eq:memorychap4}{{15}{4}}
-\newlabel{eq:memorychap4bd}{{18}{4}}
-\newlabel{compresionbdafactor}{{19}{4}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Implementation details}{5}}
-\newlabel{BDA:impl}{{3}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Flagging}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Duplication}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Baseline dependent averaging with flagging: the bins are averaged and the average value is assign at the centre of the resampling bin interval, while a flagging value is assign to others points.}}{5}}
-\newlabel{fig:bdavgflagging}{{6}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Baseline dependent averaging with duplication: the bins are averaged and the average value is assign at all points of the resampling bin interval.}}{5}}
-\newlabel{fig:bdavgduplication}{{7}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Semi duplication and flagging}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Baseline dependent averaging with semi duplication and flagging: the bins are averaged and the average value is duplicated only at the two central points of the resampling bin interval and the other bins are flagged.}}{6}}
-\newlabel{fig:bdavgsimeduplicationflagging}{{8}{6}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Simulations and results}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Source amplitude vs east-west baseline length}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, as a function of Est-West baseline components. (Top) time and frequency integrations fixed at 100s and 125 kHz respectively; (Right) time and frequency integrations fixed at 1 s and 10 MHz respectively.}}{6}}
-\newlabel{fig:srcat30arcminx}{{9}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Source amplitude vs distance from the phase centre}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source as seen by JVLA-C at 1.4 GHz as a function of distance from phase centre, for simple averaging with 25s$\times $2.5MHz bins, and for BDA, and overlapping BDWFs for equal compression factor of $CF=25\times 30$.}}{8}}
-\newlabel{fig:bda-sn-bessel-2ge}{{10}{8}}
-\newlabel{lastpage}{{5}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Interferometry data structure. A baseline is a set of sub-bands, each sub-band on it own is a set of data for timeslots and channels. The data shape for a baseline result to ($N_{sub}$, $N_{tslot}$, $N_{ch}$, $N_{pol}$).}}{2}}
+\newlabel{fig:datastructure}{{1}{2}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  Interferometers observing parameters vs. data size}}{2}}
+\newlabel{tab:datasize}{{1}{2}}
+\newlabel{eq:memory}{{1}{2}}
+\newlabel{eq:memory2}{{2}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Problem statement and background}{2}}
+\newlabel{eq:phase}{{3}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Baseline Dependent Averaging}{2}}
+\newlabel{sec:bda}{{3.1}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, as a function of distance from phase centre. (Left) time and frequency integrations fixed at 100s and 125 kHz respectively; (Right) time and frequency integrations fixed at 1 s and 10 MHz respectively.}}{3}}
+\newlabel{fig:amplitude}{{2}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces MeerKAT $uv$-coverage at 1.4 GHz, 1 hour observation showing clearly that the data is most condensed at the centre core. The data at the inner core are from the shorter baselines, while the data at the outer core are from the longer baselines.}}{3}}
+\newlabel{fig:meerkat}{{4}{3}}
+\newlabel{eq:bda1}{{8}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, as a function of Est-West baseline components. (Top) time and frequency integrations fixed at 100s and 125 kHz respectively; (Right) time and frequency integrations fixed at 1 s and 10 MHz respectively.}}{4}}
+\newlabel{fig:srcat30arcmin_avg}{{3}{4}}
+\newlabel{eq:discrete:bdaavg}{{11}{4}}
+\newlabel{eq:avscon}{{12}{4}}
+\newlabel{eq4:imagetaaper}{{13}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Applying baseline dependent averaging or normal averaging is equivalent to convolving the resampling bin by a boxcar windowing function. An Est-West interferometer array, the baseline dependent averaging (left panel) corresponds to an equal convolution kernel and resampling bin across all baselines.}}{5}}
+\newlabel{fig:tipical-normalav_bda}{{5}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Two equal lengths baselines A and B with different orientation. The baselne A is a typical East-West baseline (the South-North component is zero) and B has a non zero South-North and East-West components. The distances sweep by these baselines are different during the same time integration.}}{5}}
+\newlabel{fig:east_west}{{6}{5}}
+\newlabel{eq:bda2}{{15}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Compression factor}{5}}
+\newlabel{eq:memorychap4hires}{{16}{5}}
+\newlabel{eq:memorychap4}{{17}{5}}
+\newlabel{eq:memorychap4bd}{{20}{6}}
+\newlabel{compresionbdafactor}{{21}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Implementation details}{6}}
+\newlabel{BDA:impl}{{4}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Flagging}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Baseline dependent averaging with flagging: the bins are averaged and the average value is assign at the centre of the resampling bin interval, while a flagging value is assign to others points.}}{6}}
+\newlabel{fig:bdavgflagging}{{7}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Duplication}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Semi duplication and flagging}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Baseline dependent averaging with duplication: the bins are averaged and the average value is assign at all points of the resampling bin interval.}}{7}}
+\newlabel{fig:bdavgduplication}{{8}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Baseline dependent averaging with semi duplication and flagging: the bins are averaged and the average value is duplicated only at the two central points of the resampling bin interval and the other bins are flagged.}}{7}}
+\newlabel{fig:bdavgsimeduplicationflagging}{{9}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Simulations and results}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Source amplitude vs east-west baseline length}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Source amplitude vs distance from the phase centre}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source, as seen by JVLA-C at 1.4 GHz, as a function of Est-West baseline components. (Top) time and frequency integrations fixed at 100s and 125 kHz respectively; (Right) time and frequency integrations fixed at 1 s and 10 MHz respectively.}}{8}}
+\newlabel{fig:srcat30arcminx}{{10}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{9}}
+\newlabel{lastpage}{{6}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Amplitude loss: the apparent intensity of a 1 Jy source as seen by JVLA-C at 1.4 GHz as a function of distance from phase centre, for simple averaging with 25s$\times $2.5MHz bins, and for BDA, and overlapping BDWFs for equal compression factor of $CF=25\times 30$.}}{10}}
+\newlabel{fig:bda-sn-bessel-2ge}{{11}{10}}

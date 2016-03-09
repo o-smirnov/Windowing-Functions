@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.23)  3 MAR 2016 18:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.23)  5 MAR 2016 21:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -574,152 +574,188 @@ LaTeX Warning: Reference `chap3:simulation' on page 1 undefined on input line 1
 04.
 
 
-<./Figures/effect_time_averaging_amplitude.pdf, id=1, 514.92375pt x 442.65375pt
->
-File: ./Figures/effect_time_averaging_amplitude.pdf Graphic file (type pdf)
- <use ./Figures/effect_time_averaging_amplitude.pdf>
-Package pdftex.def Info: ./Figures/effect_time_averaging_amplitude.pdf used on 
-input line 157.
-(pdftex.def)             Requested size: 240.0pt x 206.31142pt.
+LaTeX Warning: Reference `chapter3' on page 1 undefined on input line 143.
 
-<./Figures/effect_bandwidth_averaging_amplitude.pdf, id=2, 514.92375pt x 442.65
-375pt>
-File: ./Figures/effect_bandwidth_averaging_amplitude.pdf Graphic file (type pdf
-)
- <use ./Figures/effect_bandwidth_averaging_amplitude.pdf>
-Package pdftex.def Info: ./Figures/effect_bandwidth_averaging_amplitude.pdf use
-d on input line 158.
-(pdftex.def)             Requested size: 240.0pt x 206.31142pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 163.
+
+LaTeX Warning: Reference `eq:rime:smirnov' on page 1 undefined on input line 14
+6.
+
+
+LaTeX Warning: Reference `eq:rime:smirnov' on page 1 undefined on input line 14
+7.
+
+<./Figures/data_structure_bis.pdf, id=1, 508.59613pt x 435.78911pt>
+File: ./Figures/data_structure_bis.pdf Graphic file (type pdf)
+
+<use ./Figures/data_structure_bis.pdf>
+Package pdftex.def Info: ./Figures/data_structure_bis.pdf used on input line 15
+0.
+(pdftex.def)             Requested size: 167.99927pt x 143.94383pt.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 161.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 163.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 161.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-<./Figures/effect_time_averaging_amplitude_src30arcmin.pdf, id=30, 1175.2909pt 
+Overfull \hbox (2.73225pt too wide) detected at line 168
+\OML/cmm/m/it/9 data []size \OT1/cmr/m/n/9 = [] \OMS/cmsy/m/n/9 ^^B \OML/cmm/m/
+it/9 N[] \OMS/cmsy/m/n/9 ^^B \OML/cmm/m/it/9 N[] \OMS/cmsy/m/n/9 ^^B \OML/cmm/m
+/it/9 N[] \OMS/cmsy/m/n/9 ^^B \OML/cmm/m/it/9 N[] \OMS/cmsy/m/n/9 ^^B \OT1/cmr/
+m/n/9 32 []\OML/cmm/m/it/9 bits;
+ []
+
+
+Overfull \hbox (12.42712pt too wide) in paragraph at lines 173--185
+[] [] 
+ []
+
+
+Package natbib Warning: Citation `krichbaum1999ska' on page 2 undefined on inpu
+t line 190.
+
+
+Package natbib Warning: Citation `wright2002model' on page 2 undefined on input
+ line 190.
+
+
+Package natbib Warning: Citation `patel2006antenna' on page 2 undefined on inpu
+t line 190.
+
+
+Package natbib Warning: Citation `cloudsim2015pervasive' on page 2 undefined on
+ input line 191.
+
+
+<./Figures/effect_time_averaging_amplitude.pdf, id=27, 514.92375pt x 442.65375p
+t>
+File: ./Figures/effect_time_averaging_amplitude.pdf Graphic file (type pdf)
+ <use ./Figures/effect_time_averaging_amplitude.pdf>
+Package pdftex.def Info: ./Figures/effect_time_averaging_amplitude.pdf used on 
+input line 226.
+(pdftex.def)             Requested size: 240.0pt x 206.31142pt.
+
+<./Figures/effect_bandwidth_averaging_amplitude.pdf, id=28, 514.92375pt x 442.6
+5375pt>
+File: ./Figures/effect_bandwidth_averaging_amplitude.pdf Graphic file (type pdf
+)
+ <use ./Figures/effect_bandwidth_averaging_amplitude.pdf>
+Package pdftex.def Info: ./Figures/effect_bandwidth_averaging_amplitude.pdf use
+d on input line 227.
+(pdftex.def)             Requested size: 240.0pt x 206.31142pt.
+
+<./Figures/effect_time_averaging_amplitude_src30arcmin.pdf, id=29, 1175.2909pt 
 x 641.39626pt>
 File: ./Figures/effect_time_averaging_amplitude_src30arcmin.pdf Graphic file (t
 ype pdf)
  <use ./Figures/effect_time_averaging_amplitude_src30arcmin.pdf>
 Package pdftex.def Info: ./Figures/effect_time_averaging_amplitude_src30arcmin.
-pdf used on input line 176.
-(pdftex.def)             Requested size: 240.0pt x 130.96837pt.
+pdf used on input line 245.
+(pdftex.def)             Requested size: 352.79846pt x 192.52802pt.
 
-<./Figures/effect_bandwidth_averaging_amplitude_src30arcmin.pdf, id=31, 1175.29
+<./Figures/effect_bandwidth_averaging_amplitude_src30arcmin.pdf, id=30, 1175.29
 09pt x 641.39626pt>
 File: ./Figures/effect_bandwidth_averaging_amplitude_src30arcmin.pdf Graphic fi
 le (type pdf)
 
 <use ./Figures/effect_bandwidth_averaging_amplitude_src30arcmin.pdf>
 Package pdftex.def Info: ./Figures/effect_bandwidth_averaging_amplitude_src30ar
-cmin.pdf used on input line 177.
-(pdftex.def)             Requested size: 240.0pt x 130.96837pt.
+cmin.pdf used on input line 246.
+(pdftex.def)             Requested size: 352.79846pt x 192.52802pt.
 
 
 Package natbib Warning: Citation `cotton1989special' on page 2 undefined on inp
-ut line 191.
+ut line 260.
 
 
 Package natbib Warning: Citation `cotton1999special' on page 2 undefined on inp
-ut line 191.
+ut line 260.
 
-<./Figures/uv-coverage-meerkat.png, id=32, 514.5624pt x 442.2924pt>
+<./Figures/uv-coverage-meerkat.png, id=31, 514.5624pt x 442.2924pt>
 File: ./Figures/uv-coverage-meerkat.png Graphic file (type png)
 
 <use ./Figures/uv-coverage-meerkat.png>
-Package pdftex.def Info: ./Figures/uv-coverage-meerkat.png used on input line 1
-94.
+Package pdftex.def Info: ./Figures/uv-coverage-meerkat.png used on input line 2
+63.
 (pdftex.def)             Requested size: 240.0pt x 206.29147pt.
 
-<./Figures/BDA_design_resamplin_bin_avg.pdf, id=34, 351.37474pt x 288.06421pt>
+<./Figures/BDA_design_resamplin_bin_avg.pdf, id=33, 351.37474pt x 288.06421pt>
 File: ./Figures/BDA_design_resamplin_bin_avg.pdf Graphic file (type pdf)
 
 <use ./Figures/BDA_design_resamplin_bin_avg.pdf>
 Package pdftex.def Info: ./Figures/BDA_design_resamplin_bin_avg.pdf used on inp
-ut line 203.
+ut line 272.
 (pdftex.def)             Requested size: 240.0pt x 196.76456pt.
 
-<./Figures/BDA_design_resamplin_bin_bda.pdf, id=35, 347.15396pt x 287.00827pt>
+<./Figures/BDA_design_resamplin_bin_bda.pdf, id=34, 347.15396pt x 287.00827pt>
 File: ./Figures/BDA_design_resamplin_bin_bda.pdf Graphic file (type pdf)
 
 <use ./Figures/BDA_design_resamplin_bin_bda.pdf>
 Package pdftex.def Info: ./Figures/BDA_design_resamplin_bin_bda.pdf used on inp
-ut line 204.
+ut line 273.
 (pdftex.def)             Requested size: 240.0pt x 198.42567pt.
 
 
-LaTeX Warning: Reference `chapter3' on page 2 undefined on input line 210.
+LaTeX Warning: Reference `chapter3' on page 2 undefined on input line 279.
 
 
-LaTeX Warning: Reference `chapter3' on page 2 undefined on input line 212.
+LaTeX Warning: Reference `chapter3' on page 2 undefined on input line 281.
 
 
 LaTeX Warning: Reference `eq:chap3resamplingbin' on page 2 undefined on input l
-ine 212.
+ine 281.
 
-
-Underfull \vbox (badness 5388) has occurred while \output is active []
-
- [2 <./Figures/effect_time_averaging_amplitude.pdf> <./Figures/effect_bandwidth
-_averaging_amplitude.pdf
-
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/effect_bandwidth_averaging_am
-plitude.pdf): PDF inclusion: multiple pdfs with page group included in a single
- page
-> <./Figures/uv-coverage-meerkat.png>]
-Overfull \hbox (3.75455pt too wide) detected at line 231
+[2 <./Figures/data_structure_bis.pdf>]
+Overfull \hbox (3.75455pt too wide) detected at line 300
 \OT1/cmss/m/n/9 B[] \OT1/cmr/m/n/9 = []\OML/cmm/m/it/9 t[] \OMS/cmsy/m/n/9 ^^@ 
 []\OML/cmm/m/it/9 ; t[] \OT1/cmr/m/n/9 + [][] \OMS/cmsy/m/n/9 ^^B []\OML/cmm/m/
 it/9 ^^W[] \OMS/cmsy/m/n/9 ^^@ []\OML/cmm/m/it/9 ; ^^W[] \OT1/cmr/m/n/9 + [][]
  []
 
-<./Figures/bda_east_west_two.pdf, id=153, 502.26547pt x 198.37411pt>
+<./Figures/bda_east_west_two.pdf, id=58, 502.26547pt x 198.37411pt>
 File: ./Figures/bda_east_west_two.pdf Graphic file (type pdf)
 
 <use ./Figures/bda_east_west_two.pdf>
-Package pdftex.def Info: ./Figures/bda_east_west_two.pdf used on input line 250
+Package pdftex.def Info: ./Figures/bda_east_west_two.pdf used on input line 319
 .
-(pdftex.def)             Requested size: 240.0pt x 94.79169pt.
- [3 <./Figures/effect_time_averaging_amplitude_src30arcmin.pdf> <./Figures/effe
-ct_bandwidth_averaging_amplitude_src30arcmin.pdf
+(pdftex.def)             Requested size: 453.59692pt x 179.15556pt.
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/effect_bandwidth_averaging_am
-plitude_src30arcmin.pdf): PDF inclusion: multiple pdfs with page group included
- in a single page
-> <./Figures/BDA_design_resamplin_bin_avg.pdf
-
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/BDA_design_resamplin_bin_avg.
-pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./Figures/BDA_design_resamplin_bin_bda.pdf
-
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/BDA_design_resamplin_bin_bda.
-pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./Figures/bda_east_west_two.pdf
-
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/bda_east_west_two.pdf): PDF i
-nclusion: multiple pdfs with page group included in a single page
->]
-Overfull \hbox (174.848pt too wide) detected at line 289
+Overfull \hbox (174.848pt too wide) detected at line 358
 \OT1/cmss/m/n/9 D[] \OT1/cmr/m/n/9 = \OT1/cmss/m/n/9 D[][]  \OT1/cmr/m/n/9 = \O
 T1/cmss/m/n/9 D[][] \OML/cmm/m/it/9 dim[]\OT1/cmss/m/n/9 B[][] \OML/cmm/m/it/9 
 < dim[]\OT1/cmss/m/n/9 B[][][]  \OML/cmm/m/it/9 < dim[]\OT1/cmss/m/n/9 B[][]\OM
 L/cmm/m/it/9 :
  []
 
+[3 <./Figures/effect_time_averaging_amplitude.pdf> <./Figures/effect_bandwidth_
+averaging_amplitude.pdf
 
-LaTeX Warning: Reference `chapter3' on page 4 undefined on input line 293.
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/effect_bandwidth_averaging_am
+plitude.pdf): PDF inclusion: multiple pdfs with page group included in a single
+ page
+> <./Figures/uv-coverage-meerkat.png>]
+
+LaTeX Warning: Reference `chapter3' on page 4 undefined on input line 362.
 
 
-LaTeX Warning: Reference `sec:AvgCon' on page 4 undefined on input line 293.
+LaTeX Warning: Reference `sec:AvgCon' on page 4 undefined on input line 362.
 
 
-Overfull \hbox (53.58414pt too wide) detected at line 342
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4 <./Figures/effect_time_averaging_amplitude_src30arcmin.pdf> <./Figures/effe
+ct_bandwidth_averaging_amplitude_src30arcmin.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/effect_bandwidth_averaging_am
+plitude_src30arcmin.pdf): PDF inclusion: multiple pdfs with page group included
+ in a single page
+>]
+Overfull \hbox (53.58414pt too wide) detected at line 411
 \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 Data []size []hires \OT1/cmr/m/n/9 = [] \OMS/cm
 sy/m/n/9 ^^B \OML/cmm/m/it/9 N[] \OMS/cmsy/m/n/9 ^^B \OML/cmm/m/it/9 N[] \OMS/c
 msy/m/n/9 ^^B \OML/cmm/m/it/9 N[] \OMS/cmsy/m/n/9 ^^B \OML/cmm/m/it/9 N[] \OMS/
@@ -728,15 +764,24 @@ m/m/it/9 ;
  []
 
 
-Overfull \hbox (46.67412pt too wide) detected at line 349
+Overfull \hbox (46.67412pt too wide) detected at line 418
 \OML/cmm/m/it/9 Data []size []avg \OT1/cmr/m/n/9 = [] \OMS/cmsy/m/n/9 ^^B \OML/
 cmm/m/it/9 N[] \OMS/cmsy/m/n/9 ^^B [] ^^B [] ^^B \OML/cmm/m/it/9 N[] \OMS/cmsy/
 m/n/9 ^^B \OT1/cmr/m/n/9 32 [][\OML/cmm/m/it/9 bits\OT1/cmr/m/n/9 ]\OML/cmm/m/i
 t/9 ;
  []
 
+[5 <./Figures/BDA_design_resamplin_bin_avg.pdf> <./Figures/BDA_design_resamplin
+_bin_bda.pdf
 
-Overfull \hbox (189.19382pt too wide) detected at line 383
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/BDA_design_resamplin_bin_bda.
+pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./Figures/bda_east_west_two.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/bda_east_west_two.pdf): PDF i
+nclusion: multiple pdfs with page group included in a single page
+>]
+Overfull \hbox (189.19382pt too wide) detected at line 452
 \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 Data []size []bda \OT1/cmr/m/n/9 = [] \OML/cmm/
 m/it/9 N[] \OMS/cmsy/m/n/9 ^^B [] ^^B \OML/cmm/m/it/9 N[] \OMS/cmsy/m/n/9 ^^B \
 OT1/cmr/m/n/9 32 [][\OML/cmm/m/it/9 bits\OT1/cmr/m/n/9 ][]  = [] \OML/cmm/m/it/
@@ -745,151 +790,143 @@ OT1/cmr/m/n/9 32 [][\OML/cmm/m/it/9 bits\OT1/cmr/m/n/9 ][]  = [] \OML/cmm/m/it/
  []
 
 
-Overfull \hbox (10.34239pt too wide) detected at line 393
+Overfull \hbox (10.34239pt too wide) detected at line 462
 \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 Compression []factor []bda \OT1/cmr/m/n/9 = [] 
 \OMS/cmsy/m/n/9 ^^B [] [] [][][]\OML/cmm/m/it/9 ;
  []
 
-[4]
-Overfull \hbox (18.1695pt too wide) detected at line 418
+
+Overfull \hbox (18.1695pt too wide) detected at line 487
 \OML/cmm/m/it/9 dim[]\OT1/cmss/m/n/9 B[][] \OT1/cmr/m/n/9 = (2\OML/cmm/m/it/9 k
 [] \OT1/cmr/m/n/9 + 1)(2\OML/cmm/m/it/9 k[] \OT1/cmr/m/n/9 + 1)\OML/cmm/m/it/9 
 ;  [] []k[] [] []and [] []k[] [] []are []integers
  []
 
-<./Figures/bda_averaging_senario.pdf, id=314, 581.84877pt x 403.13109pt>
+<./Figures/bda_averaging_senario.pdf, id=333, 581.84877pt x 403.13109pt>
 File: ./Figures/bda_averaging_senario.pdf Graphic file (type pdf)
 
 <use ./Figures/bda_averaging_senario.pdf>
 Package pdftex.def Info: ./Figures/bda_averaging_senario.pdf used on input line
- 434.
+ 503.
 (pdftex.def)             Requested size: 240.0pt x 166.28131pt.
 
-<./Figures/bda_averaging_duplication_senario.pdf, id=315, 580.38083pt x 398.237
+<./Figures/bda_averaging_duplication_senario.pdf, id=334, 580.38083pt x 398.237
 81pt>
 File: ./Figures/bda_averaging_duplication_senario.pdf Graphic file (type pdf)
  <use ./Figures/bda_averaging_duplication_senario.pdf>
 Package pdftex.def Info: ./Figures/bda_averaging_duplication_senario.pdf used o
-n input line 466.
+n input line 535.
 (pdftex.def)             Requested size: 240.0pt x 164.67618pt.
 
-<./Figures/bda_averaging_semi_duplication_flaggin_senario1.pdf, id=316, 454.134
+<./Figures/bda_averaging_semi_duplication_flaggin_senario1.pdf, id=335, 454.134
 14pt x 396.8451pt>
 File: ./Figures/bda_averaging_semi_duplication_flaggin_senario1.pdf Graphic fil
 e (type pdf)
 
 <use ./Figures/bda_averaging_semi_duplication_flaggin_senario1.pdf>
 Package pdftex.def Info: ./Figures/bda_averaging_semi_duplication_flaggin_senar
-io1.pdf used on input line 480.
+io1.pdf used on input line 549.
 (pdftex.def)             Requested size: 240.0pt x 209.7274pt.
- [5 <./Figures/bda_averaging_senario.pdf> <./Figures/bda_averaging_duplication_
-senario.pdf
+ [6 <./Figures/bda_averaging_senario.pdf>]
 
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/bda_averaging_duplication_sen
-ario.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
-ge
->]
-
-LaTeX Warning: Reference `chapter3' on page 6 undefined on input line 495.
+LaTeX Warning: Reference `chapter3' on page 7 undefined on input line 564.
 
 
-LaTeX Warning: Reference `chap3:simulation' on page 6 undefined on input line 4
-95.
+LaTeX Warning: Reference `chap3:simulation' on page 7 undefined on input line 5
+64.
 
-<./Figures/time_bda_navg.pdf, id=338, 1175.2909pt x 641.39626pt>
+<./Figures/time_bda_navg.pdf, id=349, 1175.2909pt x 641.39626pt>
 File: ./Figures/time_bda_navg.pdf Graphic file (type pdf)
 
 <use ./Figures/time_bda_navg.pdf>
-Package pdftex.def Info: ./Figures/time_bda_navg.pdf used on input line 527.
-(pdftex.def)             Requested size: 240.0pt x 130.96837pt.
+Package pdftex.def Info: ./Figures/time_bda_navg.pdf used on input line 596.
+(pdftex.def)             Requested size: 453.59692pt x 247.5402pt.
 
-<./Figures/bandwidth_bda_navg.pdf, id=339, 1175.2909pt x 641.39626pt>
+<./Figures/bandwidth_bda_navg.pdf, id=350, 1175.2909pt x 641.39626pt>
 File: ./Figures/bandwidth_bda_navg.pdf Graphic file (type pdf)
 
 <use ./Figures/bandwidth_bda_navg.pdf>
-Package pdftex.def Info: ./Figures/bandwidth_bda_navg.pdf used on input line 52
-8.
-(pdftex.def)             Requested size: 240.0pt x 130.96837pt.
+Package pdftex.def Info: ./Figures/bandwidth_bda_navg.pdf used on input line 59
+7.
+(pdftex.def)             Requested size: 453.59692pt x 247.5402pt.
+ [7 <./Figures/bda_averaging_duplication_senario.pdf> <./Figures/bda_averaging_
+semi_duplication_flaggin_senario1.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Figures/bda_averaging_semi_duplicatio
+n_flaggin_senario1.pdf): PDF inclusion: multiple pdfs with page group included 
+in a single page
+>]
+Underfull \hbox (badness 10000) detected at line 611
+[]\T1/cmr/m/n/9 (i)[]
+ []
+
+
+LaTeX Warning: Reference `chapter3' on page 8 undefined on input line 615.
+
+
+LaTeX Warning: Reference `baseline2' on page 8 undefined on input line 615.
+
+
+Underfull \hbox (badness 10000) detected at line 618
+[]\T1/cmr/m/n/9 (ii)[]
+ []
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6 <./Figures/bda_averaging_semi_duplication_flaggin_senario1.pdf> <./Figures/
-time_bda_navg.pdf
-
-pdfTeX warning: /usr/bin/pdflatex (file ./Figures/time_bda_navg.pdf): PDF inclu
-sion: multiple pdfs with page group included in a single page
-> <./Figures/bandwidth_bda_navg.pdf
+ [8 <./Figures/time_bda_navg.pdf> <./Figures/bandwidth_bda_navg.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Figures/bandwidth_bda_navg.pdf): PDF 
 inclusion: multiple pdfs with page group included in a single page
 >]
-Underfull \hbox (badness 10000) detected at line 542
+
+LaTeX Warning: Reference `chapter3' on page 9 undefined on input line 647.
+
+
+LaTeX Warning: Reference `sec:baselinewfs' on page 9 undefined on input line 64
+7.
+
+
+LaTeX Warning: Reference `AppendixC' on page 9 undefined on input line 666.
+
+
+Underfull \hbox (badness 10000) detected at line 687
 []\T1/cmr/m/n/9 (i)[]
  []
 
 
-LaTeX Warning: Reference `chapter3' on page 7 undefined on input line 546.
-
-
-LaTeX Warning: Reference `baseline2' on page 7 undefined on input line 546.
-
-
-Underfull \hbox (badness 10000) detected at line 549
+Underfull \hbox (badness 10000) detected at line 690
 []\T1/cmr/m/n/9 (ii)[]
  []
 
-
-LaTeX Warning: Reference `chapter3' on page 7 undefined on input line 578.
-
-
-LaTeX Warning: Reference `sec:baselinewfs' on page 7 undefined on input line 57
-8.
-
-
-LaTeX Warning: Reference `AppendixC' on page 7 undefined on input line 597.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \hbox (badness 10000) detected at line 618
-[]\T1/cmr/m/n/9 (i)[]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 621
-[]\T1/cmr/m/n/9 (ii)[]
- []
-
-<./Figures/suppression-25-2-5MHx-bda.png, id=447, 1156.32pt x 722.7pt>
+<./Figures/suppression-25-2-5MHx-bda.png, id=470, 1156.32pt x 722.7pt>
 File: ./Figures/suppression-25-2-5MHx-bda.png Graphic file (type png)
 
 <use ./Figures/suppression-25-2-5MHx-bda.png>
 Package pdftex.def Info: ./Figures/suppression-25-2-5MHx-bda.png used on input 
-line 632.
-(pdftex.def)             Requested size: 604.79846pt x 377.98961pt.
+line 701.
+(pdftex.def)             Requested size: 453.59692pt x 283.49496pt.
 
-Overfull \hbox (137.98961pt too wide) in paragraph at lines 632--634
- [][] 
- []
+Underfull \vbox (badness 5954) has occurred while \output is active []
+
 
 
 Package natbib Warning: There were undefined citations.
 
-[7]
+[9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8 <./Figures/suppression-25-2-5MHx-bda.png>] (./m_paper.aux)
+ [10 <./Figures/suppression-25-2-5MHx-bda.png>] (./m_paper.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4988 strings out of 493304
- 65702 string characters out of 6139871
- 153302 words of memory out of 5000000
- 8304 multiletter control sequences out of 15000+600000
- 35297 words of font info for 105 fonts, out of 8000000 for 9000
+ 5012 strings out of 493304
+ 66097 string characters out of 6139871
+ 153337 words of memory out of 5000000
+ 8324 multiletter control sequences out of 15000+600000
+ 37623 words of font info for 108 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  41i,16n,35p,412b,300s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
@@ -920,10 +957,10 @@ onts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm
 </usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fo
 nts/type1/public/cm-super/sfti0800.pfb></usr/share/texmf/fonts/type1/public/cm-
 super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on m_paper.pdf (8 pages, 796845 bytes).
+Output written on m_paper.pdf (10 pages, 821071 bytes).
 PDF statistics:
- 558 PDF objects out of 1000 (max. 8388607)
- 225 compressed objects within 3 object streams
+ 579 PDF objects out of 1000 (max. 8388607)
+ 239 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 
